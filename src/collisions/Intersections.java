@@ -33,10 +33,32 @@ public class Intersections {
         return (dist < cc1.getR() + cc2.getR());
     }
     
+    //this might not work properly...
     private static boolean circRect(CollisionCirc cc, CollisionRect cr){
-        /*
-         * holy crap what do
-         */
+        //case circle inside rectangle
+        if( cc.getXCenter()>cr.getX() && cc.getXCenter()<cr.getX() + cr.getW() &&
+            cc.getYCenter()>cr.getY() && cc.getYCenter()<cr.getY() + cr.getH() )
+            return true;
+        
+        //case any rectangle corner inside circle
+        //top left
+        double dist1 = getDist(cc.getXCenter(), cc.getYCenter(), cr.getX(), cr.getY());
+        if(dist1<cc.getR())
+            return true;
+        //top right
+        double dist2 = getDist(cc.getXCenter(), cc.getYCenter(), cr.getX()+cr.getW(), cr.getY());
+        if(dist2<cc.getR())
+            return true;        
+        //bottom left
+        double dist3 = getDist(cc.getXCenter(), cc.getYCenter(), cr.getX(), cr.getY()+cr.getH());
+        if(dist3<cc.getR())
+            return true;
+        //bottom right
+        double dist4 = getDist(cc.getXCenter(), cc.getYCenter(), cr.getX()+cr.getW(), cr.getY()+cr.getH());
+        if(dist4<cc.getR())
+            return true;
+                
+        
         return false;
     }
     
