@@ -12,28 +12,33 @@ public class CollisionCirc implements CollisionShape{
         myR = r;
     }
     
-    public boolean intersects(CollisionShape cs){
+    @Override
+	public boolean intersects(CollisionShape cs){
         return Intersections.intersects(this, cs);
     }
     
-    public void setReference(double x, double y) {
+    @Override
+	public void setReference(double x, double y) {
         myX = x;
         myY = y;
     }
 
-    public void move(double dx, double dy) {
+    @Override
+	public void move(double dx, double dy) {
         myX += dx;
         myY += dy;
     }
 
-    public double getX() {
+    @Override
+	public double getX() {
         return myX;
     }
     public double getXCenter(){
         return myX + myR;
     }
 
-    public double getY() {
+    @Override
+	public double getY() {
         return myY;
     }
     public double getYCenter(){
