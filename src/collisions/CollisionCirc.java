@@ -4,12 +4,17 @@ public class CollisionCirc implements CollisionShape{
     //X and Y references are the top left of the square
     //circumscribing the circle
     private double myX, myY, myR;
-    public static final String SHAPE = "circle";
+    private String myShape = "rectangle";
 
     public CollisionCirc(double x, double y, double r){
         myX = x;
         myY = y;
         myR = r;
+    }
+    
+    @Override
+    public String getShape(){
+        return myShape;
     }
     
     @Override

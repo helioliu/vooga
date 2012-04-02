@@ -4,16 +4,16 @@ package collisions;
 public class Intersections {
     
     public static boolean intersects(CollisionShape cs1, CollisionShape cs2){
-        if(CollisionShape.SHAPE=="circle"){
-            if(CollisionShape.SHAPE=="circle")
+        if(cs1.getShape()=="circle"){
+            if(cs2.getShape()=="circle")
                 return circCirc((CollisionCirc)cs1, (CollisionCirc)cs2);
-            if(CollisionShape.SHAPE=="rectangle")
+            if(cs2.getShape()=="rectangle")
                 return circRect((CollisionCirc)cs1, (CollisionRect)cs2);
         }
-        if(CollisionShape.SHAPE=="rectangle"){
-            if(CollisionShape.SHAPE=="circle")
+        if(cs1.getShape()=="rectangle"){
+            if(cs2.getShape()=="circle")
                 return circRect((CollisionCirc)cs2, (CollisionRect) cs1);
-            if(CollisionShape.SHAPE=="rectangle")
+            if(cs2.getShape()=="rectangle")
                 return rectRect((CollisionRect)cs1, (CollisionRect)cs2);
         }
         

@@ -2,7 +2,10 @@ package collisions;
 
 public interface CollisionShape {
     
-    public String SHAPE = "shape";
+    /**
+     * returns the shape type for collision checking
+     */
+    public String getShape();
     
     /**
      * Checks if this shape intersects/overlaps another shape
