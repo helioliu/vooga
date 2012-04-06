@@ -56,5 +56,6 @@ public class TestGame extends Game {
 	@Override
 	public void update(long arg0) {
 		cutscene.update(arg0);
+		EventManager.getEventManager().update(arg0);
 	}
 }

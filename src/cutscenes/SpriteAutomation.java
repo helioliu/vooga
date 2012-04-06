@@ -1,16 +1,16 @@
 package cutscenes;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.*;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 import core.EventManager;
+import core.test.TimerEventCondition;
 
 public class SpriteAutomation {
 	Sprite sprite;
@@ -19,7 +19,8 @@ public class SpriteAutomation {
 	Integer currentPosition;
 	boolean currentlyAnimating;
 
-	public SpriteAutomation(Sprite s, String filePath) throws FileNotFoundException, BadFileFormatException {
+	public SpriteAutomation(Sprite s, String filePath)
+			throws FileNotFoundException, BadFileFormatException {
 		File f = new File(filePath);
 		sprite = s;
 		actionList = parseAutomation(f);
@@ -29,7 +30,8 @@ public class SpriteAutomation {
 
 	}
 
-	public List<AutomatedAction> parseAutomation(File f) throws FileNotFoundException, BadFileFormatException {
+	public List<AutomatedAction> parseAutomation(File f)
+			throws FileNotFoundException, BadFileFormatException {
 		List<AutomatedAction> automation = new ArrayList<AutomatedAction>();
 		Scanner s = new Scanner(f);
 
@@ -37,10 +39,10 @@ public class SpriteAutomation {
 			String l = s.nextLine();
 			String[] line = l.split(":");
 			if (line.length != 2)
-				throw new BadFileFormatException("Cannot read line: "+l);
+				throw new BadFileFormatException("Cannot read line: " + l);
 			String eventName = line[0];
 			Integer duration = Integer.parseInt(line[1]);
-//			System.out.println(eventName+" "+Integer.toString(duration));
+			// System.out.println(eventName+" "+Integer.toString(duration));
 			AutomatedAction current = new AutomatedAction(eventName, duration);
 			automation.add(current);
 		}
@@ -49,15 +51,19 @@ public class SpriteAutomation {
 	}
 
 	public void update(long timeElapsed) {
-		
+
 		if (currentTimer.action(timeElapsed) & currentlyAnimating) {
-			EventManager.getEventManager().sendEvent(
-					actionList.get(currentPosition).getEventName());
+			 EventManager.getEventManager().sendEvent(
+			 actionList.get(currentPosition).getEventName());
+
 			currentTimer = new Timer(actionList.get(currentPosition)
 					.getDuration());
+//			EventManager.getEventManager().addEventCondition(
+//					new TimerEventCondition(currentTimer),
+//					actionList.get(currentPosition).getEventName());
 			currentPosition++;
 			checkIfDone();
-			
+
 		}
 
 	}
@@ -71,7 +77,7 @@ public class SpriteAutomation {
 	public boolean isCurrentlyAnimating() {
 		return currentlyAnimating;
 	}
-	
+
 	public List<AutomatedAction> getActionList() {
 		return actionList;
 	}
