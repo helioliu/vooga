@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-import sprites.PlatformSprite;
 import sprites.TestCharacterWithStates;
 
 import com.golden.gamedev.Game;
@@ -24,7 +23,7 @@ import States.*;
 
 
 public class PlatformGameWithStates extends Game{
-	PlatformSprite s1;
+	TestCharacterWithStates s1;
 	Map<String, State> stateMap;
 	EventManager eventManager;
 	PlayField playfield;
