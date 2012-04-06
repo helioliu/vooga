@@ -1,7 +1,11 @@
 package sprites;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import levelEditor.*;
 import game.*;
@@ -10,16 +14,17 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 
-public class Character extends PlatformSprite {
+public class Character extends Sprite implements LevelEditable {
 
 	Platfomer game;
 	boolean enableGunFire=true;
 	boolean enableFireball=true;
-	boolean jumping=true;
+	public boolean jumping=true;
 	private Timer jumpTimer;
+	String path;
 
 	public Character() {
-		super();
+		super(null,0,0);
         jumpTimer = new Timer(150);
 	}
 
@@ -82,12 +87,11 @@ public class Character extends PlatformSprite {
 		addVerticalSpeed(elapsedTime, 0.002, 0.5);
 	}
 
-	@Override
 	public ArrayList<Object> writableObject() {
 		ArrayList<Object> o= new ArrayList<Object>();
 		o.add(path);
-		o.add(x);
-		o.add(y);
+		o.add(this.getX());
+		o.add(this.getY());
 		o.add(enableGunFire);
 		o.add(jumping);
 		o.add(enableFireball);
@@ -98,13 +102,37 @@ public class Character extends PlatformSprite {
 	public void parse(ArrayList<Object> o, Platfomer myGame) {
 		game=myGame;
 		path=(String) o.get(0);
-		setInitImage(path);
-		x= (Integer) o.get(1);
-		y= (Integer) o.get(2);
+		this.path=path;
+		File file= new File(path);
+		BufferedImage image;
+		try {
+			image = ImageIO.read(file);
+
+		setImage(image);		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setX( (Integer) o.get(1));
+		setY((Integer) o.get(2));
 		enableGunFire= (Boolean) o.get(3);
 		jumping = (Boolean) o.get(4);
 		enableFireball = (Boolean) o.get(5);
 		game.CHARACTER.add(this);
+		
+	}
+	
+
+	public void setInitX(double d) {
+		this.setX(d);
+		
+	}
+
+	public void setInitY(double val) {
+		this.setY(val);
+		
+	}
+
+	public void setInitPath(String path) {
+		this.path=path;
 		
 	}
 }

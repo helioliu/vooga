@@ -78,16 +78,13 @@ public class Menu extends GameObject {
 			if (++PlatformGame.currentLevel >= PlatformGame.LEVEL_FILES.size()) {
 				PlatformGame.currentLevel= 0;
 			}
-			playSound("switch.wav");
 		}
 		if (keyPressed(KeyEvent.VK_RIGHT)) {
 			if (--PlatformGame.currentLevel < 0) {
 				PlatformGame.currentLevel= PlatformGame.LEVEL_FILES.size()-1;
 			}
-			playSound("switch.wav");
 		}
 		if (keyPressed(KeyEvent.VK_E)) {
-
 
 			finish();
 		}
@@ -95,12 +92,10 @@ public class Menu extends GameObject {
 		if (keyPressed(KeyEvent.VK_ENTER)) {
 			parent.nextGameID = PlatformGame.PLATFORMER;
 			finish();
-			playSound("switch.wav");
 
 			}
 		if (keyPressed(KeyEvent.VK_ESCAPE)) {
 			finish();
-			playSound("switch.wav");
 
 		}
    }

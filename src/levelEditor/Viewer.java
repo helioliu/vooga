@@ -22,13 +22,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import sprites.*;
+import sprites.Character;
 
+import levelEditor.*;
+
+import com.golden.gamedev.object.Sprite;
 import com.google.gson.Gson;
 
 public class Viewer extends JPanel {
 
 	private String backgroundPath;
-	private HashMap<Integer, PlatformSprite> CharacterTable = new HashMap<Integer, PlatformSprite>();
+	private HashMap<Integer, LevelEditable> CharacterTable = new HashMap<Integer, LevelEditable>();
 	private Model model;
     private JPanel myPanel;
 	private JPanel myPicturePanel;
@@ -109,7 +113,7 @@ public class Viewer extends JPanel {
 	}
 
 	private File getImage() {
-		JFileChooser fc = new JFileChooser(".");
+		JFileChooser fc = new JFileChooser("./src/images/");
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
@@ -128,24 +132,23 @@ public class Viewer extends JPanel {
 		return null;
 	}
 	
-	private PlatformSprite getPlatformSprite() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-	    JFileChooser chooser = new JFileChooser(".");
-	    int returnVal = chooser.showOpenDialog(null);
-	    if(returnVal == JFileChooser.APPROVE_OPTION) {
-	       System.out.println("You chose to open this file: " +
-	            chooser.getSelectedFile().getName());
-	    }
-	    int periodIndex =  chooser.getSelectedFile().getName().lastIndexOf(".");
-	    String spriteClassName =chooser.getSelectedFile().getName().substring(0,periodIndex);
-	    PlatformSprite s;
-	    try {  s= (PlatformSprite) Class.forName(spriteClassName).newInstance();
-	      s.toString();
-	      return s;
-	    } catch (Exception e) {
-	    	return null;
-	    }
-
-	}
+//	private LevelEditable getSprite() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+//	    JFileChooser chooser = new JFileChooser("./src/sprites");
+//	    int returnVal = chooser.showOpenDialog(null);
+//	    if(returnVal == JFileChooser.APPROVE_OPTION) {
+//	       System.out.println("You chose to open this file: " +
+//	            chooser.getSelectedFile().getName());
+//	    }
+//	    int periodIndex =  chooser.getSelectedFile().getName().lastIndexOf(".");
+//	    System.out.println(periodIndex);
+//	    String spriteClassName =chooser.getSelectedFile().getName().substring(0,periodIndex);
+//	    System.out.println(spriteClassName);
+//	    LevelEditable aLE;
+//	    aLE= (LevelEditable) Class.forName(spriteClassName).newInstance();
+//	      System.out.println(aLE.toString());
+//	      return aLE;
+//
+//	}
 
 
 	public void makeSprite() throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
@@ -160,68 +163,68 @@ public class Viewer extends JPanel {
 		BufferedImage myPicture = ImageIO.read(file);
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 
-		PlatformSprite s= getPlatformSprite();
-		s.setImage(myPicture);
-	    if (s==null) {
-	    	return;
-	    }
-	    
+		//s.setLEImage(myPicture);
 		imageInfo.add(imageLabel);
 		imageInfo.add(picLabel);
 		myPicturePanel.add(imageInfo);
 		// add to local character map
 
+		Bad_Guys s= new Bad_Guys();
+		s.setInitPath(file.getCanonicalPath());
 		CharacterTable.put(ID, s);
 		ID++;
 
 	}
 
 	public void makePlatform() throws IOException {
-//		JPanel imageInfo = new JPanel();
-//		imageInfo.setLayout(new GridLayout(2, 1));
-//		String imageNumber = "This image is represented by:" + ID;
-//		JTextField imageLabel = new JTextField(imageNumber);
-//		imageLabel.setEditable(false);
-//		File file = getImage();
-//		BufferedImage myPicture = ImageIO.read(file);
-//		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-//		imageInfo.add(imageLabel);
-//		imageInfo.add(picLabel);
-//
-//
-//		CharacterTable.put(ID, info);
-//
-//		myPicturePanel.add(imageInfo);
-//		ID++;
+		JPanel imageInfo = new JPanel();
+		imageInfo.setLayout(new GridLayout(2, 1));
+		String imageNumber = "This image is represented by:" + ID;
+
+		JTextField imageLabel = new JTextField(imageNumber);
+		imageLabel.setEditable(false);
+		File file = getImage();
+		BufferedImage myPicture = ImageIO.read(file);
+		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+
+		//s.setLEImage(myPicture);
+		imageInfo.add(imageLabel);
+		imageInfo.add(picLabel);
+		myPicturePanel.add(imageInfo);
+		// add to local character map
+
+		Platform s= new Platform();
+		s.setInitPath(file.getCanonicalPath());
+		CharacterTable.put(ID, s);
+		ID++;
 
 	}
 
 	public void makeGoodGuy() throws IOException {
-//
-//		JPanel imageInfo = new JPanel();
-//		imageInfo.setLayout(new GridLayout(2, 1));
-//		String imageNumber = "This image is represented by:" + ID;
-//
-//		JTextField imageLabel = new JTextField(imageNumber);
-//		imageLabel.setEditable(false);
-//		File file = getImage();
-//		BufferedImage myPicture = ImageIO.read(file);
-//		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-//
-//		imageInfo.add(imageLabel);
-//		imageInfo.add(picLabel);
-//
-//		SpriteInfo info = new SpriteInfo("Character", file.getCanonicalPath(),
-//				0, 0, true, true);
-//		CharacterTable.put(ID, info);
-//
-//		myPicturePanel.add(imageInfo);
-//		ID++;
+		JPanel imageInfo = new JPanel();
+		imageInfo.setLayout(new GridLayout(2, 1));
+		String imageNumber = "This image is represented by:" + ID;
+
+		JTextField imageLabel = new JTextField(imageNumber);
+		imageLabel.setEditable(false);
+		File file = getImage();
+		BufferedImage myPicture = ImageIO.read(file);
+		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+
+		//s.setLEImage(myPicture);
+		imageInfo.add(imageLabel);
+		imageInfo.add(picLabel);
+		myPicturePanel.add(imageInfo);
+		// add to local character map
+
+		Character s= new Character();
+		s.setInitPath(file.getCanonicalPath());
+		CharacterTable.put(ID, s);
+		ID++;
 
 	}
 
 	private class ChangeNameAction implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			model.SetLevelName(myNameText.getText());
 		}
@@ -240,12 +243,12 @@ public class Viewer extends JPanel {
 				String val = line.substring(i, i + 1);
 				if (!(val.equals(" "))) {
 					Integer x = Integer.parseInt(val);
-					PlatformSprite mySprite = CharacterTable.get(x);
+					LevelEditable mySprite = CharacterTable.get(x);
 					if (CharacterTable.keySet().contains(x))
 						;
 					{
-						mySprite.setX(i * width);
-						mySprite.setY(count * height);
+						mySprite.setInitX(i * width);
+						mySprite.setInitX(count * height);
 						SpriteInfo info = new SpriteInfo(mySprite.getClass().getName(), mySprite.writableObject());
 						list.add(info);
 					}
@@ -265,7 +268,6 @@ public class Viewer extends JPanel {
 	}
 
 	private class PlatformAction implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
 				makePlatform();
@@ -278,7 +280,6 @@ public class Viewer extends JPanel {
 	}
 
 	private class GoodGuyAction implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
 				makeGoodGuy();
@@ -291,7 +292,6 @@ public class Viewer extends JPanel {
 	}
 
 	private class BadGuyAction implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 
 				try {
@@ -315,7 +315,6 @@ public class Viewer extends JPanel {
 	}
 
 	private class ExportAction implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
 				Export();
@@ -328,7 +327,6 @@ public class Viewer extends JPanel {
 	}
 
 	private class LoadAction implements ActionListener {
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			Load();
 		}

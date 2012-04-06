@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 
+
 public class LevelEditor {
 
 	public static final String TITLE = "2D Platform Level Editor";

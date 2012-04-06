@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,6 +14,7 @@ import levelEditor.*;
 
 
 import sprites.*;
+import sprites.Character;
 
 import com.golden.gamedev.GameObject;
 import com.golden.gamedev.object.Background;
@@ -66,9 +68,16 @@ public class Platfomer extends GameObject {
 
 		System.out.println(myGameInfo.toString());
 
-		// background = (Background) LevelInfo.get(0);
-		File backgroundPathFile = new File(myGameInfo.getBackground());
-		BufferedImage myBackground= ImageIO.read(backgroundPathFile);
+
+		File backgroundPathFile= null; 
+		BufferedImage myBackground=null;		
+				try {
+		backgroundPathFile= new File(myGameInfo.getBackground());
+
+			myBackground = ImageIO.read(backgroundPathFile);
+		} catch (IOException e1) {
+			System.out.print("no background");
+		}
 		background = new ImageBackground(myBackground);
 		playfield = new PlayField(background);
 		// create groups
@@ -83,8 +92,8 @@ public class Platfomer extends GameObject {
 		for (int i = 0; i < myGameInfo.getList().size(); i++) {
 			SpriteInfo info = myGameInfo.getList().get(i);
 			String className = info.getClassName();
-		    PlatformSprite s;
-		    try {  s= (PlatformSprite) Class.forName(className).newInstance();
+		    LevelEditable s;
+		    try {  s= (LevelEditable) Class.forName(className).newInstance();
 		     s.parse(info.getList(), this);
 		    } catch (Exception e) {
 
