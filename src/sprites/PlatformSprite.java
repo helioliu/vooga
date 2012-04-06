@@ -12,11 +12,12 @@ import levelEditor.Platfomer;
 import com.golden.gamedev.object.Sprite;
 
 
-public abstract class PlatformSprite extends Sprite {
+public class PlatformSprite extends Sprite {
 
 	protected String path;
 	protected double x;
 	protected double y;
+	protected Platfomer game;
 	
 	public PlatformSprite() {
 		super(null,0,0);
@@ -33,7 +34,20 @@ public abstract class PlatformSprite extends Sprite {
 		}
 	}
 	
-	public abstract ArrayList<Object> writableObject();
-	
-	public abstract void parse(ArrayList<Object> o, Platfomer game);
+	public ArrayList<Object> writableObject() {
+		ArrayList<Object> o= new ArrayList<Object>();
+		o.add(path);
+		o.add(x);
+		o.add(y);
+		return o;
+	}
+
+
+	public void parse(ArrayList<Object> o, Platfomer myGame)  {
+		game=myGame;
+		path=(String) o.get(0);
+		setInitImage(path);
+		x= (Integer) o.get(1);
+		y= (Integer) o.get(2);
+	}
 }

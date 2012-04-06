@@ -25,9 +25,9 @@ import com.google.gson.Gson;
 
 public class Viewer extends JPanel {
 
-	public HashMap<Integer, SpriteInfo> CharacterTable = new HashMap<Integer, SpriteInfo>();
+	private HashMap<Integer, PlatformSprite> CharacterTable = new HashMap<Integer, PlatformSprite>();
 	private Model model;
-	private JPanel myPanel;
+    private JPanel myPanel;
 	private JPanel myPicturePanel;
 	private int ID;
 	private TextArea LevelEditor;
@@ -58,7 +58,7 @@ public class Viewer extends JPanel {
 		JPanel panel = new JPanel();
 
 		panel.setLayout(new GridLayout(5, 1));
-		panel.add(addBadGuyButton());
+		panel.add(addSpriteButton());
 		panel.add(addGoodGuyButton());
 		panel.add(addPlatformButton());
 		panel.add(addExportButton());
@@ -91,7 +91,7 @@ public class Viewer extends JPanel {
 		return GoodGuyButton;
 	}
 
-	private Component addBadGuyButton() {
+	private Component addSpriteButton() {
 		JButton BadGuyButton = new JButton("Add Bad Guy");
 		BadGuyButton.addActionListener(new BadGuyAction());
 		return BadGuyButton;
@@ -112,8 +112,28 @@ public class Viewer extends JPanel {
 		}
 		return null;
 	}
+	
+	private PlatformSprite getSprite() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	    JFileChooser chooser = new JFileChooser(".");
+	    int returnVal = chooser.showOpenDialog(null);
+	    if(returnVal == JFileChooser.APPROVE_OPTION) {
+	       System.out.println("You chose to open this file: " +
+	            chooser.getSelectedFile().getName());
+	    }
+	    int periodIndex =  chooser.getSelectedFile().getName().lastIndexOf(".");
+	    String spriteClassName =chooser.getSelectedFile().getName().substring(0,periodIndex);
+	    Sprite s;
+	    try {  s= (Sprite) Class.forName(spriteClassName).newInstance();
+	      s.toString();
+	      return s;
+	    } catch (Exception e) {
+	    	return null;
+	    }
 
-	public void makeBadGuys() throws IOException {
+	}
+
+
+	public void makeSprite() throws IOException {
 
 		JPanel imageInfo = new JPanel();
 		imageInfo.setLayout(new GridLayout(2, 1));
@@ -137,23 +157,22 @@ public class Viewer extends JPanel {
 	}
 
 	public void makePlatform() throws IOException {
-		JPanel imageInfo = new JPanel();
-		imageInfo.setLayout(new GridLayout(2, 1));
-		String imageNumber = "This image is represented by:" + ID;
-		JTextField imageLabel = new JTextField(imageNumber);
-		imageLabel.setEditable(false);
-		File file = getImage();
-		BufferedImage myPicture = ImageIO.read(file);
-		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-		imageInfo.add(imageLabel);
-		imageInfo.add(picLabel);
-
-		SpriteInfo info = new SpriteInfo("Platform", file.getCanonicalPath(),
-				0, 0, true, true);
-		CharacterTable.put(ID, info);
-
-		myPicturePanel.add(imageInfo);
-		ID++;
+//		JPanel imageInfo = new JPanel();
+//		imageInfo.setLayout(new GridLayout(2, 1));
+//		String imageNumber = "This image is represented by:" + ID;
+//		JTextField imageLabel = new JTextField(imageNumber);
+//		imageLabel.setEditable(false);
+//		File file = getImage();
+//		BufferedImage myPicture = ImageIO.read(file);
+//		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+//		imageInfo.add(imageLabel);
+//		imageInfo.add(picLabel);
+//
+//
+//		CharacterTable.put(ID, info);
+//
+//		myPicturePanel.add(imageInfo);
+//		ID++;
 
 	}
 
@@ -189,14 +208,10 @@ public class Viewer extends JPanel {
 	}
 
 	public void Export() throws IOException {
-		Gson gson5 = new Gson();
 
-		String jsonString5 = gson5.toJson(CharacterTable);
-		System.out.println("Generated json text: " + jsonString5);
-
+		
 		ArrayList<SpriteInfo> list = new ArrayList<SpriteInfo>();
 		String level = LevelEditor.getText();
-		System.out.println(level);
 		Scanner scanner = new Scanner(level);
 		int count = 0;
 		while (scanner.hasNextLine()) {
@@ -205,13 +220,13 @@ public class Viewer extends JPanel {
 				String val = line.substring(i, i + 1);
 				if (!(val.equals(" "))) {
 					Integer x = Integer.parseInt(val);
-					SpriteInfo spi = CharacterTable.get(x);
+					PlatformSprite mySprite = CharacterTable.get(x);
 					if (CharacterTable.keySet().contains(x))
 						;
 					{
-						SpriteInfo mySpi = new SpriteInfo(spi.getType(), spi
-								.getPath(), i * width, count * height, spi
-								.getT1(), spi.getT2());
+						mySprite.setX(i * width);
+						mySprite.setY(count * height);
+						SpriteInfo info = new SpriteInfo(mySprite.
 						list.add(mySpi);
 					}
 				}
