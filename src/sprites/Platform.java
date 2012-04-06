@@ -1,32 +1,23 @@
-package levelEditor;
+package sprites;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import levelEditor.Platfomer;
+import levelEditor.SpriteInfo;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionRect;
 import com.golden.gamedev.object.collision.CollisionShape;
 
-public class Platform extends Sprite {
+public class Platform extends PlatformSprite {
 
 	Platfomer game;
 	
-	public Platform(Platfomer p, BufferedImage image, SpriteInfo info) {
-		super(image, info.getX(), info.getY());
-		game=p;
+	public Platform() {
+		super();
 	}
 
-	public Platform(BufferedImage image) {
-		super(image, 0, 0);
-		game=null;
-	}
-
-	public Platform(double x, double y) {
-		super(null, x, y);
-		game=null;
-	}
-
-	 public Platform() {
-         this(0, 0);
-	 }
 
 	/**
 	 * Default collision shape used in {@link #getDefaultCollisionShape()}, can
@@ -45,6 +36,24 @@ public class Platform extends Sprite {
 		this.defaultCollisionShape.setBounds(this.getX(), this.getY(),
 				this.getWidth(), this.getHeight());
 		return this.defaultCollisionShape;
+	}
+
+
+	public ArrayList<Object> writableObject() {
+		ArrayList<Object> o= new ArrayList<Object>();
+		o.add(path);
+		o.add(x);
+		o.add(y);
+		return o;
+	}
+
+
+	public void parse(ArrayList<Object> o, Platfomer myGame)  {
+		game=myGame;
+		path=(String) o.get(0);
+		setInitImage(path);
+		x= (Integer) o.get(1);
+		y= (Integer) o.get(2);
 	}
 
 }

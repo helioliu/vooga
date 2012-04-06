@@ -1,5 +1,7 @@
-package levelEditor;
+package sprites;
 import java.awt.image.BufferedImage;
+
+import levelEditor.Platfomer;
 
 import com.golden.gamedev.object.Sprite;
 

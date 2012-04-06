@@ -1,40 +1,26 @@
-package levelEditor;
+package sprites;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import levelEditor.Platfomer;
+import levelEditor.SpriteInfo;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 
-public class Character extends Sprite {
+public class Character extends PlatformSprite {
 
 	Platfomer game;
-	boolean enableGunFire;
-	boolean enableFireball;
-	boolean jumping;
+	boolean enableGunFire=true;
+	boolean enableFireball=true;
+	boolean jumping=true;
 	private Timer jumpTimer;
 
-	public Character(BufferedImage image) {
-		super(image, 0, 0);
-		enableGunFire = true;
-		enableFireball = true;
-		jumpTimer = new Timer(150);
-
-	}
-
-	public Character(Platfomer currentGame, BufferedImage image, SpriteInfo info) {
-		super(image, info.getX(), info.getY());
-		game = currentGame;
-		enableGunFire = info.getT1();
-		enableFireball = info.getT2();
-		jumpTimer = new Timer(150);
-
-
-	}
-
-	public Character(Character character, Platfomer currentGame) {
-		super(character.getImage(), 0, 0);
-		game = currentGame;
+	public Character() {
+		super();
+        jumpTimer = new Timer(150);
 	}
 
 	@Override
@@ -94,5 +80,30 @@ public class Character extends Sprite {
 		}
 
 		addVerticalSpeed(elapsedTime, 0.002, 0.5);
+	}
+
+	@Override
+	public ArrayList<Object> writableObject() {
+		ArrayList<Object> o= new ArrayList<Object>();
+		o.add(path);
+		o.add(x);
+		o.add(y);
+		o.add(enableGunFire);
+		o.add(jumping);
+		o.add(enableFireball);
+		return o;
+	}
+
+	@Override
+	public void parse(ArrayList<Object> o, Platfomer myGame) {
+		game=myGame;
+		path=(String) o.get(0);
+		setInitImage(path);
+		x= (Integer) o.get(1);
+		y= (Integer) o.get(2);
+		enableGunFire= (Boolean) o.get(3);
+		jumping = (Boolean) o.get(4);
+		enableFireball = (Boolean) o.get(5);
+		
 	}
 }

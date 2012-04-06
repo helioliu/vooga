@@ -7,6 +7,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import sprites.Bad_Guys;
+import sprites.Character;
+import sprites.Platform;
+
 import com.golden.gamedev.GameObject;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
