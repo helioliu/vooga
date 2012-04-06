@@ -1,35 +1,37 @@
 package collisions;
 
-//these algorithms have yet to be tested
 public class Intersections {
     
     public static boolean intersects(CollisionShape cs1, CollisionShape cs2){
-        if(CollisionShape.SHAPE=="circle"){
-            if(CollisionShape.SHAPE=="circle")
+    	String s1 = cs1.getShape();
+    	String s2 = cs2.getShape();
+        if(s1=="circle"){
+            if(s2=="circle")
                 return circCirc((CollisionCirc)cs1, (CollisionCirc)cs2);
-            if(CollisionShape.SHAPE=="rectangle")
+            if(s2=="rectangle")
                 return circRect((CollisionCirc)cs1, (CollisionRect)cs2);
         }
-        if(CollisionShape.SHAPE=="rectangle"){
-            if(CollisionShape.SHAPE=="circle")
+        if(s1=="rectangle"){
+            if(s2=="circle")
                 return circRect((CollisionCirc)cs2, (CollisionRect) cs1);
-            if(CollisionShape.SHAPE=="rectangle")
+            if(s2=="rectangle")
                 return rectRect((CollisionRect)cs1, (CollisionRect)cs2);
         }
         
         return false;
     }
     
+    //this alg was taken from golden t so supposedly it works
     private static boolean rectRect(CollisionRect cr1, CollisionRect cr2){
-        return (   cr1.getX()+cr1.getW()>cr2.getX()
-                && cr1.getX()<cr2.getX()+cr2.getW()
-                && cr1.getY()+cr1.getH()>cr2.getY()
-                && cr1.getY()<cr2.getY()+cr2.getH());
+        return (cr1.getX()+cr1.getW()>cr2.getX() && 
+                cr1.getX()<cr2.getX()+cr2.getW() && 
+                cr1.getY()+cr1.getH()>cr2.getY() && 
+                cr1.getY()<cr2.getY()+cr2.getH());
     }
     
+    //this works
     private static boolean circCirc(CollisionCirc cc1, CollisionCirc cc2){
-        double dist;
-        dist = getDist(cc1.getXCenter(), cc1.getYCenter(), cc2.getXCenter(), cc2.getYCenter());
+        double dist = getDist(cc1.getXCenter(), cc1.getYCenter(), cc2.getXCenter(), cc2.getYCenter());
         return (dist < cc1.getR() + cc2.getR());
     }
     
@@ -57,14 +59,12 @@ public class Intersections {
         double dist4 = getDist(cc.getXCenter(), cc.getYCenter(), cr.getX()+cr.getW(), cr.getY()+cr.getH());
         if(dist4<cc.getR())
             return true;
-                
         
         return false;
     }
     
     private static double getDist(double x1, double y1, double x2, double y2){
-        double dist = Math.sqrt( Math.pow(x1-x2,2) + Math.pow(y1-y2,2) );
-        return dist;
+        return Math.sqrt( Math.pow(x1-x2,2) + Math.pow(y1-y2,2) );
     }
 
 }

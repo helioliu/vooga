@@ -1,31 +1,28 @@
 package collisions;
 
-import com.golden.gamedev.object.CollisionManager;
-import com.golden.gamedev.object.collision.CollisionShape;
-
-//associates a shape and behavior
+//associates a shape and event
 public class Hitbox {
     
    private CollisionShape myShape;//the hitbox's shape
-   private CollisionManager myBehavior;//the behavior
+   private String myEvent;//the event to broadcast
    
-   public Hitbox(CollisionShape shape, CollisionManager group){
+   public Hitbox(CollisionShape shape, String group){
        myShape = shape;
-       myBehavior = group;
+       myEvent = group;
    }
    
    public void setShape(CollisionShape shape){
        myShape = shape;
    }
-   public void setBehavior(CollisionManager behavior){
-       myBehavior = behavior;
+   public void setEvent(String event){
+       myEvent = event;
    }
    
    public CollisionShape getShape(){
        return myShape;
    }
-   public CollisionManager getBehavior(){
-       return myBehavior;
+   public String getEvent(){
+       return myEvent;
    }
 
 }
