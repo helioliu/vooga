@@ -1,7 +1,10 @@
 package hudDisplay;
 
+import java.util.ArrayList;
+
+import com.golden.gamedev.object.Sprite;
+
 public interface HUDInterface {
-	
-	public void addToHud();
+	ArrayList<Sprite> createWidget();
 
 }

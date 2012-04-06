@@ -1,8 +1,10 @@
 package hudDisplay;
 
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import com.golden.gamedev.object.GameFont;
+import com.golden.gamedev.object.Sprite;
 
 public class ScoreDecorator extends HUDDecorator {
 
@@ -12,7 +14,7 @@ public class ScoreDecorator extends HUDDecorator {
 	Graphics2D g;
 
 	public ScoreDecorator(HUDInterface hd, GameFont scoreFont, int score,
-			Graphics2D g) {
+			int x, int y, Graphics2D g) {
 		super(hd);
 		this.hd = hd;
 		this.scoreFont = scoreFont;
@@ -22,8 +24,9 @@ public class ScoreDecorator extends HUDDecorator {
 	}
 
 	@Override
-	public void addToHud() {
-		scoreFont.drawString(g, String.valueOf(score), 600, 20);
+	public ArrayList<Sprite> createWidget() {
+		scoreFont.drawString(g, String.valueOf(score), 118, 7);
+		return null;
 	}
 
 }
