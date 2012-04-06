@@ -40,6 +40,7 @@ public class HitboxCollision extends AdvanceCollisionGroup{
 				//broadcast an event
 				//the event is retrieved from h
 				EventManager.getEventManager().sendEvent(h.getEvent());
+				System.out.println(h.getEvent());
 				hitboxEvent = true;
 			}
 		}
@@ -48,6 +49,7 @@ public class HitboxCollision extends AdvanceCollisionGroup{
 			//broadcast default collision behavior event
 			//the event is retrieved from hbs
 			EventManager.getEventManager().sendEvent(((Boxable)hbs).getDefaultEvent());
+			System.out.println(((Boxable)hbs).getDefaultEvent());
 		}
 		
 		
