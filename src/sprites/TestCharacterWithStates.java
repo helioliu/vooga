@@ -1,16 +1,18 @@
 package sprites;
 
+import com.golden.gamedev.object.Sprite;
+
 import StateMachines.CharacterStateMachine;
 import StateMachines.StateMachine;
 
-public class TestCharacterWithStates extends PlatformSprite{
+public class TestCharacterWithStates extends Sprite{
 	private StateMachine stateManager;
 	
 	
 	public TestCharacterWithStates()
 	{
 		super();
-		stateManager = new CharacterStateMachine(this);
+		stateManager = new CharacterStateMachine(((Sprite) this));
 		
 	}
 	
