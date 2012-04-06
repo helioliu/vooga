@@ -10,4 +10,12 @@ public class GameFile {
 		backgroundpath=path;
 		myList=list;
 	}
+	
+	public String getBackground() {
+		return backgroundpath;
+	}
+	
+	public ArrayList<SpriteInfo> getList() {
+		return myList;
+	}
 }

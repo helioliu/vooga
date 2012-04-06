@@ -21,10 +21,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import sprites.*;
+
 import com.google.gson.Gson;
 
 public class Viewer extends JPanel {
 
+	private String backgroundPath;
 	private HashMap<Integer, PlatformSprite> CharacterTable = new HashMap<Integer, PlatformSprite>();
 	private Model model;
     private JPanel myPanel;
@@ -51,6 +54,8 @@ public class Viewer extends JPanel {
 		myPicturePanel = new JPanel();
 		myPicturePanel.setLayout(new FlowLayout());
 		add(myPicturePanel);
+		
+		backgroundPath= getBackgroundImage();
 
 	}
 
@@ -113,7 +118,17 @@ public class Viewer extends JPanel {
 		return null;
 	}
 	
-	private PlatformSprite getSprite() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	private String getBackgroundImage() throws IOException {
+		JFileChooser fc = new JFileChooser(".");
+		int returnVal = fc.showOpenDialog(null);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			return file.getCanonicalPath();
+		}
+		return null;
+	}
+	
+	private PlatformSprite getPlatformSprite() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 	    JFileChooser chooser = new JFileChooser(".");
 	    int returnVal = chooser.showOpenDialog(null);
 	    if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -122,8 +137,8 @@ public class Viewer extends JPanel {
 	    }
 	    int periodIndex =  chooser.getSelectedFile().getName().lastIndexOf(".");
 	    String spriteClassName =chooser.getSelectedFile().getName().substring(0,periodIndex);
-	    Sprite s;
-	    try {  s= (Sprite) Class.forName(spriteClassName).newInstance();
+	    PlatformSprite s;
+	    try {  s= (PlatformSprite) Class.forName(spriteClassName).newInstance();
 	      s.toString();
 	      return s;
 	    } catch (Exception e) {
@@ -133,7 +148,7 @@ public class Viewer extends JPanel {
 	}
 
 
-	public void makeSprite() throws IOException {
+	public void makeSprite() throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 
 		JPanel imageInfo = new JPanel();
 		imageInfo.setLayout(new GridLayout(2, 1));
@@ -145,13 +160,18 @@ public class Viewer extends JPanel {
 		BufferedImage myPicture = ImageIO.read(file);
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 
+		PlatformSprite s= getPlatformSprite();
+		s.setImage(myPicture);
+	    if (s==null) {
+	    	return;
+	    }
+	    
 		imageInfo.add(imageLabel);
 		imageInfo.add(picLabel);
 		myPicturePanel.add(imageInfo);
 		// add to local character map
-		SpriteInfo info = new SpriteInfo("Bad_Guys", file.getCanonicalPath(),
-				0, 0, true, true);
-		CharacterTable.put(ID, info);
+
+		CharacterTable.put(ID, s);
 		ID++;
 
 	}
@@ -177,26 +197,26 @@ public class Viewer extends JPanel {
 	}
 
 	public void makeGoodGuy() throws IOException {
-
-		JPanel imageInfo = new JPanel();
-		imageInfo.setLayout(new GridLayout(2, 1));
-		String imageNumber = "This image is represented by:" + ID;
-
-		JTextField imageLabel = new JTextField(imageNumber);
-		imageLabel.setEditable(false);
-		File file = getImage();
-		BufferedImage myPicture = ImageIO.read(file);
-		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-
-		imageInfo.add(imageLabel);
-		imageInfo.add(picLabel);
-
-		SpriteInfo info = new SpriteInfo("Character", file.getCanonicalPath(),
-				0, 0, true, true);
-		CharacterTable.put(ID, info);
-
-		myPicturePanel.add(imageInfo);
-		ID++;
+//
+//		JPanel imageInfo = new JPanel();
+//		imageInfo.setLayout(new GridLayout(2, 1));
+//		String imageNumber = "This image is represented by:" + ID;
+//
+//		JTextField imageLabel = new JTextField(imageNumber);
+//		imageLabel.setEditable(false);
+//		File file = getImage();
+//		BufferedImage myPicture = ImageIO.read(file);
+//		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+//
+//		imageInfo.add(imageLabel);
+//		imageInfo.add(picLabel);
+//
+//		SpriteInfo info = new SpriteInfo("Character", file.getCanonicalPath(),
+//				0, 0, true, true);
+//		CharacterTable.put(ID, info);
+//
+//		myPicturePanel.add(imageInfo);
+//		ID++;
 
 	}
 
@@ -209,8 +229,8 @@ public class Viewer extends JPanel {
 
 	public void Export() throws IOException {
 
-		
 		ArrayList<SpriteInfo> list = new ArrayList<SpriteInfo>();
+		
 		String level = LevelEditor.getText();
 		Scanner scanner = new Scanner(level);
 		int count = 0;
@@ -226,14 +246,16 @@ public class Viewer extends JPanel {
 					{
 						mySprite.setX(i * width);
 						mySprite.setY(count * height);
-						SpriteInfo info = new SpriteInfo(mySprite.
-						list.add(mySpi);
+						SpriteInfo info = new SpriteInfo(mySprite.getClass().getName(), mySprite.writableObject());
+						list.add(info);
 					}
 				}
 			}
 			count++;
 		}
-		model.Export(list);
+		
+		GameFile gameFile= new GameFile(backgroundPath, list);
+		model.Export(gameFile);
 	}
 
 	public void Load() {
@@ -271,13 +293,24 @@ public class Viewer extends JPanel {
 	private class BadGuyAction implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
-				makeBadGuys();
+
+				try {
+					makeSprite();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InstantiationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				myPanel.revalidate();
 				validate();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 

@@ -3,8 +3,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import levelEditor.Platfomer;
-import levelEditor.SpriteInfo;
+import levelEditor.*;
+import game.*;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
@@ -94,7 +94,7 @@ public class Character extends PlatformSprite {
 		return o;
 	}
 
-	@Override
+
 	public void parse(ArrayList<Object> o, Platfomer myGame) {
 		game=myGame;
 		path=(String) o.get(0);
@@ -104,6 +104,7 @@ public class Character extends PlatformSprite {
 		enableGunFire= (Boolean) o.get(3);
 		jumping = (Boolean) o.get(4);
 		enableFireball = (Boolean) o.get(5);
+		game.CHARACTER.add(this);
 		
 	}
 }

@@ -1,7 +1,8 @@
 package sprites;
 import java.awt.image.BufferedImage;
 
-import levelEditor.Platfomer;
+import levelEditor.*;
+import game.*;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;

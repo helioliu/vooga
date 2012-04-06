@@ -10,6 +10,7 @@ public class SpriteInfo {
 	
 	public SpriteInfo() {
 	}
+	
 	public SpriteInfo(String name, ArrayList<Object> o){
 		className= name;
 		list=o;

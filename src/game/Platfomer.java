@@ -1,4 +1,4 @@
-package levelEditor;
+package game;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -7,9 +7,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import sprites.Bad_Guys;
-import sprites.Character;
-import sprites.Platform;
+import javax.imageio.ImageIO;
+
+import levelEditor.*;
+
+
+import sprites.*;
 
 import com.golden.gamedev.GameObject;
 import com.golden.gamedev.object.Background;
@@ -39,7 +42,7 @@ public class Platfomer extends GameObject {
 	}
 
 	// configuration file
-	public ArrayList<SpriteInfo> LevelInfo;
+	public GameFile myGameInfo;
 
 	@Override
 	public void initResources() {
@@ -52,19 +55,21 @@ public class Platfomer extends GameObject {
 					.get(PlatformGame.currentLevel)));
 
 			String wholeFile = scanner.useDelimiter("\\A").next();
-			Type collectionType = new TypeToken<ArrayList<SpriteInfo>>() {
+			Type collectionType = new TypeToken<GameFile>() {
 			}.getType();
-			LevelInfo = gson.fromJson(wholeFile, collectionType);
+			myGameInfo = gson.fromJson(wholeFile, collectionType);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		System.out.println(LevelInfo.toString());
+		System.out.println(myGameInfo.toString());
 
 		// background = (Background) LevelInfo.get(0);
-		background = new ImageBackground(getImage("background.jpg"));
+		File backgroundPathFile = new File(myGameInfo.getBackground());
+		BufferedImage myBackground= ImageIO.read(backgroundPathFile);
+		background = new ImageBackground(myBackground);
 		playfield = new PlayField(background);
 		// create groups
 		CHARACTER = playfield.addGroup(new SpriteGroup("Character"));
@@ -75,31 +80,16 @@ public class Platfomer extends GameObject {
 		COINS = playfield.addGroup(new SpriteGroup("COINS"));
 		BAD_GUYS = playfield.addGroup(new SpriteGroup("BAD_GUYS"));
 
-		for (int i = 0; i < LevelInfo.size(); i++) {
-			SpriteInfo info = LevelInfo.get(i);
-			String type = info.getType();
-			if (type.equals("Character")) {
-				Character myCharacter;
+		for (int i = 0; i < myGameInfo.getList().size(); i++) {
+			SpriteInfo info = myGameInfo.getList().get(i);
+			String className = info.getClassName();
+		    PlatformSprite s;
+		    try {  s= (PlatformSprite) Class.forName(className).newInstance();
+		     s.parse(info.getList(), this);
+		    } catch (Exception e) {
 
-				myCharacter = new Character(this, getImage(info.getPath()),
-						info);
-				CHARACTER.add(myCharacter);
+		    }
 
-			}
-			if (type.equals("Bad_Guys")) {
-				Bad_Guys myBad_Guys;
-				myBad_Guys = new Bad_Guys(this, getImage(info.getPath()), info);
-
-				BAD_GUYS.add(myBad_Guys);
-
-			}
-			if (type.equals("Platform")) {
-				Platform myPlatform;
-				myPlatform = new Platform(this, getImage(info.getPath()), info);
-
-				PLATFORM.add(myPlatform);
-
-			}
 		}
 
 		// set up collision groups

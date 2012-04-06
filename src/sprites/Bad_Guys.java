@@ -2,8 +2,8 @@ package sprites;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import levelEditor.Platfomer;
-import levelEditor.SpriteInfo;
+import levelEditor.*;
+import game.*;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
@@ -60,5 +60,6 @@ public class Bad_Guys extends PlatformSprite {
 		x= (Integer) o.get(1);
 		y= (Integer) o.get(2);
 		enableShoot= (Boolean) o.get(3);
+		myGame.BAD_GUYS.add(this);
 	}
 }

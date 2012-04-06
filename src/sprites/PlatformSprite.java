@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import levelEditor.Platfomer;
+import levelEditor.*;
+import game.*;
 
 import com.golden.gamedev.object.Sprite;
 

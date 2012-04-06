@@ -18,9 +18,9 @@ public class Model {
 		levelName = "default";
 	}
 
-	public void Export(ArrayList<SpriteInfo> list) throws IOException {
+	public void Export(GameFile gameFile) throws IOException {
 		Gson gson3 = new Gson();
-		String jsonString3 = gson3.toJson(list);
+		String jsonString3 = gson3.toJson(gameFile);
 		FileWriter fs = new FileWriter(levelName + ".json");
 		BufferedWriter o = new BufferedWriter(fs);
 		o.write(jsonString3);

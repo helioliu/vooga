@@ -3,8 +3,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import levelEditor.Platfomer;
-import levelEditor.SpriteInfo;
+import levelEditor.*;
+import game.*;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionRect;
@@ -54,6 +54,7 @@ public class Platform extends PlatformSprite {
 		setInitImage(path);
 		x= (Integer) o.get(1);
 		y= (Integer) o.get(2);
+		game.PLATFORM.add(this);
 	}
 
 }
