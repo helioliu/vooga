@@ -33,6 +33,9 @@ public class Cutscene implements EventListener {
 				cutsceneOn = cutsceneOn | automation.isCurrentlyAnimating();
 			}
 		}
+		if(!cutsceneOn) {
+			EventManager.getEventManager().sendEvent("cutscene-end");
+		}
 		
 	}
 

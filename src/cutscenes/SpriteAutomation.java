@@ -55,7 +55,6 @@ public class SpriteAutomation {
 		if (currentTimer.action(timeElapsed) & currentlyAnimating) {
 			 EventManager.getEventManager().sendEvent(
 			 actionList.get(currentPosition).getEventName());
-
 			currentTimer = new Timer(actionList.get(currentPosition)
 					.getDuration());
 //			EventManager.getEventManager().addEventCondition(
