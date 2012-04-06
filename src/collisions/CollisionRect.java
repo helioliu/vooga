@@ -4,7 +4,7 @@ public class CollisionRect implements CollisionShape{
     
     //references are the top left corner
     private double myX, myY, myH, myW;
-    private String myShape = "circle";
+    private String myShape = "rectangle";
     
     public CollisionRect(double x, double y, double h, double w){
         myX = x;
@@ -13,8 +13,14 @@ public class CollisionRect implements CollisionShape{
         myW = w;
     }
     
+    @Override
     public String getShape(){
         return myShape;
+    }
+    
+    @Override
+    public CollisionShape clone(){
+    	return new CollisionRect(myX, myY, myH, myW);
     }
 
     @Override
