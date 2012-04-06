@@ -13,8 +13,14 @@ public class CollisionRect implements CollisionShape{
         myW = w;
     }
     
+    @Override
     public String getShape(){
         return myShape;
+    }
+    
+    @Override
+    public CollisionShape clone(){
+    	return new CollisionRect(myX, myY, myH, myW);
     }
 
     @Override

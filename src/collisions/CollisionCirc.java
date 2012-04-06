@@ -18,6 +18,11 @@ public class CollisionCirc implements CollisionShape{
     }
     
     @Override
+    public CollisionShape clone(){
+    	return new CollisionCirc(myX, myY, myR);
+    }
+    
+    @Override
 	public boolean intersects(CollisionShape cs){
         return Intersections.intersects(this, cs);
     }

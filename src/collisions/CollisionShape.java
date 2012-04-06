@@ -8,6 +8,11 @@ public interface CollisionShape {
     public String getShape();
     
     /**
+     * returns a copy of the shape for use with intersection checking etc
+     */
+    public CollisionShape clone();
+    
+    /**
      * Checks if this shape intersects/overlaps another shape
      */
     public boolean intersects(CollisionShape cs);
