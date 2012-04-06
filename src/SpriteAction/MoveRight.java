@@ -14,7 +14,7 @@ public class MoveRight extends SpriteAction{
 
 	public void actionPerformed(String event)
 	{
-		mySprite.move(mySprite.getOldX()+1, mySprite.getOldY());
+		mySprite.move(1,0);
 	}
 
 }

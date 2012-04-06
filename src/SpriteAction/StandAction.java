@@ -17,7 +17,7 @@ public class StandAction extends SpriteAction{
 	public void actionPerformed(String event)
 	{
 		mySprite.setVerticalSpeed(0);
-		mySprite.move(mySprite.getOldX(), mySprite.getOldY());	
+		mySprite.setLocation(mySprite.getOldX(), mySprite.getOldY());	
 	}
 
 }
