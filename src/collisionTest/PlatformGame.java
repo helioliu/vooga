@@ -36,7 +36,7 @@ public class PlatformGame extends Game{
 		//eventManager.registerEventListener("Print Event",timerEventLis);
 		
 		Sprite s1 = new Sprite(getImage("mario1.png"), 0, 100);
-		Sprite s2 = new BoxySprite(getImages("mario1.png", 1, 1), 600, 100);
+		Sprite s2 = new BoxySprite(getImages("mario1.png", 1, 1), 600, 164);
 		
 		playfield.add(s1);
 		playfield.add(s2);

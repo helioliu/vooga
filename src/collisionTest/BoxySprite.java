@@ -2,6 +2,7 @@ package collisionTest;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import sprites.Boxable;
@@ -34,7 +35,7 @@ public class BoxySprite extends AdvanceSprite implements Boxable{
 
 	@Override
 	public List<Hitbox> getHitboxes() {
-		return myHitboxes;
+		return Collections.unmodifiableList(myHitboxes);
 	}
 
 	@Override

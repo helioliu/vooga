@@ -12,6 +12,7 @@ public class Main {
 			GameLoader game = new GameLoader();
 			game.setup(new PlatformGame(), new Dimension(800,600), false);
 			game.start();
-			
 		}
+		
+	
 }
