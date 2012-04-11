@@ -1,5 +1,8 @@
 package core.test;
 
+import hudDisplay.BarDisplay;
+import hudDisplay.HeadsUpDisplay;
+
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +32,8 @@ public class PlatformGame extends Game{
 		TimerEventListener timerEventLis = new TimerEventListener();
 		eventManager.addEventCondition(timerEventCond, "Print Event");
 		eventManager.registerEventListener("Print Event",timerEventLis);
-		
+
+
 		Sprite s1 = new Sprite(100, 100);
 		Sprite s2 = new Sprite(500, 100);
 		
@@ -53,6 +57,7 @@ public class PlatformGame extends Game{
 	public void update(long elapsedTime) {
 		eventManager.update(elapsedTime);
 		playfield.update(elapsedTime);
+		
 	}
 
 }
