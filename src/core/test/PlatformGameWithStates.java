@@ -1,5 +1,8 @@
 package core.test;
 
+import hudDisplay.BarDisplay;
+import hudDisplay.HeadsUpDisplay;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -28,14 +31,14 @@ public class PlatformGameWithStates extends Game{
 	EventManager eventManager;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
+	HeadsUpDisplay HUD;
+
 	
 	public void initResources() {
 		stateMap = new HashMap<String, State>();
 		eventManager = new EventManager();
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
-
-	
 		
 		s1 = new TestCharacterWithStates();
 		s1.setImage(getImage("images/mario1.png"));
@@ -43,6 +46,9 @@ public class PlatformGameWithStates extends Game{
 		SpriteGroup character = new SpriteGroup("character");
 		character.add(s1);
 		
+		HUD = new HeadsUpDisplay(0,0,s1);
+		BarDisplay healthbar = new BarDisplay(getImage("images/healthBar.png",false), 500, 0);
+		HUD.add(healthbar, "healthbar");
 		
 		Sprite wall = new Sprite(getImage("images/block.png"));
 		wall.setLocation(300,400);
@@ -62,11 +68,14 @@ public class PlatformGameWithStates extends Game{
 	public void render(Graphics2D arg0) {
 	playfield.render(arg0);
 	collisionTypeWall.checkCollision();
+	HUD.render(arg0);
 	}
 	
 	public void update(long elapsedTime) {
 		eventManager.update(elapsedTime);
 		playfield.update(elapsedTime);
+		HUD.update(elapsedTime);
+
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
@@ -92,6 +101,7 @@ public class PlatformGameWithStates extends Game{
 
 	    public void collided(Sprite s1, Sprite s2) {
 	       eventManager.sendEvent("floor collide");
+	       eventManager.sendEvent("got hit");
 	        
 	    }
 
