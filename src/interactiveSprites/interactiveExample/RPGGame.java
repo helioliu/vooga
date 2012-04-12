@@ -46,6 +46,7 @@ public class RPGGame extends Game {
 	int phoneNumbers = 0;
 	private Timer springTimer;
 	String[] girlMoves = {"'BITCHY RESPONSE'", "'LOOK AWAY'", "'COLD GAZE'", "'EYE ROLL'"};
+	
 	InteractiveSprite movingTarget;;
 	
 	{ distribute = true; }
