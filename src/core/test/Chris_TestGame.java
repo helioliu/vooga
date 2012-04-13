@@ -23,6 +23,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
 
+import SpriteAction.MoveRight;
 import States.*;
 
 
@@ -51,16 +52,27 @@ public class Chris_TestGame extends Game{
 //		BarDisplay healthbar = new BarDisplay(getImage("images/healthBar.png",false), 500, 0);
 //		HUD.add(healthbar, "healthbar");
 		
-		Sprite wall = new Sprite(getImage("images/block.png"));
-		wall.setLocation(300,400);
+		Sprite wall1 = new Sprite(getImage("images/block.png"));
+		wall1.setLocation(100,100);
+		Sprite wall2 = new Sprite(getImage("images/block.png"));
+		wall2.setLocation(100,150);
+		Sprite wall3 = new Sprite(getImage("images/block.png"));
+		wall3.setLocation(100,200);
+		Sprite wall4 = new Sprite(getImage("images/block.png"));
+		wall4.setLocation(100,250);
 		SpriteGroup walls = new SpriteGroup("walls");
-		walls.add(wall);
+		walls.add(wall1);
+		walls.add(wall2);
+		walls.add(wall3);
+		walls.add(wall4);
+		
 		
 		collisionTypeWall = new WallCollision();
 		collisionTypeWall.setCollisionGroup(character, walls);
 		
-		playfield.addGroup(character);
 		playfield.addGroup(walls);
+		playfield.addGroup(character);
+		
 		
 		
 		
@@ -105,6 +117,7 @@ public class Chris_TestGame extends Game{
 	    public void collided(Sprite s1, Sprite s2) {
 	       eventManager.sendEvent("floor collide");
 	       eventManager.sendEvent("switchstates");
+//	       eventManager.registerTimedListener("right", new MoveRight(s1), 10000);
 	        
 	    }
 
