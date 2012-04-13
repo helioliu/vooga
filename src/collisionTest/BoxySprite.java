@@ -43,7 +43,7 @@ public class BoxySprite extends AdvanceSprite implements Boxable{
 
 	@Override
 	public String getDefaultEvent() {
-		return "Default collision";
+		return "Default";
 	}
 
 }

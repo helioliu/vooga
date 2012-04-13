@@ -14,6 +14,7 @@ public class GeneralSprite extends AdvanceSprite implements Boxable {
 	protected StateMachine myStateMachine;
 	protected List<Hitbox> myHitboxes;
 	protected double myGravityValue; 
+
 	
 	
 	public GeneralSprite() {

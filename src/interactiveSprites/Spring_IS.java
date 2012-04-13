@@ -1,10 +1,14 @@
 package interactiveSprites;
-import game.Platfomer;
+import game.Platformer;
 
 import interactiveSprites.interactiveExample.RPGGame;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import sprites.LevelEditable;
 
@@ -15,16 +19,20 @@ import com.golden.gamedev.object.collision.CollisionGroup;
 @SuppressWarnings("serial")
 public class Spring_IS extends Sprite implements LevelEditable, InteractiveSprite {
 	
-	Platfomer myGame;
+	Platformer myGame;
 	String path;
 	String myType;
 	
-	public Spring_IS(BufferedImage bufferedImage, int i, int j, Platfomer game) {
+	public Spring_IS(BufferedImage bufferedImage, int i, int j, Platformer game) {
 		super(bufferedImage, i, j);
 		myType = "spring";
 		myGame = game;
 	}
 	
+	public Spring_IS() {
+
+	}
+
 	public void primaryAction(CollisionGroup c) {
 		if(c.getCollisionSide()== c.BOTTOM_TOP_COLLISION) {
 			myGame.CHARACTER.getActiveSprite().setVerticalSpeed(-1.25);
@@ -49,41 +57,40 @@ public class Spring_IS extends Sprite implements LevelEditable, InteractiveSprit
 		return myType;
 	}
 	
-	public ArrayList<Object> writableObject() {
-		ArrayList<Object> o= new ArrayList<Object>();
-		o.add(path);
-		o.add(getX());
-		o.add(getY());
-		return o;
+	public ArrayList<String> writableObject() {
+		ArrayList<String> list= new ArrayList<String>();
+		list.add(this.getClass().toString());
+		list.add(path);
+		list.add(getX() +"");
+		list.add(getY() +"");
+		return list;
 	}
 	
-	public void parse(ArrayList<Object> o, Platfomer game) {
-		myGame=game;
-		path= (String) o.get(0);
-		setX((Integer) o.get(1));
-		setY((Integer) o.get(2));
-		myGame.INTERACTIVE_SPRITES.add(this);
+	public Sprite parse(ArrayList<String> o, Platformer game) {
+			Spring_IS s= new Spring_IS();
+			s.path=o.get(1);
+			s.setX( Double.parseDouble(o.get(2)));
+			s.setY( Double.parseDouble(o.get(3)));
+			File file= new File(path);
+			BufferedImage image;
+			try {
+				image = ImageIO.read(file);
+				s.setImage(image);		} 
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+			return s;
 		
 	}
 
-	@Override
-	public void setInitX(double d) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void setInitY(double val) {
-		// TODO Auto-generated method stub
-		
+		@Override
+	public Boolean isInstanceOf(ArrayList<String> o) {
+			if (this.getClass().toString().equals(o.get(0))) {
+				return true;
+			}
+			return false;
 	}
-
-	@Override
-	public void setInitPath(String path) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 
 }

@@ -28,7 +28,7 @@ public class PlatformGame extends Game{
 	
 	public void initResources() {
 		stateMap = new HashMap<String, State>();
-		eventManager = new EventManager();
+		eventManager = EventManager.getEventManager();
 		playfield = new PlayField();
 
 		Sprite s1 = new Sprite(getImage("test.png"), 0, 100);
@@ -45,7 +45,7 @@ public class PlatformGame extends Game{
 		CHAR1.add(s1);
 		CHAR2.add(s2);
 		
-		playfield.addCollisionGroup(CHAR1, CHAR2, new HitboxNonhitboxCollision());//HitboxNonhitboxCollision());
+		playfield.addCollisionGroup(CHAR1, CHAR2, new HitboxNonhitboxCollision());
 		
 	}
 	
