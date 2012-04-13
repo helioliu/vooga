@@ -30,7 +30,7 @@ public class PlatformGame extends GameEngine {
 	public GameObject getGame(int GameID) {
 		switch (GameID) {
 			case MENU 		: return new Menu(this);
-			case PLATFORMER 	: return new Platfomer(this);
+			case PLATFORMER 	: return new Platformer(this);
 		}
 
 		return null;

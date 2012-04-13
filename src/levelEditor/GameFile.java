@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class GameFile {
 	String backgroundpath;
-	ArrayList<SpriteInfo> myList;  
+	ArrayList<ArrayList<String>> myList;  
 	
-	public GameFile(String path, ArrayList<SpriteInfo> list) {
+	public GameFile(String path, ArrayList<ArrayList<String>> list) {
 		backgroundpath=path;
 		myList=list;
 	}
@@ -15,7 +15,7 @@ public class GameFile {
 		return backgroundpath;
 	}
 	
-	public ArrayList<SpriteInfo> getList() {
+	public ArrayList<ArrayList<String>> getList() {
 		return myList;
 	}
 }

@@ -26,13 +26,18 @@ import core.EventManager;
 
 import States.*;
 
+public class PlatformGameWithStates extends Game {
+	PlatformSprite s1;
 
 public class PlatformGameWithStates extends Game{
 	TestCharacterWithStates s1;
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
-	
+
+
+	SpriteGroup WALLS, CHARACTER;
+
 	HeadsUpDisplay HUD;
 	GameFont scoreFont;
 
@@ -40,13 +45,23 @@ public class PlatformGameWithStates extends Game{
 	public void initResources() {
 		stateMap = new HashMap<String, State>();
 		playfield = new PlayField();
+		playfield
+				.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
+
+		
+		WALLS = playfield.addGroup(new SpriteGroup("walls"));
+		CHARACTER = playfield.addGroup(new SpriteGroup("character"));
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
 		s1 = new TestCharacterWithStates();
 		s1.setImage(getImage("images/mario1.png"));
 		s1.setLocation(300, 200);
+
+		CHARACTER.add(s1);
+
 		s1.createScore("health", 300);
 		s1.createScore("score",0);
+
 		SpriteGroup character = new SpriteGroup("character");
 		character.add(s1);
 		
@@ -62,29 +77,27 @@ public class PlatformGameWithStates extends Game{
 		HUD.addScoreItem(Score);
 		
 		Sprite wall = new Sprite(getImage("images/block.png"));
-		wall.setLocation(300,400);
-		SpriteGroup walls = new SpriteGroup("walls");
-		walls.add(wall);
-		
+		wall.setLocation(300, 400);
+		WALLS.add(wall);
+
 		collisionTypeWall = new WallCollision();
-		collisionTypeWall.setCollisionGroup(character, walls);
-		
-		playfield.addGroup(character);
-		playfield.addGroup(walls);
-		
-		
-		
+		collisionTypeWall.setCollisionGroup(CHARACTER, WALLS);
+
 	}
-	
+
 	public void render(Graphics2D arg0) {
+		playfield.render(arg0);
+		collisionTypeWall.checkCollision();
 	playfield.render(arg0);
 	collisionTypeWall.checkCollision();
 	HUD.render(arg0);
 	}
-	
+
 	public void update(long elapsedTime) {
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
+
+		if (keyDown(KeyEvent.VK_LEFT)) {
 		HUD.update(elapsedTime);
 
 		
@@ -92,24 +105,39 @@ public class PlatformGameWithStates extends Game{
 		{
 			EventManager.getEventManager().sendEvent("left-key");
 		}
+
+		if (keyDown(KeyEvent.VK_RIGHT)) {
+			eventManager.sendEvent("right-key");
+
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
 			EventManager.getEventManager().sendEvent("right-key");
+
 		}
-		if (keyDown(KeyEvent.VK_UP))
-		{
+		if (keyDown(KeyEvent.VK_UP)) {
 			s1.move(0, 1);
+
+			eventManager.sendEvent("up-key");
+
+
 			EventManager.getEventManager().sendEvent("up-key");
 			
+
 		}
+		
+
 	}
-	
+
 	class WallCollision extends BasicCollisionGroup {
 
-	    public WallCollision() {
-	    	pixelPerfectCollision = true;
-	    }
+		public WallCollision() {
+			pixelPerfectCollision = true;
+		}
 
+		public void collided(Sprite s1, Sprite s2) {
+			eventManager.sendEvent("floor collide");
+
+		}
 	    public void collided(Sprite s1, Sprite s2) {
 	    	EventManager.getEventManager().sendEvent("floor collide");
 	    	EventManager.getEventManager().sendEvent("got hit");
@@ -117,5 +145,8 @@ public class PlatformGameWithStates extends Game{
 	    }
 
 	}
-
+	}
 }
+}}
+
+
