@@ -14,9 +14,9 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 
-public class Character extends Sprite implements LevelEditable {
+public class Character extends LESprite implements LevelEditable {
 
-	Platfomer game;
+	Platformer game;
 	boolean enableGunFire=true;
 	boolean enableFireball=true;
 	public boolean jumping=true;
@@ -24,7 +24,7 @@ public class Character extends Sprite implements LevelEditable {
 	String path;
 
 	public Character() {
-		super(null,0,0);
+		super();
         jumpTimer = new Timer(150);
 	}
 
@@ -87,52 +87,40 @@ public class Character extends Sprite implements LevelEditable {
 		addVerticalSpeed(elapsedTime, 0.002, 0.5);
 	}
 
-	public ArrayList<Object> writableObject() {
-		ArrayList<Object> o= new ArrayList<Object>();
-		o.add(path);
-		o.add(this.getX());
-		o.add(this.getY());
-		o.add(enableGunFire);
-		o.add(jumping);
-		o.add(enableFireball);
-		return o;
+	public ArrayList<String> writableObject() {
+		ArrayList<String> list= new ArrayList<String>();
+		list.add(this.getClass().toString());
+		list.add(path);
+		list.add(getX() +"");
+		list.add(getY() +"");
+		return list;
 	}
 
 
-	public void parse(ArrayList<Object> o, Platfomer myGame) {
-		game=myGame;
-		path=(String) o.get(0);
-		this.path=path;
+	public Sprite parse(ArrayList<String> o, Platformer game) {
+        Character C= new Character();
+		C.path=o.get(1);
+		C.setX( Double.parseDouble(o.get(2)));
+		C.setY( Double.parseDouble(o.get(3)));
+		C.enableGunFire= true;
+		C.enableFireball= true;
+		C.jumping=true;
 		File file= new File(path);
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);
-
-		setImage(image);		} catch (IOException e) {
+			C.setImage(image);		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
-		setX( (Integer) o.get(1));
-		setY((Integer) o.get(2));
-		enableGunFire= (Boolean) o.get(3);
-		jumping = (Boolean) o.get(4);
-		enableFireball = (Boolean) o.get(5);
-		game.CHARACTER.add(this);
-		
-	}
-	
-
-	public void setInitX(double d) {
-		this.setX(d);
-		
+		return C;
 	}
 
-	public void setInitY(double val) {
-		this.setY(val);
-		
-	}
 
-	public void setInitPath(String path) {
-		this.path=path;
-		
+	public Boolean isInstanceOf(ArrayList<String> o) {
+		if (this.getClass().toString().equals(o.get(0))) {
+			return true;
+		}
+		return false;
 	}
 }

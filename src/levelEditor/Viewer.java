@@ -123,7 +123,7 @@ public class Viewer extends JPanel {
 	}
 	
 	private String getBackgroundImage() throws IOException {
-		JFileChooser fc = new JFileChooser(".");
+		JFileChooser fc = new JFileChooser("./src/images");
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
@@ -195,6 +195,7 @@ public class Viewer extends JPanel {
 
 		Platform s= new Platform();
 		s.setInitPath(file.getCanonicalPath());
+		System.out.println(s.path);
 		CharacterTable.put(ID, s);
 		ID++;
 

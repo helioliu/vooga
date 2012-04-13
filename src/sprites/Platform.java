@@ -13,10 +13,11 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionRect;
 import com.golden.gamedev.object.collision.CollisionShape;
 
-public class Platform extends Sprite implements LevelEditable {
+public class Platform extends LESprite implements LevelEditable {
 
-	String path;
-	Platfomer game;
+	public String path;
+	private Platformer game;
+	
 	
 	public Platform() {
 		super();
@@ -43,48 +44,37 @@ public class Platform extends Sprite implements LevelEditable {
 	}
 
 
-	public ArrayList<Object> writableObject() {
-		ArrayList<Object> o= new ArrayList<Object>();
-		o.add(path);
-		o.add(getX());
-		o.add(getY());
-		return o;
+	public ArrayList<String> writableObject() {
+		ArrayList<String> list= new ArrayList<String>();
+		list.add(this.getClass().toString());
+		list.add(path);
+		list.add(getX() +"");
+		list.add(getY() +"");
+		return list;
 	}
 
 
-	public void parse(ArrayList<Object> o, Platfomer myGame)  {
-		game=myGame;
-		path=(String) o.get(0);
-			try {	
-		File file = new File(path);
-	     	BufferedImage image;
-			image = ImageIO.read(file);		
-			setImage(image);
-		} catch (IOException e) {
+	public Sprite parse(ArrayList<String> o, Platformer game) {
+        Platform P= new Platform();
+		P.path=o.get(1);
+		P.setX( Double.parseDouble(o.get(2)));
+		P.setY( Double.parseDouble(o.get(3)));
+		File file= new File(path);
+		BufferedImage image;
+		try {
+			image = ImageIO.read(file);
+			P.setImage(image);		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		setX( (Integer) o.get(1));
-		setY( (Integer) o.get(2));
-		game.PLATFORM.add(this);
+		return P;
 	}
 
-
-	public void setInitX(double d) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void setInitY(double val) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void setInitPath(String path) {
-		// TODO Auto-generated method stub
-		
+	public Boolean isInstanceOf(ArrayList<String> o) {
+		if (this.getClass().toString().equals(o.get(0))) {
+			return true;
+		}
+		return false;
 	}
 
 }
