@@ -19,6 +19,8 @@ public class EventQueue {
 	public EventQueue() {
 		myEventListeners = new HashMap<String, ArrayList<EventListener>>();
 
+		queues = new ArrayList<LinkedList<String>>();
+		
 		queues.add(new LinkedList<String>());
 		queues.add(new LinkedList<String>());
 		queues.add(new LinkedList<String>());

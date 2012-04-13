@@ -1,6 +1,5 @@
 package core;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +11,7 @@ public class EventManager implements EventManagerInterface{
 
 	public EventManager() {
 		myEventManager = this;
+		myEventQueue = new EventQueue();
 		mapEventConditionToEvent = new HashMap<EventCondition, String>();
 	}
 
