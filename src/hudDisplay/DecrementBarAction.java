@@ -21,4 +21,12 @@ public class DecrementBarAction extends HUDAction {
 		mySprite.changeScore("score", 20);
 	}
 
+	@Override
+	public void actionPerformed(Object object) {
+		//what is this for????
+		
+	}
+
+
+
 }
