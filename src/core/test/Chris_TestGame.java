@@ -3,6 +3,7 @@ package core.test;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,10 +34,10 @@ public class Chris_TestGame extends Game{
 	CollisionManager collisionTypeWall;
 	
 	//Cutscene Code
-	Cutscene cutscene;
-	Timer cutTimer;
-	CutsceneTrigger trigger;
-	
+//	Cutscene cutscene;
+//	Timer cutTimer;
+//	CutsceneTrigger trigger;
+//	
 	//HeadsUpDisplay HUD;
 
 	
@@ -46,6 +47,8 @@ public class Chris_TestGame extends Game{
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
 		s1 = new Chris_TestSprite();
+//		BufferedImage[] images = new BufferedImage[1];
+//		images[0] = ;
 		s1.setImage(getImage("images/mario1.png"));
 		s1.setLocation(300, 200);
 		SpriteGroup character = new SpriteGroup("character");
@@ -56,13 +59,13 @@ public class Chris_TestGame extends Game{
 //		HUD.add(healthbar, "healthbar");
 		
 		Sprite wall1 = new Sprite(getImage("images/block.png"));
-		wall1.setLocation(100,100);
+		wall1.setLocation(350,400);
 		Sprite wall2 = new Sprite(getImage("images/block.png"));
-		wall2.setLocation(100,150);
+		wall2.setLocation(300,400);
 		Sprite wall3 = new Sprite(getImage("images/block.png"));
-		wall3.setLocation(100,200);
+		wall3.setLocation(200,400);
 		Sprite wall4 = new Sprite(getImage("images/block.png"));
-		wall4.setLocation(100,250);
+		wall4.setLocation(250,400);
 		SpriteGroup walls = new SpriteGroup("walls");
 		walls.add(wall1);
 		walls.add(wall2);
@@ -79,8 +82,8 @@ public class Chris_TestGame extends Game{
 		
 		//Cutscene Code
 //		cutscene = new Cutscene("src/cutscenes/test/testCutsceneScript.script", 14000);
-		trigger = new CutsceneTrigger(cutscene);
-		cutTimer = new Timer(10);
+//		trigger = new CutsceneTrigger(cutscene);
+//		cutTimer = new Timer(10);
 		
 		
 		
@@ -94,11 +97,11 @@ public class Chris_TestGame extends Game{
 	
 	public void update(long elapsedTime) {
 		//Cutscene Code
-		if(cutTimer.action(elapsedTime)) {
-			trigger.triggerCutscene();
-			cutTimer.setActive(false);
-		}
-		cutscene.update(elapsedTime);
+//		if(cutTimer.action(elapsedTime)) {
+//			trigger.triggerCutscene();
+//			cutTimer.setActive(false);
+//		}
+//		cutscene.update(elapsedTime);
 		
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
