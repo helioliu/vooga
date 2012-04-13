@@ -1,18 +1,18 @@
 package sprites;
 
-import game.Platfomer;
+import game.Platformer;
 
 import java.util.ArrayList;
 
-public interface LevelEditable {
-	public ArrayList<Object> writableObject() ;
+import com.golden.gamedev.object.Sprite;
 
-	public void parse(ArrayList<Object> o, Platfomer myGame) ;
+public interface LevelEditable {
 	
-	public void setInitX(double d);
+	public ArrayList<String> writableObject() ;
+
+	public Sprite parse(ArrayList<String> o, Platformer myGame) ;
 	
-	public void setInitY(double val);
+	public Boolean isInstanceOf(ArrayList<String> o);
 	
-	public void setInitPath(String path);
 
 }

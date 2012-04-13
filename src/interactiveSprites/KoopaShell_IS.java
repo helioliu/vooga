@@ -26,10 +26,10 @@ public class KoopaShell_IS extends Sprite implements LevelEditable, InteractiveS
 			
 		}
 		if(c.getCollisionSide()== c.LEFT_RIGHT_COLLISION) {
-			this.setHorizontalSpeed(.3);
+			this.setHorizontalSpeed(-.3);
 		}
 		if(c.getCollisionSide()== c.RIGHT_LEFT_COLLISION) {
-			this.setHorizontalSpeed(-.3);
+			this.setHorizontalSpeed(.3);
 		}
 	}
 	

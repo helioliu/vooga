@@ -10,7 +10,7 @@ import com.golden.gamedev.object.Sprite;
 public class Projectile extends Sprite {
 	// indicates whether this enemy has been show to screen or not
 	boolean show = false;
-	Platfomer game;
+	Platformer game;
 	// attempt to fire every 400 ms
 
 	
@@ -20,7 +20,7 @@ public class Projectile extends Sprite {
 		
 	}
 
-	public Projectile(Projectile projectile, Platfomer currentGame) {
+	public Projectile(Projectile projectile, Platformer currentGame) {
 		super(projectile.getImage(),0,0);
 		show=projectile.show;
 		game=currentGame;

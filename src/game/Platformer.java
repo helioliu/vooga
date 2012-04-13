@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import levelBuilder.LevelBuilder;
 import levelEditor.*;
 
 
@@ -30,47 +31,36 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class Platfomer extends GameObject {
+public class Platformer extends GameObject {
 
 	public PlayField playfield;
+<<<<<<< HEAD
+=======
 	public Background background;
 	public SpriteGroup CHARACTER, PROJECTILE, POWER_UP, PLATFORM, SPAWNPOINT,
 			COINS, BAD_GUYS, INTERACTIVE_SPRITES, EXIT;
+>>>>>>> 2e011adff14b67b89fb3e5f3260cda0d502e4d2c
 
 	private PlatformGame game;
 
-	public Platfomer(PlatformGame parent) {
+	public SpriteGroup CHARACTER, PROJECTILE, POWER_UP, PLATFORM, SPAWNPOINT,
+	COINS, BAD_GUYS, SPRINGS, EXIT;
+	
+	public Platformer(PlatformGame parent) {
 		super(parent);
 		// TODO Auto-generated constructor stub
 		game = parent;
 	}
 
-	// configuration file
-	public GameFile myGameInfo;
 
+
+
+<<<<<<< HEAD
 	@Override
 	public void initResources() {
-
-		Gson gson = new Gson();
-		Scanner scanner;
-		System.out.println(PlatformGame.LEVEL_FILES.get(0));
-		try {
-			scanner = new Scanner(new File(PlatformGame.LEVEL_FILES
-					.get(PlatformGame.currentLevel)));
-
-			String wholeFile = scanner.useDelimiter("\\A").next();
-			Type collectionType = new TypeToken<GameFile>() {
-			}.getType();
-			myGameInfo = gson.fromJson(wholeFile, collectionType);
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.out.println(myGameInfo.toString());
-
-
+		playfield = new LevelBuilder(this).createLevel(PlatformGame.LEVEL_FILES
+				.get(PlatformGame.currentLevel));
+=======
 		File backgroundPathFile= null; 
 		BufferedImage myBackground=null;		
 				try {
@@ -123,6 +113,7 @@ public class Platfomer extends GameObject {
 		// playfield.addCollisionGroup(CHARACTER, EXIT, new ExitCollision());
 		// playfield.addCollisionGroup(BAD_GUYS, PLATFORM,
 		// new PlatformCollision());
+>>>>>>> 2e011adff14b67b89fb3e5f3260cda0d502e4d2c
 
 	}
 
