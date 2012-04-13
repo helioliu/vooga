@@ -17,6 +17,7 @@ public class SwitchStatesTransition extends StateTransition{
 
 	@Override
 	public void actionPerformed(String eventName) {
+		System.out.println("should switch");
 		if(myStateMachine.compareToCurrent(state1))
 		{
 			myStateMachine.changeState(state2);
