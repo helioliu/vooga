@@ -81,7 +81,7 @@ public class LevelBuilder {
 		myGame.SPAWNPOINT = field.addGroup(new SpriteGroup("SPAWNPOINT"));
 		myGame.COINS = field.addGroup(new SpriteGroup("COINS"));
 		myGame.BAD_GUYS = field.addGroup(new SpriteGroup("BAD_GUYS"));
-		myGame.SPRINGS = field.addGroup(new SpriteGroup("SPRINGS"));
+		myGame.INTERACTIVE_SPRITES = field.addGroup(new SpriteGroup("SPRINGS"));
 
 
 		ArrayList<LESprite> SpriteList= new ArrayList<LESprite>();
