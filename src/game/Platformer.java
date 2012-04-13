@@ -2,6 +2,7 @@ package game;
 import interactiveSprites.InteractiveSprite;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,6 +31,8 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import com.golden.gamedev.object.sprite.VolatileSprite;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import core.EventManager;
 
 public class Platformer extends GameObject {
 
@@ -61,6 +64,23 @@ public class Platformer extends GameObject {
 	@Override
 	public void update(long arg0) {
 		playfield.update(arg0);
+		
+		if (keyDown(KeyEvent.VK_LEFT))
+		{
+			EventManager.getEventManager().sendEvent("left");
+		}
+		if (keyDown(KeyEvent.VK_RIGHT))
+		{
+			EventManager.getEventManager().sendEvent("right");
+		}
+		if (keyDown(KeyEvent.VK_UP))
+		{
+			EventManager.getEventManager().sendEvent("up");	
+		}
+		if (keyDown(KeyEvent.VK_DOWN))
+		{
+			EventManager.getEventManager().sendEvent("down");	
+		}
 
 	}
 
@@ -189,15 +209,16 @@ public class Platformer extends GameObject {
 
 		@Override
 		public void collided(Sprite s1, Sprite s2) {
-			revertPosition1();
-			if (collisionSide == BOTTOM_TOP_COLLISION) {
-				s1.setVerticalSpeed(0);
-				((Character) s1).jumping = false; 
-			}
-			if (collisionSide == LEFT_RIGHT_COLLISION
-					|| collisionSide == RIGHT_LEFT_COLLISION) {
-				s1.setHorizontalSpeed(0);
-			}
+//			revertPosition1();
+//			if (collisionSide == BOTTOM_TOP_COLLISION) {
+//				s1.setVerticalSpeed(0);
+//				((Character) s1).jumping = false; 
+//			}
+//			if (collisionSide == LEFT_RIGHT_COLLISION
+//					|| collisionSide == RIGHT_LEFT_COLLISION) {
+//				s1.setHorizontalSpeed(0);
+//			}
+			EventManager.getEventManager().sendEvent("floor collide");
 		}
 	}
 	
