@@ -1,8 +1,8 @@
-package interactiveSprites;
+package interactiveSprites.interactiveExample;
 
 import com.golden.gamedev.object.collision.CollisionGroup;
 
-public interface InteractiveSprite {
+interface InteractiveSprite {
 	
 	/**
 	 * performs primary function of the interactive sprite type

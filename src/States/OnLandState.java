@@ -16,6 +16,7 @@ public class OnLandState extends CharacterState{
 	public OnLandState(Sprite s)
 	{
 		super(s);
+		System.out.println(myMap);
 		myMap.put("up", new JumpAction(s));
 		myMap.put("right", new MoveRight(s));
 		myMap.put("left", new MoveLeft(s));

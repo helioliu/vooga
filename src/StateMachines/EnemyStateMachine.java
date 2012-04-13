@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import Enemies.Enemy;
-import States.GoUpState;
+import States.RegularMotionState;
 import States.State;
 import States.StationaryState;
 import States.WalkingLeftState;
@@ -26,10 +26,7 @@ public class EnemyStateMachine extends StateMachine {
         possibleStates.add(state);
     }
 
-    public void actionPerformed(String eventName) {
 
-
-    }
 
 
 

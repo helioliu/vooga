@@ -1,4 +1,6 @@
 package game;
+import interactiveSprites.InteractiveSprite;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,6 +34,12 @@ import com.google.gson.reflect.TypeToken;
 public class Platformer extends GameObject {
 
 	public PlayField playfield;
+<<<<<<< HEAD
+=======
+	public Background background;
+	public SpriteGroup CHARACTER, PROJECTILE, POWER_UP, PLATFORM, SPAWNPOINT,
+			COINS, BAD_GUYS, INTERACTIVE_SPRITES, EXIT;
+>>>>>>> 2e011adff14b67b89fb3e5f3260cda0d502e4d2c
 
 	private PlatformGame game;
 
@@ -47,10 +55,65 @@ public class Platformer extends GameObject {
 
 
 
+<<<<<<< HEAD
 	@Override
 	public void initResources() {
 		playfield = new LevelBuilder(this).createLevel(PlatformGame.LEVEL_FILES
 				.get(PlatformGame.currentLevel));
+=======
+		File backgroundPathFile= null; 
+		BufferedImage myBackground=null;		
+				try {
+		backgroundPathFile= new File(myGameInfo.getBackground());
+
+			myBackground = ImageIO.read(backgroundPathFile);
+		} catch (IOException e1) {
+			System.out.print("no background");
+		}
+		background = new ImageBackground(myBackground);
+		playfield = new PlayField(background);
+		// create groups
+		CHARACTER = playfield.addGroup(new SpriteGroup("Character"));
+		PROJECTILE = playfield.addGroup(new SpriteGroup("Projectile"));
+		POWER_UP = playfield.addGroup(new SpriteGroup("Power_Up"));
+		PLATFORM = playfield.addGroup(new SpriteGroup("Platform"));
+		SPAWNPOINT = playfield.addGroup(new SpriteGroup("SPAWNPOINT"));
+		COINS = playfield.addGroup(new SpriteGroup("COINS"));
+		BAD_GUYS = playfield.addGroup(new SpriteGroup("BAD_GUYS"));
+		INTERACTIVE_SPRITES = playfield.addGroup(new SpriteGroup("SPRINGS"));
+
+		for (int i = 0; i < myGameInfo.getList().size(); i++) {
+			SpriteInfo info = myGameInfo.getList().get(i);
+			String className = info.getClassName();
+		    LevelEditable s;
+		    try {  s= (LevelEditable) Class.forName(className).newInstance();
+		     s.parse(info.getList(), this);
+		    } catch (Exception e) {
+
+		    }
+
+		}
+
+		// set up collision groups
+		playfield.addCollisionGroup(CHARACTER, PROJECTILE,
+				new CharacterProjectileCollision());
+		playfield.addCollisionGroup(PROJECTILE, BAD_GUYS,
+				new EnemyProjectileCollision());
+		playfield.addCollisionGroup(CHARACTER, PLATFORM,
+				new SpritePlatformCollision());
+		playfield.addCollisionGroup(CHARACTER, INTERACTIVE_SPRITES,
+				new CharacterInteractiveSpriteCollision());
+		// playfield.addCollisionGroup(CHARACTER, BAD_GUYS,
+		// new CharacterEnemyCollision());
+		// playfield.addCollisionGroup(CHARACTER, COINS, new CoinCollision());
+		// playfield.addCollisionGroup(CHARACTER, POWER_UP,
+		// new PowerUpCollision());
+		// playfield.addCollisionGroup(CHARACTER, PLATFORM,
+		// new PlatformCollision());
+		// playfield.addCollisionGroup(CHARACTER, EXIT, new ExitCollision());
+		// playfield.addCollisionGroup(BAD_GUYS, PLATFORM,
+		// new PlatformCollision());
+>>>>>>> 2e011adff14b67b89fb3e5f3260cda0d502e4d2c
 
 	}
 
@@ -197,15 +260,13 @@ public class Platformer extends GameObject {
 		}
 	}
 	
-	class CharacterSpringCollision extends AdvanceCollisionGroup {
+	class CharacterInteractiveSpriteCollision extends AdvanceCollisionGroup {
 
 		@Override
 		public void collided(Sprite s1, Sprite s2) {
 			
-			if (collisionSide == BOTTOM_TOP_COLLISION){
-			s1.setVerticalSpeed(-1.25);
-			}
-
+			((InteractiveSprite) s2).primaryAction(this);
+			
 		}
 	}
 
