@@ -1,7 +1,5 @@
 package core;
 
-import input.InputManager;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +11,7 @@ public class EventManager {
 	private long elapsedTime;
 	private static EventManager myEventManager;
 
-	public EventManager() {
-		myEventManager = this;
+	private EventManager() {
 		mapEventToEventListnerList = new HashMap<String, ArrayList<EventListener>>();
 		mapEventConditionToEvent = new HashMap<EventCondition, String>();
 	}
@@ -35,10 +32,9 @@ public class EventManager {
 		}
 	}
 
-	public void unregisterEventListener(String e) {
+	public void unregisterEventListener(String e, EventListener listener) {
 		ArrayList<EventListener> list = mapEventToEventListnerList.get(e);
-		list.remove(e);
-		mapEventToEventListnerList.put(e, list);
+		list.remove(listener);
 	}
 
 	public void sendEvent(String e) {

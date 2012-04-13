@@ -1,15 +1,13 @@
 package core.test;
 
-import hudDisplay.BarDisplay;
-import hudDisplay.HeadsUpDisplay;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-import sprites.TestCharacterWithStates;
+import sprites.Chris_TestSprite;
+import States.State;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.CollisionManager;
@@ -21,16 +19,22 @@ import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
+import cutscenes.Cutscene;
+import cutscenes.CutsceneTrigger;
 
-import States.*;
 
-
-public class PlatformGameWithStates extends Game{
-	TestCharacterWithStates s1;
+public class Cutscene_TestGame extends Game{
+	Sprite s1;
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
-	HeadsUpDisplay HUD;
+	
+	//Cutscene Code
+	Cutscene cutscene;
+	Timer cutTimer;
+	CutsceneTrigger trigger;
+	
+	//HeadsUpDisplay HUD;
 
 	
 	public void initResources() {
@@ -38,15 +42,15 @@ public class PlatformGameWithStates extends Game{
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
-		s1 = new TestCharacterWithStates();
+		s1 = new Chris_TestSprite();
 		s1.setImage(getImage("images/mario1.png"));
 		s1.setLocation(300, 200);
 		SpriteGroup character = new SpriteGroup("character");
 		character.add(s1);
 		
-		HUD = new HeadsUpDisplay(0,0,s1);
-		BarDisplay healthbar = new BarDisplay(getImage("images/healthBar.png",false), 500, 0);
-		HUD.add(healthbar, "healthbar");
+//		HUD = new HeadsUpDisplay(0,0,s1);
+//		BarDisplay healthbar = new BarDisplay(getImage("images/healthBar.png",false), 500, 0);
+//		HUD.add(healthbar, "healthbar");
 		
 		Sprite wall = new Sprite(getImage("images/block.png"));
 		wall.setLocation(300,400);
@@ -59,6 +63,11 @@ public class PlatformGameWithStates extends Game{
 		playfield.addGroup(character);
 		playfield.addGroup(walls);
 		
+		//Cutscene Code
+		cutscene = new Cutscene("src/cutscenes/test/testCutsceneScript.script", 14000);
+		trigger = new CutsceneTrigger(cutscene);
+		cutTimer = new Timer(10);
+		
 		
 		
 	}
@@ -66,28 +75,38 @@ public class PlatformGameWithStates extends Game{
 	public void render(Graphics2D arg0) {
 	playfield.render(arg0);
 	collisionTypeWall.checkCollision();
-	HUD.render(arg0);
+//	HUD.render(arg0);
 	}
 	
 	public void update(long elapsedTime) {
+		//Cutscene Code
+		if(cutTimer.action(elapsedTime)) {
+			trigger.triggerCutscene();
+			cutTimer.setActive(false);
+		}
+		cutscene.update(elapsedTime);
+		
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
-		HUD.update(elapsedTime);
+//		HUD.update(elapsedTime);
+		
 
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
-			EventManager.getEventManager().sendEvent("left-key");
+			EventManager.getEventManager().sendEvent("left");
 		}
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
-			EventManager.getEventManager().sendEvent("right-key");
+			EventManager.getEventManager().sendEvent("right");
 		}
 		if (keyDown(KeyEvent.VK_UP))
 		{
-			s1.move(0, 1);
-			EventManager.getEventManager().sendEvent("up-key");
-			
+			EventManager.getEventManager().sendEvent("up");	
+		}
+		if (keyDown(KeyEvent.VK_DOWN))
+		{
+			EventManager.getEventManager().sendEvent("down");	
 		}
 	}
 	
@@ -99,8 +118,7 @@ public class PlatformGameWithStates extends Game{
 
 	    public void collided(Sprite s1, Sprite s2) {
 	    	EventManager.getEventManager().sendEvent("floor collide");
-	    	EventManager.getEventManager().sendEvent("got hit");
-	        
+	    	EventManager.getEventManager().sendEvent("switchstates");
 	    }
 
 	}

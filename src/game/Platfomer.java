@@ -1,4 +1,6 @@
 package game;
+import interactiveSprites.InteractiveSprite;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -33,7 +35,7 @@ public class Platfomer extends GameObject {
 	public PlayField playfield;
 	public Background background;
 	public SpriteGroup CHARACTER, PROJECTILE, POWER_UP, PLATFORM, SPAWNPOINT,
-			COINS, BAD_GUYS, SPRINGS, EXIT;
+			COINS, BAD_GUYS, INTERACTIVE_SPRITES, EXIT;
 
 	private PlatformGame game;
 
@@ -88,7 +90,7 @@ public class Platfomer extends GameObject {
 		SPAWNPOINT = playfield.addGroup(new SpriteGroup("SPAWNPOINT"));
 		COINS = playfield.addGroup(new SpriteGroup("COINS"));
 		BAD_GUYS = playfield.addGroup(new SpriteGroup("BAD_GUYS"));
-		SPRINGS = playfield.addGroup(new SpriteGroup("SPRINGS"));
+		INTERACTIVE_SPRITES = playfield.addGroup(new SpriteGroup("SPRINGS"));
 
 		for (int i = 0; i < myGameInfo.getList().size(); i++) {
 			SpriteInfo info = myGameInfo.getList().get(i);
@@ -109,8 +111,8 @@ public class Platfomer extends GameObject {
 				new EnemyProjectileCollision());
 		playfield.addCollisionGroup(CHARACTER, PLATFORM,
 				new SpritePlatformCollision());
-		playfield.addCollisionGroup(CHARACTER, SPRINGS,
-				new CharacterSpringCollision());
+		playfield.addCollisionGroup(CHARACTER, INTERACTIVE_SPRITES,
+				new CharacterInteractiveSpriteCollision());
 		// playfield.addCollisionGroup(CHARACTER, BAD_GUYS,
 		// new CharacterEnemyCollision());
 		// playfield.addCollisionGroup(CHARACTER, COINS, new CoinCollision());
@@ -267,15 +269,13 @@ public class Platfomer extends GameObject {
 		}
 	}
 	
-	class CharacterSpringCollision extends AdvanceCollisionGroup {
+	class CharacterInteractiveSpriteCollision extends AdvanceCollisionGroup {
 
 		@Override
 		public void collided(Sprite s1, Sprite s2) {
 			
-			if (collisionSide == BOTTOM_TOP_COLLISION){
-			s1.setVerticalSpeed(-1.25);
-			}
-
+			((InteractiveSprite) s2).primaryAction(this);
+			
 		}
 	}
 
