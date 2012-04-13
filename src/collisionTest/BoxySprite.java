@@ -34,6 +34,8 @@ public class BoxySprite extends AdvanceSprite implements Boxable{
 		CollisionShape cs4 = new CollisionRect(64, 0, 64, 64);
 		Hitbox hb4 = new Hitbox(cs4, "Hitbox 4");
 		myHitboxes.add(hb4);*/
+		
+		
 	}
 
 	@Override
