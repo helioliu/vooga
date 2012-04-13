@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.golden.gamedev.object.Timer;
+
 public class EventManager {
 
 	private Map<String, ArrayList<EventListener>> mapEventToEventListnerList;
@@ -67,6 +69,7 @@ public class EventManager {
 			}
 		}
 	}
+	
 
 	public void removeEventCondition(EventCondition condition) {
 		mapEventConditionToEvent.remove(condition);
