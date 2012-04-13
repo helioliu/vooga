@@ -3,6 +3,7 @@ package StateMachines;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import stateTransitions.ChangeStateTransition;
 import stateTransitions.SwitchStatesTransition;
 
 import com.golden.gamedev.object.Sprite;
@@ -16,7 +17,7 @@ public class CharacterStateMachine extends StateMachine{
 		super(s);
 		currentState = new RegularMotionState(s);
 		currentState.activateAllListeners();
-		possibleStateTransitions.add(new SwitchStatesTransition(this, currentState, new ReverseMotionState(s)));
+		possibleStateTransitions.add(new ChangeStateTransition(this, new ReverseMotionState(s)));
 	}
 	
 	

@@ -34,7 +34,7 @@ public abstract class StateMachine{
 	
 	public boolean compareToCurrent(State s)
 	{
-		return currentState==s;
+		return currentState.hashCode()==s.hashCode();
 	}
 	
 	
