@@ -19,9 +19,6 @@ import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
-
-import SpriteAction.MoveRight;
-import States.*;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneTrigger;
 
@@ -55,30 +52,19 @@ public class Chris_TestGame extends Game{
 //		BarDisplay healthbar = new BarDisplay(getImage("images/healthBar.png",false), 500, 0);
 //		HUD.add(healthbar, "healthbar");
 		
-		Sprite wall1 = new Sprite(getImage("images/block.png"));
-		wall1.setLocation(100,100);
-		Sprite wall2 = new Sprite(getImage("images/block.png"));
-		wall2.setLocation(100,150);
-		Sprite wall3 = new Sprite(getImage("images/block.png"));
-		wall3.setLocation(100,200);
-		Sprite wall4 = new Sprite(getImage("images/block.png"));
-		wall4.setLocation(100,250);
+		Sprite wall = new Sprite(getImage("images/block.png"));
+		wall.setLocation(300,400);
 		SpriteGroup walls = new SpriteGroup("walls");
-		walls.add(wall1);
-		walls.add(wall2);
-		walls.add(wall3);
-		walls.add(wall4);
-		
+		walls.add(wall);
 		
 		collisionTypeWall = new WallCollision();
 		collisionTypeWall.setCollisionGroup(character, walls);
 		
-		playfield.addGroup(walls);
 		playfield.addGroup(character);
-		
+		playfield.addGroup(walls);
 		
 		//Cutscene Code
-//		cutscene = new Cutscene("src/cutscenes/test/testCutsceneScript.script", 14000);
+		cutscene = new Cutscene("src/cutscenes/test/testCutsceneScript.script", 14000);
 		trigger = new CutsceneTrigger(cutscene);
 		cutTimer = new Timer(10);
 		
@@ -131,8 +117,6 @@ public class Chris_TestGame extends Game{
 	    }
 
 	    public void collided(Sprite s1, Sprite s2) {
-//	       eventManager.registerTimedListener("right", new MoveRight(s1), 10000);
-	        
 	    	EventManager.getEventManager().sendEvent("floor collide");
 	    	EventManager.getEventManager().sendEvent("switchstates");
 	    }
