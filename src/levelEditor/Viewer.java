@@ -32,7 +32,7 @@ import com.google.gson.Gson;
 public class Viewer extends JPanel {
 
 	private String backgroundPath;
-	private HashMap<Integer, LESprite> CharacterTable = new HashMap<Integer, LESprite>();
+	private HashMap<Integer, GeneralSprite> CharacterTable = new HashMap<Integer, GeneralSprite>();
 	private Model model;
     private JPanel myPanel;
 	private JPanel myPicturePanel;
@@ -243,7 +243,7 @@ public class Viewer extends JPanel {
 				String val = line.substring(i, i + 1);
 				if (!(val.equals(" "))) {
 					Integer x = Integer.parseInt(val);
-					LESprite mySprite = CharacterTable.get(x);
+					GeneralSprite mySprite = CharacterTable.get(x);
 					if (CharacterTable.keySet().contains(x))
 						;
 					{
