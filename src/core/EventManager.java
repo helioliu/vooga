@@ -13,7 +13,7 @@ public class EventManager {
 	private long elapsedTime;
 	private static EventManager myEventManager;
 
-	private EventManager() {
+	public EventManager() {
 		myEventManager = this;
 		mapEventToEventListnerList = new HashMap<String, ArrayList<EventListener>>();
 		mapEventConditionToEvent = new HashMap<EventCondition, String>();

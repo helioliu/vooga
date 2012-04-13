@@ -1,5 +1,4 @@
 package interactiveSprites;
-
 import game.Platfomer;
 
 import java.awt.image.BufferedImage;
@@ -10,15 +9,30 @@ import sprites.LevelEditable;
 import com.golden.gamedev.GameObject;
 import com.golden.gamedev.object.Sprite;
 
-public abstract class Spring_IS extends Sprite implements LevelEditable {
+@SuppressWarnings("serial")
+public abstract class Spring_IS extends Sprite implements LevelEditable, InteractiveSprite {
 	
 	Platfomer myGame;
 	String path;
-	
+	String myType;
 	
 	public Spring_IS(GameObject owner) {
 		super();
+		myType = "spring";
 		//super(owner.getImage("MarioSpring.png", false), 0, 0);
+	}
+	
+	public void primaryAction() {
+		myGame.CHARACTER.getActiveSprite().setVerticalSpeed(-1.25);
+	}
+	
+	public void userMove() {
+		this.setX(myGame.CHARACTER.getActiveSprite().getX() + this.width);
+		this.setY(myGame.CHARACTER.getActiveSprite().getY());
+	}
+	
+	public String getType() {
+		return myType;
 	}
 	
 	public ArrayList<Object> writableObject() {
@@ -35,6 +49,7 @@ public abstract class Spring_IS extends Sprite implements LevelEditable {
 		setX((Integer) o.get(1));
 		setY((Integer) o.get(2));
 		myGame.SPRINGS.add(this);
+		
 	}
 	
 	

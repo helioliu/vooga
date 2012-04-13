@@ -17,6 +17,7 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.background.ImageBackground;
+import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 
@@ -25,7 +26,8 @@ public class RPGGame extends Game {
 	public static final int PLAYING = 0, TALKING = 1, BATTLE = 2, TITLE = 4, HERO = 0, GIRL = 1;
 	int gameState = TITLE;
 	int playerTurn = HERO;
-	Sprite hero, heroSide, girlSide, s1, s2, s3, s4, spring;
+	Sprite hero, heroSide, girlSide, s1, s2, s3, s4;
+	Spring_IS spring;
 	Background background, background2, background3;
 	RPGDialog dialog;
 	GameFont font;
@@ -35,7 +37,7 @@ public class RPGGame extends Game {
 	boolean moving = false;
 	boolean springing;
 	CollisionManager collisionType, collisionType2;
-	SpriteGroup GIRL_GROUP, BIGCAT_GROUP, SPRING_GROUP;
+	SpriteGroup GIRL_GROUP, BIGCAT_GROUP, INTERACTIVE_SPRITE_GROUP;
 	int heroEnergy=100;
 	int girlEnergy=100;
 	String bM = "";
@@ -44,7 +46,8 @@ public class RPGGame extends Game {
 	int phoneNumbers = 0;
 	private Timer springTimer;
 	String[] girlMoves = {"'BITCHY RESPONSE'", "'LOOK AWAY'", "'COLD GAZE'", "'EYE ROLL'"};
-	Sprite movingTarget = new Sprite();
+	
+	InteractiveSprite movingTarget;;
 	
 	{ distribute = true; }
 	
@@ -52,7 +55,7 @@ public class RPGGame extends Game {
 		
 		GIRL_GROUP = new SpriteGroup("Girl Group");
 		BIGCAT_GROUP = new SpriteGroup("Big Cat Group");
-		SPRING_GROUP = new SpriteGroup("Spring Group");
+		INTERACTIVE_SPRITE_GROUP = new SpriteGroup("Interactive Sprite Group");
 		
 		background = new ImageBackground(getImage("CeladonCity.png"),640, 480);
 		background2 = new ImageBackground(getImage("BattleField.png"), 640, 480);
@@ -67,7 +70,7 @@ public class RPGGame extends Game {
 		girlSide = new Sprite(getImage("Chara3Side.png"), 200, 400);
 		girlSide.setLocation(470, 320);
 		
-		spring = new Sprite(getImage("MarioSpring.png"), 100, 200);
+		spring = new Spring_IS(getImage("MarioSpring.png"), 100, 200, this);
 		spring.setLocation(175, 232);
 		
 		s1 = new Sprite(getImage("Girl1.png"), 100, 200);
@@ -84,15 +87,15 @@ public class RPGGame extends Game {
 		GIRL_GROUP.add(s3);
 		GIRL_GROUP.add(s4);
 		BIGCAT_GROUP.add(hero);
-		SPRING_GROUP.add(spring);
-		
+		INTERACTIVE_SPRITE_GROUP.add(spring);
+	
 		collisionType = new BigCatToGirlCollision();
 		collisionType.setCollisionGroup(GIRL_GROUP, BIGCAT_GROUP);
 		
-		collisionType2 = new BigCatToSpringCollision();
-		collisionType2.setCollisionGroup(BIGCAT_GROUP, SPRING_GROUP);
+		collisionType2 = new BigCatToInteractiveSpriteCollision();
+		collisionType2.setCollisionGroup(BIGCAT_GROUP, INTERACTIVE_SPRITE_GROUP);
 				
-		springTimer = new Timer(150);
+		//springTimer = new Timer(150);
 		
 		font = fontManager.getFont(getImage("BitmapFont.png"));
 		box = getImage("DialogBox.png", false);
@@ -108,16 +111,16 @@ public class RPGGame extends Game {
 		background.update(elapsedTime);
 		GIRL_GROUP.update(elapsedTime);
 		BIGCAT_GROUP.update(elapsedTime);
-		SPRING_GROUP.update(elapsedTime);
+		INTERACTIVE_SPRITE_GROUP.update(elapsedTime);
 		
 		collisionType.checkCollision();
 		collisionType2.checkCollision();
 		
-		if (springTimer.isActive() && springTimer.action(elapsedTime)) {
-			springTimer.setActive(false);
-			hero.setVerticalSpeed(0);
-			
-		}
+//		if (springTimer.isActive() && springTimer.action(elapsedTime)) {
+//			springTimer.setActive(false);
+//			hero.setVerticalSpeed(0);
+//			
+//		}
 		
 		if(keyDown(KeyEvent.VK_DOWN)){
 			if((hero.getX()<=237 && hero.getX()>=52 && hero.getY()<=251) || 
@@ -282,10 +285,7 @@ public class RPGGame extends Game {
 			if (touching) moving = true;
 			
 			if (moving) {
-				double heroX = collisionType.getGroup2().getActiveSprite().getX();
-				double heroY = collisionType.getGroup2().getActiveSprite().getY();
-				movingTarget.setX(heroX);
-				movingTarget.setY(heroY-50);
+				movingTarget.userMove();
 			}
 			
 			
@@ -300,7 +300,7 @@ public class RPGGame extends Game {
 		
 		GIRL_GROUP.render(g);
 		BIGCAT_GROUP.render(g);
-		SPRING_GROUP.render(g);
+		INTERACTIVE_SPRITE_GROUP.render(g);
 		
 		background.render(g);
 		hero.render(g);
@@ -352,23 +352,21 @@ public class RPGGame extends Game {
 		@Override
 		public void collided(Sprite s1, Sprite s2) {
 			touching = true;
-			movingTarget = s1;
+			//movingTarget = s1;
 		}
 		
 	}
 	
-	class BigCatToSpringCollision extends BasicCollisionGroup {
+	class BigCatToInteractiveSpriteCollision extends AdvanceCollisionGroup {
 		
 		@Override
 		public void collided(Sprite s1, Sprite s2) {
 			
+			touching = true;
 			
-			springing = true;
-			springTimer.setActive(true);
+			((InteractiveSprite) s2).primaryAction(this);
 			
-			
-			s1.setVerticalSpeed(-.25);
-//			springTimer.setActive(true);
+			movingTarget = (InteractiveSprite) s2;
 			
 		}
 	}
