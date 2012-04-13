@@ -99,6 +99,7 @@ public class Character extends LESprite implements LevelEditable {
 
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Character C= new Character();
+        C.game=game;
 		C.path=o.get(1);
 		C.setX( Double.parseDouble(o.get(2)));
 		C.setY( Double.parseDouble(o.get(3)));
@@ -113,6 +114,7 @@ public class Character extends LESprite implements LevelEditable {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		game.CHARACTER.add(C);
 		return C;
 	}
 

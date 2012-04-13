@@ -15,7 +15,6 @@ import com.golden.gamedev.object.collision.CollisionShape;
 
 public class Platform extends LESprite implements LevelEditable {
 
-	public String path;
 	private Platformer game;
 	
 	
@@ -56,6 +55,7 @@ public class Platform extends LESprite implements LevelEditable {
 
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Platform P= new Platform();
+        P.game=game;
 		P.path=o.get(1);
 		P.setX( Double.parseDouble(o.get(2)));
 		P.setY( Double.parseDouble(o.get(3)));
@@ -67,6 +67,7 @@ public class Platform extends LESprite implements LevelEditable {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		game.PLATFORM.add(P);
 		return P;
 	}
 
