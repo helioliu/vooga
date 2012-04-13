@@ -62,6 +62,7 @@ public class Bad_Guys extends LESprite implements LevelEditable {
 
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Bad_Guys BG= new Bad_Guys();
+        BG.myGame=game;
 		BG.path=o.get(1);
 		BG.setX( Double.parseDouble(o.get(2)));
 		BG.setY( Double.parseDouble(o.get(3)));
@@ -74,6 +75,7 @@ public class Bad_Guys extends LESprite implements LevelEditable {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		BG.myGame.BAD_GUYS.add(BG);
 		return BG;
 	}
 

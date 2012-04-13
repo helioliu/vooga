@@ -32,7 +32,7 @@ import com.google.gson.Gson;
 public class Viewer extends JPanel {
 
 	private String backgroundPath;
-	private HashMap<Integer, LevelEditable> CharacterTable = new HashMap<Integer, LevelEditable>();
+	private HashMap<Integer, LESprite> CharacterTable = new HashMap<Integer, LESprite>();
 	private Model model;
     private JPanel myPanel;
 	private JPanel myPicturePanel;
@@ -195,7 +195,6 @@ public class Viewer extends JPanel {
 
 		Platform s= new Platform();
 		s.setInitPath(file.getCanonicalPath());
-		System.out.println(s.path);
 		CharacterTable.put(ID, s);
 		ID++;
 
@@ -233,7 +232,7 @@ public class Viewer extends JPanel {
 
 	public void Export() throws IOException {
 
-		ArrayList<SpriteInfo> list = new ArrayList<SpriteInfo>();
+		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
 		
 		String level = LevelEditor.getText();
 		Scanner scanner = new Scanner(level);
@@ -244,14 +243,14 @@ public class Viewer extends JPanel {
 				String val = line.substring(i, i + 1);
 				if (!(val.equals(" "))) {
 					Integer x = Integer.parseInt(val);
-					LevelEditable mySprite = CharacterTable.get(x);
+					LESprite mySprite = CharacterTable.get(x);
 					if (CharacterTable.keySet().contains(x))
 						;
 					{
 						mySprite.setInitX(i * width);
 						mySprite.setInitX(count * height);
-						SpriteInfo info = new SpriteInfo(mySprite.getClass().getName(), mySprite.writableObject());
-						list.add(info);
+						
+						list.add(mySprite.writableObject());
 					}
 				}
 			}
