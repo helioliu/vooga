@@ -59,7 +59,7 @@ public class Platform extends LESprite implements LevelEditable {
 		P.path=o.get(1);
 		P.setX( Double.parseDouble(o.get(2)));
 		P.setY( Double.parseDouble(o.get(3)));
-		File file= new File(path);
+		File file= new File(P.path);
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);
