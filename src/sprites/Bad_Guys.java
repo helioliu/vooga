@@ -14,7 +14,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 
-public class Bad_Guys extends LESprite implements LevelEditable {
+public class Bad_Guys extends GeneralSprite {
 	// indicates whether this enemy has been show to screen or not
 	boolean show;
 	boolean enableShoot;
