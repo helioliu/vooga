@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import spriteCollisions.SpritePlatformCollision;
 import sprites.*;
 import sprites.Character;
 
@@ -86,7 +87,7 @@ public class LevelBuilder {
 		myGame.INTERACTIVE_SPRITES = field.addGroup(new SpriteGroup("SPRINGS"));
 
 
-		ArrayList<LESprite> SpriteList= new ArrayList<LESprite>();
+		ArrayList<GeneralSprite> SpriteList= new ArrayList<GeneralSprite>();
 		SpriteList.add(new Bad_Guys());
 		SpriteList.add(new Character());
 		SpriteList.add(new Platform());
@@ -108,8 +109,8 @@ public class LevelBuilder {
 //				new CharacterProjectileCollision());
 //		field.addCollisionGroup(myGame.PROJECTILE, myGame.BAD_GUYS,
 //				new EnemyProjectileCollision());
-//		field.addCollisionGroup(myGame.CHARACTER, myGame.PLATFORM,
-//				new SpritePlatformCollision());
+		field.addCollisionGroup(myGame.CHARACTER, myGame.PLATFORM,
+				new SpritePlatformCollision());
 //		field.addCollisionGroup(myGame.CHARACTER, myGame.SPRINGS,
 //				new CharacterSpringCollision());
 //		// playfield.addCollisionGroup(CHARACTER, BAD_GUYS,
