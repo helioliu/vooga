@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import spriteCollisions.SpritePlatformCollision;
+import SpriteCollisions.SpritePlatformCollision;
 import sprites.*;
 import sprites.Character;
 
@@ -129,3 +129,4 @@ public class LevelBuilder {
 	
 }
 		
+
