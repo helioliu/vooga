@@ -1,6 +1,5 @@
 package core.test;
 
-import hudDisplay.BarDisplay;
 import hudDisplay.HeadsUpDisplay;
 
 import java.awt.Graphics2D;
