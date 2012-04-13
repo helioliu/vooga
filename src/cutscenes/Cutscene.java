@@ -6,19 +6,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.golden.gamedev.object.Timer;
+
 import core.EventCondition;
 import core.EventListener;
 import core.EventManager;
+import core.conditions.DelayedCondition;
 import core.conditions.TimedCutsceneCondition;
 
 public class Cutscene implements EventListener {
 	Map<EventCondition, String> myAutomations;
-	// private boolean cutsceneOn;
 	private File automationScript;
+	private int myDuration;
+	private Timer durationCountdown;
 
-	public Cutscene(String filepath) {
+	public Cutscene(String filepath, int duration) {
 		automationScript = new File(filepath);
-		// cutsceneOn = false;
+		myDuration = duration;
 		EventManager.getEventManager().registerEventListener("cutscene-begin",
 				this);
 
@@ -32,15 +36,19 @@ public class Cutscene implements EventListener {
 		while (s.hasNext()) {
 			String l = s.nextLine();
 			String[] line = l.split(":");
-			if (line.length != 2 | line.length != 3)
+			if (!(line.length == 2 | line.length == 3))
 				throw new BadFileFormatException("Cannot read line: " + l);
 			String eventName = line[0];
 			Integer occursAt = Integer.parseInt(line[1]);
-			Integer duration = 1;
-			if (line.length == 3)
-				duration = Integer.parseInt(line[2]);
-			EventCondition current = new TimedCutsceneCondition(occursAt,
-					duration);
+			EventCondition current = null;
+			if (line.length == 3) {
+				Integer duration = Integer.parseInt(line[2]);
+				current = new TimedCutsceneCondition(occursAt,
+						duration);
+			} else {
+				current = new DelayedCondition(occursAt);
+			}
+			
 			automations.put(current, eventName);
 		}
 
@@ -48,22 +56,18 @@ public class Cutscene implements EventListener {
 	}
 
 	public void update(long timeElapsed) {
-		// if(cutsceneOn) {
-		// cutsceneOn = false;
-		// for(SpriteAutomation automation : myAutomations) {
-		// automation.update(timeElapsed);
-		// // If any of the automations are still working, don't quit.
-		// cutsceneOn = cutsceneOn | automation.isCurrentlyAnimating();
-		// }
-		// }
-		// if(!cutsceneOn) {
-		// EventManager.getEventManager().sendEvent("cutscene-end");
-		// }
-
+		if(durationCountdown != null) {
+			if (durationCountdown.action(timeElapsed)) {
+				EventManager.getEventManager().sendEvent("cutscene-end");
+				endCutscene();
+				durationCountdown = null;
+			}
+		}
 	}
 
 	private void beginCutscene() throws FileNotFoundException,
 			BadFileFormatException {
+		durationCountdown = new Timer(myDuration);
 		myAutomations = parseAutomations(automationScript);
 		for (EventCondition condition : myAutomations.keySet()) {
 			EventManager.getEventManager().addEventCondition(condition,
@@ -85,9 +89,6 @@ public class Cutscene implements EventListener {
 			} catch (FileNotFoundException | BadFileFormatException e) {
 				System.err.println("Cannot read automation script");
 			}
-		}
-		if (eventName.equals("cutscene-end")) {
-			endCutscene();
 		}
 	}
 }
