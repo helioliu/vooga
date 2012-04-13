@@ -25,6 +25,7 @@ public class RPGGame extends Game {
 	int playerTurn = HERO;
 	Sprite hero, heroSide, girlSide, s1, s2, s3, s4;
 	Spring_IS spring;
+	KoopaShell_IS shell;
 	Background background, background2, background3;
 	RPGDialog dialog;
 	GameFont font;
@@ -68,6 +69,9 @@ public class RPGGame extends Game {
 
 		spring = new Spring_IS(getImage("MarioSpring.png"), 100, 200, this);
 		spring.setLocation(175, 232);
+		
+		shell = new KoopaShell_IS(getImage("RedKoopaShell.png"), 100, 200, this);
+		shell.setLocation(175, 170);
 
 		s1 = new Sprite(getImage("Girl1.png"), 100, 200);
 		s1.setLocation(216.7, 109.5);
@@ -84,6 +88,7 @@ public class RPGGame extends Game {
 		GIRL_GROUP.add(s4);
 		BIGCAT_GROUP.add(hero);
 		INTERACTIVE_SPRITE_GROUP.add(spring);
+		INTERACTIVE_SPRITE_GROUP.add(shell);
 
 		collisionType = new BigCatToGirlCollision();
 		collisionType.setCollisionGroup(GIRL_GROUP, BIGCAT_GROUP);
@@ -292,6 +297,7 @@ public class RPGGame extends Game {
 		s3.render(g);
 		s4.render(g);
 		spring.render(g);
+		shell.render(g);
 		
 		font.drawString(g, "PHONE NUMBERS: " + Integer.toString(phoneNumbers),
 				20, 15);
