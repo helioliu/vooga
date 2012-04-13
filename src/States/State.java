@@ -33,13 +33,13 @@ public abstract class State {
 	}
 	public void deactivateListener(String s)
 	{
-		em.unregisterEventListener(s);
+		em.unregisterEventListener(s, myMap.get(s));
 	}
 	public void deactivateAllListeners()
 	{
 		for(String s: myMap.keySet())
 		{
-			em.unregisterEventListener(s);
+			em.unregisterEventListener(s, myMap.get(s));
 		}
 	}
 	

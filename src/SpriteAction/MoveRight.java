@@ -9,7 +9,7 @@ public class MoveRight extends SpriteAction{
 	public MoveRight(Sprite s) {
 		super(s);
 		EventManager em = EventManager.getEventManager();
-		em.registerEventListener("right-key", this);
+//		em.registerEventListener("right", this);
 	}
 
 	public void actionPerformed(String event)

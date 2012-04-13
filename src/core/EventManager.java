@@ -35,10 +35,9 @@ public class EventManager {
 		}
 	}
 
-	public void unregisterEventListener(String e) {
+	public void unregisterEventListener(String e, EventListener listener) {
 		ArrayList<EventListener> list = mapEventToEventListnerList.get(e);
-		list.remove(e);
-		mapEventToEventListnerList.put(e, list);
+		list.remove(listener);
 	}
 
 	public void sendEvent(String e) {
