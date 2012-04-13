@@ -12,12 +12,44 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
+import core.EventListener;
 import core.EventManager;
 
 import States.*;
 
 
 public class PlatformGame extends Game{
+
+
+	private EventManager eventManager;
+	private PlatformGameObject gameObject;
+	PlayField playfield;
+
+	@Override
+	public void initResources ()
+	{
+		eventManager.registerEventListener("EveryTurn.User.ProgBobUpdate", new EventListener()
+		{
+			@Override
+			public void actionPerformed(Object o)
+			{
+				long elapsedTime = (Long)o;
+				gameObject.update(elapsedTime / 1000.0);
+			}
+		});
+		gameObject.init(this, eventManager);
+	}
+	
+	@Override
+    public void render (Graphics2D g)
+    {
+		gameObject.draw(g);
+    }
+
+	@Override
+	public void update(long elapsedTime){
+		gameObject.handleInput();
+		eventManager.update(elapsedTime);
 
 	Map<String, State> stateMap;
 	PlayField playfield;
@@ -56,7 +88,7 @@ public class PlatformGame extends Game{
 	public void update(long elapsedTime) {
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
-		
-	}
 
+	}
+	
 }
