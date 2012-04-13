@@ -92,6 +92,10 @@ public class EventQueue {
 		queues.get(q2).clear();
 	}
 
+	public Map<String, ArrayList<EventListener>> getEventListenerMap(){
+		return myEventListeners;
+	}
+	
 	// public void addEvent(Event e, int queueNumber){
 	// if(queueNumber >= queues.length-1){
 	// Queue<Event>[] temp = new Queue[queueNumber-queues.length+1];

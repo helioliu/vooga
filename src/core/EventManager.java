@@ -6,19 +6,18 @@ import java.util.Map;
 
 public class EventManager implements EventManagerInterface{
 
-	private Map<String, ArrayList<EventListener>> mapEventToEventListnerList;
 	private Map<EventCondition, String> mapEventConditionToEvent;
 	private static EventManager myEventManager;
 	private EventQueue myEventQueue;
 
-	private EventManager() {
-		mapEventToEventListnerList = new HashMap<String, ArrayList<EventListener>>();
+	public EventManager() {
+		myEventManager = this;
 		mapEventConditionToEvent = new HashMap<EventCondition, String>();
 	}
 
-		public void addEvent(String eventName) {
-			myEventQueue.addEvent(eventName);
-		}
+	public void addEvent(String eventName) {
+		myEventQueue.addEvent(eventName);
+	}
 
 	public void addEventCondition(EventCondition cond, String s) {
 		mapEventConditionToEvent.put(cond, s);
@@ -34,14 +33,12 @@ public class EventManager implements EventManagerInterface{
 
 	public void unregisterEventListener(String e, EventListener listener) {
 		myEventQueue.unregisterEventListener(e,listener);
-		ArrayList<EventListener> list = mapEventToEventListnerList.get(e);
-		list.remove(listener);
 	}
 
 	public void sendEvent(String e) {
-		for (String event : mapEventToEventListnerList.keySet()) {
+		for (String event : myEventQueue.getEventListenerMap().keySet()) {
 			if (event.equals(e)) {
-				for (EventListener listener : mapEventToEventListnerList
+				for (EventListener listener : myEventQueue.getEventListenerMap()
 						.get(event)) {
 					listener.actionPerformed(event);
 				}
@@ -57,7 +54,7 @@ public class EventManager implements EventManagerInterface{
 	}
 
 	public void update(long elapsedTime) {
-		
+
 		while(myEventQueue.hasEvents()){
 			String eventName = myEventQueue.removeEvent();
 			for (EventListener listener  : myEventQueue.getEventListeners(eventName)){
