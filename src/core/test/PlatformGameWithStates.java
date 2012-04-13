@@ -91,6 +91,7 @@ public class PlatformGameWithStates extends Game {
 	public void update(long elapsedTime) {
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
+		HUD.update(elapsedTime);
 
 		if (keyDown(KeyEvent.VK_LEFT)) {
 			HUD.update(elapsedTime);
