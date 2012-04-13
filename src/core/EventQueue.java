@@ -76,6 +76,10 @@ public class EventQueue {
 	}
 	
 	public ArrayList<EventListener> getEventListeners(String eventName){
+		if(myEventListeners.get(eventName) == null){
+			return new ArrayList<EventListener>();
+		}
+		
 		return myEventListeners.get(eventName);
 	}
 	
@@ -87,6 +91,10 @@ public class EventQueue {
 		return list.toArray();
 	}
 
+	public List<LinkedList<Event>> getQueues(){
+		return queues;
+	}
+	
 	public void swapQueues(int q1, int q2) {
 		queues.get(q2).addAll(0, queues.get(q1));
 		queues.get(q1).clear();

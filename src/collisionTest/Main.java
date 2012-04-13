@@ -5,7 +5,6 @@ import com.golden.gamedev.GameLoader;
 
 import collisionTest.PlatformGame;
 
-
 public class Main {
 	
 		public static void main(String[] args) {
@@ -14,5 +13,4 @@ public class Main {
 			game.start();
 		}
 		
-	
 }
