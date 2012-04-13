@@ -1,83 +1,81 @@
 package hudDisplay;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import sprites.TestCharacterWithStates;
+import java.util.HashSet;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 
-import core.EventListener;
-
 public class HeadsUpDisplay {
-	
+
 	private int myX;
 	private int myY;
 	private BufferedImage myHUDImage;
-	private Map<String, HUDAttribute> myAttributes;
+	private HashSet<HUDItem> myHUDItems;
+	private HashSet<GraphicItem> myHUDGraphicItems;
+	private HashSet<ScoreItem> myHUDScoreItems;
 	private SpriteGroup HUDGROUP;
-	private TestCharacterWithStates mySprite;
-	
-	public HeadsUpDisplay(BufferedImage HUDImage, int x, int y, TestCharacterWithStates sprite){
+
+	public HeadsUpDisplay(BufferedImage HUDImage, int x, int y) {
 		myHUDImage = HUDImage;
 		myX = x;
 		myY = y;
-		mySprite = sprite;
 		HUDGROUP = new SpriteGroup("hud");
-		setMyAttributes(new HashMap<String, HUDAttribute>());
+		myHUDItems = new HashSet<HUDItem>();
+		myHUDGraphicItems = new HashSet<GraphicItem>();
+		myHUDScoreItems = new HashSet<ScoreItem>();
 		createEmptyHeadsUpDisplay();
-		mySprite.setHUD(this);
 	}
-	
-	public HeadsUpDisplay(int x, int y, TestCharacterWithStates sprite){
+
+	public HeadsUpDisplay(int x, int y) {
 		myX = x;
 		myY = y;
-		mySprite = sprite;
 		HUDGROUP = new SpriteGroup("hud");
-		setMyAttributes(new HashMap<String, HUDAttribute>());
-		mySprite.setHUD(this);
+		myHUDItems = new HashSet<HUDItem>();
+		myHUDGraphicItems = new HashSet<GraphicItem>();
+		myHUDScoreItems = new HashSet<ScoreItem>();
 	}
-	
-	private void createEmptyHeadsUpDisplay(){
+
+	private void createEmptyHeadsUpDisplay() {
 		Sprite emptyHUD = new Sprite(myHUDImage, myX, myY);
 		HUDGROUP.add(emptyHUD);
-		
+
+	}
+
+	public void addGraphicItem(GraphicItem item) {
+		myHUDGraphicItems.add(item);
+		myHUDItems.add(item);
 	}
 	
-	public void add(HUDAttribute attribute, String name){
-		getMyAttributes().put(name, attribute);
-		
+	public void addScoreItem(ScoreItem item) {
+		myHUDScoreItems.add(item);
+		myHUDItems.add(item);
 	}
-	
-	public SpriteGroup getSpriteGroup(){
-		return HUDGROUP;
-	}
-	
-	
 
 	public void render(Graphics2D g) {
-		
-		for(String temp : getMyAttributes().keySet()){
-			
-			HUDGROUP.add(getMyAttributes().get(temp).getSprite());
-			
+
+		for (GraphicItem graphicItem : myHUDGraphicItems) {
+
+			HUDGROUP.add(graphicItem.getSpriteVersion());
+
 		}
-		HUDGROUP.render(g);	
+		HUDGROUP.render(g);
+		
+		for(ScoreItem scoreItem : myHUDScoreItems){
+			scoreItem.render(g);
+		}
 	}
 
 	public void update(long elapsedTime) {
-		HUDGROUP.update(elapsedTime);
-	}
+		for (HUDItem HUDItem : myHUDItems) {
+				int oldScore = HUDItem.getItemScore();
+				int newScore = HUDItem.getAssociatedSprite().getScore(HUDItem.getScoreID());
 
-	public Map<String, HUDAttribute> getMyAttributes() {
-		return myAttributes;
+				if (oldScore != newScore) {
+					HUDItem.adjust(newScore);
+				}
+		}
+			HUDGROUP.update(elapsedTime);
 	}
-
-	public void setMyAttributes(Map<String, HUDAttribute> myAttributes) {
-		this.myAttributes = myAttributes;
-	}
-
 }

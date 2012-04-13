@@ -1,5 +1,4 @@
 package interactiveSprites.interactiveExample;
-import game.Platfomer;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import sprites.LevelEditable;

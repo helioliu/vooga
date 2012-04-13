@@ -28,24 +28,24 @@ public class PlatformGame extends Game{
 	
 	public void initResources() {
 		stateMap = new HashMap<String, State>();
-		eventManager = new EventManager();
+		eventManager = EventManager.getEventManager();
 		playfield = new PlayField();
 
-		Sprite s1 = new BoxySprite(getImages("test.png", 1, 1), 0, 100);//Sprite(getImage("test.png"), 0, 100);
-		Sprite s2 = new BoxySprite(getImages("test.png", 1, 1), 600, 164);
+		Sprite s1 = new Sprite(getImage("test.png"), 0, 100);
+		Sprite s2 = new DysboxySprite(getImages("test.png", 1, 1), 600, 100);
 		
 		playfield.add(s1);
 		playfield.add(s2);
 
-		s1.setHorizontalSpeed(0.2);
-		s2.setHorizontalSpeed(-.2);
+		s1.setHorizontalSpeed(0.5);
+		s2.setHorizontalSpeed(-.5);
 		
 		SpriteGroup CHAR1  		= playfield.addGroup(new AdvanceSpriteGroup("Char1", 0));
 		SpriteGroup CHAR2 		= playfield.addGroup(new AdvanceSpriteGroup("Char2", 300));
 		CHAR1.add(s1);
 		CHAR2.add(s2);
 		
-		playfield.addCollisionGroup(CHAR1, CHAR2, new HitboxHitboxCollision());//HitboxNonhitboxCollision());
+		playfield.addCollisionGroup(CHAR1, CHAR2, new HitboxNonhitboxCollision());
 		
 	}
 	
