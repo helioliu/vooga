@@ -34,12 +34,10 @@ public class PlatformGameWithStates extends Game{
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
-<<<<<<< HEAD
+
 
 	SpriteGroup WALLS, CHARACTER;
-=======
-	
->>>>>>> 3cd26a5ddb340e37616420f2bfda72943c31f10c
+
 	HeadsUpDisplay HUD;
 	GameFont scoreFont;
 
@@ -58,12 +56,12 @@ public class PlatformGameWithStates extends Game{
 		s1 = new TestCharacterWithStates();
 		s1.setImage(getImage("images/mario1.png"));
 		s1.setLocation(300, 200);
-<<<<<<< HEAD
+
 		CHARACTER.add(s1);
-=======
+
 		s1.createScore("health", 300);
 		s1.createScore("score",0);
->>>>>>> 3cd26a5ddb340e37616420f2bfda72943c31f10c
+
 		SpriteGroup character = new SpriteGroup("character");
 		character.add(s1);
 		
@@ -107,24 +105,24 @@ public class PlatformGameWithStates extends Game{
 		{
 			EventManager.getEventManager().sendEvent("left-key");
 		}
-<<<<<<< HEAD
+
 		if (keyDown(KeyEvent.VK_RIGHT)) {
 			eventManager.sendEvent("right-key");
-=======
+
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
 			EventManager.getEventManager().sendEvent("right-key");
->>>>>>> 3cd26a5ddb340e37616420f2bfda72943c31f10c
+
 		}
 		if (keyDown(KeyEvent.VK_UP)) {
 			s1.move(0, 1);
-<<<<<<< HEAD
+
 			eventManager.sendEvent("up-key");
 
-=======
+
 			EventManager.getEventManager().sendEvent("up-key");
 			
->>>>>>> 3cd26a5ddb340e37616420f2bfda72943c31f10c
+
 		}
 		
 
@@ -149,6 +147,6 @@ public class PlatformGameWithStates extends Game{
 	}
 	}
 }
-}
+}}
 
 
