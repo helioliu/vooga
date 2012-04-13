@@ -13,8 +13,10 @@ public class WalkRight extends SpriteAction{
         em.registerEventListener("walking right", this);
     }
     
-    public void actionPerformed(String event){
+    public void actionPerformed(Object event){
         mySprite.setMovement(.025, 90);
     }
+
+	
 
 }

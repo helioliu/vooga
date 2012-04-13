@@ -14,6 +14,7 @@ public class RegularMotionState extends EnemyState {
         myMap.put("left", new MoveLeft(s));
         myMap.put("right", new MoveRight(s));
         myMap.put("floor collide", new StandAction(s));
+        myGravityValue = 0;
         
     }
    

@@ -15,7 +15,7 @@ public class ChangeStateTransition extends StateTransition{
 	}
 
 	@Override
-	public void actionPerformed(String eventName) {
+	public void actionPerformed(Object eventName) {
 		myStateMachine.changeState(stateToChangeTo);
 		
 	}
