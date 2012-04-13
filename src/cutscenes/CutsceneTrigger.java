@@ -1,18 +1,15 @@
 package cutscenes;
 
+import java.awt.image.BufferedImage;
+
 import com.golden.gamedev.object.Sprite;
 
 import core.EventManager;
 
 public class CutsceneTrigger extends Sprite {
-	private Cutscene myCutscene;
 	
-	public CutsceneTrigger(Cutscene cutscene) {
-		myCutscene = cutscene;
-	}
-	
-	public Cutscene getCutscene() {
-		return myCutscene;
+	public CutsceneTrigger(BufferedImage i) {
+		super(i);
 	}
 	
 	public void triggerCutscene() {

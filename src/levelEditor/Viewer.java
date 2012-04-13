@@ -248,7 +248,7 @@ public class Viewer extends JPanel {
 						;
 					{
 						mySprite.setInitX(i * width);
-						mySprite.setInitX(count * height);
+						mySprite.setInitY(count * height);
 						
 						list.add(mySprite.writableObject());
 					}

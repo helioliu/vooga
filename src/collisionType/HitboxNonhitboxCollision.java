@@ -41,25 +41,27 @@ public class HitboxNonhitboxCollision extends AdvanceCollisionGroup{
 			cr2 = new CollisionRect(rect1.x, rect1.y, rect1.getHeight(), rect1.getWidth());
 		}
 		
-		for(Hitbox h : ((Boxable)hbs).getHitboxes()){
+		//for(Hitbox h : ((Boxable)hbs).getHitboxes()){
+		for(int i=0; i<((Boxable)hbs).getHitboxes().size(); i++){
+			Hitbox h = ((Boxable)hbs).getHitboxes().get(i);
 			//clone and shift the hitbox so that it is relative to the game
 			//instead of just its owner
 			CollisionShape shiftedHB = h.getShape().clone();
 			shiftedHB.move(cr1.getX(), cr1.getY());
 			if(cr2.intersects(shiftedHB)){
 				//broadcast an event
-				//the event is retrieved from h
-				EventManager.getEventManager().sendEvent(h.getEvent());
-				System.out.println(h.getEvent());
+				EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID()+" "+h.getID());
+				System.out.println("collision "+s1.getID()+" "+s2.getID()+" "+h.getID());
+				EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+h.getID()+" "+s1.getID());
+				System.out.println("collision "+s2.getID()+" "+h.getID()+" "+s1.getID());
 			}
 		}
 		
 		//broadcast default collision behavior event
-		//the event is retrieved from hbs
-		EventManager.getEventManager().sendEvent(((Boxable)hbs).getDefaultEvent());
-		System.out.println(((Boxable)hbs).getDefaultEvent());
-		
-		
+		EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID());
+		System.out.println("collision "+s1.getID()+" "+s2.getID());
+		EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+s1.getID());
+		System.out.println("collision "+s2.getID()+" "+s1.getID());
 	}
 
 }
