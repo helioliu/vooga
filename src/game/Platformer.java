@@ -21,6 +21,7 @@ import sprites.*;
 import sprites.Character;
 
 import com.golden.gamedev.GameObject;
+import com.golden.gamedev.engine.input.AWTInput;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
@@ -52,7 +53,7 @@ public class Platformer extends GameObject {
 		game = parent;
 	}
 
-
+	
 
 	@Override
 	public void initResources() {

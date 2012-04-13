@@ -15,9 +15,9 @@ public class CharacterStateMachine extends StateMachine{
 	public CharacterStateMachine(Sprite s)
 	{
 		super(s);
-		currentState = new RegularMotionState(s);
+		currentState = new OnLandState(s);
 		currentState.activateAllListeners();
-		possibleStateTransitions.add(new ChangeStateTransition(this, new ReverseMotionState(s)));
+		//possibleStateTransitions.add(new ChangeStateTransition(this, new RegularMotionState(s)));
 	}
 	
 	
