@@ -64,6 +64,7 @@ public class Platformer extends GameObject {
 	@Override
 	public void update(long arg0) {
 		playfield.update(arg0);
+		EventManager.getEventManager().update(arg0);
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
@@ -90,146 +91,147 @@ public class Platformer extends GameObject {
 
 	}
 
-	class PowerUpCollision extends BasicCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-			// remove missile, and enemy sprite
-			// String type = s2.getPowerUpType();
-			// if (type = speed) {
-			// s1.getHorizontalSpeed() = s2.getPowerUpValue();
-			// }
-			// more types here
-			s2.setActive(false);
-
-		}
-	}
-
-	class EnemyProjectileCollision extends BasicCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-
-			s1.setActive(false);
-			// remove missile, and enemy sprite
-			// Config.score = s2.getValue();
-			s2.setActive(false);
-
-		}
-	}
-
-	class CharacterProjectileCollision extends BasicCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-
-			// remove missile, and enemy sprite
-			// Config.lives -= s2.getDamage();
-			s1.setX(0);
-			s1.setY(0);
-			//
-			// s2.setActive(false);
-			//
-			//
-			// initResources();
-
-		}
-	}
-
-	class CoinCollision extends BasicCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-
-			// remove missile, and enemy sprite
-			// lives += s2.getValue();
-			s2.setActive(false);
-
-		}
-	}
-
-	class PlatformCollision extends BasicCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-			// remove missile, and enemy sprite
-			s1.setVerticalSpeed(0);
-
-			BufferedImage[] explosion = getImages("explosion.png", 6, 1);
-			playfield.add(new VolatileSprite(explosion, s2.getX(), s2.getY()));
-		}
-	}
-
-	// -> our fighter collide with enemy OR enemy's missile
-	class ExitCollision extends BasicCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-			// remove both sprite
-			s1.setActive(false);
-			s2.setActive(false);
-
-			PlatformGame.LEVEL_FILES = null;
-			initResources();
-
-		}
-	}
-
-	class CharacterEnemyCollision extends BasicCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-			// remove both sprite
-			s1.setActive(false);
-			s2.setActive(false);
-
-			PlatformGame.LEVEL_FILES = null;
-			initResources();
-
-		}
-	}
-
-	class SpritePlatformCollision extends AdvanceCollisionGroup {
-
-		public SpritePlatformCollision() {
-			super();
-		}
-
-//		public CollisionShape getCollisionShape1(Sprite s1) {
-//			rect1.setBounds(s1.getX() + 6, s1.getY() + 12, s1.getWidth() - 12,
-//					s1.getHeight() - 18);
-//			return rect1;
+//	class PowerUpCollision extends BasicCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//			// remove missile, and enemy sprite
+//			// String type = s2.getPowerUpType();
+//			// if (type = speed) {
+//			// s1.getHorizontalSpeed() = s2.getPowerUpValue();
+//			// }
+//			// more types here
+//			s2.setActive(false);
+//
+//		}
+//	}
+//
+//	class EnemyProjectileCollision extends BasicCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//
+//			s1.setActive(false);
+//			// remove missile, and enemy sprite
+//			// Config.score = s2.getValue();
+//			s2.setActive(false);
+//
+//		}
+//	}
+//
+//	class CharacterProjectileCollision extends BasicCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//
+//			// remove missile, and enemy sprite
+//			// Config.lives -= s2.getDamage();
+//			s1.setX(0);
+//			s1.setY(0);
+//			//
+//			// s2.setActive(false);
+//			//
+//			//
+//			// initResources();
+//
+//		}
+//	}
+//
+//	class CoinCollision extends BasicCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//
+//			// remove missile, and enemy sprite
+//			// lives += s2.getValue();
+//			s2.setActive(false);
+//
+//		}
+//	}
+//
+//	class PlatformCollision extends BasicCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//			// remove missile, and enemy sprite
+//			s1.setVerticalSpeed(0);
+//
+//			BufferedImage[] explosion = getImages("explosion.png", 6, 1);
+//			playfield.add(new VolatileSprite(explosion, s2.getX(), s2.getY()));
+//		}
+//	}
+//
+//	// -> our fighter collide with enemy OR enemy's missile
+//	class ExitCollision extends BasicCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//			// remove both sprite
+//			s1.setActive(false);
+//			s2.setActive(false);
+//
+//			PlatformGame.LEVEL_FILES = null;
+//			initResources();
+//
+//		}
+//	}
+//
+//	class CharacterEnemyCollision extends BasicCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//			// remove both sprite
+//			s1.setActive(false);
+//			s2.setActive(false);
+//
+//			PlatformGame.LEVEL_FILES = null;
+//			initResources();
+//
+//		}
+//	}
+//
+//	class SpritePlatformCollision extends AdvanceCollisionGroup {
+//
+//		public SpritePlatformCollision() {
+//			super();
 //		}
 //
-//		public CollisionShape getCollisionShape2(Sprite s2) {
-//			rect2.setBounds(s2.getX() + 6, s2.getY() - 4, s2.getWidth() - 12,
-//					s2.getHeight() - 32);
-//			return rect2;
+////		public CollisionShape getCollisionShape1(Sprite s1) {
+////			rect1.setBounds(s1.getX() + 6, s1.getY() + 12, s1.getWidth() - 12,
+////					s1.getHeight() - 18);
+////			return rect1;
+////		}
+////
+////		public CollisionShape getCollisionShape2(Sprite s2) {
+////			rect2.setBounds(s2.getX() + 6, s2.getY() - 4, s2.getWidth() - 12,
+////					s2.getHeight() - 32);
+////			return rect2;
+////		}
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+////			revertPosition1();
+////			if (collisionSide == BOTTOM_TOP_COLLISION) {
+////				s1.setVerticalSpeed(0);
+////				((Character) s1).jumping = false; 
+////			}
+////			if (collisionSide == LEFT_RIGHT_COLLISION
+////					|| collisionSide == RIGHT_LEFT_COLLISION) {
+////				s1.setHorizontalSpeed(0);
+////			}
+//			System.out.println("collides");
+//			EventManager.getEventManager().sendEvent("floor collide");
 //		}
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-//			revertPosition1();
-//			if (collisionSide == BOTTOM_TOP_COLLISION) {
-//				s1.setVerticalSpeed(0);
-//				((Character) s1).jumping = false; 
-//			}
-//			if (collisionSide == LEFT_RIGHT_COLLISION
-//					|| collisionSide == RIGHT_LEFT_COLLISION) {
-//				s1.setHorizontalSpeed(0);
-//			}
-			EventManager.getEventManager().sendEvent("floor collide");
-		}
-	}
-	
-	class CharacterInteractiveSpriteCollision extends AdvanceCollisionGroup {
-
-		@Override
-		public void collided(Sprite s1, Sprite s2) {
-			
-			((InteractiveSprite) s2).primaryAction(this);
-			
-		}
-	}
+//	}
+//	
+//	class CharacterInteractiveSpriteCollision extends AdvanceCollisionGroup {
+//
+//		@Override
+//		public void collided(Sprite s1, Sprite s2) {
+//			
+//			((InteractiveSprite) s2).primaryAction(this);
+//			
+//		}
+//	}
 
 }
