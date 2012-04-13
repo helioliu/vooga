@@ -1,8 +1,5 @@
 package core.test;
 
-import hudDisplay.BarDisplay;
-import hudDisplay.HeadsUpDisplay;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -10,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import sprites.Chris_TestSprite;
-import sprites.TestCharacterWithStates;
+import States.State;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.CollisionManager;
@@ -22,22 +19,26 @@ import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
-
-import States.*;
+import cutscenes.Cutscene;
+import cutscenes.CutsceneTrigger;
 
 
 public class Chris_TestGame extends Game{
 	Sprite s1;
 	Map<String, State> stateMap;
-	EventManager eventManager;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
+	
+	//Cutscene Code
+	Cutscene cutscene;
+	Timer cutTimer;
+	CutsceneTrigger trigger;
+	
 	//HeadsUpDisplay HUD;
 
 	
 	public void initResources() {
 		stateMap = new HashMap<String, State>();
-		eventManager = new EventManager();
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
@@ -62,6 +63,11 @@ public class Chris_TestGame extends Game{
 		playfield.addGroup(character);
 		playfield.addGroup(walls);
 		
+		//Cutscene Code
+		cutscene = new Cutscene("src/cutscenes/test/testCutsceneScript.script", 14000);
+		trigger = new CutsceneTrigger(cutscene);
+		cutTimer = new Timer(10);
+		
 		
 		
 	}
@@ -73,26 +79,34 @@ public class Chris_TestGame extends Game{
 	}
 	
 	public void update(long elapsedTime) {
-		eventManager.update(elapsedTime);
+		//Cutscene Code
+		if(cutTimer.action(elapsedTime)) {
+			trigger.triggerCutscene();
+			cutTimer.setActive(false);
+		}
+		cutscene.update(elapsedTime);
+		
+		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
 //		HUD.update(elapsedTime);
+		
 
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
-			eventManager.sendEvent("left");
+			EventManager.getEventManager().sendEvent("left");
 		}
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
-			eventManager.sendEvent("right");
+			EventManager.getEventManager().sendEvent("right");
 		}
 		if (keyDown(KeyEvent.VK_UP))
 		{
-			eventManager.sendEvent("up");	
+			EventManager.getEventManager().sendEvent("up");	
 		}
 		if (keyDown(KeyEvent.VK_DOWN))
 		{
-			eventManager.sendEvent("down");	
+			EventManager.getEventManager().sendEvent("down");	
 		}
 	}
 	
@@ -103,9 +117,8 @@ public class Chris_TestGame extends Game{
 	    }
 
 	    public void collided(Sprite s1, Sprite s2) {
-	       eventManager.sendEvent("floor collide");
-	       eventManager.sendEvent("switchstates");
-	        
+	    	EventManager.getEventManager().sendEvent("floor collide");
+	    	EventManager.getEventManager().sendEvent("switchstates");
 	    }
 
 	}
