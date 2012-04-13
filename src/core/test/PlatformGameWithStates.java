@@ -28,7 +28,6 @@ import States.*;
 public class PlatformGameWithStates extends Game{
 	TestCharacterWithStates s1;
 	Map<String, State> stateMap;
-	EventManager eventManager;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
 	HeadsUpDisplay HUD;
@@ -36,7 +35,6 @@ public class PlatformGameWithStates extends Game{
 	
 	public void initResources() {
 		stateMap = new HashMap<String, State>();
-		eventManager = new EventManager();
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
@@ -72,23 +70,23 @@ public class PlatformGameWithStates extends Game{
 	}
 	
 	public void update(long elapsedTime) {
-		eventManager.update(elapsedTime);
+		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
 		HUD.update(elapsedTime);
 
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
-			eventManager.sendEvent("left-key");
+			EventManager.getEventManager().sendEvent("left-key");
 		}
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
-			eventManager.sendEvent("right-key");
+			EventManager.getEventManager().sendEvent("right-key");
 		}
 		if (keyDown(KeyEvent.VK_UP))
 		{
 			s1.move(0, 1);
-			eventManager.sendEvent("up-key");
+			EventManager.getEventManager().sendEvent("up-key");
 			
 		}
 	}
@@ -100,8 +98,8 @@ public class PlatformGameWithStates extends Game{
 	    }
 
 	    public void collided(Sprite s1, Sprite s2) {
-	       eventManager.sendEvent("floor collide");
-	       eventManager.sendEvent("got hit");
+	    	EventManager.getEventManager().sendEvent("floor collide");
+	    	EventManager.getEventManager().sendEvent("got hit");
 	        
 	    }
 
