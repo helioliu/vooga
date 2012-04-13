@@ -1,31 +1,42 @@
 package sprites;
-
-import hudDisplay.HeadsUpDisplay;
-
+import java.util.HashMap;
 import com.golden.gamedev.object.Sprite;
-
 import StateMachines.CharacterStateMachine;
 import StateMachines.StateMachine;
 
 public class TestCharacterWithStates extends Sprite{
 	private StateMachine stateManager;
-	private HeadsUpDisplay HUD;
+	private HashMap<String, Integer> myScores;
 	
-	public HeadsUpDisplay getHUD(){
-		return HUD;
-	}
 	
-	public void setHUD(HeadsUpDisplay HUD){
-		this.HUD = HUD;
-	}
 	
 	public TestCharacterWithStates()
 	{
 		super();
+		myScores = new HashMap<String, Integer>();
 		stateManager = new CharacterStateMachine(((Sprite) this));
 		
 	}
 	
+	public void createScore(String name, Integer score) {
+		myScores.put(name, score);
+	}
+	
+	public Integer getScore(String name){
+		return myScores.get(name);
+	}
+	
+	public HashMap<String, Integer> getInternalScores(){
+		return myScores;
+	}
+	
+	public void changeScore(String name, int x){	
+		if(myScores.get(name) + x > 0)
+		createScore(name,myScores.get(name) + x);
+		else
+			myScores.put(name, 0);
+		
+	}
 	public void update(long elapsedTime)
 	{
 		
