@@ -51,6 +51,10 @@ public class GeneralSprite extends AdvanceSprite implements Boxable {
 	public String getDefaultEvent() {
 		return "";
 	}
+	public void setGravity(double d)
+	{
+		myGravityValue = d;
+	}
 	
 	public void setImage(BufferedImage i) {
 		BufferedImage[] image = new BufferedImage[1];

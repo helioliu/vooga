@@ -1,6 +1,5 @@
 package core.test;
 
-import hudDisplay.BarDisplay;
 import hudDisplay.HeadsUpDisplay;
 
 import java.awt.Graphics2D;
@@ -20,7 +19,7 @@ import States.*;
 
 public class PlatformGame extends Game{
 
-<<<<<<< HEAD
+
 	private EventManager eventManager;
 	private PlatformGameObject gameObject;
 	PlayField playfield;
@@ -50,7 +49,7 @@ public class PlatformGame extends Game{
 	public void update(long elapsedTime){
 		gameObject.handleInput();
 		eventManager.update(elapsedTime);
-=======
+
 	Map<String, State> stateMap;
 	PlayField playfield;
 	
@@ -88,8 +87,7 @@ public class PlatformGame extends Game{
 	public void update(long elapsedTime) {
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
-		
->>>>>>> 3cd26a5ddb340e37616420f2bfda72943c31f10c
+
 	}
 	
 }

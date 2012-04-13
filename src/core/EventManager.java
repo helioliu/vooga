@@ -4,36 +4,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EventManager implements EventManagerInterface{
+import com.golden.gamedev.object.Timer;
+
+public class EventManager {
 
 	private Map<String, ArrayList<EventListener>> mapEventToEventListnerList;
 	private Map<EventCondition, String> mapEventConditionToEvent;
+	private long elapsedTime;
 	private static EventManager myEventManager;
-	private EventQueue myEventQueue;
 
 	private EventManager() {
 		mapEventToEventListnerList = new HashMap<String, ArrayList<EventListener>>();
 		mapEventConditionToEvent = new HashMap<EventCondition, String>();
 	}
 
-		public void addEvent(String eventName) {
-			myEventQueue.addEvent(eventName);
-		}
-
 	public void addEventCondition(EventCondition cond, String s) {
 		mapEventConditionToEvent.put(cond, s);
 	}
 
-	public void removeEventCondition(EventCondition condition) {
-		mapEventConditionToEvent.remove(condition);
-	}
-
 	public void registerEventListener(String e, EventListener listener) {
-		myEventQueue.registerEventListener(e, listener);
+		if (!mapEventToEventListnerList.containsKey(e)) {
+			ArrayList<EventListener> list = new ArrayList<EventListener>();
+			list.add(listener);
+			mapEventToEventListnerList.put(e, list);
+		} else {
+			ArrayList<EventListener> list = mapEventToEventListnerList.get(e);
+			list.add(listener);
+			mapEventToEventListnerList.put(e, list);
+		}
 	}
 
 	public void unregisterEventListener(String e, EventListener listener) {
-		myEventQueue.unregisterEventListener(e,listener);
 		ArrayList<EventListener> list = mapEventToEventListnerList.get(e);
 		list.remove(listener);
 	}
@@ -56,16 +57,22 @@ public class EventManager implements EventManagerInterface{
 		return myEventManager;
 	}
 
-	public void update(long elapsedTime) {
-		
-		while(myEventQueue.hasEvents()){
-			String eventName = myEventQueue.removeEvent();
-			for (EventListener listener  : myEventQueue.getEventListeners(eventName)){
-				listener.actionPerformed(elapsedTime);
+	public long getElapsedTime() {
+		return elapsedTime;
+	}
+
+	public void update(long timeElapsed) {
+		elapsedTime = timeElapsed;
+		for (EventCondition cond : mapEventConditionToEvent.keySet()) {
+			if (cond.conditionTrue()) {
+				sendEvent(mapEventConditionToEvent.get(cond));
 			}
 		}
 	}
+	
 
-}	
+	public void removeEventCondition(EventCondition condition) {
+		mapEventConditionToEvent.remove(condition);
+	}
 
-
+}
