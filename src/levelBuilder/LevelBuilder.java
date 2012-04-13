@@ -47,6 +47,7 @@ public class LevelBuilder {
 			scanner = new Scanner(new File(jsonString));
 
 			String wholeFile = scanner.useDelimiter("\\A").next();
+			System.out.println(wholeFile);
 			Type collectionType = new TypeToken<GameFile>() {
 			}.getType();
 			myGameInfo = gson.fromJson(wholeFile, collectionType);
@@ -72,6 +73,7 @@ public class LevelBuilder {
 			System.out.print("no background");
 		}
 		background = new ImageBackground(myBackground);
+		
 		field = new PlayField(background);
 		// create groups
 		myGame.CHARACTER = field.addGroup(new SpriteGroup("Character"));

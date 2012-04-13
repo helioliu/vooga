@@ -1,5 +1,7 @@
 package sprites;
 
+import game.Platformer;
+
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
@@ -9,11 +11,15 @@ import collisions.Hitbox;
 
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
-public class GeneralSprite extends AdvanceSprite implements Boxable {
+public abstract class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 	protected Map<String, Integer> myScores;
 	protected StateMachine myStateMachine;
 	protected List<Hitbox> myHitboxes;
 	protected double myGravityValue; 
+	protected Platformer mygame;
+	protected String path;
+	protected int x;
+	protected int y;
 
 	
 	
@@ -61,7 +67,22 @@ public class GeneralSprite extends AdvanceSprite implements Boxable {
 		image[0] = i;
 		setImages(image);
 	}
-	
+	public void setInitX(double d) {
+		x = (int) d;
+		this.setX(x);
+		
+	}
+
+	public void setInitY(double val) {
+		y = (int) val;
+		this.setY(y);
+		
+	}
+
+	public void setInitPath(String path) {
+		this.path=path;
+		
+	}
 	
 	
 

@@ -21,7 +21,6 @@ public class Character extends LESprite implements LevelEditable {
 	boolean enableFireball=true;
 	public boolean jumping=true;
 	private Timer jumpTimer;
-	String path;
 
 	public Character() {
 		super();
@@ -106,7 +105,7 @@ public class Character extends LESprite implements LevelEditable {
 		C.enableGunFire= true;
 		C.enableFireball= true;
 		C.jumping=true;
-		File file= new File(path);
+		File file= new File(C.path);
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);

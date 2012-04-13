@@ -13,7 +13,7 @@ public class WalkLeft extends SpriteAction{
         em.registerEventListener("walking left", this);
     }
     
-    public void actionPerformed(String event){
+    public void actionPerformed(Object event){
         mySprite.setMovement(.025, 270);
     }
 
