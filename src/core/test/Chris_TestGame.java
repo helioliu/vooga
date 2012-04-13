@@ -34,7 +34,7 @@ public class Chris_TestGame extends Game{
 
 	
 	public void initResources() {
-		stateMap = new HashMap<String, State>();
+//		stateMap = new HashMap<String, State>();
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
@@ -57,11 +57,13 @@ public class Chris_TestGame extends Game{
 		Sprite wall4 = new Sprite(getImage("images/block.png"));
 		wall4.setLocation(250,400);
 
-		Sprite wall = new Sprite(getImage("images/block.png"));
-		wall.setLocation(300,400);
 
 		SpriteGroup walls = new SpriteGroup("walls");
-		walls.add(wall);
+		walls.add(wall1);
+		walls.add(wall2);
+		walls.add(wall3);
+		walls.add(wall4);
+		
 		
 		collisionTypeWall = new WallCollision();
 		collisionTypeWall.setCollisionGroup(character, walls);
@@ -122,7 +124,8 @@ public class Chris_TestGame extends Game{
 
 	    public void collided(Sprite s1, Sprite s2) {
 	    	EventManager.getEventManager().sendEvent("floor collide");
-	    	EventManager.getEventManager().sendEvent("switchstates");
+//	    	EventManager.getEventManager().sendEvent("switchstates");
+	    	
 	    }
 
 	}
