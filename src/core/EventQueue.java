@@ -13,43 +13,43 @@ public class EventQueue {
 	private static final int MEDIUM_PRIORITY = 1;
 	private static final int NORMAL_PRIORITY = 2;
 	private int maximumQueueSize;
-	private List<LinkedList<String>> queues;
+	private List<LinkedList<Event>> queues;
 	private Map<String, ArrayList<EventListener>> myEventListeners;
 
 	public EventQueue() {
 		myEventListeners = new HashMap<String, ArrayList<EventListener>>();
 
-		queues = new ArrayList<LinkedList<String>>();
+		queues = new ArrayList<LinkedList<Event>>();
 		
-		queues.add(new LinkedList<String>());
-		queues.add(new LinkedList<String>());
-		queues.add(new LinkedList<String>());
+		queues.add(new LinkedList<Event>());
+		queues.add(new LinkedList<Event>());
+		queues.add(new LinkedList<Event>());
 	}
 
 	public EventQueue(int numQueues) {
 		for (int i = 0; i < numQueues; i++) {
-			queues.add(new LinkedList<String>());
+			queues.add(new LinkedList<Event>());
 		}
 	}
 
-	public void addEvent(String e) {
-		queues.get(0).add(e);
+	public void addEvent(Event event) {
+		queues.get(0).add(event);
 	}
 
-	public void addEvent(String e, int queueNumber) {
-		queues.get(queueNumber).add(e);
+	public void addEvent(Event event, int queueNumber) {
+		queues.get(queueNumber).add(event);
 	}
 
-	public String removeEvent() {
+	public Event removeEvent() {
 		return queues.get(0).remove();
 	}
 
-	public String removeEvent(int queueNumber) {
+	public Event removeEvent(int queueNumber) {
 		return queues.get(queueNumber).remove();
 	}
 
 	public boolean hasEvents() {
-		for (LinkedList<String> list : queues) {
+		for (LinkedList<Event> list : queues) {
 			if (!list.isEmpty()) {
 				return true;
 			}
@@ -80,8 +80,8 @@ public class EventQueue {
 	}
 	
 	public Object[] getNextEvents() {
-		ArrayList<String> list = new ArrayList<String>();
-		for (Queue<String> q : queues) {
+		ArrayList<Event> list = new ArrayList<Event>();
+		for (Queue<Event> q : queues) {
 			list.add(q.poll());
 		}
 		return list.toArray();
