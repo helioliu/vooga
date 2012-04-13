@@ -16,11 +16,9 @@ public class DecrementBarAction extends HUDAction {
 	}
 
 	@Override
-	public void actionPerformed(String eventName) {
-		HeadsUpDisplay HUD = mySprite.getHUD();
-		BarDisplay healthbar = (BarDisplay) HUD.getMyAttributes().get("healthbar");
-		healthbar.AdjustBar(1);
-		
+	public void actionPerformed(String eventName) {	
+		mySprite.changeScore("health", -5);
+		mySprite.changeScore("score", 20);
 	}
 
 }

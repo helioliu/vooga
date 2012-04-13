@@ -10,9 +10,9 @@ import collisions.Hitbox;
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
 public class GeneralSprite extends AdvanceSprite implements Boxable {
-	private Map<String, Integer> myScores;
-	private StateMachine myStateMachine;
-	private List<Hitbox> myHitboxes;
+	protected Map<String, Integer> myScores;
+	protected StateMachine myStateMachine;
+	protected List<Hitbox> myHitboxes;
 	
 	
 	public GeneralSprite() {
