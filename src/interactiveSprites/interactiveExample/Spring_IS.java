@@ -10,13 +10,11 @@ public class Spring_IS extends Sprite implements InteractiveSprite {
 
 	String myType;
 	RPGGame myGame;
-	Timer springTimer;
 	
 	public Spring_IS(BufferedImage bufferedImage, int i, int j, RPGGame game) {
 		super(bufferedImage, i, j);
 		myType = "spring";
 		myGame = game;
-		springTimer = new Timer(150);
 	}
 	
 	public void primaryAction(CollisionGroup c) {
@@ -24,8 +22,6 @@ public class Spring_IS extends Sprite implements InteractiveSprite {
 		if(c.getCollisionSide()== c.BOTTOM_TOP_COLLISION) {
 		myGame.BIGCAT_GROUP.getActiveSprite().setVerticalSpeed(-.25);
 		}
-		
-		
 	}
 	
 	public void userMove() {
