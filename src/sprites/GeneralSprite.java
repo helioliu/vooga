@@ -22,7 +22,7 @@ public class GeneralSprite extends AdvanceSprite implements Boxable {
 		super();
 		BufferedImage[] image = new BufferedImage[1];
 		image[0] = i;
-		setImage(i);
+		setImages(image);
 	}
 	
 	public GeneralSprite(BufferedImage[] i) {
