@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import levelBuilder.LevelBuilder;
 import levelEditor.*;
 
 
@@ -28,99 +29,28 @@ import com.golden.gamedev.object.sprite.VolatileSprite;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class Platfomer extends GameObject {
+public class Platformer extends GameObject {
 
 	public PlayField playfield;
-	public Background background;
-	public SpriteGroup CHARACTER, PROJECTILE, POWER_UP, PLATFORM, SPAWNPOINT,
-			COINS, BAD_GUYS, SPRINGS, EXIT;
 
 	private PlatformGame game;
 
-	public Platfomer(PlatformGame parent) {
+	public SpriteGroup CHARACTER, PROJECTILE, POWER_UP, PLATFORM, SPAWNPOINT,
+	COINS, BAD_GUYS, SPRINGS, EXIT;
+	
+	public Platformer(PlatformGame parent) {
 		super(parent);
 		// TODO Auto-generated constructor stub
 		game = parent;
 	}
 
-	// configuration file
-	public GameFile myGameInfo;
+
+
 
 	@Override
 	public void initResources() {
-
-		Gson gson = new Gson();
-		Scanner scanner;
-		System.out.println(PlatformGame.LEVEL_FILES.get(0));
-		try {
-			scanner = new Scanner(new File(PlatformGame.LEVEL_FILES
-					.get(PlatformGame.currentLevel)));
-
-			String wholeFile = scanner.useDelimiter("\\A").next();
-			Type collectionType = new TypeToken<GameFile>() {
-			}.getType();
-			myGameInfo = gson.fromJson(wholeFile, collectionType);
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		System.out.println(myGameInfo.toString());
-
-
-		File backgroundPathFile= null; 
-		BufferedImage myBackground=null;		
-				try {
-		backgroundPathFile= new File(myGameInfo.getBackground());
-
-			myBackground = ImageIO.read(backgroundPathFile);
-		} catch (IOException e1) {
-			System.out.print("no background");
-		}
-		background = new ImageBackground(myBackground);
-		playfield = new PlayField(background);
-		// create groups
-		CHARACTER = playfield.addGroup(new SpriteGroup("Character"));
-		PROJECTILE = playfield.addGroup(new SpriteGroup("Projectile"));
-		POWER_UP = playfield.addGroup(new SpriteGroup("Power_Up"));
-		PLATFORM = playfield.addGroup(new SpriteGroup("Platform"));
-		SPAWNPOINT = playfield.addGroup(new SpriteGroup("SPAWNPOINT"));
-		COINS = playfield.addGroup(new SpriteGroup("COINS"));
-		BAD_GUYS = playfield.addGroup(new SpriteGroup("BAD_GUYS"));
-		SPRINGS = playfield.addGroup(new SpriteGroup("SPRINGS"));
-
-		for (int i = 0; i < myGameInfo.getList().size(); i++) {
-			SpriteInfo info = myGameInfo.getList().get(i);
-			String className = info.getClassName();
-		    LevelEditable s;
-		    try {  s= (LevelEditable) Class.forName(className).newInstance();
-		     s.parse(info.getList(), this);
-		    } catch (Exception e) {
-
-		    }
-
-		}
-
-		// set up collision groups
-		playfield.addCollisionGroup(CHARACTER, PROJECTILE,
-				new CharacterProjectileCollision());
-		playfield.addCollisionGroup(PROJECTILE, BAD_GUYS,
-				new EnemyProjectileCollision());
-		playfield.addCollisionGroup(CHARACTER, PLATFORM,
-				new SpritePlatformCollision());
-		playfield.addCollisionGroup(CHARACTER, SPRINGS,
-				new CharacterSpringCollision());
-		// playfield.addCollisionGroup(CHARACTER, BAD_GUYS,
-		// new CharacterEnemyCollision());
-		// playfield.addCollisionGroup(CHARACTER, COINS, new CoinCollision());
-		// playfield.addCollisionGroup(CHARACTER, POWER_UP,
-		// new PowerUpCollision());
-		// playfield.addCollisionGroup(CHARACTER, PLATFORM,
-		// new PlatformCollision());
-		// playfield.addCollisionGroup(CHARACTER, EXIT, new ExitCollision());
-		// playfield.addCollisionGroup(BAD_GUYS, PLATFORM,
-		// new PlatformCollision());
+		playfield = new LevelBuilder(this).createLevel(PlatformGame.LEVEL_FILES
+				.get(PlatformGame.currentLevel));
 
 	}
 

@@ -1,6 +1,10 @@
 package sprites;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 
 import levelEditor.*;
@@ -10,12 +14,12 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 
-public class Bad_Guys extends Sprite implements LevelEditable {
+public class Bad_Guys extends LESprite implements LevelEditable {
 	// indicates whether this enemy has been show to screen or not
 	String path;
 	boolean show;
 	boolean enableShoot;
-	Platfomer myGame;
+	Platformer myGame;
 	// attempt to fire every 400 ms
 	Timer	fireRate = new Timer(4000);
 	
@@ -39,50 +43,44 @@ public class Bad_Guys extends Sprite implements LevelEditable {
 	     Sprite projectile = new Sprite(myGame.getImage("emissle1.png"),
 					this.getX(), this.getY()+15);
          projectile.setHorizontalSpeed(-0.7);
-          myGame.PROJECTILE.add(projectile);
+         // myGame.PROJECTILE.add(projectile);
 		}
 
 		}
 	}
 
 
-	public ArrayList<Object> writableObject() {
-		ArrayList<Object> o= new ArrayList<Object>();
-		o.add(path);
-		o.add(getX());
-		o.add(getY());
-		o.add(enableShoot);
-		return o;
+	public ArrayList<String> writableObject() {
+		ArrayList<String> list= new ArrayList<String>();
+		list.add(this.getClass().toString());
+		list.add(path);
+		list.add(getX() +"");
+		list.add(getY() +"");
+		return list;
 	}
 
 
-	public void parse(ArrayList<Object> o, Platfomer game) {
-		myGame=game;
-		path=(String) o.get(0);
-		setX( (Integer) o.get(1));
-		setY( (Integer) o.get(2));
-		enableShoot= (Boolean) o.get(3);
-		myGame.BAD_GUYS.add(this);
+	public Sprite parse(ArrayList<String> o, Platformer game) {
+        Bad_Guys BG= new Bad_Guys();
+		BG.path=o.get(1);
+		BG.setX( Double.parseDouble(o.get(2)));
+		BG.setY( Double.parseDouble(o.get(3)));
+		BG.enableShoot= true;
+		File file= new File(path);
+		BufferedImage image;
+		try {
+			image = ImageIO.read(file);
+			BG.setImage(image);		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		return BG;
 	}
 
-
-
-	public void setInitX(double d) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	public void setInitY(double val) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	public void setInitPath(String path) {
-		this.path=path;
-		
+	public Boolean isInstanceOf(ArrayList<String> o) {
+		if (this.getClass().toString().equals(o.get(0))) {
+			return true;
+		}
+		return false;
 	}
 }

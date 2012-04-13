@@ -12,7 +12,7 @@ public class Exit extends Sprite {
 
 	// indicates whether this enemy has been show to screen or not
 	boolean show = false;
-	Platfomer game;
+	Platformer game;
 	// attempt to fire every 400 ms
 	Timer	fireRate = new Timer(400);
 	
@@ -22,7 +22,7 @@ public class Exit extends Sprite {
 		
 	}
 
-	public Exit(Exit exit, Platfomer currentGame) {
+	public Exit(Exit exit, Platformer currentGame) {
 		super(exit.getImage(),0,0);
 		fireRate=exit.fireRate;
 		show=exit.show;
