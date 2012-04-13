@@ -12,6 +12,7 @@ public abstract class State {
 	protected Sprite mySprite;
 	protected Map<String, EventListener> myMap;
 	protected EventManager em;
+	protected double myGravityValue;
 	
 	public State(Sprite s)
 	{
@@ -30,6 +31,7 @@ public abstract class State {
 		{
 			em.registerEventListener(s, myMap.get(s));
 		}
+		
 	}
 	public void deactivateListener(String s)
 	{

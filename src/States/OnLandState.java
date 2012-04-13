@@ -1,5 +1,6 @@
 package States;
 
+import sprites.GeneralSprite;
 import sprites.TestCharacterWithStates;
 import hudDisplay.DecrementBarAction;
 
@@ -21,6 +22,11 @@ public class OnLandState extends CharacterState{
 		myMap.put("right", new MoveRight(s));
 		myMap.put("left", new MoveLeft(s));
 		myMap.put("floor collide", new StandAction(s));
-		myMap.put("got hit", new DecrementBarAction((TestCharacterWithStates) s));
+		//myMap.put("got hit", new DecrementBarAction((TestCharacterWithStates) s));
+		myGravityValue = .05;
+	}
+	public void setGravity()
+	{
+		((GeneralSprite) mySprite).setGravity(myGravityValue);
 	}
 }

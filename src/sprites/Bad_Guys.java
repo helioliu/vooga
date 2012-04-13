@@ -16,7 +16,6 @@ import com.golden.gamedev.object.Timer;
 
 public class Bad_Guys extends LESprite implements LevelEditable {
 	// indicates whether this enemy has been show to screen or not
-	String path;
 	boolean show;
 	boolean enableShoot;
 	Platformer myGame;
@@ -63,11 +62,11 @@ public class Bad_Guys extends LESprite implements LevelEditable {
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Bad_Guys BG= new Bad_Guys();
         BG.myGame=game;
-		BG.path=o.get(1);
+		BG.path= o.get(1);
 		BG.setX( Double.parseDouble(o.get(2)));
 		BG.setY( Double.parseDouble(o.get(3)));
 		BG.enableShoot= true;
-		File file= new File(path);
+		File file= new File(BG.path);
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);

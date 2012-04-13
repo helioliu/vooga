@@ -2,19 +2,18 @@ package SpriteAction;
 
 import com.golden.gamedev.object.Sprite;
 
-import core.EventManager;
 
 public class MoveRight extends SpriteAction{
 	
 	public MoveRight(Sprite s) {
 		super(s);
-		EventManager em = EventManager.getEventManager();
-//		em.registerEventListener("right", this);
 	}
 
-	public void actionPerformed(String event)
+	public void actionPerformed(Object event)
 	{
 		mySprite.move(1,0);
 	}
+
+
 
 }

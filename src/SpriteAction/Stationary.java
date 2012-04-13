@@ -12,7 +12,7 @@ public class Stationary extends SpriteAction {
         em.registerEventListener("stay stationary", this);
     }
 
-    public void actionPerformed(String event)
+    public void actionPerformed(Object event)
     {
         mySprite.setMovement(0, 0); 
     }
