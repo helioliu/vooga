@@ -31,7 +31,7 @@ public class PlatformGame extends Game{
 		eventManager = EventManager.getEventManager();
 		playfield = new PlayField();
 
-		Sprite s1 = new Sprite(getImage("test.png"), 0, 100);
+		Sprite s1 = new BoxySprite(getImages("test.png", 1, 1), 0, 100);
 		Sprite s2 = new DysboxySprite(getImages("test.png", 1, 1), 600, 100);
 		
 		playfield.add(s1);
@@ -45,7 +45,7 @@ public class PlatformGame extends Game{
 		CHAR1.add(s1);
 		CHAR2.add(s2);
 		
-		playfield.addCollisionGroup(CHAR1, CHAR2, new HitboxNonhitboxCollision());
+		playfield.addCollisionGroup(CHAR1, CHAR2, new HitboxHitboxCollision());
 		
 	}
 	

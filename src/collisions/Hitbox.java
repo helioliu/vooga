@@ -4,6 +4,7 @@ package collisions;
  * Associates a shape and an event
  * May end up just being a wrapper for a shape once we move the events
  * LET IT BE KNOWN THAT HITBOX REGIONS OVERRIDE NORMAL SPRITE REGIONS
+ * (or something...)
  */
 public class Hitbox {
     
@@ -19,9 +20,18 @@ public class Hitbox {
     */
    private String myEvent;
    
-   public Hitbox(CollisionShape shape, String group){
+   /**
+    * The identifier of the hitbox (intuitively the name of the
+    * region the hitbox covers, such as "eyes" or "chocolate")
+    * Or like, it can just be a number corresponding to its index
+    * in its owner sprite's hitbox list
+    */
+   private String myID;
+   
+   public Hitbox(CollisionShape shape, String group, String ID){
        myShape = shape;
        myEvent = group;
+       myID = ID;
    }
    
    /**
@@ -49,6 +59,13 @@ public class Hitbox {
     */
    public String getEvent(){
        return myEvent;
+   }
+   
+   /**
+    * Get an identifier for the hitbox
+    */
+   public String getID(){
+	   return myID;
    }
 
 }
