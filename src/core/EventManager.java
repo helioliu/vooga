@@ -11,6 +11,7 @@ public class EventManager implements EventManagerInterface{
 	private Map<EventCondition, String> mapEventConditionToEvent;
 	private static EventManager myEventManager;
 	private EventQueue myEventQueue;
+	private long elapsedTime;
 
 	public EventManager() {
 		myEventManager = this;
@@ -53,13 +54,15 @@ public class EventManager implements EventManagerInterface{
 	public void sendEvent(final String eventName, final Object obj){
 		final ArrayList<EventListener> listeners = myEventQueue.getEventListeners(eventName);
 		
+//		System.out.println(myEventQueue.);
+		
 		  addEvent(new Event()
           {
                   @Override
                   public void run()
                   {
                 	  	for(EventListener l : listeners){
-                	  		l.actionPerformed(obj);
+                	  		l.actionPerformed(eventName);
                 	  	}
                   }
 
@@ -74,6 +77,10 @@ public class EventManager implements EventManagerInterface{
 		
 	}
 	
+	public long getElapsedTime(){
+		return elapsedTime;
+	}
+	
 	public static EventManager getEventManager() {
 		if (myEventManager == null) {
 			myEventManager = new EventManager();
@@ -81,8 +88,8 @@ public class EventManager implements EventManagerInterface{
 		return myEventManager;
 	}
 
-	public void update(long elapsedTime) {
-
+	public void update(long timeElapsed) {
+		elapsedTime = timeElapsed;
 		while(myEventQueue.hasEvents()){
             Event event = myEventQueue.removeEvent();
             event.run();
