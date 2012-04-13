@@ -11,9 +11,7 @@ public class LevelEditor {
 	public static final String TITLE = "2D Platform Level Editor";
 
 	public static void main(String[] args) throws IOException {
-		
 
-				
 		Model model = new Model();
 		Viewer display = new Viewer(model);
 		JFrame frame = new JFrame(TITLE);

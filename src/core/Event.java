@@ -1,15 +1,9 @@
 package core;
 
-public class Event{
-
-	String name;
+public interface Event extends Runnable{
 	
-	public Event(String s){
-		s = name;
-	}
+	public String toString();
 
-	public String getEventName(){
-		return name;
-	}
+//	public void run();
 	
 }

@@ -2,7 +2,7 @@ package core;
 
 public interface EventManagerInterface {
 
-	public void addEvent(String eventName);
+	public void addEvent(Event event);
 	
 	public void addEventCondition(EventCondition cond, String s);
 	
