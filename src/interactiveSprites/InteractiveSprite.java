@@ -1,11 +1,13 @@
 package interactiveSprites;
 
-interface InteractiveSprite {
+import com.golden.gamedev.object.collision.CollisionGroup;
+
+public interface InteractiveSprite {
 	
 	/**
 	 * performs primary function of the interactive sprite type
 	 */
-	public void primaryAction();
+	public void primaryAction(CollisionGroup c);
 	
 	
 	
