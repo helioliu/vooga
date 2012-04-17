@@ -13,7 +13,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionRect;
 import com.golden.gamedev.object.collision.CollisionShape;
 
-public class Platform extends LESprite implements LevelEditable {
+public class Platform extends GeneralSprite {
 
 	private Platformer game;
 	

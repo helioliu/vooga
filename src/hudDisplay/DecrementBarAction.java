@@ -17,14 +17,14 @@ public class DecrementBarAction extends HUDAction {
 
 	@Override
 	public void actionPerformed(String eventName) {	
-		mySprite.changeScore("health", -5);
+		mySprite.changeScore("health", -3);
 		mySprite.changeScore("score", 20);
 	}
 
 	@Override
 	public void actionPerformed(Object object) {
-		//what is this for????
-		
+		mySprite.changeScore("health", -3);
+		mySprite.changeScore("score", 20);
 	}
 
 

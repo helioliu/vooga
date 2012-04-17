@@ -5,8 +5,11 @@ package game;
 import java.util.ArrayList;
 
 
+import input.InputManager;
+
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
+import com.golden.gamedev.engine.input.AWTInput;
 
 //WARLOCK GAME
 public class PlatformGame extends GameEngine {
@@ -17,6 +20,10 @@ public class PlatformGame extends GameEngine {
 	public static ArrayList<String> LEVEL_FILES;
 	public static int currentLevel;
 	
+	protected void initEngine() {
+		super.initEngine();
+		this.bsInput = new InputManager(this.bsGraphics.getComponent());
+	}
 
 	@Override
 	public void initResources() {
