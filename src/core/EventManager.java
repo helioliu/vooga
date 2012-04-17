@@ -54,7 +54,7 @@ public class EventManager implements EventManagerInterface{
 	public void sendEvent(final String eventName, final Object obj){
 		final ArrayList<EventListener> listeners = myEventQueue.getEventListeners(eventName);
 		
-		System.out.println(myEventQueue.getQueues().get(0).size() );
+//		System.out.println(myEventQueue.getQueues().get(0).size() );
 		
 		  addEvent(new Event()
           {
