@@ -27,6 +27,7 @@ public abstract class State {
 	}
 	public void activateAllListeners()
 	{
+		System.out.println("registering listeners");
 		for(String s: myMap.keySet())
 		{
 			em.registerEventListener(s, myMap.get(s));

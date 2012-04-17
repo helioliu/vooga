@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import SpriteCollisions.SpritePlatformCollision;
+import spriteCollisions.SpritePlatformCollision;
 import sprites.*;
 import sprites.Character;
 
