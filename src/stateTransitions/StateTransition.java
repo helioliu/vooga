@@ -1,14 +1,14 @@
 package stateTransitions;
 
 import core.EventListener;
-import StateMachines.StateMachine;
+import StateMachines.StateManager;
 import States.State;
 
 public abstract class StateTransition implements EventListener{
-	protected StateMachine myStateMachine;
+	protected StateManager myStateMachine;
 	
 	
-	public StateTransition(StateMachine sm)
+	public StateTransition(StateManager sm)
 	{
 		myStateMachine = sm;
 	}

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.EventListener;
 
 
-import StateMachines.EnemyStateMachine;
+import StateMachines.EnemyStateManager;
 import States.EnemyState;
 import States.StationaryState;
 
@@ -18,7 +18,7 @@ public class Enemy extends Sprite{
     public boolean jumping;
     private PlatformGame game;
     private EnemyState state;
-    protected EnemyStateMachine manager;
+    protected EnemyStateManager manager;
     private EventListener l;
 
 
@@ -28,7 +28,7 @@ public class Enemy extends Sprite{
     }
     public Enemy(BufferedImage image) {
         super(image, 0, 0);
-        manager = new EnemyStateMachine(this);
+        manager = new EnemyStateManager(this);
         state = new StationaryState(this);
         
         
@@ -40,7 +40,7 @@ public class Enemy extends Sprite{
     public Enemy(PlatformGame currentGame, BufferedImage image) {
         super(image);
         game=currentGame;
-        manager = new EnemyStateMachine(this);
+        manager = new EnemyStateManager(this);
         state = new StationaryState(this);
      
     }
