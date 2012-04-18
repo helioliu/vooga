@@ -15,14 +15,19 @@ import core.EventListener;
 
 
 public abstract class StateManager{
-	protected Sprite mySprite;
-	protected ArrayList<StateTransition> possibleStateTransitions;
-	protected State currentState;
+	private Sprite mySprite;
+	private ArrayList<StateTransition> myStateTransitions;
+	private State currentState;
 	
 	public StateManager(Sprite s)
 	{
 		mySprite = s;
-		possibleStateTransitions = new ArrayList<StateTransition>();
+		myStateTransitions = new ArrayList<StateTransition>();
+	}
+	
+	public void addTransition(StateTransition toAdd)
+	{
+		myStateTransitions.add(toAdd);
 	}
 	
 	public void changeState(State s)
