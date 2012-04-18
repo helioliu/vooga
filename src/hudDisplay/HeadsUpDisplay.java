@@ -2,7 +2,10 @@ package hudDisplay;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.HashSet;
+
+import StateMachines.BryanStateMachine;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -14,9 +17,10 @@ public class HeadsUpDisplay {
 	private BufferedImage myHUDImage;
 	private HashSet<HUDItem> myHUDItems;
 	private HashSet<GraphicItem> myHUDGraphicItems;
-	private HashSet<ScoreItem> myHUDScoreItems;
+	private HashSet<TextItem> myHUDScoreItems;
 	private SpriteGroup HUDGROUP;
-
+	HUDEventManager myHUDEventManager;
+	
 	public HeadsUpDisplay(BufferedImage HUDImage, int x, int y) {
 		myHUDImage = HUDImage;
 		myX = x;
@@ -24,17 +28,20 @@ public class HeadsUpDisplay {
 		HUDGROUP = new SpriteGroup("hud");
 		myHUDItems = new HashSet<HUDItem>();
 		myHUDGraphicItems = new HashSet<GraphicItem>();
-		myHUDScoreItems = new HashSet<ScoreItem>();
+		myHUDScoreItems = new HashSet<TextItem>();
+		
 		createEmptyHeadsUpDisplay();
+		
 	}
 
 	public HeadsUpDisplay(int x, int y) {
 		myX = x;
 		myY = y;
+		myHUDEventManager = new HUDEvents((this));
 		HUDGROUP = new SpriteGroup("hud");
 		myHUDItems = new HashSet<HUDItem>();
 		myHUDGraphicItems = new HashSet<GraphicItem>();
-		myHUDScoreItems = new HashSet<ScoreItem>();
+		myHUDScoreItems = new HashSet<TextItem>();
 	}
 
 	private void createEmptyHeadsUpDisplay() {
@@ -48,11 +55,14 @@ public class HeadsUpDisplay {
 		myHUDItems.add(item);
 	}
 	
-	public void addScoreItem(ScoreItem item) {
+	public void addTextItem(TextItem item) {
 		myHUDScoreItems.add(item);
 		myHUDItems.add(item);
 	}
 
+	public HashSet<HUDItem> getHUDItems(){
+		return myHUDItems;
+	}
 	public void render(Graphics2D g) {
 
 		for (GraphicItem graphicItem : myHUDGraphicItems) {
@@ -62,20 +72,13 @@ public class HeadsUpDisplay {
 		}
 		HUDGROUP.render(g);
 		
-		for(ScoreItem scoreItem : myHUDScoreItems){
+		for(TextItem scoreItem : myHUDScoreItems){
 			scoreItem.render(g);
 		}
 	}
 
 	public void update(long elapsedTime) {
-		for (HUDItem HUDItem : myHUDItems) {
-				int oldScore = HUDItem.getItemScore();
-				int newScore = HUDItem.getAssociatedSprite().getScore(HUDItem.getScoreID());
-
-				if (oldScore != newScore) {
-					HUDItem.adjust(newScore);
-				}
-		}
+		
 			HUDGROUP.update(elapsedTime);
 	}
 }
