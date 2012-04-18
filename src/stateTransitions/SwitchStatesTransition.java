@@ -1,14 +1,14 @@
 package stateTransitions;
 
 import core.EventManager;
-import StateMachines.StateMachine;
+import StateMachines.StateManager;
 import States.State;
 
 public class SwitchStatesTransition extends StateTransition{
 	protected State state1;
 	protected State state2;
 
-	public SwitchStatesTransition(StateMachine sm, State s1, State s2) {
+	public SwitchStatesTransition(StateManager sm, State s1, State s2) {
 		super(sm);
 		state1 = s1;
 		state2 = s2;
