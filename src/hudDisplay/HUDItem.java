@@ -1,5 +1,6 @@
 package hudDisplay;
 
+import sprites.BryanSprite;
 import sprites.TestCharacterWithStates;
 
 import com.golden.gamedev.object.Sprite;
@@ -8,7 +9,7 @@ public interface HUDItem {
 
 	public abstract void adjust(int newScore);
 
-	public abstract TestCharacterWithStates getAssociatedSprite();
+	public abstract BryanSprite getAssociatedSprite();
 
 	public abstract int getItemScore();
 	

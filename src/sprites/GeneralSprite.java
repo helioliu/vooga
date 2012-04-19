@@ -3,18 +3,24 @@ package sprites;
 import game.Platformer;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import stateManagers.StateManager;
+
+
+import StateMachines.StateManager;
 
 import collisions.Hitbox;
 
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
 public abstract class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
+
 	protected Map<String, Integer> myScores;
-	protected StateManager myStateMachine;
+	protected BryanStateMachine myStateMachine;
 	protected List<Hitbox> myHitboxes;
 	protected double myGravityValue; 
 	protected Platformer mygame;
@@ -27,6 +33,7 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	public GeneralSprite() {
 		super();
 	}
+	
 	public GeneralSprite(BufferedImage i) {
 		super();
 		BufferedImage[] image = new BufferedImage[1];
