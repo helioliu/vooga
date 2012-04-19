@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import levelEditor.*;
 import game.*;
 
-import StateMachines.CharacterStateManager;
+import stateManagers.CharacterStateManager;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;

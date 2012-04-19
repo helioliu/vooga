@@ -67,22 +67,22 @@ public class Platformer extends GameObject {
 		playfield.update(arg0);
 		EventManager.getEventManager().update(arg0);
 		
-		if (keyDown(KeyEvent.VK_LEFT))
-		{
-			EventManager.getEventManager().sendEvent("left");
-		}
-		if (keyDown(KeyEvent.VK_RIGHT))
-		{
-			EventManager.getEventManager().sendEvent("right");
-		}
-		if (keyDown(KeyEvent.VK_UP))
-		{
-			EventManager.getEventManager().sendEvent("up");	
-		}
-		if (keyDown(KeyEvent.VK_DOWN))
-		{
-			EventManager.getEventManager().sendEvent("down");	
-		}
+//		if (keyDown(KeyEvent.VK_LEFT))
+//		{
+//			EventManager.getEventManager().sendEvent("left");
+//		}
+//		if (keyDown(KeyEvent.VK_RIGHT))
+//		{
+//			EventManager.getEventManager().sendEvent("right");
+//		}
+//		if (keyDown(KeyEvent.VK_UP))
+//		{
+//			EventManager.getEventManager().sendEvent("up");	
+//		}
+//		if (keyDown(KeyEvent.VK_DOWN))
+//		{
+//			EventManager.getEventManager().sendEvent("down");	
+//		}
 
 	}
 

@@ -18,9 +18,9 @@ public class OnLandState extends CharacterState{
 	{
 		super(s);
 		System.out.println(myMap);
-		myMap.put("up", new JumpAction(s));
-		myMap.put("right", new MoveRight(s));
-		myMap.put("left", new MoveLeft(s));
+		myMap.put("Up", new JumpAction(s));
+		myMap.put("Right", new MoveRight(s));
+		myMap.put("Left", new MoveLeft(s));
 		myMap.put("floor collide", new StandAction(s));
 		//myMap.put("got hit", new DecrementBarAction((TestCharacterWithStates) s));
 		myGravityValue = .05;
