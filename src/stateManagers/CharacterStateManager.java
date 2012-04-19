@@ -13,15 +13,13 @@ import States.*;
 
 public class CharacterStateManager extends StateManager{
 	private Sprite mySprite;
-	private ArrayList<StateTransition> possibleStateTransitions;
+
 	private State currentState;
 
-	public CharacterStateManager(Sprite s)
+	public CharacterStateManager(Sprite s, State startingState)
 	{
-		super(s);
-		currentState = new OnLandState(s);
-		currentState.activateAllListeners();
-		//possibleStateTransitions.add(new ChangeStateTransition(this, new RegularMotionState(s)));
+		super(s, startingState);
+		getTransitions().add(new ChangeStateTransition(this, "switchstates", new RegularMotionState(s)));
 	}
 	
 	

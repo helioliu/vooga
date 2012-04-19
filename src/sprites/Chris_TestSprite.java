@@ -12,6 +12,9 @@ import javax.imageio.ImageIO;
 import stateManagers.CharacterStateManager;
 import stateManagers.StateManager;
 
+import States.OnLandState;
+import States.ReverseMotionState;
+
 import com.golden.gamedev.object.Sprite;
 
 public class Chris_TestSprite extends GeneralSprite{
@@ -20,8 +23,8 @@ public class Chris_TestSprite extends GeneralSprite{
 	public Chris_TestSprite()
 	{
 		super();
-		myStateManager = new CharacterStateManager(((Sprite) this));
-		myGravityValue = 0.002;
+		myStateManager = new CharacterStateManager(((Sprite) this), new ReverseMotionState(this));
+		myGravityValue = 0.000;
 	}
 	
 	
@@ -29,7 +32,7 @@ public class Chris_TestSprite extends GeneralSprite{
 	public void update(long elapsedTime)
 	{
 		super.update(elapsedTime);
-		this.addVerticalSpeed(elapsedTime, 0.002, 0.5);
+		this.addVerticalSpeed(elapsedTime, myGravityValue, 0.5);
 	}
 
 

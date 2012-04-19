@@ -12,10 +12,10 @@ public class ReverseMotionState extends State{
 	
 	public ReverseMotionState(Sprite s) {
         super(s);
-        myMap.put("up", new MoveDown(s));
-        myMap.put("down", new MoveUp(s));
-        myMap.put("left", new MoveRight(s));
-        myMap.put("right", new MoveLeft(s));
+        myMap.put("Up", new MoveDown(s));
+        myMap.put("Down", new MoveUp(s));
+        myMap.put("Left", new MoveRight(s));
+        myMap.put("Right", new MoveLeft(s));
         myMap.put("floor collide", new StandAction(s));
         
         

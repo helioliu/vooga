@@ -100,19 +100,19 @@ public class Chris_TestGame extends Game{
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
-			EventManager.getEventManager().sendEvent("left");
+			EventManager.getEventManager().sendEvent("Left");
 		}
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
-			EventManager.getEventManager().sendEvent("right");
+			EventManager.getEventManager().sendEvent("Right");
 		}
 		if (keyDown(KeyEvent.VK_UP))
 		{
-			EventManager.getEventManager().sendEvent("up");	
+			EventManager.getEventManager().sendEvent("Up");	
 		}
 		if (keyDown(KeyEvent.VK_DOWN))
 		{
-			EventManager.getEventManager().sendEvent("down");	
+			EventManager.getEventManager().sendEvent("Down");	
 		}
 	}
 	

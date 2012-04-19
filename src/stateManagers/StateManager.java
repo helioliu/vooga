@@ -19,10 +19,12 @@ public class StateManager{
 	private ArrayList<StateTransition> myStateTransitions;
 	private State currentState;
 	
-	public StateManager(Sprite s)
+	public StateManager(Sprite s, State startingState)
 	{
 		mySprite = s;
 		myStateTransitions = new ArrayList<StateTransition>();
+		currentState = startingState;
+		currentState.activateAllListeners();
 	}
 	
 	public void addTransition(StateTransition toAdd)
@@ -32,14 +34,22 @@ public class StateManager{
 	
 	public void changeState(State s)
 	{
-		currentState.deactivateAllListeners();
-		currentState = s;
-		currentState.activateAllListeners();
+		if(currentState!=s)
+		{
+			currentState.deactivateAllListeners();
+			currentState = s;
+			currentState.activateAllListeners();
+		}
+		
 	}
 	
 	public boolean compareToCurrent(State s)
 	{
 		return currentState.hashCode()==s.hashCode();
+	}
+	public ArrayList<StateTransition> getTransitions()
+	{
+		return myStateTransitions;
 	}
 	
 	

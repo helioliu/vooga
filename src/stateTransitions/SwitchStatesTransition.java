@@ -11,7 +11,6 @@ public class SwitchStatesTransition extends StateTransition{
 	public SwitchStatesTransition(StateManager sm, String event, State s1, State s2) {
 		super(sm, event, s1 );
 		state2 = s2;
-		EventManager.getEventManager().registerEventListener("switchstates", this);
 	}
 
 	@Override

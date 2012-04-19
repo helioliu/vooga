@@ -13,6 +13,7 @@ public abstract class StateTransition implements EventListener{
 	public StateTransition(StateManager sm, String event, State s)
 	{
 		myStateMachine = sm;
+		myState = s;
 		EventManager.getEventManager().registerEventListener(event, this);
 	}
 	
