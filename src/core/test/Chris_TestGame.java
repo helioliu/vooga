@@ -124,7 +124,7 @@ public class Chris_TestGame extends Game{
 
 	    public void collided(Sprite s1, Sprite s2) {
 	    	EventManager.getEventManager().sendEvent("floor collide");
-//	    	EventManager.getEventManager().sendEvent("switchstates");
+	    	EventManager.getEventManager().sendEvent("switchstates");
 	    	
 	    }
 

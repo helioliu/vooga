@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import StateMachines.CharacterStateManager;
-import StateMachines.StateManager;
+import stateManagers.CharacterStateManager;
+import stateManagers.StateManager;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -20,7 +20,7 @@ public class Chris_TestSprite extends GeneralSprite{
 	public Chris_TestSprite()
 	{
 		super();
-		myStateMachine = new CharacterStateManager(((Sprite) this));
+		myStateManager = new CharacterStateManager(((Sprite) this));
 		myGravityValue = 0.002;
 	}
 	
