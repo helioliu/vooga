@@ -6,7 +6,8 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 
-import StateMachines.StateManager;
+import stateManagers.StateManager;
+
 import collisions.Hitbox;
 
 import com.golden.gamedev.object.sprite.AdvanceSprite;
