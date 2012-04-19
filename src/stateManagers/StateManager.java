@@ -14,7 +14,7 @@ import core.EventListener;
 
 
 
-public abstract class StateManager{
+public class StateManager{
 	private Sprite mySprite;
 	private ArrayList<StateTransition> myStateTransitions;
 	private State currentState;

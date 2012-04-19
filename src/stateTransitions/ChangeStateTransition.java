@@ -1,22 +1,22 @@
 package stateTransitions;
 
 import core.EventManager;
-import StateMachines.StateManager;
+import stateManagers.StateManager;
 import States.State;
 
 public class ChangeStateTransition extends StateTransition{
 	protected State stateToChangeTo;
 
-	public ChangeStateTransition(StateManager sm, State s) {
-		super(sm);
-		stateToChangeTo = s;
-		EventManager.getEventManager().registerEventListener("switchstates", this);
+	public ChangeStateTransition(StateManager sm, String event, State s) {
+		super(sm, event, s);
+		//stateToChangeTo = s;
+		//EventManager.getEventManager().registerEventListener("switchstates", this);
 		
 	}
 
 	@Override
 	public void actionPerformed(Object eventName) {
-		myStateMachine.changeState(stateToChangeTo);
+		this.getMyStateMachine().changeState(stateToChangeTo);
 		
 	}
 

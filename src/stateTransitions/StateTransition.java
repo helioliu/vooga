@@ -1,16 +1,29 @@
 package stateTransitions;
 
 import core.EventListener;
-import StateMachines.StateManager;
+import core.EventManager;
+import stateManagers.StateManager;
 import States.State;
 
 public abstract class StateTransition implements EventListener{
-	protected StateManager myStateMachine;
+	private StateManager myStateMachine;
+	private State myState;
 	
 	
-	public StateTransition(StateManager sm)
+	public StateTransition(StateManager sm, String event, State s)
 	{
 		myStateMachine = sm;
+		EventManager.getEventManager().registerEventListener(event, this);
 	}
+	
+	protected StateManager getMyStateMachine() {
+        return myStateMachine;
+    }
+	
+	protected State getMyState(){
+	    return myState;
+	}
+	
+	
 
 }
