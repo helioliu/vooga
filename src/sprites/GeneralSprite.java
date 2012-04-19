@@ -11,8 +11,6 @@ import java.util.Map;
 import stateManagers.StateManager;
 
 
-import StateMachines.StateManager;
-
 import collisions.Hitbox;
 
 import com.golden.gamedev.object.sprite.AdvanceSprite;
@@ -20,7 +18,7 @@ import com.golden.gamedev.object.sprite.AdvanceSprite;
 public abstract class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
 	protected Map<String, Integer> myScores;
-	protected BryanStateMachine myStateMachine;
+	protected StateManager myStateManager;
 	protected List<Hitbox> myHitboxes;
 	protected double myGravityValue; 
 	protected Platformer mygame;
