@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.Map;
+
+import sprites.BryanSprite;
 import sprites.Chris_TestSprite;
 import States.State;
 
@@ -23,7 +25,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import core.EventManager;
 
 public class Test_game extends Game {
-	Chris_TestSprite s1;
+	BryanSprite s1;
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
@@ -40,7 +42,7 @@ public class Test_game extends Game {
 		
 		HUD = new HeadsUpDisplay(getImage("images/EmptyHUD.png"),0,0);
 		
-		 s1 = new Chris_TestSprite();
+		 s1 = new BryanSprite();
 	        //BufferedImage[] images = new BufferedImage[1];
 	        //	images[0] = ;
 	        s1.setImage(getImage("images/mario1.png"));
@@ -124,22 +126,22 @@ public class Test_game extends Game {
 		playfield.update(elapsedTime);
 		HUD.update(elapsedTime);		
 		
-		if (keyDown(KeyEvent.VK_LEFT))
-		{
-			EventManager.getEventManager().sendEvent("Left");
-		}
-		if (keyDown(KeyEvent.VK_RIGHT))
-		{
-			EventManager.getEventManager().sendEvent("Right");
-		}
-		if (keyDown(KeyEvent.VK_UP))
-		{
-			EventManager.getEventManager().sendEvent("Up");	
-		}
-		if (keyDown(KeyEvent.VK_DOWN))
-		{
-			EventManager.getEventManager().sendEvent("Down");	
-		}
+//		if (keyDown(KeyEvent.VK_LEFT))
+//		{
+//			EventManager.getEventManager().sendEvent("Left");
+//		}
+//		if (keyDown(KeyEvent.VK_RIGHT))
+//		{
+//			EventManager.getEventManager().sendEvent("Right");
+//		}
+//		if (keyDown(KeyEvent.VK_UP))
+//		{
+//			EventManager.getEventManager().sendEvent("Up");	
+//		}
+//		if (keyDown(KeyEvent.VK_DOWN))
+//		{
+//			EventManager.getEventManager().sendEvent("Down");	
+//		}
 	}
 	
 	class WallCollision extends BasicCollisionGroup {
