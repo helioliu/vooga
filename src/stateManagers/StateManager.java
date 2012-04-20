@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import sprites.GeneralSprite;
 import stateTransitions.StateTransition;
 
 import States.State;
@@ -16,12 +17,13 @@ import core.EventListener;
 
 
 public class StateManager{
-	private Sprite mySprite;
+	private GeneralSprite mySprite;
 
 	private List<State> currentStates;
 	
-	public StateManager(Sprite s, State startingState)
+	public StateManager(GeneralSprite s, State startingState)
 	{
+		currentStates = new ArrayList<State>();
 		mySprite = s;
 		currentStates.add(startingState);
 		currentStates.get(0).activateAllListeners();
@@ -40,13 +42,17 @@ public class StateManager{
 	}
 	public void changeState(State s)
 	{
-		for(State cur : currentStates)
-		{
-			cur.deactivateAllListeners();
+		if(!isCurrentlyActive(s)){
+			for(State cur : currentStates)
+			{
+				cur.deactivateAllListeners();
+			}
+			currentStates.clear();
+			s.activateAllListeners();
+			currentStates.add(s);
+			mySprite.setGravity(s.getMyGravityValue());
 		}
-		currentStates.clear();
-		s.activateAllListeners();
-		currentStates.add(s);
+		
 		
 		
 	}
