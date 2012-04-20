@@ -1,5 +1,7 @@
 package SpriteAction;
 
+import sprites.GeneralSprite;
+
 import com.golden.gamedev.object.Sprite;
 
 
@@ -7,7 +9,7 @@ import com.golden.gamedev.object.Sprite;
 
 public class StandAction extends SpriteAction{
 	
-	public StandAction(Sprite s) {
+	public StandAction(GeneralSprite s) {
 		super(s);
 	}
 

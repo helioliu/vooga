@@ -6,7 +6,9 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import stateManagers.CharacterStateManager;
+
+import stateManagers.StateManager;
+import stateTransitions.StateTransition;
 
 
 import levelEditor.*;
@@ -32,11 +34,10 @@ public class Enemy extends GeneralSprite {
 
 	public Enemy() {
 		super();
-		myStateManager = new CharacterStateManager(((Sprite) this), new WalkingLeftState(this));
+		setStateManager(new StateManager( this, new WalkingLeftState(this)));
 	}
 	
 	
-
 
 	
 	@Override
@@ -61,7 +62,7 @@ public class Enemy extends GeneralSprite {
 	public ArrayList<String> writableObject() {
 		ArrayList<String> list= new ArrayList<String>();
 		list.add(this.getClass().toString());
-		list.add(path);
+		list.add(getPath());
 		list.add(getX() +"");
 		list.add(getY() +"");
 		return list;
@@ -71,11 +72,11 @@ public class Enemy extends GeneralSprite {
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Enemy BG= new Enemy();
         BG.myGame=game;
-		BG.path= o.get(1);
+		BG.setInitPath(o.get(1));
 		BG.setX( Double.parseDouble(o.get(2)));
 		BG.setY( Double.parseDouble(o.get(3)));
 		BG.enableShoot= true;
-		File file= new File(BG.path);
+		File file= new File(BG.getPath());
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);

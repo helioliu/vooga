@@ -1,13 +1,14 @@
 package States;
 
+import sprites.GeneralSprite;
 import SpriteAction.WalkRight;
 
 import com.golden.gamedev.object.Sprite;
 
 public class WalkingRightState extends EnemyState {
       
-    public WalkingRightState(Sprite s){
+    public WalkingRightState(GeneralSprite s){
         super(s);
-        myMap.put("walk right", new WalkRight(s));
+        addAction("walk right", new WalkRight(s));
     }
 }

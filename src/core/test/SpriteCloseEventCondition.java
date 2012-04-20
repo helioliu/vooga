@@ -2,9 +2,9 @@ package core.test;
 
 import com.golden.gamedev.object.Sprite;
 
-import core.EventCondition;
+import core.Condition;
 
-public class SpriteCloseEventCondition implements EventCondition {
+public class SpriteCloseEventCondition implements Condition {
 
 	Sprite sprite1;
 	Sprite sprite2;

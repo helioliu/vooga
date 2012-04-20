@@ -1,5 +1,6 @@
 package States;
 
+import sprites.GeneralSprite;
 import SpriteAction.MoveDown;
 import SpriteAction.MoveLeft;
 import SpriteAction.MoveRight;
@@ -10,13 +11,13 @@ import com.golden.gamedev.object.Sprite;
 
 public class ReverseMotionState extends State{
 	
-	public ReverseMotionState(Sprite s) {
+	public ReverseMotionState(GeneralSprite s) {
         super(s);
-        myMap.put("Up", new MoveDown(s));
-        myMap.put("Down", new MoveUp(s));
-        myMap.put("Left", new MoveRight(s));
-        myMap.put("Right", new MoveLeft(s));
-        myMap.put("floor collide", new StandAction(s));
+        addAction("Up", new MoveDown(s));
+        addAction("Down", new MoveUp(s));
+        addAction("Left", new MoveRight(s));
+        addAction("Right", new MoveLeft(s));
+        addAction("floor collide", new StandAction(s));
         
         
     }

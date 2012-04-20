@@ -39,9 +39,5 @@ public class DysboxySprite extends AdvanceSprite implements Boxable{
 		return Collections.unmodifiableList(myHitboxes);
 	}
 
-	@Override
-	public String getDefaultEvent() {
-		return "Default collision";
-	}
 
 }

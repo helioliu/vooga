@@ -1,13 +1,13 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
+import sprites.GeneralSprite;
 import com.golden.gamedev.object.Timer;
 
 public class TimedSpriteAction extends SpriteAction{
 	
 	private Timer timer;
 
-	public TimedSpriteAction(Sprite s) {
+	public TimedSpriteAction(GeneralSprite s) {
 		super(s);
 		timer = new Timer(400);
 	}
