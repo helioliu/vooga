@@ -34,12 +34,12 @@ import com.google.gson.Gson;
 public class Viewer extends JPanel {
 
 	private String backgroundPath;
-	private String levelName;
+	private LevelNameObject levelName;
 	private HashMap<Integer, GeneralSprite> CharacterTable = new HashMap<Integer, GeneralSprite>();
 	private Model model;
     private JPanel myPanel;
 	private JPanel myPicturePanel;
-	private int ID;
+	private IDObject ID;
 	private TextArea LevelEditor;
 	private double height = 32;
 	private double width = 32;
@@ -53,12 +53,15 @@ public class Viewer extends JPanel {
 		LevelEditor = new TextArea("Create your level here", 20, 85);
 		myPanel.add(LevelEditor);
 		myPanel.add(makeButtonPanel());
-
 		add(myPanel);
 
 		myPicturePanel = new JPanel();
 		myPicturePanel.setLayout(new FlowLayout());
 		add(myPicturePanel);
+		
+		ID=new IDObject();
+		levelName = new LevelNameObject();
+
 	}
 	
 
@@ -112,60 +115,18 @@ public class Viewer extends JPanel {
 	}
 
 
-	
-	
-//	private LevelEditable getSprite() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-//	    JFileChooser chooser = new JFileChooser("./src/sprites");
-//	    int returnVal = chooser.showOpenDialog(null);
-//	    if(returnVal == JFileChooser.APPROVE_OPTION) {
-//	       System.out.println("You chose to open this file: " +
-//	            chooser.getSelectedFile().getName());
-//	    }
-//	    int periodIndex =  chooser.getSelectedFile().getName().lastIndexOf(".");
-//	    System.out.println(periodIndex);
-//	    String spriteClassName =chooser.getSelectedFile().getName().substring(0,periodIndex);
-//	    System.out.println(spriteClassName);
-//	    LevelEditable aLE;
-//	    aLE= (LevelEditable) Class.forName(spriteClassName).newInstance();
-//	      System.out.println(aLE.toString());
-//	      return aLE;
-//
-//	}
 
 
 	public void makeSprite()  {
 		SpriteWindowMaker display = new SpriteWindowMaker(myPicturePanel, CharacterTable, ID);
 		JFrame frame = new JFrame("Make a new sprite");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(600, 600));
 		frame.getContentPane().add(display);
 		frame.pack();
 		frame.setVisible(true);
 	}
 
-//	public void makePlatform() throws IOException {
-//		JPanel imageInfo = new JPanel();
-//		imageInfo.setLayout(new GridLayout(2, 1));
-//		String imageNumber = "This image is represented by:" + ID;
-//
-//		JTextField imageLabel = new JTextField(imageNumber);
-//		imageLabel.setEditable(false);
-//		File file = getImage();
-//		BufferedImage myPicture = ImageIO.read(file);
-//		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-//
-//		//s.setLEImage(myPicture);
-//		imageInfo.add(imageLabel);
-//		imageInfo.add(picLabel);
-//		myPicturePanel.add(imageInfo);
-//		// add to local character map
-//
-//		Platform s= new Platform();
-//		s.setInitPath(file.getCanonicalPath());
-//		CharacterTable.put(ID, s);
-//		ID++;
-//
-//	}
 
 	public void makeBackground() {
 		    BackgroundMakerWindow bmw= new BackgroundMakerWindow(backgroundPath);
@@ -180,12 +141,13 @@ public class Viewer extends JPanel {
 	public void SetLevelName(){
 		LevelNameWindowMaker display = new LevelNameWindowMaker(levelName);
 		JFrame frame = new JFrame("Make a new sprite");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(500, 100));
 		frame.getContentPane().add(display);
 		frame.pack();
 		frame.setVisible(true);
 	}
+	
 	public void Export() throws IOException {
 
 		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
@@ -214,7 +176,7 @@ public class Viewer extends JPanel {
 		}
 		
 		GameFile gameFile= new GameFile(backgroundPath, list);
-		model.Export(gameFile,levelName);
+		model.Export(gameFile,levelName.getName());
 	}
 
 	public void Load() {
@@ -252,8 +214,7 @@ public class Viewer extends JPanel {
 			try {
 				Export();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+
 			}
 
 		}

@@ -17,11 +17,11 @@ public class LevelNameWindowMaker extends JPanel{
 	
 	JPanel myPanel;
 	JTextField nameField;
-	String name;
+	LevelNameObject name;
 	
 
-	public LevelNameWindowMaker(String levelName){
-		this.name=levelName;
+	public LevelNameWindowMaker(LevelNameObject levelName){
+		name=levelName;
 		myPanel = new JPanel();
         //Don't allow us to stretch vertically.
         setLayout(new FlowLayout());
@@ -47,10 +47,8 @@ public class LevelNameWindowMaker extends JPanel{
 	
 	public void changeName() {
 		if (nameField.getText().isEmpty()) {
-			name="default.json";
 			return;
 		}
-		name= nameField.getText() + ".json";
-		System.out.println(name);
+		name.setName(nameField.getText() + ".json");
 	}
 }

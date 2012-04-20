@@ -73,7 +73,6 @@ public class Chris_TestSprite extends GeneralSprite{
 			image = ImageIO.read(file);
 			C.setImage(image);		} 
 		catch (IOException e) {
-			e.printStackTrace();
 		}
 		getMygame().CHARACTER.add(C);
 		return C;

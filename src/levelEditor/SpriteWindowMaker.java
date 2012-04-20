@@ -31,11 +31,11 @@ public class SpriteWindowMaker extends JPanel {
 	private String imagePath;
 	HashMap<Integer, GeneralSprite> CTable;
 	private TextArea SpriteAttributeEditor;
-	int ID;
+	IDObject ID;
 	private GeneralSprite currSprite;
 	private JPanel myPanel;
 	
-	public SpriteWindowMaker(JPanel myPicturePanel, HashMap<Integer, GeneralSprite> characterTable, int iD) {
+	public SpriteWindowMaker(JPanel myPicturePanel, HashMap<Integer, GeneralSprite> characterTable, IDObject iD) {
 		myPanel=new JPanel();
 		setLayout(new FlowLayout());
 		SpriteAttributeEditor = new TextArea("Change your sprites attributes", 40, 40 );
@@ -66,7 +66,7 @@ public class SpriteWindowMaker extends JPanel {
 				new Platform(),
 
 			};
-			currSprite=spriteNames[0];
+			currSprite=spriteNames[spriteNames.length-1];
 
 			JComboBox SpriteChooser = new JComboBox(spriteNames);
 			SpriteChooser.setSelectedIndex(spriteNames.length-1);
@@ -146,7 +146,7 @@ public class SpriteWindowMaker extends JPanel {
 		if (imagePath!=null) {
 		JPanel imageInfo = new JPanel();
 		imageInfo.setLayout(new GridLayout(2, 1));
-		String imageNumber = "This image is represented by:" + ID;
+		String imageNumber = "This image is represented by:" + ID.getID();
 
 		JTextField imageLabel = new JTextField(imageNumber);
 		imageLabel.setEditable(false);
@@ -168,13 +168,12 @@ public class SpriteWindowMaker extends JPanel {
         currSprite.setInitPath(imagePath);
         
         currSprite.setInitPath(file.getCanonicalPath());
-		CTable.put(ID, currSprite);
-		ID++;
+		CTable.put(ID.getID(), currSprite);
+		ID.increment();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		
 	    }
 	}

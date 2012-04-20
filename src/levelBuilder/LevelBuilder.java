@@ -92,6 +92,7 @@ public class LevelBuilder {
 		SpriteList.add(new Bad_Guys());
 		SpriteList.add(new Character());
 		SpriteList.add(new Platform());
+		SpriteList.add(new Chris_TestSprite());
 		
 		for(int k=0;k<myGameInfo.getList().size();k++) {
 			ArrayList<String> LESpriteinfo= myGameInfo.getList().get(k);

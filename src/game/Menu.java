@@ -1,5 +1,7 @@
 
 package game;
+import input.InputManager;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -50,6 +52,7 @@ public class Menu extends GameObject {
 			e.printStackTrace();
 		}
 		PlatformGame.currentLevel=0;
+		System.out.println(PlatformGame.LEVEL_FILES);
 	}
 
 	@Override
@@ -70,12 +73,17 @@ public class Menu extends GameObject {
 
 		
 	}
-
+	
+	protected void initEngine() {
+		super.initEngine();
+		this.bsInput = new InputManager(this.bsGraphics.getComponent());
+	}
+	
 	@Override
 	public void update(long arg0) {
-		if(!PlatformGame.LEVEL_FILES.isEmpty() && PlatformGame.LEVEL_FILES!=null ) {
-
+ 
 		if (keyPressed(KeyEvent.VK_LEFT)) {
+
 			if (++PlatformGame.currentLevel >= PlatformGame.LEVEL_FILES.size()) {
 				PlatformGame.currentLevel= 0;
 			}
@@ -84,11 +92,6 @@ public class Menu extends GameObject {
 			if (--PlatformGame.currentLevel < 0) {
 				PlatformGame.currentLevel= PlatformGame.LEVEL_FILES.size()-1;
 			}
-		}
-		if (keyPressed(KeyEvent.VK_E)) {
-
-			finish();
-		}
 		}
 		if (keyPressed(KeyEvent.VK_ENTER)) {
 			parent.nextGameID = PlatformGame.PLATFORMER;
@@ -102,6 +105,8 @@ public class Menu extends GameObject {
    }
 		// TODO Auto-generated method stub
 		
-	}
+	
+	
+}
 
 
