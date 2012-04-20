@@ -9,13 +9,15 @@ public class TimedSpriteAction extends SpriteAction{
 
 	public TimedSpriteAction(Sprite s) {
 		super(s);
-		timer = new Timer()
+		timer = new Timer(400);
 	}
 
-	@Override
-	public void actionPerformed(String event) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+
+    @Override
+    public void actionPerformed(Object object) {
+        // TODO Auto-generated method stub
+        
+    }
 
 }
