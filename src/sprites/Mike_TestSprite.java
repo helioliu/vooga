@@ -62,7 +62,7 @@ public class Mike_TestSprite extends GeneralSprite{
 
 
 	public Sprite parse(ArrayList<String> o, Platformer game) {
-        Chris_TestSprite C= new Chris_TestSprite();
+        Mike_TestSprite C= new Mike_TestSprite();
         C.setMygame(game);
 		C.setInitPath(o.get(1));
 		C.setX( Double.parseDouble(o.get(2)));
