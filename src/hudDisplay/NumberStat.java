@@ -4,7 +4,7 @@ public class NumberStat extends Stat{
 	
 	private double myValue;
 	
-	NumberStat(double startValue){
+	public NumberStat(double startValue){
 		super(startValue);
 		myValue = startValue;
 	}

@@ -41,7 +41,7 @@ public class StateManager{
 	
 	public boolean compareToCurrent(State s)
 	{
-		return currentState.hashCode()==s.hashCode();
+		return currentState.equals(s);
 	}
 
 	

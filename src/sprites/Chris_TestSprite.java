@@ -11,9 +11,13 @@ import javax.imageio.ImageIO;
 
 
 import stateManagers.StateManager;
+import stateTransitions.ChangeStateTransition;
+import stateTransitions.StateTransition;
 
 import States.OnLandState;
+import States.RegularMotionState;
 import States.ReverseMotionState;
+import States.WalkingRightState;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -24,6 +28,9 @@ public class Chris_TestSprite extends GeneralSprite{
 	{
 		super();
 		setStateManager(new StateManager(((Sprite) this), new ReverseMotionState(this)));
+		StateTransition reverse = new ChangeStateTransition(getStateManager(), "switchstates", new RegularMotionState(this));
+		
+		reverse.activate();
 		setGravity(0.000);
 	}
 	

@@ -1,9 +1,8 @@
 package sprites;
 
 import game.Platformer;
-
+import hudDisplay.Stat;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +18,7 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 
 	
 	private StateManager myStateManager;
+	private Map<String, Stat> myStats;	
 	private List<Hitbox> myHitboxes;
 	private double myGravityValue; 
 	private Platformer mygame;
@@ -53,6 +53,23 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	
 	public GeneralSprite(double x, double y) {
 		super(x,y);
+	}
+	
+	public void createStat(String name, Stat stat) {
+		myStats.put(name, stat);
+	}
+	
+	public Stat getStat(String name){
+		return myStats.get(name);
+	}
+	
+	public Map<String, Stat> getInternalScores(){
+		return myStats;
+	}
+	
+	public void changeStat(String name, double x){	
+		getStat(name).adjust(x);
+	
 	}
 
 	public List<Hitbox> getHitboxes() {
