@@ -1,32 +1,39 @@
 package hudDisplay;
 
-import sprites.TestCharacterWithStates;
-
-import com.golden.gamedev.object.Sprite;
-
 import core.EventManager;
-
 
 public class DecrementBarAction extends HUDAction {
 
-	public DecrementBarAction(TestCharacterWithStates s) {
-		super(s);
+	public DecrementBarAction(HeadsUpDisplay hud) {
+		super(hud);
 		EventManager em = EventManager.getEventManager();
 		em.registerEventListener("got hit", this);
 	}
 
 	@Override
-	public void actionPerformed(String eventName) {	
-		mySprite.changeScore("health", -3);
-		mySprite.changeScore("score", 20);
+	public void actionPerformed(String eventName) {
+		for (HUDItem HUDItem : hud.getHUDItems()) {
+			int oldScore = HUDItem.getItemScore();
+			int newScore = HUDItem.getAssociatedSprite().getScore(
+					HUDItem.getScoreID());
+
+			if (oldScore != newScore) {
+				HUDItem.adjust(newScore);
+			}
+		}
 	}
 
 	@Override
 	public void actionPerformed(Object object) {
-		mySprite.changeScore("health", -3);
-		mySprite.changeScore("score", 20);
+		for (HUDItem HUDItem : hud.getHUDItems()) {
+			int oldScore = HUDItem.getItemScore();
+			int newScore = HUDItem.getAssociatedSprite().getScore(
+					HUDItem.getScoreID());
+
+			if (oldScore != newScore) {
+				HUDItem.adjust(newScore);
+			}
+		}
 	}
-
-
 
 }

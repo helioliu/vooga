@@ -10,7 +10,9 @@ import javax.imageio.ImageIO;
 import levelEditor.*;
 import game.*;
 
-import StateMachines.CharacterStateMachine;
+import stateManagers.CharacterStateManager;
+
+import States.StationaryState;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
@@ -26,7 +28,7 @@ public class Character extends GeneralSprite {
 	public Character() {
 		super();
         jumpTimer = new Timer(150);
-        myStateMachine = new CharacterStateMachine(((Sprite) this));
+        myStateManager = new CharacterStateManager(((Sprite) this), new StationaryState(this));
 		myGravityValue = 0.002;
 	}
 

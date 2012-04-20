@@ -42,18 +42,30 @@ public class EventManager implements EventManagerInterface {
 		sendEvent(eventName, null);
 	}
 
-	public void sendEvent(final String eventName, final Object obj) {
-		final ArrayList<EventListener> listeners = myEventQueue
-				.getEventListeners(eventName);
-		addEvent(new Event() {
-			@Override
-			public void run() {
-				for (EventListener l : listeners) {
-					l.actionPerformed(eventName);
-				}
-			}
-		});
+
+	public void sendEvent(final String eventName, final Object obj){
+		final ArrayList<EventListener> listeners = myEventQueue.getEventListeners(eventName);
+
+		
+		  addEvent(new Event()
+          {
+                  @Override
+                  public void run()
+                  {                	  
+                	  	for(int i=listeners.size()-1; i>=0; i-- ){
+                	  		listeners.get(i).actionPerformed(eventName);
+                	  	}
+                  }
+
+                  @Override
+                  public String toString()
+                  {
+                          return eventName;
+                  }
+
+          });
 	}
+		
 
 	public long getElapsedTime() {
 		return elapsedTime;

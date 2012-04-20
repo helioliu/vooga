@@ -15,5 +15,11 @@ public class GoUp extends SpriteAction {
     {
         mySprite.setMovement(0.025, 0); 
     }
+
+    @Override
+    public void actionPerformed(Object object) {
+        // TODO Auto-generated method stub
+        
+    }
     
 }

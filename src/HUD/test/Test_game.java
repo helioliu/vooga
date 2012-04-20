@@ -1,50 +1,67 @@
-package core.test;
+package HUD.test;
+
+import hudDisplay.BarItem;
+import hudDisplay.HeadsUpDisplay;
+import hudDisplay.TextItem;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.Map;
 
+import sprites.BryanSprite;
 import sprites.Chris_TestSprite;
+import sprites.GeneralSprite;
 import States.State;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.CollisionManager;
+import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
-import cutscenes.Cutscene;
-import cutscenes.CutsceneTrigger;
 
-
-public class Chris_TestGame extends Game{
-	Sprite s1;
+public class Test_game extends Game {
+	BryanSprite s1;
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
+	
+	HeadsUpDisplay HUD;
+	GameFont scoreFont;
+	
 	
 
 
 	
 	public void initResources() {
-//		stateMap = new HashMap<String, State>();
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
-		s1 = new Chris_TestSprite();
-//		BufferedImage[] images = new BufferedImage[1];
-//		images[0] = ;
+		HUD = new HeadsUpDisplay(0,0);
+		
+		s1 = new BryanSprite();
 		s1.setImage(getImage("images/mario1.png"));
 		s1.setLocation(300, 200);
+		
+		s1.createScore("health", 300);
+		s1.createScore("score", 0);
+		
 		SpriteGroup character = new SpriteGroup("character");
 		character.add(s1);
+		
+		BarItem healthbar = new BarItem(getImage("images/healthBar.png", false), 500, 0, "health", s1);
+		HUD.addGraphicItem(healthbar);
+
+		scoreFont = fontManager.getFont(getImages("images/Score_Font.png", 8,12));
+		TextItem Score = new TextItem(scoreFont, 300, 0, "score", s1);
+		HUD.addTextItem(Score);
+
+		
 		
 
 
@@ -81,10 +98,11 @@ public class Chris_TestGame extends Game{
 	public void render(Graphics2D arg0) {
 	playfield.render(arg0);
 	collisionTypeWall.checkCollision();
-//	HUD.render(arg0);
+	HUD.render(arg0);
 	}
 	
 	public void update(long elapsedTime) {
+		
 		//Cutscene Code
 //		if(cutTimer.action(elapsedTime)) {
 //			trigger.triggerCutscene();
@@ -94,25 +112,25 @@ public class Chris_TestGame extends Game{
 		
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
-//		HUD.update(elapsedTime);
+		HUD.update(elapsedTime);
 		
 
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
-			EventManager.getEventManager().sendEvent("Left");
+			EventManager.getEventManager().sendEvent("left");
 		}
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
-			EventManager.getEventManager().sendEvent("Right");
+			EventManager.getEventManager().sendEvent("right");
 		}
 		if (keyDown(KeyEvent.VK_UP))
 		{
-			EventManager.getEventManager().sendEvent("Up");	
+			EventManager.getEventManager().sendEvent("up");	
 		}
 		if (keyDown(KeyEvent.VK_DOWN))
 		{
-			EventManager.getEventManager().sendEvent("Down");	
+			EventManager.getEventManager().sendEvent("down");	
 		}
 	}
 	
@@ -124,10 +142,10 @@ public class Chris_TestGame extends Game{
 
 	    public void collided(Sprite s1, Sprite s2) {
 	    	EventManager.getEventManager().sendEvent("floor collide");
-	    	EventManager.getEventManager().sendEvent("switchstates");
+	    	EventManager.getEventManager().sendEvent("got hit");
+//	    	EventManager.getEventManager().sendEvent("switchstates");
 	    	
 	    }
 
 	}
-
 }
