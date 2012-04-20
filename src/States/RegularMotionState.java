@@ -15,6 +15,7 @@ public class RegularMotionState extends State {
         addAction("Left", new MoveLeft(s));
         addAction("Right", new MoveRight(s));
         addAction("floor collide", new StandAction(s));
+        addAction("got hit", new ChangeStatAction(s));
         setMyGravityValue(0);
         
     }
