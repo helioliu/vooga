@@ -1,7 +1,7 @@
-up-key:10
-right-key:1500
-left-key:50
-up-key:200
-left-key:1000
-up-key:200
-right-key:50
+Up:10:200
+Right:200:300
+Left:500:350
+Down:900:100
+Left:1000:200
+Up:1000:100
+Right:1250

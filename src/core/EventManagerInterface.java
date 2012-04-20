@@ -4,9 +4,9 @@ public interface EventManagerInterface {
 
 	public void addEvent(Event event);
 	
-	public void addEventCondition(EventCondition cond, String s);
+	public void addEventCondition(Condition cond, String s);
 	
-	public void removeEventCondition(EventCondition condition);
+	public void removeEventCondition(Condition condition);
 	
 	public void registerEventListener(String e, EventListener listener);
 
