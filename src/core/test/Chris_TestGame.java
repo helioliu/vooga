@@ -34,6 +34,7 @@ public class Chris_TestGame extends Game{
     PlayField playfield;
     CollisionManager collisionTypeWall;
     CollisionManager collisionTypeBlocker;
+    CollisionManager collisionTypeSwitch;
 
 
 
@@ -101,6 +102,9 @@ public class Chris_TestGame extends Game{
         //
         collisionTypeWall = new WallCollision();
         collisionTypeWall.setCollisionGroup(character, walls);
+        
+        collisionTypeSwitch = new SwitchCollision();
+        collisionTypeSwitch.setCollisionGroup(character, blockers);
 
         playfield.addGroup(character);
         playfield.addGroup(walls);
@@ -122,6 +126,7 @@ public class Chris_TestGame extends Game{
         //added by Ben
         collisionTypeBlocker.checkCollision();
         //	HUD.render(arg0);
+        collisionTypeSwitch.checkCollision();
     }
 
     public void update(long elapsedTime) {
@@ -151,6 +156,22 @@ public class Chris_TestGame extends Game{
 
         public void collided(Sprite s1, Sprite s2) {
             EventManager.getEventManager().sendEvent("floor collide");
+            System.out.println("floor collide");
+            //EventManager.getEventManager().sendEvent("switchstates");
+
+
+        }
+
+    }
+    class SwitchCollision extends BasicCollisionGroup {
+
+        public SwitchCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+            //EventManager.getEventManager().sendEvent("floor collide");
+        	System.out.println("switchstates");
             EventManager.getEventManager().sendEvent("switchstates");
 
 
