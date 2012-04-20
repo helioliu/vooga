@@ -15,13 +15,13 @@ public class Model {
 	private String levelName;
 
 	public Model() {
-		levelName = "default";
 	}
 
-	public void Export(GameFile gameFile) throws IOException {
+	public void Export(GameFile gameFile, String name) throws IOException {
+		levelName=name;
 		Gson gson3 = new Gson();
 		String jsonString3 = gson3.toJson(gameFile);
-		FileWriter fs = new FileWriter(levelName + ".json");
+		FileWriter fs = new FileWriter(levelName);
 		BufferedWriter o = new BufferedWriter(fs);
 		o.write(jsonString3);
 		o.close();

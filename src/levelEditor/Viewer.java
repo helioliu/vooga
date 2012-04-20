@@ -1,5 +1,6 @@
 package levelEditor;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.TextArea;
@@ -16,6 +17,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,14 +34,13 @@ import com.google.gson.Gson;
 public class Viewer extends JPanel {
 
 	private String backgroundPath;
+	private String levelName;
 	private HashMap<Integer, GeneralSprite> CharacterTable = new HashMap<Integer, GeneralSprite>();
 	private Model model;
     private JPanel myPanel;
 	private JPanel myPicturePanel;
 	private int ID;
 	private TextArea LevelEditor;
-	private JTextField myNameText;
-	private JButton myAddNameButton;
 	private double height = 32;
 	private double width = 32;
 
@@ -52,23 +53,21 @@ public class Viewer extends JPanel {
 		LevelEditor = new TextArea("Create your level here", 20, 85);
 		myPanel.add(LevelEditor);
 		myPanel.add(makeButtonPanel());
-		myNameText = new JTextField(15);
+
 		add(myPanel);
 
 		myPicturePanel = new JPanel();
 		myPicturePanel.setLayout(new FlowLayout());
 		add(myPicturePanel);
-		
-		backgroundPath= getBackgroundImage();
-
 	}
+	
 
 	private Component makeButtonPanel() {
 		JPanel panel = new JPanel();
 
 		panel.setLayout(new GridLayout(5, 1));
 		panel.add(addSpriteButton());
-		panel.add(addGoodGuyButton());
+		panel.add(addBackgroundButton());
 		panel.add(addPlatformButton());
 		panel.add(addExportButton());
 		panel.add(addLoadButton());
@@ -94,14 +93,14 @@ public class Viewer extends JPanel {
 		return platformButton;
 	}
 
-	private Component addGoodGuyButton() {
-		JButton GoodGuyButton = new JButton("Add Good Guy");
-		GoodGuyButton.addActionListener(new GoodGuyAction());
-		return GoodGuyButton;
+	private Component addBackgroundButton() {
+		JButton mybackgroundButton = new JButton("Add Background");
+		mybackgroundButton.addActionListener(new BackgroundAction());
+		return mybackgroundButton;
 	}
 
 	private Component addSpriteButton() {
-		JButton BadGuyButton = new JButton("Add Bad Guy");
+		JButton BadGuyButton = new JButton("Add Sprite");
 		BadGuyButton.addActionListener(new BadGuyAction());
 		return BadGuyButton;
 	}
@@ -112,25 +111,8 @@ public class Viewer extends JPanel {
 		return addNameButton;
 	}
 
-	private File getImage() {
-		JFileChooser fc = new JFileChooser("./src/images/");
-		int returnVal = fc.showOpenDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			return file;
-		}
-		return null;
-	}
+
 	
-	private String getBackgroundImage() throws IOException {
-		JFileChooser fc = new JFileChooser("./src/images");
-		int returnVal = fc.showOpenDialog(null);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			return file.getCanonicalPath();
-		}
-		return null;
-	}
 	
 //	private LevelEditable getSprite() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 //	    JFileChooser chooser = new JFileChooser("./src/sprites");
@@ -151,85 +133,59 @@ public class Viewer extends JPanel {
 //	}
 
 
-	public void makeSprite() throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-
-		JPanel imageInfo = new JPanel();
-		imageInfo.setLayout(new GridLayout(2, 1));
-		String imageNumber = "This image is represented by:" + ID;
-
-		JTextField imageLabel = new JTextField(imageNumber);
-		imageLabel.setEditable(false);
-		File file = getImage();
-		BufferedImage myPicture = ImageIO.read(file);
-		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-
-		//s.setLEImage(myPicture);
-		imageInfo.add(imageLabel);
-		imageInfo.add(picLabel);
-		myPicturePanel.add(imageInfo);
-		// add to local character map
-
-		Bad_Guys s= new Bad_Guys();
-		s.setInitPath(file.getCanonicalPath());
-		CharacterTable.put(ID, s);
-		ID++;
-
+	public void makeSprite()  {
+		SpriteWindowMaker display = new SpriteWindowMaker(myPicturePanel, CharacterTable, ID);
+		JFrame frame = new JFrame("Make a new sprite");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(600, 600));
+		frame.getContentPane().add(display);
+		frame.pack();
+		frame.setVisible(true);
 	}
 
-	public void makePlatform() throws IOException {
-		JPanel imageInfo = new JPanel();
-		imageInfo.setLayout(new GridLayout(2, 1));
-		String imageNumber = "This image is represented by:" + ID;
+//	public void makePlatform() throws IOException {
+//		JPanel imageInfo = new JPanel();
+//		imageInfo.setLayout(new GridLayout(2, 1));
+//		String imageNumber = "This image is represented by:" + ID;
+//
+//		JTextField imageLabel = new JTextField(imageNumber);
+//		imageLabel.setEditable(false);
+//		File file = getImage();
+//		BufferedImage myPicture = ImageIO.read(file);
+//		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+//
+//		//s.setLEImage(myPicture);
+//		imageInfo.add(imageLabel);
+//		imageInfo.add(picLabel);
+//		myPicturePanel.add(imageInfo);
+//		// add to local character map
+//
+//		Platform s= new Platform();
+//		s.setInitPath(file.getCanonicalPath());
+//		CharacterTable.put(ID, s);
+//		ID++;
+//
+//	}
 
-		JTextField imageLabel = new JTextField(imageNumber);
-		imageLabel.setEditable(false);
-		File file = getImage();
-		BufferedImage myPicture = ImageIO.read(file);
-		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-
-		//s.setLEImage(myPicture);
-		imageInfo.add(imageLabel);
-		imageInfo.add(picLabel);
-		myPicturePanel.add(imageInfo);
-		// add to local character map
-
-		Platform s= new Platform();
-		s.setInitPath(file.getCanonicalPath());
-		CharacterTable.put(ID, s);
-		ID++;
-
-	}
-
-	public void makeGoodGuy() throws IOException {
-		JPanel imageInfo = new JPanel();
-		imageInfo.setLayout(new GridLayout(2, 1));
-		String imageNumber = "This image is represented by:" + ID;
-
-		JTextField imageLabel = new JTextField(imageNumber);
-		imageLabel.setEditable(false);
-		File file = getImage();
-		BufferedImage myPicture = ImageIO.read(file);
-		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-
-		//s.setLEImage(myPicture);
-		imageInfo.add(imageLabel);
-		imageInfo.add(picLabel);
-		myPicturePanel.add(imageInfo);
-		// add to local character map
-
-		Character s= new Character();
-		s.setInitPath(file.getCanonicalPath());
-		CharacterTable.put(ID, s);
-		ID++;
-
+	public void makeBackground() {
+		    BackgroundMakerWindow bmw= new BackgroundMakerWindow(backgroundPath);
 	}
 
 	private class ChangeNameAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			model.SetLevelName(myNameText.getText());
+			SetLevelName();
 		}
 	}
 
+	public void SetLevelName(){
+		LevelNameWindowMaker display = new LevelNameWindowMaker(levelName);
+		JFrame frame = new JFrame("Make a new sprite");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(500, 100));
+		frame.getContentPane().add(display);
+		frame.pack();
+		frame.setVisible(true);
+	}
 	public void Export() throws IOException {
 
 		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
@@ -258,57 +214,34 @@ public class Viewer extends JPanel {
 		}
 		
 		GameFile gameFile= new GameFile(backgroundPath, list);
-		model.Export(gameFile);
+		model.Export(gameFile,levelName);
 	}
 
 	public void Load() {
 
-		// The Level will be loaded here but we need Sprite Classes
+		// windowmaker.loadSelectedLevel();
 
 	}
 
 	private class PlatformAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			try {
-				makePlatform();
+						
 				myPanel.revalidate();
 				validate();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 
-	private class GoodGuyAction implements ActionListener {
+	private class BackgroundAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			try {
-				makeGoodGuy();
+				makeBackground();
 				myPanel.revalidate();
 				validate();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 
 	private class BadGuyAction implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
-				try {
-					makeSprite();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (InstantiationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IllegalAccessException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				makeSprite();
 				myPanel.revalidate();
 				validate();
 		}
