@@ -29,7 +29,7 @@ public class Chris_TestSprite extends GeneralSprite{
 	public Chris_TestSprite()
 	{
 		super();
-		State s = new ReverseMotionState(this);
+		State s = new RegularMotionState(this);
 		setStateManager(new StateManager(this, s));
 		StateTransition reverse = new ChangeStateTransition(getStateManager(), "switchstates", new OnLandState(this));
 		
