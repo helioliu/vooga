@@ -1,5 +1,7 @@
 package core.test;
 
+import input.InputManager;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -134,26 +136,13 @@ public class Chris_TestGame extends Game{
         playfield.update(elapsedTime);
         //		HUD.update(elapsedTime);
 
-
-
-        if (keyDown(KeyEvent.VK_LEFT))
-        {
-            EventManager.getEventManager().sendEvent("Left");
-        }
-        if (keyDown(KeyEvent.VK_RIGHT))
-        {
-            EventManager.getEventManager().sendEvent("Right");
-        }
-        if (keyDown(KeyEvent.VK_UP))
-        {
-            EventManager.getEventManager().sendEvent("Up");	
-        }
-        if (keyDown(KeyEvent.VK_DOWN))
-        {
-            EventManager.getEventManager().sendEvent("Down");	
-        }
     }
 
+    protected void initEngine() {
+		super.initEngine();
+		this.bsInput = new InputManager(this.bsGraphics.getComponent());
+	}
+    
     class WallCollision extends BasicCollisionGroup {
 
         public WallCollision() {
