@@ -2,7 +2,6 @@ package States;
 
 import sprites.GeneralSprite;
 import sprites.TestCharacterWithStates;
-import hudDisplay.DecrementBarAction;
 
 import com.golden.gamedev.object.Sprite;
 
