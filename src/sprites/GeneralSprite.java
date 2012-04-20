@@ -16,14 +16,14 @@ import com.golden.gamedev.object.sprite.AdvanceSprite;
 
 public abstract class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
-	protected Map<String, Integer> myScores;
-	protected StateManager myStateMachine;
-	protected List<Hitbox> myHitboxes;
-	protected double myGravityValue; 
-	protected Platformer mygame;
-	protected String path;
-	protected int x;
-	protected int y;
+
+	
+	private StateManager myStateManager;
+	private List<Hitbox> myHitboxes;
+	private double myGravityValue; 
+	private Platformer mygame;
+	private String path;
+
 
 	
 	
@@ -59,12 +59,13 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 		return myHitboxes;
 	}
 
-	public String getDefaultEvent() {
-		return "";
-	}
 	public void setGravity(double d)
 	{
 		myGravityValue = d;
+	}
+	public double getGravity()
+	{
+		return myGravityValue;
 	}
 	
 	public void setImage(BufferedImage i) {
@@ -72,21 +73,30 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 		image[0] = i;
 		setImages(image);
 	}
-	public void setInitX(double d) {
-		x = (int) d;
-		this.setX(x);
-		
-	}
 
-	public void setInitY(double val) {
-		y = (int) val;
-		this.setY(y);
-		
-	}
 
 	public void setInitPath(String path) {
 		this.path=path;
 		
+	}
+	public StateManager getStateManager()
+	{
+		return myStateManager;
+	}
+	public void setStateManager(StateManager sm)
+	{
+		myStateManager = sm;
+	}
+	public String getPath()
+	{
+		return path;
+	}
+	public Platformer getMygame() {
+		return mygame;
+	}
+
+	public void setMygame(Platformer mygame) {
+		this.mygame = mygame;
 	}
 	
 	

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import stateManagers.CharacterStateManager;
+
 import stateManagers.StateManager;
 
 import States.OnLandState;
@@ -23,8 +23,8 @@ public class Chris_TestSprite extends GeneralSprite{
 	public Chris_TestSprite()
 	{
 		super();
-		myStateManager = new CharacterStateManager(((Sprite) this), new ReverseMotionState(this));
-		myGravityValue = 0.000;
+		setStateManager(new StateManager(((Sprite) this), new ReverseMotionState(this)));
+		setGravity(0.000);
 	}
 	
 	
@@ -32,7 +32,7 @@ public class Chris_TestSprite extends GeneralSprite{
 	public void update(long elapsedTime)
 	{
 		super.update(elapsedTime);
-		this.addVerticalSpeed(elapsedTime, myGravityValue, 0.5);
+		this.addVerticalSpeed(elapsedTime, getGravity(), 0.5);
 	}
 
 
@@ -40,7 +40,7 @@ public class Chris_TestSprite extends GeneralSprite{
 	public ArrayList<String> writableObject() {
 		ArrayList<String> list= new ArrayList<String>();
 		list.add(this.getClass().toString());
-		list.add(path);
+		list.add(getPath());
 		list.add(getX() +"");
 		list.add(getY() +"");
 		return list;
@@ -49,11 +49,11 @@ public class Chris_TestSprite extends GeneralSprite{
 
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Chris_TestSprite C= new Chris_TestSprite();
-        C.mygame=game;
-		C.path=o.get(1);
+        C.setMygame(game);
+		C.setInitPath(o.get(1));
 		C.setX( Double.parseDouble(o.get(2)));
 		C.setY( Double.parseDouble(o.get(3)));
-		File file= new File(path);
+		File file= new File(getPath());
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);
@@ -61,7 +61,7 @@ public class Chris_TestSprite extends GeneralSprite{
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		mygame.CHARACTER.add(C);
+		getMygame().CHARACTER.add(C);
 		return C;
 	}
 

@@ -1,12 +1,10 @@
 package collisionType;
 
 import sprites.Boxable;
-import collisions.CollisionRect;
 import collisions.CollisionShape;
 import collisions.Hitbox;
 
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 import core.EventManager;
 
@@ -52,8 +50,8 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 							+" "+s2.getID()+" "+h2.getID());
 					EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+h2.getID()
 							+" "+s1.getID()+" "+h1.getID());
-					System.out.println("collision "+s1.getID()+" "+h1.getID()+" "+s2.getID()+" "+h2.getID());
-					System.out.println("collision "+s2.getID()+" "+h2.getID()+" "+s1.getID()+" "+h1.getID());
+					  System.out.println("collision "+s1.getID()+" "+h1.getID()+" "+s2.getID()+" "+h2.getID());
+					  System.out.println("collision "+s2.getID()+" "+h2.getID()+" "+s1.getID()+" "+h1.getID());
 					hitboxCollided(s1, h1, s2, h2);
 				}
 			}
@@ -64,17 +62,14 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 			CollisionShape shapeshift = h2.getShape().clone();
 			shapeshift.move(cr2.getX(), cr2.getY());
 			if(shapeshift.intersects(cr1)){
-				//EventManager.getEventManager().sendEvent(h2.getEvent());
 				EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+
 						s2.getID()+" "+h2.getID());
-				System.out.println("collision "+s1.getID()+" "+	s2.getID()+" "+h2.getID());
+				  System.out.println("collision "+s1.getID()+" "+	s2.getID()+" "+h2.getID());
 				spriteHitboxCollided(s1, s2, h2);
 			}
 		}
 		
-		
 		//sprite2 hitbox1 collisions
-		//for(Hitbox h1 : ((Boxable)s1).getHitboxes()){
 		for(int i=0; i<((Boxable)s1).getHitboxes().size(); i++){
 			Hitbox h1 = ((Boxable)s1).getHitboxes().get(i);
 			CollisionShape shapeshift = h1.getShape().clone();
@@ -82,16 +77,16 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 			if(shapeshift.intersects(cr2)){
 				EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+
 						s1.getID()+" "+h1.getID());
-				System.out.println("collision "+s2.getID()+" "+	s1.getID()+" "+h1.getID());
+				  System.out.println("collision "+s2.getID()+" "+	s1.getID()+" "+h1.getID());
 				hitboxSpriteCollided(s1, h1, s2);
 			}
 		}
 		
 		//sprite-sprite collisions
 		EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID());
-		System.out.println("collision "+s1.getID()+" "+s2.getID());
+		  System.out.println("collision "+s1.getID()+" "+s2.getID());
 		EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+s1.getID());
-		System.out.println("collision "+s2.getID()+" "+s1.getID());
+		  System.out.println("collision "+s2.getID()+" "+s1.getID());
 		spriteCollided(s1, s2);
 	}
 	
