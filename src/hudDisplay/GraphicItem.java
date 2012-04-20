@@ -4,10 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-
-import sprites.Chris_TestSprite;
 import sprites.GeneralSprite;
-
 import com.golden.gamedev.object.Sprite;
 
 public class GraphicItem extends HUDItem {
@@ -52,13 +49,13 @@ public class GraphicItem extends HUDItem {
 		{
 			mySprite = new Sprite(myImage, spriteToFollow.getX(), spriteToFollow.getY() - 20);
 			return;
-				}
+		}
 		
 		mySprite = new Sprite(myImage, HUDX + myX, HUDY + myY);
 
 	}
 
-	public static BufferedImage convertToBufferedImage(Image image) {
+	private static BufferedImage convertToBufferedImage(Image image) {
 		int width = image.getWidth(null);
 		int height = image.getHeight(null);
 		BufferedImage bufferedimage = new BufferedImage(width, height,

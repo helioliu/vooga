@@ -1,7 +1,6 @@
 package hudDisplay;
 
 import java.awt.Graphics2D;
-import sprites.TestCharacterWithStates;
 import com.golden.gamedev.object.GameFont;
 
 public class TextItem extends HUDItem{

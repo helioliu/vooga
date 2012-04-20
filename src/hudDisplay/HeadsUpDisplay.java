@@ -2,10 +2,8 @@ package hudDisplay;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
 import java.util.HashSet;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 
 public class HeadsUpDisplay {
 
@@ -42,6 +40,7 @@ public class HeadsUpDisplay {
 	public void render(Graphics2D g) {
 
 		myHUDSprite.render(g);
+		
 		for (HUDItem item : myHUDItems) {
 
 			item.render(g);
@@ -52,6 +51,7 @@ public class HeadsUpDisplay {
 	public void update(long elapsedTime) {
 		
 		myHUDSprite.update(elapsedTime);
+		
 		for (HUDItem item : myHUDItems) {
 
 			item.update(myX,myY,elapsedTime);

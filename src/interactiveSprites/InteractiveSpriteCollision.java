@@ -1,13 +1,14 @@
 package interactiveSprites;
 
+import sprites.GeneralSprite;
 import stateManagers.StateManager;
 import stateTransitions.ChangeStateTransition;
 import stateTransitions.StateTransition;
-
-import States.RegularMotionState;
-
+import States.InteractiveSpriteStates.TouchingState;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
+
+import core.EventManager;
 
 public class InteractiveSpriteCollision extends AdvanceCollisionGroup {
 	
@@ -16,9 +17,9 @@ public class InteractiveSpriteCollision extends AdvanceCollisionGroup {
 
 	@Override
 	public void collided(Sprite s1, Sprite s2) {
-StateTransition reverse = new ChangeStateTransition(((GeneralSprite) s2).getStateManager(), "switchstates", new RegularMotionState(this));
 		
-		reverse.activate();
+		EventManager.getEventManager().sendEvent("ISCollision");
+		((InteractiveSprite) s2).primaryAction(this,((GeneralSprite) s1));
 	}
 
 }
