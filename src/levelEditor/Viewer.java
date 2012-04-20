@@ -33,7 +33,7 @@ import com.google.gson.Gson;
 
 public class Viewer extends JPanel {
 
-	private String backgroundPath;
+	private BackgroundObject backgroundPath;
 	private LevelNameObject levelName;
 	private HashMap<Integer, GeneralSprite> CharacterTable = new HashMap<Integer, GeneralSprite>();
 	private Model model;
@@ -61,6 +61,7 @@ public class Viewer extends JPanel {
 		
 		ID=new IDObject();
 		levelName = new LevelNameObject();
+		backgroundPath = new BackgroundObject();
 
 	}
 	
@@ -175,7 +176,7 @@ public class Viewer extends JPanel {
 			count++;
 		}
 		
-		GameFile gameFile= new GameFile(backgroundPath, list);
+		GameFile gameFile= new GameFile(backgroundPath.getPath(), list);
 		model.Export(gameFile,levelName.getName());
 	}
 

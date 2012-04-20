@@ -57,8 +57,8 @@ public class Platformer extends GameObject {
 
 	@Override
 	public void initResources() {
-		playfield = new LevelBuilder(this).createLevel(PlatformGame.LEVEL_FILES
-				.get(PlatformGame.currentLevel));
+		playfield = new LevelBuilder(this).createLevel("level5.json");
+		//PlatformGame.LEVEL_FILES.get(PlatformGame.currentLevel)
 
 	}
 

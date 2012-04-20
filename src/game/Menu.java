@@ -55,6 +55,7 @@ public class Menu extends GameObject {
 		System.out.println(PlatformGame.LEVEL_FILES);
 	}
 
+	
 	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.BLACK);
@@ -73,16 +74,13 @@ public class Menu extends GameObject {
 
 		
 	}
-	
-	protected void initEngine() {
-		super.initEngine();
-		this.bsInput = new InputManager(this.bsGraphics.getComponent());
-	}
-	
-	@Override
+
 	public void update(long arg0) {
  
-		if (keyPressed(KeyEvent.VK_LEFT)) {
+		if (keyPressed(KeyEvent.VK_R)) {
+			System.out.println("this is r");
+		}
+		if (keyPressed(KeyEvent.VK_W)) {
 
 			if (++PlatformGame.currentLevel >= PlatformGame.LEVEL_FILES.size()) {
 				PlatformGame.currentLevel= 0;

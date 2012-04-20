@@ -8,16 +8,16 @@ import javax.swing.JPanel;
 
 public class BackgroundMakerWindow extends JPanel{
 	
-	private String path;
+	private BackgroundObject path;
 	
-	public BackgroundMakerWindow(String backgroundpath) {
+	public BackgroundMakerWindow(BackgroundObject backgroundpath) {
 		path=backgroundpath;
 		JFileChooser fc = new JFileChooser("./src/images");
 		int returnVal = fc.showOpenDialog(null);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
 			try {
-				path=file.getCanonicalPath();
+				path.setPath(file.getCanonicalPath());
 			} catch (IOException e) {
 			}
 		}
