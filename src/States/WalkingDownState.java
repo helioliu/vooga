@@ -1,15 +1,16 @@
 package States;
 
+import sprites.GeneralSprite;
 import SpriteAction.WalkDown;
 
 
-import com.golden.gamedev.object.Sprite;
+
 
 public class WalkingDownState extends EnemyState {
     
-    public WalkingDownState(Sprite s) {
+    public WalkingDownState(GeneralSprite s) {
         super(s);
-        myMap.put("move down", new WalkDown(s));
+        addAction("move down", new WalkDown(s));
         
     }
    

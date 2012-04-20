@@ -1,13 +1,13 @@
 package States;
 
+import sprites.GeneralSprite;
 import SpriteAction.WalkUp;
 
-import com.golden.gamedev.object.Sprite;
 
 public class WalkingUpState extends EnemyState {
     
-    public WalkingUpState(Sprite s){
+    public WalkingUpState(GeneralSprite s){
         super(s);
-        myMap.put("walk up", new WalkUp(s));
+        addAction("walk up", new WalkUp(s));
     }
 }

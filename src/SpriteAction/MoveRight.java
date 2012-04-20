@@ -1,11 +1,10 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
+import sprites.GeneralSprite;
 
 public class MoveRight extends SpriteAction{
 	
-	public MoveRight(Sprite s) {
+	public MoveRight(GeneralSprite s) {
 		super(s);
 	}
 
