@@ -7,22 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Graphics2D;
 
-import collisions.Hitbox;
-
-import com.golden.gamedev.Game;
-import com.golden.gamedev.object.AdvanceSpriteGroup;
-import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
-
-import com.golden.gamedev.object.Sprite;
+import collisions.CollisionRect;
+import collisions.Hitbox;
 
 public class BossSprite extends GeneralSprite{
-	
-	private static String myPictures = "images/testboss.png";
-	//private BufferedImage[] bi = getImages(myPictures, 2, 2);
 	
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
@@ -31,27 +22,51 @@ public class BossSprite extends GeneralSprite{
 	
 	public static final int STANDING = 0;
 	public static final int MOVING = 1;
+	public static final int PUNCHING = 2;
+	public static final int CROUCHING = 3;
 	
 	private static final int[][] movingAnimation = 
-			new int[][] { {0, 1, 0, 1}, {2, 0, 2, 0}, {0, 3, 0, 3},
-						  {0, 1, 0, 1} };
+			new int[][] { {0}, {1}, {3},
+						  {2} };
 	
+	private Timer t = new Timer (2000);
 	
-	
-	
-	
+	private List<Hitbox> standingHitbox = new ArrayList<Hitbox>();
+	private List<Hitbox> movingHitbox = new ArrayList<Hitbox>();
+	private List<Hitbox> punchingHitbox = new ArrayList<Hitbox>();
+	private List<Hitbox> crouchingHitbox = new ArrayList<Hitbox>();
 	
 	
 	public BossSprite(BufferedImage[] images, int x, int y){
 		//BufferedImage[] derp = getImages(myPictures, 2, 2);
 		super(images, x, y);
-		setAnimation(STANDING, LEFT);
-		getAnimationTimer().setDelay(500);
+		setAnimation(PUNCHING, LEFT);
+		//getAnimationTimer().setDelay(500);
 		setAnimate(true);
 		setLoopAnim(true);
+		setID(9999);
+		standingHitbox.add(new Hitbox(new CollisionRect(0, 0, 4*82, 92), "1"));
+		movingHitbox.add(new Hitbox(new CollisionRect(92, 0, 82*4, 92), "2"));
+		punchingHitbox.add(new Hitbox(new CollisionRect(92*2, 0, 4*82, 92), "3"));
+		crouchingHitbox.add(new Hitbox(new CollisionRect(92*3, 0, 4*82, 92), "4"));
+		Hitbox hb = new Hitbox(new CollisionRect(92*3+1, 0, 82*4, 2), "5");
+		standingHitbox.add(hb);
+		movingHitbox.add(hb);
+		punchingHitbox.add(hb);
+		crouchingHitbox.add(hb);
 	}
 	
 	public List<Hitbox> getHitboxes() {
+		switch(getStatus()){
+		case 0:
+			return standingHitbox;
+		case 1:
+			return movingHitbox;
+		case 2:
+			return punchingHitbox;
+		case 3:
+			return crouchingHitbox;
+		}
 		return new ArrayList<Hitbox>();
 	}
 	
@@ -59,20 +74,22 @@ public class BossSprite extends GeneralSprite{
 	public void update(long elapsedTime){
 		super.update(elapsedTime);
 		
-		if(getStatus()==MOVING){
-			setStatus(STANDING);
-			setFrame(getFrame()+1);
+		if(t.action(elapsedTime)){
+			if(getStatus()==STANDING)
+				setStatus(MOVING);
+			else
+			if(getStatus()==MOVING)
+				setStatus(PUNCHING);
+			else
+			if(getStatus()==PUNCHING)
+				setStatus(CROUCHING);
+			else
+			if(getStatus()==CROUCHING)
+				setStatus(STANDING);
+			
+			
 		}
 		
-		if(getStatus()==STANDING){
-			setStatus(MOVING);
-			setFrame(getFrame()+1);
-			//updateLogic(elapsedTime);
-		}
-	}
-	
-	public boolean walkTo(int dir, int horiz, int vert){
-		return true;
 	}
 	
 	protected void animationChanged(int oldStat, int oldDir, int status, int direction){
@@ -83,9 +100,6 @@ public class BossSprite extends GeneralSprite{
 		if(getImages() != null)
 			super.render(g);
 	}
-	
-	
-	
 
 	@Override
 	public ArrayList<String> writableObject() {
@@ -104,5 +118,5 @@ public class BossSprite extends GeneralSprite{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

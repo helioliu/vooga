@@ -24,10 +24,10 @@ public class BoxySprite extends AdvanceSprite implements Boxable{
 		//these are the hitboxes were's adding
 		myHitboxes = new ArrayList<Hitbox>();
 		CollisionShape cs1 = new CollisionRect(0, 0, 64, 64);
-		Hitbox hb1 = new Hitbox(cs1, "Hitbox 1", "top left");
+		Hitbox hb1 = new Hitbox(cs1, "top left");
 		myHitboxes.add(hb1);
 		CollisionShape cs2 = new CollisionRect(64, 64, 64, 64);
-		Hitbox hb2 = new Hitbox(cs2, "Hitbox 2", "bottom right");
+		Hitbox hb2 = new Hitbox(cs2, "bottom right");
 		myHitboxes.add(hb2);
 		/*CollisionShape cs3 = new CollisionCirc(0, 0, 64);
 		Hitbox hb3 = new Hitbox(cs3, "Hitbox 3 collision");
