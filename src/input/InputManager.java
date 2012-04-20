@@ -51,6 +51,7 @@ import core.EventManager;
  */
 public class InputManager implements BaseInput {
 		private ArrayList<String> currentlyPressed = new ArrayList<String>();
+		private static boolean isActive = true;
         
         /** **************************** AWT COMPONENT ****************************** */
         
@@ -163,22 +164,28 @@ public class InputManager implements BaseInput {
         
         /** ************************************************************************* */
         /** ************************** UPDATE FUNCTION ****************************** */
-        /** ************************************************************************* */
+        /** ************************************************************************* 
+         * @return */
+        
+        public static void setActive(boolean active) {
+        	isActive = active;
+        }
         
         public void update(long elapsedTime) {
+        	
         		//Send events for all keys pressed, the list is set in the inner class.
         		
         		for (int i = 0 ; i < this.pressedKey; i++ ) {
         			if(!currentlyPressed.contains(KeyEvent.getKeyText(keyPressed[i])))
         				currentlyPressed.add(KeyEvent.getKeyText(keyPressed[i]));
         		}
-        		
-        		for (String event : currentlyPressed) {
-//        			System.out.println(event);
-        			EventManager.getEventManager().sendEvent(event);
+        		if(isActive) {
+	        		for (String event : currentlyPressed) {
+	        			EventManager.getEventManager().sendEvent(event);
+	        		}
         		}
         		//	This line doesn't seem ideal, but it fixes a strange problem. I'll come back to it
-        		// later if I need to.
+        		//  later if I need to.
         		currentlyPressed.remove("Enter");
         		for (int i = 0 ; i < this.releasedKey; i++ ) {
         			currentlyPressed.remove(KeyEvent.getKeyText(keyReleased[i]));

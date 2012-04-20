@@ -12,17 +12,30 @@ import core.conditions.TimedCutsceneCondition;
 
 public abstract class EventAutomation {
 	protected Map<Condition, EventAutomation> myTransitions;
-	
+	protected Map<Condition, String> myAutomations;
+
 	public Map<Condition, EventAutomation> getTransitions() {
 		return myTransitions;
 	}
-	
+
 	public void addTransition(Condition condition, EventAutomation automation) {
 		myTransitions.put(condition, automation);
 	}
-	
-	
-	
+
+	public void addTimedAutomation(Integer occursAt, Integer duration,
+			String event) {
+		myAutomations
+				.put(new TimedCutsceneCondition(occursAt, duration), event);
+	}
+
+	public void addTimedAutomation(Integer occursAt, String event) {
+		myAutomations.put(new DelayedCondition(occursAt), event);
+	}
+
+	public void addAutomation(Condition condition, String event) {
+		myAutomations.put(condition, event);
+	}
+
 	protected static Map<Condition, String> parseAutomations(File f)
 			throws FileNotFoundException, BadFileFormatException {
 		Map<Condition, String> automations = new HashMap<Condition, String>();
@@ -38,19 +51,18 @@ public abstract class EventAutomation {
 			Condition current = null;
 			if (line.length == 3) {
 				Integer duration = Integer.parseInt(line[2]);
-				current = new TimedCutsceneCondition(occursAt,
-						duration);
+				current = new TimedCutsceneCondition(occursAt, duration);
 			} else {
 				current = new DelayedCondition(occursAt);
 			}
-			
+
 			automations.put(current, eventName);
 		}
 
 		return automations;
 	}
-	
-	public abstract void update(long timeElapsed);
+
 	public abstract void beginAutomation();
+
 	public abstract void endAutomation();
 }

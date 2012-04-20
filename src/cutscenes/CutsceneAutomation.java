@@ -16,7 +16,6 @@ import core.conditions.TimedCutsceneCondition;
 
 public class CutsceneAutomation extends EventAutomation implements
 		EventListener {
-	Map<Condition, String> myAutomations;
 	private File automationScript;
 
 	public CutsceneAutomation(String filepath) throws FileNotFoundException,
@@ -26,9 +25,6 @@ public class CutsceneAutomation extends EventAutomation implements
 		myTransitions = new HashMap<Condition, EventAutomation>();
 	}
 
-	public void update(long timeElapsed) {
-
-	}
 
 	public void beginAutomation() {
 		try{
@@ -52,6 +48,7 @@ public class CutsceneAutomation extends EventAutomation implements
 			EventManager.getEventManager().removeEventCondition(condition);
 		}
 	}
+	
 
 	public void actionPerformed(Object event) {
 	}
