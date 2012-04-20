@@ -51,7 +51,7 @@ public class Spring_IS extends GeneralSprite implements LevelEditable, Interacti
 	public Spring_IS() {
 		
 		myType = "spring";
-		setStateManager(new StateManager(((Sprite)this), new StationaryState(this)));
+		setStateManager(new StateManager(((GeneralSprite)this), new StationaryState(this)));
 		//myGame.INTERACTIVE_SPRITES.add(this);
 		
 		StateTransition collide = new ChangeStateTransition(getStateManager(), "ISCollision", new TouchingState((this)));
