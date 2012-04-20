@@ -203,8 +203,8 @@ public class Viewer extends JPanel {
 					if (CharacterTable.keySet().contains(x))
 						;
 					{
-						mySprite.setInitX(i * width);
-						mySprite.setInitY(count * height);
+						mySprite.setX(i * width);
+						mySprite.setY(count * height);
 						
 						list.add(mySprite.writableObject());
 					}
