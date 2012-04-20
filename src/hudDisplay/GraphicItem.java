@@ -15,10 +15,11 @@ public class GraphicItem extends HUDItem{
 	private int myY;
 	private Stat myStat;
 
-	public GraphicItem(BufferedImage image, int x, int y, Stat s1) {
+	public GraphicItem(BufferedImage image, int x, int y, Stat stat) {
 		
 		myImage = image;
 		mySprite = new Sprite(image, x, y);
+		myStat = stat;
 		myX = x;
 		myY = y;
 	}
@@ -31,7 +32,13 @@ public class GraphicItem extends HUDItem{
 
 	@Override
 	public void update(long elapsedTime) {
-		Image scaledImage = myImage.getScaledInstance(myImage.getWidth(), myImage.getHeight(), 1);
+		int newImageWidth;
+		if((int)(myImage.getWidth()*(myStat.getValue()/myStat.getStartValue())) == 0)
+			newImageWidth = 2;
+		else
+		newImageWidth =(int) (myImage.getWidth()*(myStat.getValue()/myStat.getStartValue()));
+		
+		Image scaledImage = myImage.getScaledInstance(newImageWidth, myImage.getHeight(), 1);
 		myImage = convertToBufferedImage(scaledImage);
 
 		mySprite = new Sprite(myImage, myX, myY);
