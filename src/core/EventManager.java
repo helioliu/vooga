@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class EventManager implements EventManagerInterface {
 
-	private Map<EventCondition, String> mapEventConditionToEvent;
+	private Map<Condition, String> mapEventConditionToEvent;
 	private static EventManager myEventManager;
 	private EventQueue myEventQueue;
 	private long elapsedTime;
@@ -15,18 +15,18 @@ public class EventManager implements EventManagerInterface {
 	public EventManager() {
 		myEventManager = this;
 		myEventQueue = new EventQueue();
-		mapEventConditionToEvent = new HashMap<EventCondition, String>();
+		mapEventConditionToEvent = new HashMap<Condition, String>();
 	}
 
 	public void addEvent(Event event) {
 		myEventQueue.addEvent(event);
 	}
 
-	public void addEventCondition(EventCondition cond, String eventName) {
+	public void addEventCondition(Condition cond, String eventName) {
 		mapEventConditionToEvent.put(cond, eventName);
 	}
 
-	public void removeEventCondition(EventCondition condition) {
+	public void removeEventCondition(Condition condition) {
 		mapEventConditionToEvent.remove(condition);
 	}
 
@@ -80,10 +80,16 @@ public class EventManager implements EventManagerInterface {
 
 	public void update(long timeElapsed) {
 		elapsedTime = timeElapsed;
+		for (Condition cond : mapEventConditionToEvent.keySet()) {
+			if (cond.conditionTrue()) {
+				sendEvent(mapEventConditionToEvent.get(cond));
+			}
+		}
 		while (myEventQueue.hasEvents()) {
 			Event event = myEventQueue.removeEvent();
 			event.run();
 		}
+		
 	}
 
 }
