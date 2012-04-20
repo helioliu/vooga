@@ -37,8 +37,6 @@ public class Chris_TestSprite extends GeneralSprite{
 		setStateManager(new StateManager(this, s));
 		StateTransition reverse = new ChangeStateTransition(getStateManager(), "switchstates", new OnLandState(this));
 		setMyStats(new HashMap<String, Stat>());	
-
-
 		reverse.activate();
 		setGravity(0.00);
 	}

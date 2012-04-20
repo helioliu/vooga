@@ -181,6 +181,15 @@ public class InputManager implements BaseInput {
         		}
         		if(isActive) {
 	        		for (String event : currentlyPressed) {
+	        			//For the fucking macs...
+	        			if (event.equals("W"))
+	        				event="Up";
+	        			if (event.equals("A"))
+	        				event="Left";
+	        			if (event.equals("S"))
+	        				event="Down";
+	        			if (event.equals("D"))
+	        				event="Right";
 	        			EventManager.getEventManager().sendEvent(event);
 	        		}
         		}

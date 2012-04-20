@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import sprites.Chris_TestSprite;
 import sprites.Mike_TestSprite;
 import sprites.WalkingBadGuy;
 import States.State;
@@ -136,9 +135,12 @@ public class TestGame extends Game{
         try {
 			automation = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript.script");
 			automation2 = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript2.script");
-		} catch (FileNotFoundException | BadFileFormatException e) {
+		} catch (FileNotFoundException  e) {
 			e.printStackTrace();
 		}
+        catch(BadFileFormatException e){
+        	e.printStackTrace();
+        }
         
         automation.addTransition(new DelayedCondition(2000), automation2);
         myCutscene = new Cutscene(automation, "start-cutscene","end-cutscene");
