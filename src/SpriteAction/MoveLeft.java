@@ -1,11 +1,10 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
+import sprites.GeneralSprite;
 
 public class MoveLeft extends SpriteAction{
 	
-	public MoveLeft(Sprite s) {
+	public MoveLeft(GeneralSprite s) {
 		super(s);
 	}
 

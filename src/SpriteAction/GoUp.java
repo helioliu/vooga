@@ -1,11 +1,10 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
+import sprites.GeneralSprite;
 import core.EventManager;
 
 public class GoUp extends SpriteAction {
-    public GoUp(Sprite s) {
+    public GoUp(GeneralSprite s) {
         super(s);
         EventManager em = EventManager.getEventManager();
         em.registerEventListener("going up", this);

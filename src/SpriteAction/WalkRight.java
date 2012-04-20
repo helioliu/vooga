@@ -1,13 +1,10 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
-import core.EventManager;
-
+import sprites.GeneralSprite;
 
 public class WalkRight extends SpriteAction{
 
-    public WalkRight(Sprite s) {
+    public WalkRight(GeneralSprite s) {
         super(s);
 
     }

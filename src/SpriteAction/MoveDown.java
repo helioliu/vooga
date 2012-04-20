@@ -1,10 +1,9 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
+import sprites.GeneralSprite;
 
 public class MoveDown extends SpriteAction {
-    public MoveDown(Sprite s) {
+    public MoveDown(GeneralSprite s) {
         super(s);
  
     }
