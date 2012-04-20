@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import stateManagers.CharacterStateManager;
+
 import stateManagers.StateManager;
 
 import States.OnLandState;
@@ -23,7 +23,7 @@ public class Chris_TestSprite extends GeneralSprite{
 	public Chris_TestSprite()
 	{
 		super();
-		setStateManager(new CharacterStateManager(((Sprite) this), new ReverseMotionState(this)));
+		setStateManager(new StateManager(((Sprite) this), new ReverseMotionState(this)));
 		setGravity(0.000);
 	}
 	

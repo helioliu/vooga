@@ -46,7 +46,7 @@ public class Platform extends GeneralSprite {
 	public ArrayList<String> writableObject() {
 		ArrayList<String> list= new ArrayList<String>();
 		list.add(this.getClass().toString());
-		list.add(path);
+		list.add(getPath());
 		list.add(getX() +"");
 		list.add(getY() +"");
 		return list;
@@ -56,10 +56,10 @@ public class Platform extends GeneralSprite {
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Platform P= new Platform();
         P.game=game;
-		P.path=o.get(1);
+		P.setInitPath(o.get(1));
 		P.setX( Double.parseDouble(o.get(2)));
 		P.setY( Double.parseDouble(o.get(3)));
-		File file= new File(P.path);
+		File file= new File(P.getPath());
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);
