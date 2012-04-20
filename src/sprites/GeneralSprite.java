@@ -56,15 +56,19 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	}
 	
 	public void createStat(String name, Stat stat) {
-		myStats.put(name, stat);
+		getMyStats().put(name, stat);
 	}
 	
 	public Stat getStat(String name){
-		return myStats.get(name);
+		return getMyStats().get(name);
 	}
-	
-	public Map<String, Stat> getInternalScores(){
+
+	public Map<String, Stat> getMyStats() {
 		return myStats;
+	}
+
+	public void setMyStats(Map<String, Stat> myStats) {
+		this.myStats = myStats;
 	}
 	
 	public void changeStat(String name, double x){	
@@ -115,7 +119,4 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	public void setMygame(Platformer mygame) {
 		this.mygame = mygame;
 	}
-	
-	
-
 }
