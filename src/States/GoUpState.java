@@ -4,7 +4,6 @@ import sprites.GeneralSprite;
 import SpriteAction.WalkUp;
 
 
-import com.golden.gamedev.object.Sprite;
 
 public class GoUpState extends EnemyState {
     
