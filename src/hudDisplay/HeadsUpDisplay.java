@@ -15,9 +15,9 @@ public class HeadsUpDisplay {
 	private HashSet<HUDItem> myHUDItems;
 	
 	public HeadsUpDisplay(BufferedImage HUDImage, int x, int y) {
-		myHUDSprite = new Sprite(HUDImage, myX, myY);
 		myX = x;
 		myY = y;
+		myHUDSprite = new Sprite(HUDImage, myX, myY);
 		myHUDItems = new HashSet<HUDItem>();				
 	}
 
@@ -41,6 +41,7 @@ public class HeadsUpDisplay {
 	
 	public void render(Graphics2D g) {
 
+		myHUDSprite.render(g);
 		for (HUDItem item : myHUDItems) {
 
 			item.render(g);
@@ -50,9 +51,10 @@ public class HeadsUpDisplay {
 
 	public void update(long elapsedTime) {
 		
+		myHUDSprite.update(elapsedTime);
 		for (HUDItem item : myHUDItems) {
 
-			item.update(elapsedTime);
+			item.update(myX,myY,elapsedTime);
 
 		}
 		

@@ -40,17 +40,18 @@ public class PlatformGame extends Game{
         playfield.setBackground(new ColorBackground(Color.WHITE, 1200, 900));
 
 
-		Sprite s1 = new BoxySprite(getImages("test.png", 1, 1), 0, 100);
+		Sprite s1 = new BoxySprite(getImages("test.png", 2, 2), 0, 200);
 		Sprite s2 = new BossSprite(getImages("images/testboss.png", 2, 2), 400, 100);
 		
 		playfield.add(s1);
 		playfield.add(s2);
 
-		s1.setHorizontalSpeed(0.5);
+		s1.setHorizontalSpeed(0.8);
 		s2.setHorizontalSpeed(0);
 		
-		SpriteGroup CHAR1  		= playfield.addGroup(new AdvanceSpriteGroup("Char1", 0));
+		
 		SpriteGroup CHAR2 		= playfield.addGroup(new AdvanceSpriteGroup("Char2", 300));
+		SpriteGroup CHAR1  		= playfield.addGroup(new AdvanceSpriteGroup("Char1", 0));
 		CHAR1.add(s1);
 		CHAR2.add(s2);
 		
@@ -70,15 +71,14 @@ public class PlatformGame extends Game{
 
 			@Override
 			protected void spriteHitboxCollided(Sprite s1, Sprite s2, Hitbox h2) {
-				// TODO Auto-generated method stub
-				
+				s1.setLocation(0, 100+50*(h2.getID().charAt(0)-48));
 			}
 
 			@Override
 			protected void hitboxCollided(Sprite s1, Hitbox h1, Sprite s2,
 					Hitbox h2) {
-				s1.setVerticalSpeed(.1);
-				s2.setVerticalSpeed(-.1);
+				// TODO Auto-generated method stub
+				
 			}
 			
 		});
