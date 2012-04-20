@@ -44,9 +44,4 @@ public class BoxySprite extends AdvanceSprite implements Boxable{
 		return Collections.unmodifiableList(myHitboxes);
 	}
 
-	@Override
-	public String getDefaultEvent() {
-		return "Default";
-	}
-
 }
