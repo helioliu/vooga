@@ -2,17 +2,13 @@ package HUD.test;
 import hudDisplay.GraphicItem;
 import hudDisplay.HeadsUpDisplay;
 import hudDisplay.NumberStat;
-import hudDisplay.Stat;
 import hudDisplay.TextItem;
 import input.InputManager;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.Map;
-
 import sprites.Chris_TestSprite;
-import sprites.GeneralSprite;
 import States.State;
 
 import com.golden.gamedev.Game;
