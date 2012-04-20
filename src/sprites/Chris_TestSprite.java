@@ -1,11 +1,14 @@
 package sprites;
 
 import game.Platformer;
+import hudDisplay.Stat;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -32,7 +35,8 @@ public class Chris_TestSprite extends GeneralSprite{
 		State s = new RegularMotionState(this);
 		setStateManager(new StateManager(this, s));
 		StateTransition reverse = new ChangeStateTransition(getStateManager(), "switchstates", new OnLandState(this));
-		
+		setMyStats(new HashMap<String, Stat>());	
+
 		reverse.activate();
 		setGravity(0.00);
 	}
