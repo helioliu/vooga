@@ -1,6 +1,7 @@
 package States;
 
 import sprites.GeneralSprite;
+import SpriteAction.ChangeStatAction;
 import SpriteAction.MoveDown;
 import SpriteAction.MoveLeft;
 import SpriteAction.MoveRight;
@@ -18,6 +19,7 @@ public class ReverseMotionState extends State{
         addAction("Left", new MoveRight(s));
         addAction("Right", new MoveLeft(s));
         addAction("floor collide", new StandAction(s));
+        addAction("got hit", new ChangeStatAction(s));
         
         
     }

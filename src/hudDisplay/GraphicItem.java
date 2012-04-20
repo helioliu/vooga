@@ -47,7 +47,7 @@ public class GraphicItem extends HUDItem {
 		
 		if(follow)
 		{
-			mySprite = new Sprite(myImage, spriteToFollow.getX(), spriteToFollow.getY() - 20);
+			mySprite = new Sprite(myImage, spriteToFollow.getX() -50, spriteToFollow.getY() -20);
 			return;
 		}
 		

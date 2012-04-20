@@ -8,7 +8,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.Map;
-import sprites.Chris_TestSprite;
+
+import sprites.BryanSprite;
 import States.State;
 
 import com.golden.gamedev.Game;
@@ -23,7 +24,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import core.EventManager;
 
 public class Test_game extends Game {
-	Chris_TestSprite s1;
+	BryanSprite s1;
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
@@ -40,7 +41,7 @@ public class Test_game extends Game {
 		
 		HUD = new HeadsUpDisplay(getImage("images/EmptyHUD.png"),0,0);
 		
-		 s1 = new Chris_TestSprite();
+		 s1 = new BryanSprite();
 	        //BufferedImage[] images = new BufferedImage[1];
 	        //	images[0] = ;
 	        s1.setImage(getImage("images/mario1.png"));
@@ -59,16 +60,10 @@ public class Test_game extends Game {
 		GraphicItem manabar = new GraphicItem(getImage("images/healthBar2.png", false),200,10, s1.getStat("mana"));
 		manabar.Follow(s1);
 		HUD.addGraphicItem(manabar);
-		
-	
 
 		scoreFont = fontManager.getFont(getImages("images/Score_Font.png", 8,12));
 		TextItem Score = new TextItem(scoreFont, 400, 10,s1.getStat("score"));
 		HUD.addTextItem(Score);
-
-		
-		
-
 
 		Sprite wall1 = new Sprite(getImage("images/block.png"));
 		wall1.setLocation(350,400);
@@ -92,11 +87,6 @@ public class Test_game extends Game {
 		
 		playfield.addGroup(character);
 		playfield.addGroup(walls);
-		
-
-
-		
-		
 		
 	}
 	
@@ -124,22 +114,22 @@ public class Test_game extends Game {
 		playfield.update(elapsedTime);
 		HUD.update(elapsedTime);		
 		
-		if (keyDown(KeyEvent.VK_LEFT))
-		{
-			EventManager.getEventManager().sendEvent("Left");
-		}
-		if (keyDown(KeyEvent.VK_RIGHT))
-		{
-			EventManager.getEventManager().sendEvent("Right");
-		}
-		if (keyDown(KeyEvent.VK_UP))
-		{
-			EventManager.getEventManager().sendEvent("Up");	
-		}
-		if (keyDown(KeyEvent.VK_DOWN))
-		{
-			EventManager.getEventManager().sendEvent("Down");	
-		}
+//		if (keyDown(KeyEvent.VK_LEFT))
+//		{
+//			EventManager.getEventManager().sendEvent("Left");
+//		}
+//		if (keyDown(KeyEvent.VK_RIGHT))
+//		{
+//			EventManager.getEventManager().sendEvent("Right");
+//		}
+//		if (keyDown(KeyEvent.VK_UP))
+//		{
+//			EventManager.getEventManager().sendEvent("Up");	
+//		}
+//		if (keyDown(KeyEvent.VK_DOWN))
+//		{
+//			EventManager.getEventManager().sendEvent("Down");	
+//		}
 	}
 	
 	class WallCollision extends BasicCollisionGroup {
