@@ -36,9 +36,11 @@ public class SpriteWindowMaker extends JPanel {
 	private JPanel myPanel;
 	
 	public SpriteWindowMaker(JPanel myPicturePanel, HashMap<Integer, GeneralSprite> characterTable, int iD) {
+		myPanel=new JPanel();
 		setLayout(new FlowLayout());
 		SpriteAttributeEditor = new TextArea("Change your sprites attributes", 40, 40 );
 		myPanel.add(makeButtonPanel());
+		add(myPanel);
 		picPanel=myPicturePanel;
 		CTable=characterTable;
 		ID=iD;
@@ -64,9 +66,10 @@ public class SpriteWindowMaker extends JPanel {
 				new Platform(),
 
 			};
+			currSprite=spriteNames[0];
 
 			JComboBox SpriteChooser = new JComboBox(spriteNames);
-			SpriteChooser.setSelectedIndex(spriteNames.length);
+			SpriteChooser.setSelectedIndex(spriteNames.length-1);
 			SpriteChooser.addActionListener(new GeneralSpriteAction());
 			return SpriteChooser;
 		
@@ -89,9 +92,9 @@ public class SpriteWindowMaker extends JPanel {
 	
 	
 	private Component addImageButton() {
-		JButton platformButton = new JButton("Add Platform");
-		platformButton.addActionListener(new ImageAction());
-		return platformButton;
+		JButton ImageButton = new JButton("Set Image");
+		ImageButton.addActionListener(new ImageAction());
+		return ImageButton;
 	}
 
 	
@@ -105,7 +108,6 @@ public class SpriteWindowMaker extends JPanel {
 
 	
 	private void getImage() {
-		
 		JFileChooser fc = new JFileChooser("./src/images/");
 	
 		int returnVal = fc.showOpenDialog(null);
@@ -141,7 +143,7 @@ public class SpriteWindowMaker extends JPanel {
 	
 	private void createSprite() {
 		
-		if (imagePath!=null && currSprite!=null) {
+		if (imagePath!=null) {
 		JPanel imageInfo = new JPanel();
 		imageInfo.setLayout(new GridLayout(2, 1));
 		String imageNumber = "This image is represented by:" + ID;
@@ -162,12 +164,18 @@ public class SpriteWindowMaker extends JPanel {
 		imageInfo.add(picLabel);
 		picPanel.add(imageInfo);
 	   
+		picPanel.revalidate();
         currSprite.setInitPath(imagePath);
+        
+        currSprite.setInitPath(file.getCanonicalPath());
+		CTable.put(ID, currSprite);
+		ID++;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
+		
 		
 	    }
+	}
 }
