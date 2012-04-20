@@ -9,8 +9,7 @@ public class WalkLeft extends SpriteAction{
 
     public WalkLeft(Sprite s) {
         super(s);
-        EventManager em = EventManager.getEventManager();
-        em.registerEventListener("walking left", this);
+
     }
     
     public void actionPerformed(Object event){

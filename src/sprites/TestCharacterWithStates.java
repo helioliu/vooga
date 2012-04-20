@@ -1,8 +1,9 @@
 package sprites;
 import java.util.HashMap;
 import com.golden.gamedev.object.Sprite;
-import StateMachines.CharacterStateManager;
-import StateMachines.StateManager;
+
+import stateManagers.CharacterStateManager;
+import stateManagers.StateManager;
 
 public class TestCharacterWithStates extends Sprite{
 	private StateManager stateManager;

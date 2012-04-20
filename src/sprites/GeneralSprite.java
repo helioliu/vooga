@@ -10,7 +10,6 @@ import java.util.Map;
 
 import stateManagers.StateManager;
 
-
 import collisions.Hitbox;
 
 import com.golden.gamedev.object.sprite.AdvanceSprite;

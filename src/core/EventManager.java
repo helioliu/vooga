@@ -52,8 +52,8 @@ public class EventManager implements EventManagerInterface {
                   @Override
                   public void run()
                   {                	  
-                	  	for(EventListener l : listeners){
-                	  		l.actionPerformed(eventName);
+                	  	for(int i=listeners.size()-1; i>=0; i-- ){
+                	  		listeners.get(i).actionPerformed(eventName);
                 	  	}
                   }
 
