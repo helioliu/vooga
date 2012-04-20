@@ -3,6 +3,8 @@ package levelBuilder;
 import game.Platformer;
 import game.PlatformGame;
 
+import interactiveSprites.InteractiveSpriteCollision;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -111,8 +113,8 @@ public class LevelBuilder {
 //				new EnemyProjectileCollision());
 		field.addCollisionGroup(myGame.CHARACTER, myGame.PLATFORM,
 				new SpritePlatformCollision());
-		field.addCollisionGroup(myGame.CHARACTER, myGame.SPRINGS,
-			new CharacterSpringCollision());
+		field.addCollisionGroup(myGame.CHARACTER, myGame.INTERACTIVE_SPRITES,
+			new InteractiveSpriteCollision());
 //		// playfield.addCollisionGroup(CHARACTER, BAD_GUYS,
 //		// new CharacterEnemyCollision());
 //		// playfield.addCollisionGroup(CHARACTER, COINS, new CoinCollision());
