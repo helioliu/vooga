@@ -29,6 +29,7 @@ public class Character extends GeneralSprite {
 		super();
         jumpTimer = new Timer(150);
         myStateManager = new CharacterStateManager(((Sprite) this), new StationaryState(this));
+        
 		myGravityValue = 0.002;
 	}
 
