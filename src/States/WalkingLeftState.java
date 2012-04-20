@@ -10,7 +10,4 @@ public class WalkingLeftState extends EnemyState {
         super(s);
         myMap.put("walk left", new WalkLeft(s));
     }
-    
- 
-
 }

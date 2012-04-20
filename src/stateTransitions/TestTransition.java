@@ -10,7 +10,7 @@ public class TestTransition {
 
    public static void main(String[] args){
        Sprite s = new Sprite();
-       StateManager manager = new StateManager(s);
+       StateManager manager = new StateManager(s, null);
        
        StateTransition st = new ChangeStateTransition(manager, "hello", new OnLandState(s) );
        System.out.println(st);

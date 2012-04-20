@@ -16,21 +16,17 @@ import core.EventListener;
 
 public class StateManager{
 	private Sprite mySprite;
-	private ArrayList<StateTransition> myStateTransitions;
+
 	private State currentState;
 	
 	public StateManager(Sprite s, State startingState)
 	{
 		mySprite = s;
-		myStateTransitions = new ArrayList<StateTransition>();
 		currentState = startingState;
 		currentState.activateAllListeners();
 	}
 	
-	public void addTransition(StateTransition toAdd)
-	{
-		myStateTransitions.add(toAdd);
-	}
+
 	
 	public void changeState(State s)
 	{
@@ -47,10 +43,7 @@ public class StateManager{
 	{
 		return currentState.hashCode()==s.hashCode();
 	}
-	public ArrayList<StateTransition> getTransitions()
-	{
-		return myStateTransitions;
-	}
+
 	
 	
 
