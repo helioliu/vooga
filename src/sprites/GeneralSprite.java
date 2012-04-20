@@ -59,9 +59,6 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 		return myHitboxes;
 	}
 
-	public String getDefaultEvent() {
-		return "";
-	}
 	public void setGravity(double d)
 	{
 		myGravityValue = d;
