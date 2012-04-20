@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import spriteCollisions.SpritePlatformCollision;
+import SpriteCollisions.SpritePlatformCollision;
 import sprites.*;
 import sprites.Character;
 
@@ -84,7 +84,7 @@ public class LevelBuilder {
 		myGame.SPAWNPOINT = field.addGroup(new SpriteGroup("SPAWNPOINT"));
 		myGame.COINS = field.addGroup(new SpriteGroup("COINS"));
 		myGame.BAD_GUYS = field.addGroup(new SpriteGroup("BAD_GUYS"));
-		myGame.INTERACTIVE_SPRITES = field.addGroup(new SpriteGroup("SPRINGS"));
+		myGame.INTERACTIVE_SPRITES = field.addGroup(new SpriteGroup("INTERACTIVE_SPRITES"));
 
 
 		ArrayList<GeneralSprite> SpriteList= new ArrayList<GeneralSprite>();
@@ -111,8 +111,8 @@ public class LevelBuilder {
 //				new EnemyProjectileCollision());
 		field.addCollisionGroup(myGame.CHARACTER, myGame.PLATFORM,
 				new SpritePlatformCollision());
-//		field.addCollisionGroup(myGame.CHARACTER, myGame.SPRINGS,
-//				new CharacterSpringCollision());
+		field.addCollisionGroup(myGame.CHARACTER, myGame.SPRINGS,
+			new CharacterSpringCollision());
 //		// playfield.addCollisionGroup(CHARACTER, BAD_GUYS,
 //		// new CharacterEnemyCollision());
 //		// playfield.addCollisionGroup(CHARACTER, COINS, new CoinCollision());

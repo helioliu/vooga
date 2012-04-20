@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import sprites.Bad_Guys;
+import sprites.GeneralSprite;
 import sprites.LevelEditable;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionGroup;
 
-public class KoopaShell_IS extends Sprite implements LevelEditable, InteractiveSprite {
+public class KoopaShell_IS extends GeneralSprite implements LevelEditable, InteractiveSprite {
 	
 	Platformer myGame;
 	String path;
