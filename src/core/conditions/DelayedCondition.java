@@ -2,10 +2,10 @@ package core.conditions;
 
 import com.golden.gamedev.object.Timer;
 
-import core.EventCondition;
+import core.Condition;
 import core.EventManager;
 
-public class DelayedCondition implements EventCondition {
+public class DelayedCondition implements Condition {
 	private boolean activated;
 	private Timer countdown;
 	
@@ -14,7 +14,7 @@ public class DelayedCondition implements EventCondition {
 		countdown = new Timer(count);
 	}
 
-	public boolean conditionTrue(Object... o) {
+	public boolean conditionTrue() {
 		update();
 		if(activated) {
 			activated = false;
@@ -29,6 +29,11 @@ public class DelayedCondition implements EventCondition {
 			activated = true;
 			countdown.setActive(false);
 		}
+	}
+
+	@Override
+	public void reset() {
+		countdown.refresh();
 	}
 
 }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,36 +22,29 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
-import cutscenes.BadFileFormatException;
 import cutscenes.Cutscene;
-import cutscenes.CutsceneAutomation;
 import cutscenes.CutsceneTrigger;
-import cutscenes.EventAutomation;
 
 
-public class Cutscene_TestGame extends Game{
-    Sprite s1;
+public class Ben_TestGame extends Game{
+    
     Map<String, State> stateMap;
     PlayField playfield;
     CollisionManager collisionTypeWall;
     CollisionManager collisionTypeBlocker;
-    Cutscene myCutscene;
 
 
 
 
     public void initResources() {
-        //		stateMap = new HashMap<String, State>();
+  
         playfield = new PlayField();
         playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 
-        s1 = new Chris_TestSprite();
-        //BufferedImage[] images = new BufferedImage[1];
-        //	images[0] = ;
-        s1.setImage(getImage("images/mario1.png"));
-        s1.setLocation(300, 200);
-        SpriteGroup character = new SpriteGroup("character");
-        character.add(s1);
+
+ 
+
+   
 
         //added by Ben
         Sprite enemy1 = new WalkingBadGuy ();
@@ -102,53 +94,41 @@ public class Cutscene_TestGame extends Game{
         collisionTypeBlocker = new CantGoFurtherCollision();
         collisionTypeBlocker.setCollisionGroup(enemies, blockers);
         //
-        collisionTypeWall = new WallCollision();
-        collisionTypeWall.setCollisionGroup(character, walls);
 
-        playfield.addGroup(character);
+
+
         playfield.addGroup(walls);
 
         //added by Ben
         playfield.addGroup(enemies);
         playfield.addGroup(blockers);
         //
-        
-        
-        
-        //Cutscene Code - from Mike
-        EventAutomation automation = null;
-        try {
-			automation = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript.script");
-		} catch (FileNotFoundException | BadFileFormatException e) {
-			e.printStackTrace();
-		}
-        
-        myCutscene = new Cutscene(automation, "start-cutscene","end-cutscene");
-        
-        EventManager.getEventManager().sendEvent("start-cutscene");
+
+
+
 
 
     }
 
     public void render(Graphics2D arg0) {
         playfield.render(arg0);
-        collisionTypeWall.checkCollision();
+
         //added by Ben
         collisionTypeBlocker.checkCollision();
-        //	HUD.render(arg0);
+        //  HUD.render(arg0);
     }
 
     public void update(long elapsedTime) {
         //Cutscene Code
-        //		if(cutTimer.action(elapsedTime)) {
-        //			trigger.triggerCutscene();
-        //			cutTimer.setActive(false);
-        //		}
-        //		cutscene.update(elapsedTime);
+        //      if(cutTimer.action(elapsedTime)) {
+        //          trigger.triggerCutscene();
+        //          cutTimer.setActive(false);
+        //      }
+        //      cutscene.update(elapsedTime);
 
         EventManager.getEventManager().update(elapsedTime);
         playfield.update(elapsedTime);
-        //		HUD.update(elapsedTime);
+        //      HUD.update(elapsedTime);
 
 
 
@@ -162,11 +142,11 @@ public class Cutscene_TestGame extends Game{
         }
         if (keyDown(KeyEvent.VK_UP))
         {
-            EventManager.getEventManager().sendEvent("Up");	
+            EventManager.getEventManager().sendEvent("Up"); 
         }
         if (keyDown(KeyEvent.VK_DOWN))
         {
-            EventManager.getEventManager().sendEvent("Down");	
+            EventManager.getEventManager().sendEvent("Down");   
         }
     }
 
