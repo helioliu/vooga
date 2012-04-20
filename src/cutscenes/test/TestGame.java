@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import sprites.Chris_TestSprite;
 import sprites.Mike_TestSprite;
 import sprites.WalkingBadGuy;
 import States.State;
