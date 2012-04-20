@@ -6,23 +6,31 @@ import stateManagers.StateManager;
 import States.State;
 
 public abstract class StateTransition implements EventListener{
-	private StateManager myStateMachine;
+	private StateManager myStateManager;
 	private State myState;
-	
+	private String myEvent;
 	
 	public StateTransition(StateManager sm, String event, State s)
 	{
-		myStateMachine = sm;
+		myStateManager = sm;
 		myState = s;
-		EventManager.getEventManager().registerEventListener(event, this);
+		myEvent = event;
 	}
 	
 	protected StateManager getMyStateMachine() {
-        return myStateMachine;
+        return myStateManager;
     }
 	
 	protected State getMyState(){
 	    return myState;
+	}
+	
+	public void activate(){
+	    EventManager.getEventManager().registerEventListener(myEvent, this);
+	}
+	
+	public void deactivate(){
+	    EventManager.getEventManager().unregisterEventListener(myEvent, this);
 	}
 	
 	
