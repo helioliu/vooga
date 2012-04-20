@@ -66,6 +66,10 @@ public abstract class State {
 	{
 		return mySprite;
 	}
+	public boolean equals(State s)
+	{
+		return this.hashCode()==s.hashCode();
+	}
 	
 	
 	

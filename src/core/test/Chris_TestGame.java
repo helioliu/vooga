@@ -34,6 +34,7 @@ public class Chris_TestGame extends Game{
     PlayField playfield;
     CollisionManager collisionTypeWall;
     CollisionManager collisionTypeBlocker;
+    CollisionManager collisionTypeSwitch;
 
 
 
@@ -70,14 +71,22 @@ public class Chris_TestGame extends Game{
         //
 
 
-        Sprite wall1 = new Sprite(getImage("images/block.png"));
-        wall1.setLocation(350,400);
-        Sprite wall2 = new Sprite(getImage("images/block.png"));
-        wall2.setLocation(300,400);
-        Sprite wall3 = new Sprite(getImage("images/block.png"));
-        wall3.setLocation(200,400);
-        Sprite wall4 = new Sprite(getImage("images/block.png"));
-        wall4.setLocation(250,400);
+        Sprite wall1 = new Sprite(getImage("images/bricks1.png"));
+        wall1.setLocation(200,450);
+        Sprite wall2 = new Sprite(getImage("images/bricks1.png"));
+        wall2.setLocation(225,450);
+        Sprite wall3 = new Sprite(getImage("images/bricks1.png"));
+        wall3.setLocation(250,450);
+        Sprite wall4 = new Sprite(getImage("images/bricks1.png"));
+        wall4.setLocation(300,450);
+        Sprite wall5 = new Sprite(getImage("images/bricks1.png"));
+        wall5.setLocation(350,450);
+        Sprite wall6 = new Sprite(getImage("images/bricks1.png"));
+        wall6.setLocation(375,450);
+        Sprite wall7 = new Sprite(getImage("images/bricks1.png"));
+        wall7.setLocation(400,450);
+        Sprite wall8 = new Sprite(getImage("images/bricks1.png"));
+        wall8.setLocation(425,450);
 
         //added by Ben
         SpriteGroup enemies = new SpriteGroup("enemies");
@@ -94,6 +103,10 @@ public class Chris_TestGame extends Game{
         walls.add(wall2);
         walls.add(wall3);
         walls.add(wall4);
+        walls.add(wall5);
+        walls.add(wall6);
+        walls.add(wall7);
+        walls.add(wall8);
 
         //added by Ben
         collisionTypeBlocker = new CantGoFurtherCollision();
@@ -101,6 +114,9 @@ public class Chris_TestGame extends Game{
         //
         collisionTypeWall = new WallCollision();
         collisionTypeWall.setCollisionGroup(character, walls);
+        
+        collisionTypeSwitch = new SwitchCollision();
+        collisionTypeSwitch.setCollisionGroup(character, blockers);
 
         playfield.addGroup(character);
         playfield.addGroup(walls);
@@ -122,6 +138,7 @@ public class Chris_TestGame extends Game{
         //added by Ben
         collisionTypeBlocker.checkCollision();
         //	HUD.render(arg0);
+        collisionTypeSwitch.checkCollision();
     }
 
     public void update(long elapsedTime) {
@@ -151,6 +168,22 @@ public class Chris_TestGame extends Game{
 
         public void collided(Sprite s1, Sprite s2) {
             EventManager.getEventManager().sendEvent("floor collide");
+            System.out.println("floor collide");
+            //EventManager.getEventManager().sendEvent("switchstates");
+
+
+        }
+
+    }
+    class SwitchCollision extends BasicCollisionGroup {
+
+        public SwitchCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+            //EventManager.getEventManager().sendEvent("floor collide");
+        	System.out.println("switchstates");
             EventManager.getEventManager().sendEvent("switchstates");
 
 
