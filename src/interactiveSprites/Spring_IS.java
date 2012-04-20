@@ -10,23 +10,31 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+import sprites.GeneralSprite;
 import sprites.LevelEditable;
+import stateManagers.StateManager;
+
+import States.StationaryState;
 
 import com.golden.gamedev.GameObject;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionGroup;
+import com.sun.corba.se.spi.orbutil.fsm.State;
 
 @SuppressWarnings("serial")
-public class Spring_IS extends Sprite implements LevelEditable, InteractiveSprite {
+public class Spring_IS extends GeneralSprite implements LevelEditable, InteractiveSprite {
 	
 	Platformer myGame;
 	String path;
 	String myType;
+	StateManager myStateManager;
+	
 	
 	public Spring_IS(BufferedImage bufferedImage, int i, int j, Platformer game) {
 		super(bufferedImage, i, j);
 		myType = "spring";
 		myGame = game;
+		myStateManager = new StateManager(this, new StationaryState(this));
 	}
 	
 	public Spring_IS() {
