@@ -1,13 +1,15 @@
 package States;
 
 import sprites.GeneralSprite;
+import sprites.TestCharacterWithStates;
+import hudDisplay.DecrementBarAction;
 
+import com.golden.gamedev.object.Sprite;
 
 import SpriteAction.JumpAction;
 import SpriteAction.MoveLeft;
 import SpriteAction.MoveRight;
 import SpriteAction.StandAction;
-
 
 public class OnLandState extends State{
 	
