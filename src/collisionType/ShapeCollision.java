@@ -8,16 +8,19 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 /**
  * All new collision types involving hitboxes utilize collisionshape classes
  * different from those provided by GTGE.  The purpose of this class is to
- * override GTGE's collision group methods that use its native collisionshape
- * classes to use the proprietary ones provided in this project
- * ...or perhaps we should leave them alone since they're used in the super
+ * provide methods related to defining collisionshapes of the type provided
+ * in this project.  This does not override methods related to collisionshapes
+ * provided by classes higher in the hierarchy because they are used in
+ * CollisionManagers etc (which we are using).
  */
 public abstract class ShapeCollision extends AdvanceCollisionGroup{
 	
 	/**
 	 * The collisionshape of the sprite from the first group. This is already
 	 * defined within AdvanceCollisionGroup, but since we're not using GTGE's
-	 * native collisionshapes we have to recreate them in the form we're using
+	 * native collisionshapes we have to recreate them in the form we're using.
+	 * They are provided as protected so as not to interfere with the
+	 * respective getters higher in the hierarchy
 	 */
 	protected CollisionRect cr1;
 	
