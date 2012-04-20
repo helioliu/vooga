@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 import java.util.Map;
 
 import sprites.BryanSprite;
-import sprites.Chris_TestSprite;
 import States.State;
 
 import com.golden.gamedev.Game;
@@ -61,16 +60,10 @@ public class Test_game extends Game {
 		GraphicItem manabar = new GraphicItem(getImage("images/healthBar2.png", false),200,10, s1.getStat("mana"));
 		manabar.Follow(s1);
 		HUD.addGraphicItem(manabar);
-		
-	
 
 		scoreFont = fontManager.getFont(getImages("images/Score_Font.png", 8,12));
 		TextItem Score = new TextItem(scoreFont, 400, 10,s1.getStat("score"));
 		HUD.addTextItem(Score);
-
-		
-		
-
 
 		Sprite wall1 = new Sprite(getImage("images/block.png"));
 		wall1.setLocation(350,400);
@@ -94,11 +87,6 @@ public class Test_game extends Game {
 		
 		playfield.addGroup(character);
 		playfield.addGroup(walls);
-		
-
-
-		
-		
 		
 	}
 	
