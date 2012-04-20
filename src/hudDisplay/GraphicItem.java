@@ -5,39 +5,59 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
+import sprites.Chris_TestSprite;
+import sprites.GeneralSprite;
+
 import com.golden.gamedev.object.Sprite;
 
-public class GraphicItem extends HUDItem{
-	
+public class GraphicItem extends HUDItem {
+
 	private Sprite mySprite;
 	private BufferedImage myImage;
 	private int myX;
 	private int myY;
 	private Stat myStat;
+	private boolean follow;
+	private GeneralSprite spriteToFollow;
 
-	public GraphicItem(BufferedImage image, int x, int y, Stat s1) {
-		
+	public GraphicItem(BufferedImage image, int x, int y, Stat stat) {
+
 		myImage = image;
-		mySprite = new Sprite(image, x, y);
+		myStat = stat;
 		myX = x;
 		myY = y;
+		follow = false;
 	}
 
 	@Override
 	public void render(Graphics2D g) {
 		mySprite.render(g);
-		
 	}
 
 	@Override
-	public void update(long elapsedTime) {
-		Image scaledImage = myImage.getScaledInstance(myImage.getWidth(), myImage.getHeight(), 1);
-		myImage = convertToBufferedImage(scaledImage);
+	public void update(int HUDX, int HUDY, long elapsedTime) {
+		int newImageWidth;
+		if ((int) (myImage.getWidth() * (myStat.getValue() / myStat.getStartValue())) == 0)
+			newImageWidth = 2;
+		else if (myStat.getValue() / myStat.getStartValue() > .97)
+			newImageWidth = 100;
+		else
+			newImageWidth = (int) (myImage.getWidth() * (myStat.getValue() / myStat.getStartValue()));
 
-		mySprite = new Sprite(myImage, myX, myY);
+		Image scaledImage = myImage.getScaledInstance(newImageWidth,
+				myImage.getHeight(), 1);
+		myImage = convertToBufferedImage(scaledImage);
 		
+		if(follow)
+		{
+			mySprite = new Sprite(myImage, spriteToFollow.getX(), spriteToFollow.getY() - 20);
+			return;
+				}
+		
+		mySprite = new Sprite(myImage, HUDX + myX, HUDY + myY);
+
 	}
-	
+
 	public static BufferedImage convertToBufferedImage(Image image) {
 		int width = image.getWidth(null);
 		int height = image.getHeight(null);
@@ -52,6 +72,10 @@ public class GraphicItem extends HUDItem{
 
 		return bufferedimage;
 	}
-	
+
+	public void Follow(GeneralSprite s1) {
+		spriteToFollow = s1;
+		follow = true;
+	}
 
 }

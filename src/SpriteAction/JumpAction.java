@@ -7,7 +7,6 @@ public class JumpAction extends SpriteAction{
 	public JumpAction(GeneralSprite s) {
 		super(s);
 		
-		
 	}
 
 	public void actionPerformed(Object event)

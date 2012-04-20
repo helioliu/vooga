@@ -1,15 +1,16 @@
 package HUD.test;
-
-import hudDisplay.BarItem;
+import hudDisplay.GraphicItem;
 import hudDisplay.HeadsUpDisplay;
+import hudDisplay.NumberStat;
+import hudDisplay.Stat;
 import hudDisplay.TextItem;
+import input.InputManager;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.Map;
 
-import sprites.BryanSprite;
 import sprites.Chris_TestSprite;
 import sprites.GeneralSprite;
 import States.State;
@@ -26,11 +27,10 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import core.EventManager;
 
 public class Test_game extends Game {
-	BryanSprite s1;
+	Chris_TestSprite s1;
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
-	
 	HeadsUpDisplay HUD;
 	GameFont scoreFont;
 	
@@ -42,23 +42,32 @@ public class Test_game extends Game {
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
-		HUD = new HeadsUpDisplay(0,0);
+		HUD = new HeadsUpDisplay(getImage("images/EmptyHUD.png"),0,0);
 		
-		s1 = new BryanSprite();
-		s1.setImage(getImage("images/mario1.png"));
-		s1.setLocation(300, 200);
-		
-		s1.createScore("health", 300);
-		s1.createScore("score", 0);
+		 s1 = new Chris_TestSprite();
+	        //BufferedImage[] images = new BufferedImage[1];
+	        //	images[0] = ;
+	        s1.setImage(getImage("images/mario1.png"));
+	        s1.setLocation(300, 200);
+	        
+		s1.createStat("health", new NumberStat(300));
+		s1.createStat("mana", new NumberStat(300));
+		s1.createStat("score", new NumberStat(0));
 		
 		SpriteGroup character = new SpriteGroup("character");
-		character.add(s1);
-		
-		BarItem healthbar = new BarItem(getImage("images/healthBar.png", false), 500, 0, "health", s1);
+        character.add(s1);
+        
+		GraphicItem healthbar = new GraphicItem(getImage("images/healthBar.png", false),10,10, s1.getStat("health"));
 		HUD.addGraphicItem(healthbar);
+		
+		GraphicItem manabar = new GraphicItem(getImage("images/healthBar2.png", false),200,10, s1.getStat("mana"));
+		manabar.Follow(s1);
+		HUD.addGraphicItem(manabar);
+		
+	
 
 		scoreFont = fontManager.getFont(getImages("images/Score_Font.png", 8,12));
-		TextItem Score = new TextItem(scoreFont, 300, 0, "score", s1);
+		TextItem Score = new TextItem(scoreFont, 400, 10,s1.getStat("score"));
 		HUD.addTextItem(Score);
 
 		
@@ -101,6 +110,11 @@ public class Test_game extends Game {
 	HUD.render(arg0);
 	}
 	
+	protected void initEngine() {
+		super.initEngine();
+		this.bsInput = new InputManager(this.bsGraphics.getComponent());
+	}
+	
 	public void update(long elapsedTime) {
 		
 		//Cutscene Code
@@ -112,25 +126,23 @@ public class Test_game extends Game {
 		
 		EventManager.getEventManager().update(elapsedTime);
 		playfield.update(elapsedTime);
-		HUD.update(elapsedTime);
-		
-
+		HUD.update(elapsedTime);		
 		
 		if (keyDown(KeyEvent.VK_LEFT))
 		{
-			EventManager.getEventManager().sendEvent("left");
+			EventManager.getEventManager().sendEvent("Left");
 		}
 		if (keyDown(KeyEvent.VK_RIGHT))
 		{
-			EventManager.getEventManager().sendEvent("right");
+			EventManager.getEventManager().sendEvent("Right");
 		}
 		if (keyDown(KeyEvent.VK_UP))
 		{
-			EventManager.getEventManager().sendEvent("up");	
+			EventManager.getEventManager().sendEvent("Up");	
 		}
 		if (keyDown(KeyEvent.VK_DOWN))
 		{
-			EventManager.getEventManager().sendEvent("down");	
+			EventManager.getEventManager().sendEvent("Down");	
 		}
 	}
 	

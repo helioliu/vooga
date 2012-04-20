@@ -50,8 +50,8 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 							+" "+s2.getID()+" "+h2.getID());
 					EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+h2.getID()
 							+" "+s1.getID()+" "+h1.getID());
-					  System.out.println("collision "+s1.getID()+" "+h1.getID()+" "+s2.getID()+" "+h2.getID());
-					  System.out.println("collision "+s2.getID()+" "+h2.getID()+" "+s1.getID()+" "+h1.getID());
+					  //System.out.println("collision "+s1.getID()+" "+h1.getID()+" "+s2.getID()+" "+h2.getID());
+					  //System.out.println("collision "+s2.getID()+" "+h2.getID()+" "+s1.getID()+" "+h1.getID());
 					hitboxCollided(s1, h1, s2, h2);
 				}
 			}
@@ -64,7 +64,7 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 			if(shapeshift.intersects(cr1)){
 				EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+
 						s2.getID()+" "+h2.getID());
-				  System.out.println("collision "+s1.getID()+" "+	s2.getID()+" "+h2.getID());
+				  //System.out.println("collision "+s1.getID()+" "+	s2.getID()+" "+h2.getID());
 				spriteHitboxCollided(s1, s2, h2);
 			}
 		}
@@ -77,16 +77,16 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 			if(shapeshift.intersects(cr2)){
 				EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+
 						s1.getID()+" "+h1.getID());
-				  System.out.println("collision "+s2.getID()+" "+	s1.getID()+" "+h1.getID());
+				  //System.out.println("collision "+s2.getID()+" "+	s1.getID()+" "+h1.getID());
 				hitboxSpriteCollided(s1, h1, s2);
 			}
 		}
 		
 		//sprite-sprite collisions
 		EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID());
-		  System.out.println("collision "+s1.getID()+" "+s2.getID());
+		  //System.out.println("collision "+s1.getID()+" "+s2.getID());
 		EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+s1.getID());
-		  System.out.println("collision "+s2.getID()+" "+s1.getID());
+		  //System.out.println("collision "+s2.getID()+" "+s1.getID());
 		spriteCollided(s1, s2);
 	}
 	

@@ -34,7 +34,7 @@ public class Enemy extends GeneralSprite {
 
 	public Enemy() {
 		super();
-		setStateManager(new StateManager(((Sprite) this), new WalkingLeftState(this)));
+		setStateManager(new StateManager( this, new WalkingLeftState(this)));
 	}
 	
 	

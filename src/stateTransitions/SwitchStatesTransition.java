@@ -3,7 +3,7 @@ package stateTransitions;
 import core.EventManager;
 import stateManagers.StateManager;
 import States.State;
-
+//in progress do not use yet
 public class SwitchStatesTransition extends StateTransition{
 	protected State state1;
 	protected State state2;
@@ -16,13 +16,12 @@ public class SwitchStatesTransition extends StateTransition{
 	@Override
 	public void actionPerformed(Object eventName) {
 		System.out.println("should switch");
-		if(getMyStateMachine().compareToCurrent(state1))
+		if(getMyStateMachine().isCurrentlyActive(getMyState()))
 		{
 			getMyStateMachine().changeState(state2);
 		}
-		if(getMyStateMachine().compareToCurrent(state2))
-		{
-			getMyStateMachine().changeState(state1);
+		else{
+			getMyStateMachine().changeState(getMyState());
 		}
 		
 	}

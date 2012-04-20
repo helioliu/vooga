@@ -1,7 +1,5 @@
 package core.test;
 
-import input.InputManager;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -28,29 +26,25 @@ import cutscenes.Cutscene;
 import cutscenes.CutsceneTrigger;
 
 
-public class Chris_TestGame extends Game{
-    Sprite s1;
+public class Ben_TestGame extends Game{
+    
     Map<String, State> stateMap;
     PlayField playfield;
     CollisionManager collisionTypeWall;
     CollisionManager collisionTypeBlocker;
-    CollisionManager collisionTypeSwitch;
 
 
 
 
     public void initResources() {
-        //		stateMap = new HashMap<String, State>();
+  
         playfield = new PlayField();
         playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 
-        s1 = new Chris_TestSprite();
-        //BufferedImage[] images = new BufferedImage[1];
-        //	images[0] = ;
-        s1.setImage(getImage("images/mario1.png"));
-        s1.setLocation(300, 200);
-        SpriteGroup character = new SpriteGroup("character");
-        character.add(s1);
+
+ 
+
+   
 
         //added by Ben
         Sprite enemy1 = new WalkingBadGuy ();
@@ -71,22 +65,14 @@ public class Chris_TestGame extends Game{
         //
 
 
-        Sprite wall1 = new Sprite(getImage("images/bricks1.png"));
-        wall1.setLocation(200,450);
-        Sprite wall2 = new Sprite(getImage("images/bricks1.png"));
-        wall2.setLocation(225,450);
-        Sprite wall3 = new Sprite(getImage("images/bricks1.png"));
-        wall3.setLocation(250,450);
-        Sprite wall4 = new Sprite(getImage("images/bricks1.png"));
-        wall4.setLocation(300,450);
-        Sprite wall5 = new Sprite(getImage("images/bricks1.png"));
-        wall5.setLocation(350,450);
-        Sprite wall6 = new Sprite(getImage("images/bricks1.png"));
-        wall6.setLocation(375,450);
-        Sprite wall7 = new Sprite(getImage("images/bricks1.png"));
-        wall7.setLocation(400,450);
-        Sprite wall8 = new Sprite(getImage("images/bricks1.png"));
-        wall8.setLocation(425,450);
+        Sprite wall1 = new Sprite(getImage("images/block.png"));
+        wall1.setLocation(350,400);
+        Sprite wall2 = new Sprite(getImage("images/block.png"));
+        wall2.setLocation(300,400);
+        Sprite wall3 = new Sprite(getImage("images/block.png"));
+        wall3.setLocation(200,400);
+        Sprite wall4 = new Sprite(getImage("images/block.png"));
+        wall4.setLocation(250,400);
 
         //added by Ben
         SpriteGroup enemies = new SpriteGroup("enemies");
@@ -103,22 +89,14 @@ public class Chris_TestGame extends Game{
         walls.add(wall2);
         walls.add(wall3);
         walls.add(wall4);
-        walls.add(wall5);
-        walls.add(wall6);
-        walls.add(wall7);
-        walls.add(wall8);
 
         //added by Ben
         collisionTypeBlocker = new CantGoFurtherCollision();
         collisionTypeBlocker.setCollisionGroup(enemies, blockers);
         //
-        collisionTypeWall = new WallCollision();
-        collisionTypeWall.setCollisionGroup(character, walls);
-        
-        collisionTypeSwitch = new SwitchCollision();
-        collisionTypeSwitch.setCollisionGroup(character, blockers);
 
-        playfield.addGroup(character);
+
+
         playfield.addGroup(walls);
 
         //added by Ben
@@ -134,32 +112,44 @@ public class Chris_TestGame extends Game{
 
     public void render(Graphics2D arg0) {
         playfield.render(arg0);
-        collisionTypeWall.checkCollision();
+
         //added by Ben
         collisionTypeBlocker.checkCollision();
-        //	HUD.render(arg0);
-        collisionTypeSwitch.checkCollision();
+        //  HUD.render(arg0);
     }
 
     public void update(long elapsedTime) {
         //Cutscene Code
-        //		if(cutTimer.action(elapsedTime)) {
-        //			trigger.triggerCutscene();
-        //			cutTimer.setActive(false);
-        //		}
-        //		cutscene.update(elapsedTime);
+        //      if(cutTimer.action(elapsedTime)) {
+        //          trigger.triggerCutscene();
+        //          cutTimer.setActive(false);
+        //      }
+        //      cutscene.update(elapsedTime);
 
         EventManager.getEventManager().update(elapsedTime);
         playfield.update(elapsedTime);
-        //		HUD.update(elapsedTime);
+        //      HUD.update(elapsedTime);
 
+
+
+        if (keyDown(KeyEvent.VK_LEFT))
+        {
+            EventManager.getEventManager().sendEvent("Left");
+        }
+        if (keyDown(KeyEvent.VK_RIGHT))
+        {
+            EventManager.getEventManager().sendEvent("Right");
+        }
+        if (keyDown(KeyEvent.VK_UP))
+        {
+            EventManager.getEventManager().sendEvent("Up"); 
+        }
+        if (keyDown(KeyEvent.VK_DOWN))
+        {
+            EventManager.getEventManager().sendEvent("Down");   
+        }
     }
 
-    protected void initEngine() {
-		super.initEngine();
-		this.bsInput = new InputManager(this.bsGraphics.getComponent());
-	}
-    
     class WallCollision extends BasicCollisionGroup {
 
         public WallCollision() {
@@ -168,22 +158,6 @@ public class Chris_TestGame extends Game{
 
         public void collided(Sprite s1, Sprite s2) {
             EventManager.getEventManager().sendEvent("floor collide");
-            System.out.println("floor collide");
-            //EventManager.getEventManager().sendEvent("switchstates");
-
-
-        }
-
-    }
-    class SwitchCollision extends BasicCollisionGroup {
-
-        public SwitchCollision() {
-            pixelPerfectCollision = true;
-        }
-
-        public void collided(Sprite s1, Sprite s2) {
-            //EventManager.getEventManager().sendEvent("floor collide");
-        	System.out.println("switchstates");
             EventManager.getEventManager().sendEvent("switchstates");
 
 
