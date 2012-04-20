@@ -42,7 +42,7 @@ public class Test_game extends Game {
 		playfield = new PlayField();
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
-		HUD = new HeadsUpDisplay(0,0);
+		HUD = new HeadsUpDisplay(getImage("images/EmptyHUD.png"),0,0);
 		
 		 s1 = new Chris_TestSprite();
 	        //BufferedImage[] images = new BufferedImage[1];
@@ -51,16 +51,24 @@ public class Test_game extends Game {
 	        s1.setLocation(300, 200);
 	        
 		s1.createStat("health", new NumberStat(300));
+		s1.createStat("mana", new NumberStat(300));
+		s1.createStat("score", new NumberStat(0));
 		
 		SpriteGroup character = new SpriteGroup("character");
         character.add(s1);
         
-		GraphicItem healthbar = new GraphicItem(getImage("images/healthBar.png", false),100,0, s1.getStat("health"));
+		GraphicItem healthbar = new GraphicItem(getImage("images/healthBar.png", false),10,10, s1.getStat("health"));
 		HUD.addGraphicItem(healthbar);
+		
+		GraphicItem manabar = new GraphicItem(getImage("images/healthBar2.png", false),200,10, s1.getStat("mana"));
+		manabar.Follow(s1);
+		HUD.addGraphicItem(manabar);
+		
+	
 
-//		scoreFont = fontManager.getFont(getImages("images/Score_Font.png", 8,12));
-//		TextItem Score = new TextItem(scoreFont, 300, 0, "score", s1);
-//		HUD.addTextItem(Score);
+		scoreFont = fontManager.getFont(getImages("images/Score_Font.png", 8,12));
+		TextItem Score = new TextItem(scoreFont, 400, 10,s1.getStat("score"));
+		HUD.addTextItem(Score);
 
 		
 		

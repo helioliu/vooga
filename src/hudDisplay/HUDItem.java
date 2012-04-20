@@ -8,6 +8,6 @@ public abstract class HUDItem {
 
 	public abstract void render(Graphics2D g);
 
-	public abstract void update(long elapsedTime);
+	public abstract void update(int HUDX, int HUDY,long elapsedTime);
 
 }
