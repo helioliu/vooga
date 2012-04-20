@@ -13,7 +13,7 @@ public class WalkRight extends SpriteAction{
     }
     
     public void actionPerformed(Object event){
-        mySprite.setMovement(.025, 90);
+        mySprite.setMovement(.5, 90);
     }
 
 	

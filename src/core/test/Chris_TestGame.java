@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import sprites.Chris_TestSprite;
+import sprites.WalkingBadGuy;
 import States.State;
 
 import com.golden.gamedev.Game;
@@ -17,6 +18,7 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
@@ -29,6 +31,7 @@ public class Chris_TestGame extends Game{
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
+	CollisionManager collisionTypeBlocker;
 	
 
 
@@ -39,13 +42,26 @@ public class Chris_TestGame extends Game{
 		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 		
 		s1 = new Chris_TestSprite();
-//		BufferedImage[] images = new BufferedImage[1];
-//		images[0] = ;
+		//BufferedImage[] images = new BufferedImage[1];
+	//	images[0] = ;
 		s1.setImage(getImage("images/mario1.png"));
 		s1.setLocation(300, 200);
 		SpriteGroup character = new SpriteGroup("character");
 		character.add(s1);
 		
+		//added by Ben
+		Sprite enemy1 = new WalkingBadGuy ();
+		enemy1.setImage(getImage("images/thebadguy.png"));
+		enemy1.setLocation(350,200);
+		enemy1.setMovement(0.025, 270);
+
+		
+		Sprite blocker1 = new Sprite(getImage("images/block.png"));
+		Sprite blocker2 = new Sprite(getImage("images/block.png"));
+		
+		blocker1.setLocation(200, 200);
+		blocker2.setLocation(500,200);
+		//
 
 
 		Sprite wall1 = new Sprite(getImage("images/block.png"));
@@ -56,21 +72,35 @@ public class Chris_TestGame extends Game{
 		wall3.setLocation(200,400);
 		Sprite wall4 = new Sprite(getImage("images/block.png"));
 		wall4.setLocation(250,400);
-
-
+		
+		//added by Ben
+		SpriteGroup enemies = new SpriteGroup("enemies");
+		SpriteGroup blockers = new SpriteGroup("blockers");
+		enemies.add(enemy1);
+		blockers.add(blocker1);
+		blockers.add(blocker2);
+		//
+		
 		SpriteGroup walls = new SpriteGroup("walls");
 		walls.add(wall1);
 		walls.add(wall2);
 		walls.add(wall3);
 		walls.add(wall4);
 		
-		
+		//added by Ben
+		collisionTypeBlocker = new CantGoFurtherCollision();
+		collisionTypeBlocker.setCollisionGroup(enemies, blockers);
+		//
 		collisionTypeWall = new WallCollision();
 		collisionTypeWall.setCollisionGroup(character, walls);
 		
 		playfield.addGroup(character);
 		playfield.addGroup(walls);
 		
+		//added by Ben
+		playfield.addGroup(enemies);
+		playfield.addGroup(blockers);
+		//
 
 
 		
@@ -81,6 +111,8 @@ public class Chris_TestGame extends Game{
 	public void render(Graphics2D arg0) {
 	playfield.render(arg0);
 	collisionTypeWall.checkCollision();
+	//added by Ben
+	collisionTypeBlocker.checkCollision();
 //	HUD.render(arg0);
 	}
 	
@@ -126,8 +158,30 @@ public class Chris_TestGame extends Game{
 	    	EventManager.getEventManager().sendEvent("floor collide");
 	    	EventManager.getEventManager().sendEvent("switchstates");
 	    	
+	    	
 	    }
 
 	}
+	
+	class CantGoFurtherCollision extends AdvanceCollisionGroup{
+	    public CantGoFurtherCollision(){
+	        pixelPerfectCollision = true;
+	    }
+
+        @Override
+        public void collided(Sprite s1, Sprite s2) {
+            if(getCollisionSide()==1){
+            EventManager.getEventManager().sendEvent("walk right");
+            }
+            else{
+                EventManager.getEventManager().sendEvent("walk left");
+            }
+           
+            
+            
+        }
+	}
+	
+	
 
 }
