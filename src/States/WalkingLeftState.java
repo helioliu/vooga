@@ -3,7 +3,7 @@ package States;
 import sprites.GeneralSprite;
 import SpriteAction.WalkLeft;
 
-import com.golden.gamedev.object.Sprite;
+
 
 public class WalkingLeftState extends EnemyState {
     
