@@ -11,5 +11,7 @@ public abstract class Stat {
 	public double getValue() {
 		return myValue;
 	}
+	
+	public abstract void adjust(double x);
 
 }
