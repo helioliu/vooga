@@ -1,20 +1,21 @@
 package States;
 
+import sprites.GeneralSprite;
 import SpriteAction.*;
 
 
 import com.golden.gamedev.object.Sprite;
 
-public class RegularMotionState extends EnemyState {
+public class RegularMotionState extends State {
     
-    public RegularMotionState(Sprite s) {
+    public RegularMotionState(GeneralSprite s) {
         super(s);
-        myMap.put("Up", new MoveUp(s));
-        myMap.put("Down", new MoveDown(s));
-        myMap.put("Left", new MoveLeft(s));
-        myMap.put("Right", new MoveRight(s));
-        myMap.put("floor collide", new StandAction(s));
-        myGravityValue = 0;
+        addAction("Up", new MoveUp(s));
+        addAction("Down", new MoveDown(s));
+        addAction("Left", new MoveLeft(s));
+        addAction("Right", new MoveRight(s));
+        addAction("floor collide", new StandAction(s));
+        setMyGravityValue(0);
         
     }
    

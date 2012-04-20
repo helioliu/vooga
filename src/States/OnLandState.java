@@ -12,21 +12,20 @@ import SpriteAction.MoveRight;
 import SpriteAction.StandAction;
 import States.CharacterState;
 
-public class OnLandState extends CharacterState{
+public class OnLandState extends State{
 	
-	public OnLandState(Sprite s)
+	public OnLandState(GeneralSprite s)
 	{
 		super(s);
-		System.out.println(myMap);
-		myMap.put("Up", new JumpAction(s));
-		myMap.put("Right", new MoveRight(s));
-		myMap.put("Left", new MoveLeft(s));
-		myMap.put("floor collide", new StandAction(s));
-		//myMap.put("got hit", new DecrementBarAction((TestCharacterWithStates) s));
-		myGravityValue = .05;
+		addAction("Up", new JumpAction(s));
+		addAction("Right", new MoveRight(s));
+		addAction("Left", new MoveLeft(s));
+		addAction("floor collide", new StandAction(s));
+		//addAction("got hit", new DecrementBarAction((TestCharacterWithStates) s));
+		setMyGravityValue(.05);
 	}
 	public void setGravity()
 	{
-		((GeneralSprite) mySprite).setGravity(myGravityValue);
+		((GeneralSprite) getSprite()).setGravity(getMyGravityValue());
 	}
 }
