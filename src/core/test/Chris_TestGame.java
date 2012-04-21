@@ -71,11 +71,6 @@ public class Chris_TestGame extends Game{
 		playfield.addGroup(character);
 		playfield.addGroup(walls);
 		
-
-
-		
-		
-		
 	}
 	
 	public void render(Graphics2D arg0) {

@@ -28,14 +28,16 @@ import com.golden.gamedev.object.background.ImageBackground;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import core.VoogaGame;
+
 public class LevelBuilder {
-	public Platformer myGame=null;
+	public VoogaGame myGame=null;
 	GameFile myGameInfo;
 	public Background background;
 
 
-	public LevelBuilder(Platformer p) {
-		myGame=p;
+	public LevelBuilder(VoogaGame voogaGame) {
+		myGame=voogaGame;
 		GameFile myGameInfo=null;
 	}
 	

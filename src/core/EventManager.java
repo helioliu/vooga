@@ -72,6 +72,7 @@ public class EventManager implements EventManagerInterface {
 			Event event = myEventQueue.removeEvent();
 			event.run();
 		}
+		myEventQueue.swapQueues(0, 1);	
 	}
 
 }

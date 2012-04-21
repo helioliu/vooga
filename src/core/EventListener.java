@@ -2,6 +2,6 @@ package core;
 
 public interface EventListener{
 	
-	public void actionPerformed(Object object);
+	public void actionPerformed(String s);
 	
 }
