@@ -15,13 +15,13 @@ public class AlternateStatesTransition extends StateTransition{
 
 	@Override
 	public void actionPerformed(Object eventName) {
-		System.out.println("should switch");
-		if(getMyStateMachine().isCurrentlyActive(getMyState()))
+		if(getMyStateManager().isCurrentlyActive(getMyState()))
 		{
-			getMyStateMachine().changeState(state2);
+			System.out.println("Onland is active");
+			getMyStateManager().changeState(state2);
 		}
 		else{
-			getMyStateMachine().changeState(getMyState());
+			getMyStateManager().changeState(getMyState());
 		}
 		
 	}

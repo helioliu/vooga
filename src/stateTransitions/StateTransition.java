@@ -17,7 +17,7 @@ public abstract class StateTransition implements EventListener{
 		myEvent = event;
 	}
 	
-	protected StateManager getMyStateMachine() {
+	protected StateManager getMyStateManager() {
         return myStateManager;
     }
 	
