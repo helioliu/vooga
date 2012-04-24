@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import stateManagers.StateManager;
 import stateTransitions.ChangeStateTransition;
 import stateTransitions.StateTransition;
-import stateTransitions.SwitchStatesTransition;
+import stateTransitions.AlternateStatesTransition;
 
 import States.OnLandState;
 import States.RegularMotionState;

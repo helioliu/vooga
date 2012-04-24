@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		GameLoader game = new GameLoader();
-		game.setup(new Test_game(), new Dimension(640, 480), false);
+		game.setup(new Chris_TestGame(), new Dimension(640, 480), false);
 		game.start();
 
 	}
