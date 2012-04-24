@@ -24,7 +24,7 @@ public class TextItem extends HUDItem{
 	@Override
 	public void render(Graphics2D g) {
 		if(isHUDactive())
-		getMyScoreFont().drawString(g, String.valueOf(getMyStat().getMyValue()), getHUDX() + getMyX(), getHUDY() + getMyY());
+		getMyScoreFont().drawString(g, String.valueOf((int) getMyStat().getMyValue()), getHUDX() + getMyX(), getHUDY() + getMyY());
 		
 	}
 

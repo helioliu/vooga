@@ -39,7 +39,7 @@ public class Test_game extends Game {
 		playfield
 				.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 
-		HUD = new HeadsUpDisplay(getImage("images/EmptyHUD.png"), 0, 0);
+		HUD = new HeadsUpDisplay(getImage("images/EmptyHUD2.png"), 0, 0);
 
 		s1 = new BryanSprite();
 
@@ -56,7 +56,7 @@ public class Test_game extends Game {
 		character.add(s1);
 
 		GraphicItem healthbar = new GraphicItem(getImage(
-				"images/healthBar.png", false), 10, 10, s1.getStat("health"));
+				"images/healthbar.png", false), 75, 3, s1.getStat("health"));
 		// healthbar.setToFlash(true, 300);
 		HUD.addItem(healthbar);
 
@@ -71,8 +71,8 @@ public class Test_game extends Game {
 		TextItem score = new TextItem(scoreFont, 400, 10, s1.getStat("score"));
 		HUD.addItem(score);
 
-		timeStat.incrementWithTimer(100, 100);
-		TextItem timerScore = new TextItem(scoreFont, 500, 10, timeStat);
+		timeStat.incrementWithTimer(500, 1);
+		TextItem timerScore = new TextItem(scoreFont, 25, 10, timeStat);
 		HUD.addItem(timerScore);
 		
 		FollowTextItem Followscore = new FollowTextItem(scoreFont, -50, -40, timeStat, s1);
