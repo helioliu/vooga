@@ -6,6 +6,7 @@ import hudDisplay.GraphicItem;
 import hudDisplay.HeadsUpDisplay;
 import hudDisplay.NumberStat;
 import hudDisplay.TextItem;
+import hudDisplay.TimerItem;
 import input.InputManager;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -28,6 +29,7 @@ import core.EventManager;
 public class Test_game extends Game {
 	BryanSprite s1;
 	NumberStat timeStat;
+	NumberStat generalTime;
 	Map<String, State> stateMap;
 	PlayField playfield;
 	CollisionManager collisionTypeWall;
@@ -51,13 +53,14 @@ public class Test_game extends Game {
 		s1.createStat("score", new NumberStat(0));
 
 		timeStat = new NumberStat(0);
+		generalTime = new NumberStat(0);
 
 		SpriteGroup character = new SpriteGroup("character");
 		character.add(s1);
 
 		GraphicItem healthbar = new GraphicItem(getImage(
 				"images/healthbar.png", false), 75, 3, s1.getStat("health"));
-		// healthbar.setToFlash(true, 300);
+//		 healthbar.setToFlash(true, 300);
 		HUD.addItem(healthbar);
 
 		FollowGraphicItem manabar = new FollowGraphicItem(getImage(
@@ -68,8 +71,12 @@ public class Test_game extends Game {
 		scoreFont = fontManager.getFont(getImages("images/Score_Font.png", 8,
 				12));
 		
-		TextItem score = new TextItem(scoreFont, 400, 10, s1.getStat("score"));
+		TextItem score = new TextItem(scoreFont, 500, 10, s1.getStat("score"));
 		HUD.addItem(score);
+		
+		generalTime.incrementWithTimer(100, 100);
+		TimerItem generalTimer = new TimerItem(scoreFont, 400, 10, generalTime);
+		HUD.addItem(generalTimer);
 
 		timeStat.incrementWithTimer(500, 1);
 		TextItem timerScore = new TextItem(scoreFont, 25, 10, timeStat);
@@ -119,6 +126,7 @@ public class Test_game extends Game {
 		playfield.update(elapsedTime);
 		HUD.update(elapsedTime);
 		timeStat.update(elapsedTime);
+		generalTime.update(elapsedTime);
 
 	}
 

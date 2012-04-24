@@ -19,6 +19,7 @@ public class GraphicItem extends HUDItem {
 	private double myFlashpoint;
 	private Timer myFlashTimer;
 	private boolean HUDactive;
+	private int myOriginalWidth;
 
 	public GraphicItem(BufferedImage image, int x, int y, Stat stat) {
 
@@ -28,6 +29,7 @@ public class GraphicItem extends HUDItem {
 		myY = y;
 		HUDactive  = true;
 		myFlashTimer = new Timer(50);
+		myOriginalWidth = image.getWidth();
 	}
 
 	@Override
@@ -56,7 +58,7 @@ public class GraphicItem extends HUDItem {
 				.getStartValue())) == 0)
 			newImageWidth = 2;
 		else if (myStat.getValue() / myStat.getStartValue() > .97)
-			newImageWidth = 100;
+			newImageWidth = myOriginalWidth;
 		else
 			newImageWidth = (int) (getMyImage().getWidth() * (myStat.getValue() / myStat
 					.getStartValue()));
