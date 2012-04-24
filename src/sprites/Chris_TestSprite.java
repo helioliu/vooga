@@ -18,6 +18,7 @@ import stateTransitions.ChangeStateTransition;
 import stateTransitions.StateTransition;
 import stateTransitions.AlternateStatesTransition;
 
+import States.InAirState;
 import States.OnLandState;
 import States.RegularMotionState;
 import States.ReverseMotionState;
@@ -33,12 +34,15 @@ public class Chris_TestSprite extends GeneralSprite{
 	{
 		super();
 
-		State s = new RegularMotionState(this);
+		State s = new InAirState(this);
+		setGravity(0.002);
 		setStateManager(new StateManager(this, s));
-		StateTransition reverse = new AlternateStatesTransition(getStateManager(), "switchstates", new OnLandState(this), s);
+		StateTransition land = new ChangeStateTransition(getStateManager(), "landed", new OnLandState(this));
+		StateTransition jump = new ChangeStateTransition(getStateManager(), "jumped", new InAirState(this));
 		setMyStats(new HashMap<String, Stat>());	
-		reverse.activate();
-		setGravity(0.00);
+		land.activate();
+		jump.activate();
+		
 	}
 	
 	

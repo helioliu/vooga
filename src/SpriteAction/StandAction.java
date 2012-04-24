@@ -4,6 +4,8 @@ import sprites.GeneralSprite;
 
 import com.golden.gamedev.object.Sprite;
 
+import core.EventManager;
+
 
 
 
@@ -16,7 +18,9 @@ public class StandAction extends SpriteAction{
 	public void actionPerformed(Object event)
 	{
 		mySprite.setVerticalSpeed(0);
-		mySprite.setLocation(mySprite.getOldX(), mySprite.getOldY());	
+		//mySprite.setLocation(mySprite.getOldX(), mySprite.getOldY());
+		//mySprite.setGravity(0);
+		EventManager.getEventManager().sendEvent("landed");
 	}
 
 }
