@@ -176,6 +176,7 @@ public class InputManager implements BaseInput {
         		//Send events for all keys pressed, the list is set in the inner class.
         		
         		for (int i = 0 ; i < this.pressedKey; i++ ) {
+        			System.out.println(keyPressed[i]);
         			if(!currentlyPressed.contains(KeyEvent.getKeyText(keyPressed[i])))
         				currentlyPressed.add(KeyEvent.getKeyText(keyPressed[i]));
         		}
