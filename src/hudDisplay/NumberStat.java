@@ -6,7 +6,7 @@ public class NumberStat extends Stat{
 		super(value);
 		setMyValue(value);
 	}
-	
+
 	public void adjust( double delta){
 		if(getMyValue() + delta > 0)
 		setMyValue(getMyValue() + delta);

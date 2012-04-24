@@ -15,7 +15,7 @@ public class ChangeStateTransition extends StateTransition{
 
 	@Override
 	public void actionPerformed(Object eventName) {
-		this.getMyStateMachine().changeState(getMyState());
+		this.getMyStateManager().changeState(getMyState());
 		
 	}
 

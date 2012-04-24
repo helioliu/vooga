@@ -1,15 +1,19 @@
 package core.test;
 
 import input.InputManager;
+import interactiveSprites.InteractiveSpriteCollision;
+import interactiveSprites.Spring_IS;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 import sprites.Chris_TestSprite;
+import sprites.GeneralSprite;
 import sprites.WalkingBadGuy;
 import States.State;
 
@@ -24,8 +28,12 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
+import core.conditions.DelayedCondition;
+import cutscenes.BadFileFormatException;
 import cutscenes.Cutscene;
+import cutscenes.CutsceneAutomation;
 import cutscenes.CutsceneTrigger;
+import cutscenes.EventAutomation;
 
 
 public class Chris_TestGame extends Game{
@@ -35,6 +43,9 @@ public class Chris_TestGame extends Game{
     CollisionManager collisionTypeWall;
     CollisionManager collisionTypeBlocker;
     CollisionManager collisionTypeSwitch;
+    CollisionManager collisionTypeCut;
+    CollisionManager collisionTypeIS;
+    Cutscene myCutscene;
 
 
 
@@ -95,8 +106,11 @@ public class Chris_TestGame extends Game{
         blockers.add(blocker1);
         blockers.add(blocker2);
         blockers.add(blocker3);
-        blockers.add(blocker4);
+        //blockers.add(blocker4);
         //
+        
+        SpriteGroup cutscene = new SpriteGroup("cut");
+        cutscene.add(blocker4);
 
         SpriteGroup walls = new SpriteGroup("walls");
         walls.add(wall1);
@@ -107,6 +121,17 @@ public class Chris_TestGame extends Game{
         walls.add(wall6);
         walls.add(wall7);
         walls.add(wall8);
+        
+//        GeneralSprite spring = new Spring_IS();
+//        spring.setImage(getImage("images/MarioSpring.png"));
+//        spring.setLocation(350, 260);
+//        SpriteGroup iSprites = new SpriteGroup("iSprites");
+//        iSprites.add(spring);
+//
+//        collisionTypeIS = new InteractiveSpriteCollision();
+//        collisionTypeIS.setCollisionGroup(character, iSprites);
+        
+        //playfield.addGroup(iSprites);
 
         //added by Ben
         collisionTypeBlocker = new CantGoFurtherCollision();
@@ -117,14 +142,30 @@ public class Chris_TestGame extends Game{
         
         collisionTypeSwitch = new SwitchCollision();
         collisionTypeSwitch.setCollisionGroup(character, blockers);
+        
+        collisionTypeCut = new CutsceneCollision();
+        collisionTypeCut.setCollisionGroup(character, cutscene);
 
         playfield.addGroup(character);
         playfield.addGroup(walls);
+        playfield.addGroup(cutscene);
 
         //added by Ben
         playfield.addGroup(enemies);
         playfield.addGroup(blockers);
         //
+        EventAutomation automation = null;
+        try {
+			automation = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript.script");
+		} catch (FileNotFoundException  e) {
+			e.printStackTrace();
+		}
+        catch(BadFileFormatException e){
+        	e.printStackTrace();
+        }
+        
+        
+        myCutscene = new Cutscene(automation, "start-cutscene","end-cutscene");
 
 
 
@@ -133,12 +174,9 @@ public class Chris_TestGame extends Game{
     }
 
     public void render(Graphics2D arg0) {
+        
+        
         playfield.render(arg0);
-        collisionTypeWall.checkCollision();
-        //added by Ben
-        collisionTypeBlocker.checkCollision();
-        //	HUD.render(arg0);
-        collisionTypeSwitch.checkCollision();
     }
 
     public void update(long elapsedTime) {
@@ -152,6 +190,15 @@ public class Chris_TestGame extends Game{
         EventManager.getEventManager().update(elapsedTime);
         playfield.update(elapsedTime);
         //		HUD.update(elapsedTime);
+        myCutscene.update(elapsedTime);
+        
+        collisionTypeWall.checkCollision();
+        //added by Ben
+        collisionTypeBlocker.checkCollision();
+        //	HUD.render(arg0);
+        collisionTypeSwitch.checkCollision();
+        collisionTypeCut.checkCollision();
+//        collisionTypeIS.checkCollision();
 
     }
 
@@ -163,12 +210,12 @@ public class Chris_TestGame extends Game{
     class WallCollision extends BasicCollisionGroup {
 
         public WallCollision() {
-            pixelPerfectCollision = true;
+            //pixelPerfectCollision = true;
         }
 
         public void collided(Sprite s1, Sprite s2) {
             EventManager.getEventManager().sendEvent("floor collide");
-            System.out.println("floor collide");
+            //System.out.println("floor collide");
             //EventManager.getEventManager().sendEvent("switchstates");
 
 
@@ -182,9 +229,23 @@ public class Chris_TestGame extends Game{
         }
 
         public void collided(Sprite s1, Sprite s2) {
-            //EventManager.getEventManager().sendEvent("floor collide");
         	System.out.println("switchstates");
             EventManager.getEventManager().sendEvent("switchstates");
+            s2.setActive(false);
+
+
+        }
+
+    }
+    class CutsceneCollision extends BasicCollisionGroup {
+
+        public CutsceneCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+            EventManager.getEventManager().sendEvent("start-cutscene");
+            s2.setActive(false);
 
 
         }

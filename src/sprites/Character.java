@@ -28,7 +28,7 @@ public class Character extends GeneralSprite {
     public Character() {
         super();
         jumpTimer = new Timer(150);
-        setStateManager(new StateManager(((Sprite) this), new StationaryState(this)));
+        setStateManager(new StateManager(this, new StationaryState(this)));
         setGravity(0.002);
     }
 
