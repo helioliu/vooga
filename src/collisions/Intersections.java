@@ -69,6 +69,27 @@ public class Intersections {
             cc.getYCenter()>cr.getY() && cc.getYCenter()<cr.getY() + cr.getH() )
             return true;
         
+        //case any side of the circle inside rectangle
+        //top or bottom of circle
+        if( cc.getXCenter() > cr.getX() && cc.getXCenter() < cr.getX()+cr.getW()){
+        	if( cc.getYCenter()-cc.getR() > cr.getY() &&
+        			cc.getYCenter()-cc.getR() < cr.getY()+cr.getH())
+        		return true;
+        	if( cc.getYCenter()+cc.getR() > cr.getY() &&
+        			cc.getYCenter()+cc.getR() < cr.getY()+cr.getH())
+        		return true;
+        }
+        //left or right of circle
+        if( cc.getYCenter() > cr.getY() && cc.getYCenter() < cr.getY()+cr.getH()){
+        	if( cc.getXCenter()-cc.getR() > cr.getX() &&
+        			cc.getXCenter()-cc.getR() < cr.getX()+cr.getW())
+        		return true;
+        	if( cc.getXCenter()+cc.getR() > cr.getX() &&
+        			cc.getXCenter()+cc.getR() < cr.getX()+cr.getW())
+        		return true;
+        }
+        
+        
         //case any rectangle corner inside circle
         //top left
         double dist1 = getDist(cc.getXCenter(), cc.getYCenter(), cr.getX(), cr.getY());
