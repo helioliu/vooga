@@ -8,7 +8,7 @@ import States.WalkingLeftState;
 import States.WalkingRightState;
 import States.WalkingUpState;
 
-public class WalkingBadGuy extends Enemy {
+public class WalkingBadGuy extends StateSprite {
 
     public WalkingBadGuy(){
         super();
