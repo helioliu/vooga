@@ -1,5 +1,9 @@
 package collisions;
 
+/**
+ * This represents a rectangle. It cannot have rotation.
+ * References are the top left corner.
+ */
 public class CollisionRect implements CollisionShape{
     
     //references are the top left corner
@@ -25,7 +29,7 @@ public class CollisionRect implements CollisionShape{
 
     @Override
 	public boolean intersects(CollisionShape cs) {
-        return Intersections.intersects(this, cs);
+        return Intersections.checkIntersect(this, cs);
     }
 
     @Override
