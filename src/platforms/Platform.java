@@ -24,6 +24,13 @@ public class Platform extends AdvanceSprite {
          this(0, 0);
 	 }
 	
+	public Platform(BufferedImage image, int x, int i) {
+		super(x,i);
+//		BufferedImage[] a = new BufferedImage[1];
+//		a[0] = image;
+		this.setImage(image);
+	}
+
 	/**
 	 * Default collision shape used in {@link #getDefaultCollisionShape()}, can
 	 * be used in along with collision manager.
