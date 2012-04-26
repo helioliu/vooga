@@ -1,9 +1,11 @@
 package sprites;
 
+import game.Platformer;
 import hudDisplay.Stat;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +16,16 @@ import org.jdom2.Element;
 
 
 
+import stateManagers.StateManager;
+
 import collisions.Hitbox;
 
+import com.golden.gamedev.Game;
+import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
-public abstract class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
+public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
 	private Map<String, Stat> myStats = new HashMap<String,Stat>();	
 	private List<Hitbox> myHitboxes;
@@ -30,9 +36,7 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	
 	public GeneralSprite(BufferedImage i) {
 		super();
-		BufferedImage[] image = new BufferedImage[1];
-		image[0] = i;
-		setImages(image);
+		setImage(i);
 	}
 	
 	public GeneralSprite(BufferedImage[] i) {
@@ -101,7 +105,9 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 		
 	}
 	
-	public abstract String getClassName();
+	public String getClassName() {
+		return this.getClass().toString();
+	}
 	
 	public Element writeElement() {
 		Element sprite= new Element("sprite");
@@ -127,14 +133,13 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 		}
 		int x = Integer.parseInt(e.getChildText("x"));
 		int y = Integer.parseInt(e.getChildText("y"));
-		Sprite s = getThisTypeOfSprite();
-		s.setImage(image);
-		s.setX(x);
-		s.setY(y);
-		return s;
+		GeneralSprite gs = new GeneralSprite(image,x,y);
+		return gs;
 		
 	}
+
+
 	
-	public abstract Sprite getThisTypeOfSprite();
+
 
 }
