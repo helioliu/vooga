@@ -101,22 +101,6 @@ public class BossSprite extends GeneralSprite{
 			super.render(g);
 	}
 
-	@Override
-	public ArrayList<String> writableObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Sprite parse(ArrayList<String> o, Platformer myGame) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }
