@@ -6,7 +6,7 @@ import SpriteAction.WalkDown;
 
 
 
-public class WalkingDownState extends EnemyState {
+public class WalkingDownState extends State {
     
     public WalkingDownState(GeneralSprite s) {
         super(s);
