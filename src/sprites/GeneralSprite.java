@@ -42,7 +42,7 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	public GeneralSprite(BufferedImage[] i) {
 		super(i);
 	}
-	
+		
 	public GeneralSprite(BufferedImage i, double x, double y) {
 		super(x,y);
 		setImage(i);
@@ -111,14 +111,11 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	
 	public Element writeElement() {
 		Element sprite= new Element("sprite");
-		sprite.addContent(new Element("class").addContent(getClassName()));
+		sprite.addContent(new Element("class").addContent(this.getClass().toString()));
 		sprite.addContent(new Element("image").addContent(path));
 		sprite.addContent(new Element("group").addContent(group));
 		sprite.addContent(new Element("x").addContent(getX() + ""));
 		sprite.addContent(new Element("y").addContent(getY()+ ""));		
-		for(String s: myStats.keySet()) {
-			sprite.addContent(new Element(s).addContent(myStats.get(s).toString()));
-		}
 		return sprite;
 	}
 
@@ -133,13 +130,9 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		}
 		int x = Integer.parseInt(e.getChildText("x"));
 		int y = Integer.parseInt(e.getChildText("y"));
-		GeneralSprite gs = new GeneralSprite(image,x,y);
-		return gs;
-		
+		GeneralSprite s = new GeneralSprite(image, x, y);
+		return s;
 	}
-
-
-	
 
 
 }

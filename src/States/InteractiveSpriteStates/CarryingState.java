@@ -9,6 +9,7 @@ import SpriteAction.MoveRight;
 import SpriteAction.MoveUp;
 import SpriteAction.StandAction;
 import SpriteAction.Stationary;
+import SpriteAction.ThrowAction;
 import States.State;
 
 
@@ -21,6 +22,7 @@ public class CarryingState extends State{
 		addAction("Right", new MoveRight(s));
 		addAction("Left", new MoveLeft(s));
 		addAction("Down", new MoveDown(s));
+		addAction("C", new ThrowAction(s));
 		//setMyGravityValue(.05);
 	}
 	public void setGravity()
