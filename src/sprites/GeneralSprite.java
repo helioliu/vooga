@@ -134,11 +134,4 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		
 	}
 
-
-<<<<<<< HEAD
-=======
-	
-
->>>>>>> 59b94a1d1222ccc825fc70ffe11c80dfda6a4afb
-
 }
