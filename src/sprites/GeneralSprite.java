@@ -32,6 +32,12 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	
 	public GeneralSprite() {
 		super();
+		myStateManager = new StateManager(this);
+	}
+	public GeneralSprite(StateManager sm)
+	{
+		super();
+		myStateManager = sm;
 	}
 	
 	public GeneralSprite(BufferedImage i) {
@@ -103,14 +109,11 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		this.path=path;
 		
 	}
-	public StateManager getStateManager()
+	protected StateManager getStateManager()
 	{
 		return myStateManager;
 	}
-	public void setStateManager(StateManager sm)
-	{
-		myStateManager = sm;
-	}
+	
 	public String getPath()
 	{
 		return path;
