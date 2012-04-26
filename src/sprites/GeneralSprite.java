@@ -1,9 +1,11 @@
 package sprites;
 
+import game.Platformer;
 import hudDisplay.Stat;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +16,12 @@ import org.jdom2.Element;
 
 
 
+import stateManagers.StateManager;
+
 import collisions.Hitbox;
 
+import com.golden.gamedev.Game;
+import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
@@ -30,9 +36,7 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	
 	public GeneralSprite(BufferedImage i) {
 		super();
-		BufferedImage[] image = new BufferedImage[1];
-		image[0] = i;
-		setImages(image);
+		setImage(i);
 	}
 	
 	public GeneralSprite(BufferedImage[] i) {
@@ -101,6 +105,10 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		
 	}
 	
+	public String getClassName() {
+		return this.getClass().toString();
+	}
+	
 	public Element writeElement() {
 		Element sprite= new Element("sprite");
 		sprite.addContent(new Element("class").addContent(this.getClass().toString()));
@@ -125,6 +133,6 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		GeneralSprite s = new GeneralSprite(image, x, y);
 		return s;
 	}
-	
+
 
 }

@@ -38,7 +38,7 @@ public class Chris_TestSprite extends StateSprite{
 		super();
 
 		State s1 = new InAirState(this);
-		setGravity(0.002);
+		setGravity(0.000); //.002
 		getStateManager().addState(s1);
 		StateTransition land = new ReplaceStateTransition(getStateManager(), "landed",  new OnLandState(this), s1);
 		StateTransition jump = new ReplaceStateTransition(getStateManager(), "jumped", s1, new OnLandState(this));
