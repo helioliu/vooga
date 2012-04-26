@@ -20,9 +20,9 @@ import core.EventManager;
 public abstract class AbstractHitboxNonhitboxCollision extends ShapeCollision{
 	
 	/**
-	 * Checks for hitbox-sprite collisions and broadcasts all appropriate events.
-	 * Events are broadcast in pairs for listening (s1 collides with s2 AND s2
-	 * collides with s1).
+	 * Checks for sprite-sprite collisions then hitbox-sprite collisions and 
+	 * broadcasts all appropriate events. Events are broadcast in pairs for 
+	 * listening (s1 collides with s2 AND s2 collides with s1).
 	 * Sprite s1 is from the first sprite group (the one with hitboxes)
 	 * Sprite s2 is from the second sprite group (without hitboxes)
 	 * Or at least, that <i>should</i> be the order, but the method checks just in case
@@ -41,6 +41,16 @@ public abstract class AbstractHitboxNonhitboxCollision extends ShapeCollision{
 			switchShapes();
 		}
 		
+		//broadcast collision behavior event
+		EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID());
+		EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+s1.getID());
+		//do stuff specific for the sprites
+		spriteCollided(hbs, nhbs);
+		
+		//make sure hitboxes have been initialized
+		if(((Boxable)hbs).getHitboxes()==null)
+			return;
+		
 		for(int i=0; i<((Boxable)hbs).getHitboxes().size(); i++){
 			Hitbox h = ((Boxable)hbs).getHitboxes().get(i);
 			//clone and shift the hitbox so that it is relative to the game
@@ -50,21 +60,13 @@ public abstract class AbstractHitboxNonhitboxCollision extends ShapeCollision{
 			if(cr2.intersects(shiftedHB)){
 				//broadcast an event
 				EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID()+" "+h.getID());
-				  //System.out.println("collision "+s1.getID()+" "+s2.getID()+" "+h.getID());
 				EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+h.getID()+" "+s1.getID());
-				  //System.out.println("collision "+s2.getID()+" "+h.getID()+" "+s1.getID());
 				//do stuff specific to the hitbox
 				hitboxSpriteCollided(hbs, h, nhbs);
 			}
 		}
 		
-		//broadcast default collision behavior event
-		EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID());
-		  //System.out.println("collision "+s1.getID()+" "+s2.getID());
-		EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+s1.getID());
-		  //System.out.println("collision "+s2.getID()+" "+s1.getID());
-		//do stuff specific for the sprites
-		spriteCollided(hbs, nhbs);
+
 	}
 	
 	/**

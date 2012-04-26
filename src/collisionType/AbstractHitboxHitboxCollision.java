@@ -20,8 +20,9 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 	
 	
 	/**
-	 * Checks for hitbox-hitbox collisions, then hitbox-sprite collision,
-	 * then sprite-hitbox collisions, then sprite-sprite collisions.
+	 * Checks for sprite-sprite collisions, then the validity of the
+	 * sprites' hitboxes, then hitbox-sprite collisions, then 
+	 * sprite-hitbox collisions, then hitbox-hitbox collisions.
 	 * Collision events are broadcast in their appropriate pairs for
 	 * listening, and additional behavior may be defined internally.
 	 */
@@ -29,6 +30,38 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 		//we're not using GTGE's collision shapes so we need to clone them, yo
 		//this initializes cr1 and cr2, the bounds of sprites s1 and s2, respectively
 		initCollisionShapes();
+		
+		//sprite-sprite collisions
+		EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID());
+		EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+s1.getID());
+		spriteCollided(s1, s2);
+		
+		//make sure hitboxes have been initialized
+		if(((Boxable)s1).getHitboxes()==null || ((Boxable)s2).getHitboxes()==null)
+			return;
+		
+		//sprite1 hitbox2 collisions
+		for(Hitbox h2 : ((Boxable)s2).getHitboxes()){
+			CollisionShape shapeshift = h2.getShape().clone();
+			shapeshift.move(cr2.getX(), cr2.getY());
+			if(shapeshift.intersects(cr1)){
+				EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+
+						s2.getID()+" "+h2.getID());
+				spriteHitboxCollided(s1, s2, h2);
+			}
+		}
+		
+		//sprite2 hitbox1 collisions
+		for(int i=0; i<((Boxable)s1).getHitboxes().size(); i++){
+			Hitbox h1 = ((Boxable)s1).getHitboxes().get(i);
+			CollisionShape shapeshift = h1.getShape().clone();
+			shapeshift.move(cr1.getX(), cr1.getY());
+			if(shapeshift.intersects(cr2)){
+				EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+
+						s1.getID()+" "+h1.getID());
+				hitboxSpriteCollided(s1, h1, s2);
+			}
+		}
 		
 		//hitbox-hitbox collisions
 		//we're using these sorts of for loops in case we need to know
@@ -50,44 +83,14 @@ public abstract class AbstractHitboxHitboxCollision extends ShapeCollision{
 							+" "+s2.getID()+" "+h2.getID());
 					EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+h2.getID()
 							+" "+s1.getID()+" "+h1.getID());
-					  //System.out.println("collision "+s1.getID()+" "+h1.getID()+" "+s2.getID()+" "+h2.getID());
-					  //System.out.println("collision "+s2.getID()+" "+h2.getID()+" "+s1.getID()+" "+h1.getID());
 					hitboxCollided(s1, h1, s2, h2);
 				}
 			}
 		}
 		
-		//sprite1 hitbox2 collisions
-		for(Hitbox h2 : ((Boxable)s2).getHitboxes()){
-			CollisionShape shapeshift = h2.getShape().clone();
-			shapeshift.move(cr2.getX(), cr2.getY());
-			if(shapeshift.intersects(cr1)){
-				EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+
-						s2.getID()+" "+h2.getID());
-				  //System.out.println("collision "+s1.getID()+" "+	s2.getID()+" "+h2.getID());
-				spriteHitboxCollided(s1, s2, h2);
-			}
-		}
 		
-		//sprite2 hitbox1 collisions
-		for(int i=0; i<((Boxable)s1).getHitboxes().size(); i++){
-			Hitbox h1 = ((Boxable)s1).getHitboxes().get(i);
-			CollisionShape shapeshift = h1.getShape().clone();
-			shapeshift.move(cr1.getX(), cr1.getY());
-			if(shapeshift.intersects(cr2)){
-				EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+
-						s1.getID()+" "+h1.getID());
-				  //System.out.println("collision "+s2.getID()+" "+	s1.getID()+" "+h1.getID());
-				hitboxSpriteCollided(s1, h1, s2);
-			}
-		}
 		
-		//sprite-sprite collisions
-		EventManager.getEventManager().sendEvent("collision "+s1.getID()+" "+s2.getID());
-		  //System.out.println("collision "+s1.getID()+" "+s2.getID());
-		EventManager.getEventManager().sendEvent("collision "+s2.getID()+" "+s1.getID());
-		  //System.out.println("collision "+s2.getID()+" "+s1.getID());
-		spriteCollided(s1, s2);
+		
 	}
 	
 	/**
