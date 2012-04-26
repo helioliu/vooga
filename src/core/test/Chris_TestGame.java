@@ -46,8 +46,11 @@ public class Chris_TestGame extends Game{
     CollisionManager collisionTypeCut;
     CollisionManager collisionTypeIS;
     Cutscene myCutscene;
+    String Filepath;
 
-
+    public Chris_TestGame(String filepath){
+    	Filepath=filepath;
+    }
 
 
     public void initResources() {
