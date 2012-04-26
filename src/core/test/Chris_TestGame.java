@@ -29,6 +29,7 @@ import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
 import core.conditions.DelayedCondition;
+import core.conditions.FloorCollision;
 import cutscenes.BadFileFormatException;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneAutomation;
@@ -51,7 +52,6 @@ public class Chris_TestGame extends Game{
     public Chris_TestGame(String filepath){
     	Filepath=filepath;
     }
-
 
     public void initResources() {
         //		stateMap = new HashMap<String, State>();
@@ -86,7 +86,7 @@ public class Chris_TestGame extends Game{
 
 
         Sprite wall1 = new Sprite(getImage("images/bricks1.png"));
-        wall1.setLocation(200,450);
+        wall1.setLocation(275,450);
         Sprite wall2 = new Sprite(getImage("images/bricks1.png"));
         wall2.setLocation(225,450);
         Sprite wall3 = new Sprite(getImage("images/bricks1.png"));
@@ -94,13 +94,29 @@ public class Chris_TestGame extends Game{
         Sprite wall4 = new Sprite(getImage("images/bricks1.png"));
         wall4.setLocation(300,450);
         Sprite wall5 = new Sprite(getImage("images/bricks1.png"));
-        wall5.setLocation(350,450);
+        wall5.setLocation(325,450);
         Sprite wall6 = new Sprite(getImage("images/bricks1.png"));
-        wall6.setLocation(375,450);
+        wall6.setLocation(350,450);
         Sprite wall7 = new Sprite(getImage("images/bricks1.png"));
-        wall7.setLocation(400,450);
+        wall7.setLocation(375,450);
         Sprite wall8 = new Sprite(getImage("images/bricks1.png"));
-        wall8.setLocation(425,450);
+        wall8.setLocation(400,450);
+        Sprite wall9 = new Sprite(getImage("images/bricks1.png"));
+        wall9.setLocation(50,450);
+        Sprite wall10 = new Sprite(getImage("images/bricks1.png"));
+        wall10.setLocation(75,450);
+        Sprite wall11 = new Sprite(getImage("images/bricks1.png"));
+        wall11.setLocation(100,450);
+        Sprite wall12 = new Sprite(getImage("images/bricks1.png"));
+        wall12.setLocation(125,450);
+        Sprite wall13 = new Sprite(getImage("images/bricks1.png"));
+        wall13.setLocation(425,450);
+        Sprite wall14 = new Sprite(getImage("images/bricks1.png"));
+        wall14.setLocation(500,300);
+        Sprite wall15 = new Sprite(getImage("images/bricks1.png"));
+        wall15.setLocation(525,300);
+        Sprite wall16 = new Sprite(getImage("images/bricks1.png"));
+        wall16.setLocation(550,300);
 
         //added by Ben
         SpriteGroup enemies = new SpriteGroup("enemies");
@@ -124,6 +140,14 @@ public class Chris_TestGame extends Game{
         walls.add(wall6);
         walls.add(wall7);
         walls.add(wall8);
+        walls.add(wall9);
+        walls.add(wall10);
+        walls.add(wall11);
+        walls.add(wall12);
+        walls.add(wall13);
+        walls.add(wall14);
+        walls.add(wall15);
+        walls.add(wall16);
         
 //        GeneralSprite spring = new Spring_IS();
 //        spring.setImage(getImage("images/MarioSpring.png"));
@@ -137,8 +161,12 @@ public class Chris_TestGame extends Game{
         //playfield.addGroup(iSprites);
 
         //added by Ben
-        collisionTypeBlocker = new CantGoFurtherCollision();
-        collisionTypeBlocker.setCollisionGroup(enemies, blockers);
+//        collisionTypeBlocker = new CantGoFurtherCollision();
+        playfield.addCollisionGroup(enemies, blockers, new CantGoFurtherCollision());
+        playfield.addCollisionGroup(character, walls, new WallCollision());
+        playfield.addCollisionGroup(character, blockers, new SwitchCollision());
+        playfield.addCollisionGroup(character, cutscene, new CantGoFurtherCollision());
+//        collisionTypeBlocker.setCollisionGroup(enemies, blockers);
         //
         collisionTypeWall = new WallCollision();
         collisionTypeWall.setCollisionGroup(character, walls);
@@ -197,7 +225,7 @@ public class Chris_TestGame extends Game{
         
         collisionTypeWall.checkCollision();
         //added by Ben
-        collisionTypeBlocker.checkCollision();
+//        collisionTypeBlocker.checkCollision();
         //	HUD.render(arg0);
         collisionTypeSwitch.checkCollision();
         collisionTypeCut.checkCollision();
@@ -213,10 +241,12 @@ public class Chris_TestGame extends Game{
     class WallCollision extends BasicCollisionGroup {
 
         public WallCollision() {
-            //pixelPerfectCollision = true;
+            pixelPerfectCollision = true;
         }
 
         public void collided(Sprite s1, Sprite s2) {
+        	
+//        	EventManager.getEventManager().sendEvent("landed");
             EventManager.getEventManager().sendEvent("floor collide");
             //System.out.println("floor collide");
             //EventManager.getEventManager().sendEvent("switchstates");
@@ -230,7 +260,7 @@ public class Chris_TestGame extends Game{
         public SwitchCollision() {
             pixelPerfectCollision = true;
         }
-
+        
         public void collided(Sprite s1, Sprite s2) {
         	System.out.println("switchstates");
             EventManager.getEventManager().sendEvent("switchstates");
@@ -247,7 +277,7 @@ public class Chris_TestGame extends Game{
         }
 
         public void collided(Sprite s1, Sprite s2) {
-            EventManager.getEventManager().sendEvent("start-cutscene");
+            EventManager.getEventManager().sendEvent("pwrup");
             s2.setActive(false);
 
 

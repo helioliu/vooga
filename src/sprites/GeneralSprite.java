@@ -5,6 +5,8 @@ import hudDisplay.Stat;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,18 +27,12 @@ import com.golden.gamedev.object.sprite.AdvanceSprite;
 
 public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
-
-	
-	private StateManager myStateManager;
-	private Map<String, Stat> myStats;	
+	private Map<String, Stat> myStats = new HashMap<String,Stat>();	
 	private List<Hitbox> myHitboxes;
 	private double myGravityValue; 
 	private String path;
 	private String group;
 	
-	public GeneralSprite() {
-		super();
-	}
 	
 	public GeneralSprite(BufferedImage i) {
 		super();
@@ -107,14 +103,6 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		this.path=path;
 		
 	}
-	public StateManager getStateManager()
-	{
-		return myStateManager;
-	}
-	public void setStateManager(StateManager sm)
-	{
-		myStateManager = sm;
-	}
 	
 	public String getClassName() {
 		return this.getClass().toString();
@@ -149,4 +137,26 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		
 	}
 
+
+	
+	
+
+	@Override
+	public ArrayList<String> writableObject() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Sprite parse(ArrayList<String> o, Platformer myGame) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Boolean isInstanceOf(ArrayList<String> o) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+>>>>>>> 662774c7a110f4d08735a5f223298e072d25139e
 }

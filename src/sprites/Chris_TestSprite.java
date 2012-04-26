@@ -15,14 +15,17 @@ import javax.imageio.ImageIO;
 
 import stateManagers.StateManager;
 import stateTransitions.ChangeStateTransition;
+import stateTransitions.ReplaceStateTransition;
 import stateTransitions.StateTransition;
 import stateTransitions.AlternateStatesTransition;
+import stateTransitions.AddStateTransition;
 
 import States.InAirState;
 import States.OnLandState;
 import States.RegularMotionState;
 import States.ReverseMotionState;
 import States.State;
+import States.TeleJumpPowerup;
 import States.WalkingRightState;
 
 import com.golden.gamedev.object.Sprite;
@@ -34,14 +37,16 @@ public class Chris_TestSprite extends GeneralSprite{
 	{
 		super();
 
-		State s = new InAirState(this);
+		State s1 = new InAirState(this);
 		setGravity(0.002);
-		setStateManager(new StateManager(this, s));
-		StateTransition land = new ChangeStateTransition(getStateManager(), "landed", new OnLandState(this));
-		StateTransition jump = new ChangeStateTransition(getStateManager(), "jumped", new InAirState(this));
+		getStateManager().addState(s1);
+		StateTransition land = new ReplaceStateTransition(getStateManager(), "floor collide",  new OnLandState(this), s1);
+		StateTransition jump = new ReplaceStateTransition(getStateManager(), "jumped", s1, new OnLandState(this));
+		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new TeleJumpPowerup(this));
 		setMyStats(new HashMap<String, Stat>());	
 		land.activate();
 		jump.activate();
+		powerup.activate();
 		
 	}
 	
