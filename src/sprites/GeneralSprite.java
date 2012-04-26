@@ -3,17 +3,27 @@ package sprites;
 import game.Platformer;
 import hudDisplay.Stat;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
+
+import org.jdom2.Element;
+
 
 
 import stateManagers.StateManager;
 
 import collisions.Hitbox;
 
+import com.golden.gamedev.Game;
+import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
-public abstract class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
+public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
 
 	
@@ -21,11 +31,8 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	private Map<String, Stat> myStats;	
 	private List<Hitbox> myHitboxes;
 	private double myGravityValue; 
-	private Platformer mygame;
 	private String path;
-
-
-	
+	private String group;
 	
 	public GeneralSprite() {
 		super();
@@ -108,15 +115,38 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	{
 		myStateManager = sm;
 	}
-	public String getPath()
-	{
-		return path;
+	
+	public String getClassName() {
+		return this.getClass().toString();
 	}
-	public Platformer getMygame() {
-		return mygame;
+	
+	public Element writeElement() {
+		Element sprite= new Element("sprite");
+		sprite.addContent(new Element("class").addContent(getClassName()));
+		sprite.addContent(new Element("image").addContent(path));
+		sprite.addContent(new Element("group").addContent(group));
+		sprite.addContent(new Element("x").addContent(getX() + ""));
+		sprite.addContent(new Element("y").addContent(getY()+ ""));		
+		for(String s: myStats.keySet()) {
+			sprite.addContent(new Element(s).addContent(myStats.get(s).toString()));
+		}
+		return sprite;
 	}
 
-	public void setMygame(Platformer mygame) {
-		this.mygame = mygame;
+	public Sprite parse(Element e){
+		path=e.getChild("image").getText();
+		File file=new File(path);
+		BufferedImage image=null;
+		try {
+			image = ImageIO.read(file);
+		} catch (IOException e1) {
+			System.out.print("IOException");
+		}
+		int x = Integer.parseInt(e.getChildText("x"));
+		int y = Integer.parseInt(e.getChildText("y"));
+		GeneralSprite gs = new GeneralSprite(image,x,y);
+		return gs;
+		
 	}
+
 }
