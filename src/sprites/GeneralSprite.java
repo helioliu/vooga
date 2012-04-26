@@ -19,7 +19,7 @@ import collisions.Hitbox;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
-public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
+public abstract class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
 	private Map<String, Stat> myStats = new HashMap<String,Stat>();	
 	private List<Hitbox> myHitboxes;
@@ -101,9 +101,7 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		
 	}
 	
-	public String getClassName() {
-		return this.getClass().toString();
-	}
+	public abstract String getClassName();
 	
 	public Element writeElement() {
 		Element sprite= new Element("sprite");
@@ -129,9 +127,14 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		}
 		int x = Integer.parseInt(e.getChildText("x"));
 		int y = Integer.parseInt(e.getChildText("y"));
-		GeneralSprite gs = new GeneralSprite(image,x,y);
-		return gs;
+		Sprite s = getThisTypeOfSprite();
+		s.setImage(image);
+		s.setX(x);
+		s.setY(y);
+		return s;
 		
 	}
+	
+	public abstract Sprite getThisTypeOfSprite();
 
 }
