@@ -57,7 +57,10 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	public GeneralSprite(double x, double y) {
 		super(x,y);
 	}
-	
+	public GeneralSprite()
+	{
+		super();
+	}
 	public void createStat(String name, Stat stat) {
 		getMyStats().put(name, stat);
 	}
