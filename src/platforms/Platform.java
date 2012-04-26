@@ -26,9 +26,9 @@ public class Platform extends AdvanceSprite {
 	
 	public Platform(BufferedImage image, int x, int i) {
 		super(x,i);
-//		BufferedImage[] a = new BufferedImage[1];
-//		a[0] = image;
-		this.setImage(image);
+		BufferedImage[] a = new BufferedImage[1];
+		a[0] = image;
+		this.setImages(a);
 	}
 
 	/**
