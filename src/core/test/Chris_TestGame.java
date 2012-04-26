@@ -7,9 +7,7 @@ import interactiveSprites.Spring_IS;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.Map;
 
 import sprites.Chris_TestSprite;
@@ -22,18 +20,15 @@ import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
-import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
-import core.conditions.DelayedCondition;
 import core.conditions.FloorCollision;
 import cutscenes.BadFileFormatException;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneAutomation;
-import cutscenes.CutsceneTrigger;
 import cutscenes.EventAutomation;
 
 
@@ -168,7 +163,7 @@ public class Chris_TestGame extends Game{
         playfield.addCollisionGroup(character, cutscene, new CantGoFurtherCollision());
 //        collisionTypeBlocker.setCollisionGroup(enemies, blockers);
         //
-        collisionTypeWall = new WallCollision();
+        collisionTypeWall = new FloorCollision();
         collisionTypeWall.setCollisionGroup(character, walls);
         
         collisionTypeSwitch = new SwitchCollision();
