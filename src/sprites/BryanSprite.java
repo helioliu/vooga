@@ -16,14 +16,14 @@
 	import States.State;
 	import com.golden.gamedev.object.Sprite;
 
-	public class BryanSprite extends GeneralSprite{
+	public class BryanSprite extends StateSprite{
 		
 		
 		public BryanSprite()
 		{
 			super();
 			State s = new RegularMotionState(this);
-			setStateManager(new StateManager(this, s));
+			getStateManager().addState(s);
 			StateTransition reverse = new ChangeStateTransition(getStateManager(), "switchstates", new OnLandState(this));
 			setMyStats(new HashMap<String, Stat>());	
 			reverse.activate();
@@ -40,41 +40,7 @@
 
 
 
-		public ArrayList<String> writableObject() {
-			ArrayList<String> list= new ArrayList<String>();
-			list.add(this.getClass().toString());
-			list.add(getPath());
-			list.add(getX() +"");
-			list.add(getY() +"");
-			return list;
-		}
-
-
-		public Sprite parse(ArrayList<String> o, Platformer game) {
-	        Chris_TestSprite C= new Chris_TestSprite();
-	        C.setMygame(game);
-			C.setInitPath(o.get(1));
-			C.setX( Double.parseDouble(o.get(2)));
-			C.setY( Double.parseDouble(o.get(3)));
-			File file= new File(getPath());
-			BufferedImage image;
-			try {
-				image = ImageIO.read(file);
-				C.setImage(image);		} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			getMygame().CHARACTER.add(C);
-			return C;
-		}
-
-
-		public Boolean isInstanceOf(ArrayList<String> o) {
-			if (this.getClass().toString().equals(o.get(0))) {
-				return true;
-			}
-			return false;
-		}
+		
 
 	}
 
