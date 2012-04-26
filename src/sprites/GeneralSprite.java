@@ -142,24 +142,6 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 
 
 	
-	
 
-	@Override
-	public ArrayList<String> writableObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Sprite parse(ArrayList<String> o, Platformer myGame) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
->>>>>>> 662774c7a110f4d08735a5f223298e072d25139e
 }
