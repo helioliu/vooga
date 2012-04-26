@@ -1,7 +1,6 @@
 package States;
 
 import sprites.GeneralSprite;
-import sprites.TestCharacterWithStates;
 
 import com.golden.gamedev.object.Sprite;
 

@@ -5,7 +5,7 @@ import SpriteAction.WalkRight;
 
 import com.golden.gamedev.object.Sprite;
 
-public class WalkingRightState extends EnemyState {
+public class WalkingRightState extends State {
       
     public WalkingRightState(GeneralSprite s){
         super(s);
