@@ -20,7 +20,6 @@ import com.golden.gamedev.object.Timer;
 
 public class Character extends GeneralSprite {
 
-    Platformer game;
 
     public boolean jumping=true;
     private Timer jumpTimer;
@@ -28,7 +27,7 @@ public class Character extends GeneralSprite {
     public Character() {
         super();
         jumpTimer = new Timer(150);
-        setStateManager(new StateManager(this, new StationaryState(this)));
+        getStateManager().addState(new StationaryState(this));
         setGravity(0.002);
     }
 
@@ -104,7 +103,7 @@ public class Character extends GeneralSprite {
 
     public Sprite parse(ArrayList<String> o, Platformer game) {
         Character C= new Character();
-        C.game=game;
+//        C.game=game;
         C.setInitPath(o.get(1));
         C.setX( Double.parseDouble(o.get(2)));
         C.setY( Double.parseDouble(o.get(3)));
