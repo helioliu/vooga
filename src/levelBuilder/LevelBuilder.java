@@ -1,42 +1,24 @@
 package levelBuilder;
 
-import game.Platformer;
-import game.PlatformGame;
-
-import interactiveSprites.InteractiveSpriteCollision;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
-import org.jdom2.contrib.beans.JDOMBean;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.input.sax.SAXBuilderEngine;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.jdom2.Element;
 
 import sprites.*;
-import sprites.Character;
-
-import levelEditor.GameFile;
-import levelEditor.SpriteInfo;
 
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
-import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class LevelBuilder {
 	private String xmlpath;
@@ -50,20 +32,18 @@ public class LevelBuilder {
 	}
 	
 	public void createLevel() {
-		SAXBuilder builder = new SAXBuilder();
-	    File xmlFile = new File(xmlpath);
-		
-		
-			 
+	     	SAXBuilder builder = new SAXBuilder();
+	        File xmlFile = new File(xmlpath);
+					 
 			Document document;
 			try {
 				document = (Document) builder.build(xmlFile);
 
 			
-			Element root = (Element) document.getRootElement();
+			Element root = document.getRootElement();
 
-			Element backgroundchild = (Element) root.getFirstChild();
-			String backgroundimagepath=backgroundchild.getTextContent();
+			Element backgroundchild = root.getChild("background");
+			String backgroundimagepath=backgroundchild.getText();
 			
 			//creating background image
 			BufferedImage myBackground=null;
@@ -77,15 +57,15 @@ public class LevelBuilder {
 			playfield.setBackground(new ImageBackground(myBackground));
 
 			//
-			Element spriteschild=(Element) root.getNextSibling();
-			NodeList allChildren = spriteschild.getChildNodes();
-			for (int i=0;i<allChildren.getLength();i++) {
-				Element sprite =(Element) allChildren.item(i);
-				String classname=sprite.getAttribute("class");
+			Element sprites= root.getChild("Sprites");
+			List allChildren = sprites.getChildren("sprite");
+			for (int i=0;i<allChildren.size();i++) {
+				Element sprite = (Element) allChildren.get(i);
+				String classname=sprite.getChild("class").getText();
 				LevelEditable LE= (LevelEditable) Class.forName(classname).newInstance();
-
-				String groupname=sprite.getAttribute("group");
-				playfield.getGroup(groupname).add((Sprite)LE);
+				Sprite s = LE.parse(sprite);
+				String groupname=sprite.getChild("group").getText();
+				playfield.getGroup(groupname).add(s);
 			}
 
 			} catch (JDOMException e) {
