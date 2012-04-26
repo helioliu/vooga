@@ -29,6 +29,12 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 	
 	public GeneralSprite() {
 		super();
+		myStateManager = new StateManager(this);
+	}
+	public GeneralSprite(StateManager sm)
+	{
+		super();
+		myStateManager = sm;
 	}
 	
 	public GeneralSprite(BufferedImage i) {
@@ -100,14 +106,11 @@ public abstract class GeneralSprite extends AdvanceSprite implements Boxable, Le
 		this.path=path;
 		
 	}
-	public StateManager getStateManager()
+	protected StateManager getStateManager()
 	{
 		return myStateManager;
 	}
-	public void setStateManager(StateManager sm)
-	{
-		myStateManager = sm;
-	}
+	
 	public String getPath()
 	{
 		return path;
