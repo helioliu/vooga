@@ -4,18 +4,19 @@ package collisions;
  * Group of static methods to determine intersections between
  * different types of shapes. Going from (n) to (n+1) unique
  * types of shapes necessary adds (n+1) new intersection
- * checks. Shapes represent elements, so visitor is inconvenient,
- * so we just stuff everything in here. At least this way,
- * adding a new shape only means adding a shape class and the
- * (n+1) intersection types into here (and adding to the if
- * tree <_< )
+ * checks. If we try to use some sort of internal type checking,
+ * this basically becomes a visitor problem... except we're
+ * always adding elements instead of operations. So, we just
+ * stuff everything in here. At least this way, adding a new
+ * shape only means adding a shape class and the (n+1) 
+ * intersection types into here (and adding to the if tree <_< )
  */
 public class Intersections {
     
 	/**
-	 * We use reflection to check types to call the appropriate
+	 * <s>We use reflection to check types to call the appropriate
 	 * methods (as opposed to the old method of super cool if
-	 * statements
+	 * statements)</s> jk guys we're using if statements lol
 	 */
     public static boolean checkIntersect(CollisionShape cs1, CollisionShape cs2){
     	String s1 = cs1.getShape();
@@ -88,7 +89,6 @@ public class Intersections {
         			cc.getXCenter()+cc.getR() < cr.getX()+cr.getW())
         		return true;
         }
-        
         
         //case any rectangle corner inside circle
         //top left
