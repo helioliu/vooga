@@ -12,7 +12,6 @@ public class ReplaceStateTransition extends StateTransition{
 		
 	}
 
-	@Override
 	public void actionPerformed(Object eventName) {
 		if(getMyStateManager().isCurrentlyActive(toRemove))
 		{

@@ -37,7 +37,6 @@ public class TimedCutsceneCondition implements Condition {
 		}
 	}
 
-	@Override
 	public void reset() {
 		countdown.refresh();
 	}

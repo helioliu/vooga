@@ -31,7 +31,6 @@ public class DelayedCondition implements Condition {
 		}
 	}
 
-	@Override
 	public void reset() {
 		countdown.refresh();
 	}

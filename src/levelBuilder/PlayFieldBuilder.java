@@ -66,13 +66,22 @@ public class PlayFieldBuilder {
 				Element sprite = (Element) allChildren.get(i);
 				String classname=sprite.getChild("class").getText();
 				classname=classname.split(" ")[1];
-				LevelEditable LE= (LevelEditable) Class.forName(classname).newInstance();
-				Sprite s = LE.parse(sprite);
-				System.out.println(s.toString());
 				if (!groupnames.contains(classname)) {
 					playfield.addGroup(new SpriteGroup(classname));
 					groupnames.add(classname);
+		            System.out.println(classname);
 				}
+			}
+			
+			for (int i=0;i<allChildren.size();i++) {
+				Element sprite = (Element) allChildren.get(i);
+				String classname=sprite.getChild("class").getText();
+				classname=classname.split(" ")[1];
+				System.out.println("class name is: " +classname);
+				LevelEditable LE= (LevelEditable) Class.forName(classname).newInstance();
+				System.out.println("Level Editable is: "+LE.toString());
+				Sprite s = LE.parse(sprite);
+				System.out.println("Sprite produced is: " +s.toString());
 				playfield.getGroup(classname).add(s);
 
 			}

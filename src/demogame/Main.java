@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		GameLoader game = new GameLoader();
-		game.setup(new DemoGame(""), new Dimension(640, 480), false);
+		game.setup(new DemoGame("level1.xml"), new Dimension(640, 480), false);
 		game.start();
 
 	}

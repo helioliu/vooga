@@ -46,6 +46,7 @@ public class DemoGame extends Game implements EventListener {
 	private GeneralSprite mainChar;
 	private Cutscene levelOver;
 	Cutscene death;
+	private GeneralSprite target;
 	private static final double gravity = .002;
 	private String[] levels = {
 			"level1.xml",
@@ -58,38 +59,42 @@ public class DemoGame extends Game implements EventListener {
 
 	public DemoGame (String levelFileName) {
 		this.levelFileName = levelFileName;
+		myPlayField = new PlayField();
+		myPlayField = new PlayFieldBuilder(myPlayField, levelFileName).parseXML();
 	}
 	
     protected void initEngine() {
 		super.initEngine();
 		this.bsInput = new InputManager(this.bsGraphics.getComponent());
+		
 	}
 	
 	public void initResources() {
 		EventManager.getEventManager().registerEventListener("end-game", this);
 		currentLevel = 1;
 		setMaskColor(Color.WHITE);
-		myPlayField = new PlayField();
-		myPlayField = new PlayFieldBuilder(myPlayField, levelFileName).parseXML();
+
 		
         
         SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
-        for (Sprite enemy : home.getSprites()) {
+        target= (GeneralSprite) myPlayField.getGroup("sprites.MainCharacter").getSprites()[0];
+             for (Sprite enemy : home.getSprites()) {
         	if (enemy== null)
         		break;
-        	enemy.setTarget(myPlayField.getGroup("sprites.MainCharacter").getSprites()[0]);
-        	Condition near = new GetCloseCondition(enemy,mainChar,500,true);
-            Condition far = new GetCloseCondition(enemy,mainChar,500,false);
+        	HomingEnemy he= (HomingEnemy) enemy;
+        	he.setMyTarget(target);
+        	Condition near = new GetCloseCondition(he,target,500,true);
+            Condition far = new GetCloseCondition(he,target,500,false);
             EventManager.getEventManager().addEventCondition(near, "homing"+enemy.hashCode());
             EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
         }
-		
+        
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Platform"), new PlatformCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.Flag"),new FlagCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.LifeMushroom"),new MushroomCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Jetpack"),new JetPackCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
-		
+        
 		//make the end-of-level cutscene
 		EventAutomation aOne = new CutsceneAutomation();
 		aOne.addTimedAutomation(5, 10000, "slide-down-pole");
@@ -105,17 +110,15 @@ public class DemoGame extends Game implements EventListener {
 
 	public void render(Graphics2D g) {
 		myPlayField.render(g);
-		HUD.render(g);
 	}
 
+	
 	public void update(long timeElapsed) {
 		EventManager.getEventManager().update(timeElapsed);
-		myPlayField.getBackground().setToCenter(mainChar);
+		myPlayField.getBackground().setToCenter(target);
 		myPlayField.update(timeElapsed);
 		levelOver.update(timeElapsed);
 		death.update(timeElapsed);
-		HUD.update(timeElapsed);
-		timer.update(timeElapsed);
 		
 	}
 
