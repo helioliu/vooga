@@ -21,7 +21,7 @@ import States.WalkingUpState;
 public class WalkingBadGuy extends StateSprite {
 
 
-    private ArrayList<HomingProjectile> projectiles = new ArrayList<HomingProjectile>();
+   
     boolean enableShoot;
 
 
@@ -39,9 +39,7 @@ public class WalkingBadGuy extends StateSprite {
         four.activate();
         five.activate();
     }
-    public ArrayList<HomingProjectile> getProjectiles() {
-        return projectiles;
-    }
+   
 
     public void Shoot( long elapsedTime, Timer fireRate, SpriteGroup Projectile, BufferedImage Image, Sprite s){
         Projectile shot;
@@ -70,7 +68,6 @@ public class WalkingBadGuy extends StateSprite {
             Projectile.add(shot);
             enableShoot = false;
             fireRate.refresh();
-            projectiles.add(shot);
         }
         else { 
             if (fireRate.action( elapsedTime  ))  

@@ -11,10 +11,13 @@ import java.util.Map;
 import sprites.Bens_TestSprite;
 import sprites.Chris_TestSprite;
 import sprites.Enemy;
+import sprites.HomingEnemy;
 import sprites.HomingProjectile;
 import sprites.Projectile;
+import sprites.StateSprite;
 import sprites.WalkingBadGuy;
 import States.State;
+import States.StationaryState;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.CollisionManager;
@@ -31,21 +34,20 @@ import core.EventManager;
 
 
 public class Ben_TestGame extends Game{
-    
+
     Map<String, State> stateMap;
     PlayField playfield;
     CollisionManager collisionTypeWall;
     CollisionManager collisionTypeBlocker;
     SpriteGroup HERO, BLOCKERS, ENEMIES, ENEMY_MISSLES;
-    Sprite s1;
-    Enemy enemy1;
+    StateSprite s1, enemy1, enemy2;
     Timer EnemyFireRate = new Timer(2000);
 
 
 
 
     public void initResources() {
-  
+
         playfield = new PlayField();
         playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 
@@ -57,10 +59,13 @@ public class Ben_TestGame extends Game{
         HERO.add(s1);
 
         //added by Ben
-         enemy1 = new WalkingBadGuy ();
+        enemy1 = new WalkingBadGuy ();
         enemy1.setImage(getImage("images/thebadguy.png"));
         enemy1.setLocation(350,200);
         enemy1.setMovement(0.025, 90);
+        enemy2 = new HomingEnemy(s1);
+        enemy2.setImage(getImage("images/boo.jpg"));
+        enemy2.setLocation(500, 300);
 
 
         Sprite blocker1 = new Sprite(getImage("images/block.png"));
@@ -88,16 +93,17 @@ public class Ben_TestGame extends Game{
         ENEMIES = new SpriteGroup("enemies");
         BLOCKERS = new SpriteGroup("blockers");
         ENEMIES.add(enemy1);
+        ENEMIES.add(enemy2);
         BLOCKERS.add(blocker1);
         BLOCKERS.add(blocker2);
         BLOCKERS.add(blocker3);
         BLOCKERS.add(blocker4);
         //
-        
+
         ENEMY_MISSLES = new SpriteGroup ("Enemy Missles");
 
 
-     
+
 
         //added by Ben
         collisionTypeBlocker = new CantGoFurtherCollision();
@@ -130,22 +136,19 @@ public class Ben_TestGame extends Game{
     }
 
     public void update(long elapsedTime) {
-        //Cutscene Code
-        //      if(cutTimer.action(elapsedTime)) {
-        //          trigger.triggerCutscene();
-        //          cutTimer.setActive(false);
-        //      }
-        //      cutscene.update(elapsedTime);
-       ((WalkingBadGuy)enemy1).Shoot2(elapsedTime, EnemyFireRate, ENEMY_MISSLES, getImage("images/fireball.png"), s1 );
-       ArrayList <HomingProjectile> enemy1Projectiles = ((WalkingBadGuy)enemy1).getProjectiles();
-       for(HomingProjectile p: enemy1Projectiles){
-           p.goToTarget(s1);
-       }
+
+       
+        if(enemy2.getDistance(s1)>100){
+            EventManager.getEventManager().sendEvent("stationary");
+            System.out.println("stay still");
+        }
+        else{
+            EventManager.getEventManager().sendEvent("homing");
+        }
+       // ((WalkingBadGuy)enemy1).Shoot2(elapsedTime, EnemyFireRate, ENEMY_MISSLES, getImage("images/fireball.png"), s1 );
+
         EventManager.getEventManager().update(elapsedTime);
         playfield.update(elapsedTime);
-        //      HUD.update(elapsedTime);
-
-
 
         if (keyDown(KeyEvent.VK_LEFT))
         {
@@ -191,7 +194,7 @@ public class Ben_TestGame extends Game{
                 EventManager.getEventManager().sendEvent("walk right");
             }
             else if( getCollisionSide()==2){
-                EventManager.getEventManager().sendEvent("stay stationary");
+                EventManager.getEventManager().sendEvent("walk up");
             }
             else if ( getCollisionSide()== 4){
                 EventManager.getEventManager().sendEvent("walk left");

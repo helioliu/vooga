@@ -26,7 +26,7 @@ import com.golden.gamedev.object.Timer;
 public abstract class Enemy extends StateSprite {
     // indicates whether this enemy has been show to screen or not
     boolean show;
-    boolean enableShoot;
+    
     Platformer myGame;
     // attempt to fire every 400 ms
     Timer	fireRate = new Timer(4000);
@@ -40,7 +40,7 @@ public abstract class Enemy extends StateSprite {
 
 
 
-    public abstract void Shoot( long elapsedTime, Timer fireRate, SpriteGroup Projectile, BufferedImage Image);
+    public abstract void Shoot( long elapsedTime, Timer fireRate, SpriteGroup Projectile, BufferedImage Image, Sprite s);
     
     @Override
     public void update(long elapsedTime) {

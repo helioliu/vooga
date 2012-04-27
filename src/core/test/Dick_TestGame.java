@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import levelBuilder.LevelBuilder;
+import levelBuilder.PlayFieldBuilder;
 
 import sprites.Chris_TestSprite;
 import sprites.GeneralSprite;
@@ -63,7 +63,7 @@ public class Dick_TestGame extends Game{
         playfield.addGroup(walls);
         playfield.addGroup(blockers);
         
-        playfield = new LevelBuilder(playfield,Filepath).createLevel();
+        playfield = new PlayFieldBuilder(playfield,Filepath).parseXML();
                    
 
 

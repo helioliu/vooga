@@ -24,7 +24,7 @@ import com.golden.gamedev.object.sprite.AdvanceSprite;
 public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
 	private Map<String, Stat> myStats = new HashMap<String,Stat>();	
-	private List<Hitbox> myHitboxes;
+	protected List<Hitbox> myHitboxes;
 	private double myGravityValue; 
 	private String path;
 	private String group;
