@@ -14,15 +14,16 @@ import org.jdom2.Element;
 
 import com.golden.gamedev.object.SpriteGroup;
 
+import States.DeadState;
 import States.InAirState;
 import States.JetPackPowerup;
 import States.OnLandState;
 import States.State;
-import States.TeleJumpPowerup;
 import sprites.StateSprite;
 import stateTransitions.AddStateTransition;
 import stateTransitions.ReplaceStateTransition;
 import stateTransitions.StateTransition;
+import stateTransitions.ChangeStateTransition;
 
 public class MainCharacter extends StateSprite {
 	private boolean canFire;
@@ -35,21 +36,24 @@ public class MainCharacter extends StateSprite {
 		StateTransition land = new ReplaceStateTransition(getStateManager(), "landed",  new OnLandState(this), s1);
 		StateTransition jump = new ReplaceStateTransition(getStateManager(), "jumped", s1, new OnLandState(this));
 		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new JetPackPowerup(this));
+		StateTransition death = new ChangeStateTransition(getStateManager(), "enemy hit", new DeadState(this));
 		setMyStats(new HashMap<String, Stat>());
 		land.activate();
 		jump.activate();
 		powerup.activate();
+		death.activate();
 		canFire=true;
 	}
 	
-	public void Shoot(SpriteGroup Projectile, int x, int y) {
+	public void Shoot(SpriteGroup group, int x, int y) {
         Projectile shot;
         if(canFire == true){
             try {
-				shot = new Projectile(ImageIO.read(new File("images/Blk-Rd-Bullet.gif")));
+				shot = new Projectile(ImageIO.read(new File("src/images/Blk-Rd-Bullet.png")));
 				shot.setLocation( this.getX()+15, this.getY()-5 );
 	            shot.fireAtTarget(x,y);
-	            Projectile.add(shot);
+	            System.out.println(shot);
+	            group.add(shot);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
