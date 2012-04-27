@@ -129,20 +129,24 @@ public class DemoGame extends Game implements EventListener {
 		jetpacks.add(jetpack);
 		myPlayField.addGroup(jetpacks);
 		//adding homing enemies
-		GeneralSprite enemy1 = new HomingEnemy(mainChar);
+		HomingEnemy enemy1 = new HomingEnemy();
+		enemy1.setMyTarget(mainChar);
         enemy1.setImage(getImage("images/boo.png"));
         enemy1.setLocation(300, 300);
         
         
-        GeneralSprite enemy2 = new HomingEnemy(mainChar);
+        GeneralSprite enemy2 = new HomingEnemy();
+		enemy1.setMyTarget(mainChar);
         enemy2.setImage(getImage("images/boo.png"));
         enemy2.setLocation(700, 300);
         
-        GeneralSprite enemy3 = new HomingEnemy(mainChar);
+        GeneralSprite enemy3 = new HomingEnemy();
+		enemy1.setMyTarget(mainChar);
         enemy3.setImage(getImage("images/boo.png"));
         enemy3.setLocation(1200, 300);
         
-        GeneralSprite enemy4 = new HomingEnemy(mainChar);
+        GeneralSprite enemy4 = new HomingEnemy();
+		enemy1.setMyTarget(mainChar);
         enemy4.setImage(getImage("images/boo.png"));
         enemy4.setLocation(1700, 300); 
         
