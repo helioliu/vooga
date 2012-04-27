@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  This is the root
+  <background>
+  	<path>src/images/background.png</path>
+  	<width>2000</width>
+  	<height>480</height>
+  </background>
+  <sprites>
+    <sprite>
+      <class>class sprites.MainCharacter</class>
+      <image>src/images/Mario_sprite.png</image>
+      <x>100.0</x>
+      <y>100.0</y>
+      <score>0.0</score>
+      <lives>5.0</lives>
+      <coinMult>0.0</coinMult>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>0.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>32.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>64.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>96.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>128.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>160.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>192.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>224.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>256.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>288.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>416.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>448.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>480.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>512.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>544.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>576.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>608.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>640.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>672.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>704.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>736.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>768.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>800.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>832.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>864.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>896.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>928.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>960.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>992.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1024.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1056.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1088.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1120.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1152.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1184.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1216.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1248.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1280.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1312.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1344.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1376.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1408.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1440.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1472.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1504.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1536.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1568.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1600.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1632.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1664.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1696.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1728.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1760.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1792.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1824.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1856.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1888.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1920.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1952.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Platform</class>
+      <image>src/images/bricks1.png</image>
+      <x>1984.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.LifeMushroom</class>
+      <image>src/images/mushroom.png</image>
+      <x>1350.0</x>
+      <y>406.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Flag</class>
+      <image>src/images/finalflag.png</image>
+      <x>1750.0</x>
+      <y>106.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.GeneralSprite</class>
+      <image>src/images/castle.gif</image>
+      <x>1800.0</x>
+      <y>300.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.Jetpack</class>
+      <image>src/images/rocket.png</image>
+      <x>400.0</x>
+      <y>400.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.HomingEnemy</class>
+      <image>src/images/boo.png</image>
+      <x>300.0</x>
+      <y>300.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.HomingEnemy</class>
+      <image>src/images/boo.png</image>
+      <x>700.0</x>
+      <y>300.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.HomingEnemy</class>
+      <image>src/images/boo.png</image>
+      <x>1200.0</x>
+      <y>300.0</y>
+    </sprite>
+    <sprite>
+      <class>class sprites.HomingEnemy</class>
+      <image>src/images/boo.png</image>
+      <x>1700.0</x>
+      <y>300.0</y>
+    </sprite>
+  </sprites>
+</root>

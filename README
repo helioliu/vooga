@@ -1,6 +1,3 @@
-Run Main.java to start the game, yo.
+Run Main.java in src/demogame to start the game, yo.
 
-Team members and implemented functionality:
-(Alphabetical by surname?)
-
-
+Required libraries are gtge and jdom.
