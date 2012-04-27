@@ -11,6 +11,7 @@ public class MoveRight extends SpriteAction{
 	public void actionPerformed(Object event)
 	{
 		mySprite.move(1,0);
+		mySprite.setFrame(0);
 	}
 
 
