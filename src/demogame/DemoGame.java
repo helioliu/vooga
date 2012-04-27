@@ -71,39 +71,22 @@ public class DemoGame extends Game {
 		myPlayField.addGroup(chargroup);
 		
 		//adding homing enemies
-		Condition near;
-		Condition far;
 		GeneralSprite enemy1 = new HomingEnemy(mainChar);
         enemy1.setImage(getImage("images/boo.jpg"));
         enemy1.setLocation(300, 300);
-        near = new GetCloseCondition(enemy1,mainChar,600,true);
-        far = new GetCloseCondition(enemy1,mainChar,600,false);        
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy1.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy1.hashCode());
+        
         
         GeneralSprite enemy2 = new HomingEnemy(mainChar);
         enemy2.setImage(getImage("images/boo.jpg"));
         enemy2.setLocation(700, 300);
-        near = new GetCloseCondition(enemy2,mainChar,600,true);
-        far = new GetCloseCondition(enemy2,mainChar,600,false); 
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy2.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy2.hashCode());
         
         GeneralSprite enemy3 = new HomingEnemy(mainChar);
         enemy3.setImage(getImage("images/boo.jpg"));
         enemy3.setLocation(1200, 300);
-        near = new GetCloseCondition(enemy3,mainChar,600,true);
-        far = new GetCloseCondition(enemy3,mainChar,600,false); 
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy3.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy3.hashCode());
         
         GeneralSprite enemy4 = new HomingEnemy(mainChar);
         enemy4.setImage(getImage("images/boo.jpg"));
         enemy4.setLocation(1700, 300); 
-        near = new GetCloseCondition(enemy4,mainChar,600,true);
-        far = new GetCloseCondition(enemy4,mainChar,600,false); 
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy4.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy4.hashCode());
         
         SpriteGroup homing = new SpriteGroup("homing enemies");
         homing.add(enemy1);
@@ -111,6 +94,16 @@ public class DemoGame extends Game {
         homing.add(enemy3);
         homing.add(enemy4);
         myPlayField.addGroup(homing);
+        
+        SpriteGroup home = myPlayField.getGroup("homing enemies");
+        for (Sprite enemy : home.getSprites()) {
+        	if (enemy== null)
+        		break;
+        	Condition near = new GetCloseCondition(enemy,mainChar,500,true);
+            Condition far = new GetCloseCondition(enemy,mainChar,500,false);
+            EventManager.getEventManager().addEventCondition(near, "homing"+enemy.hashCode());
+            EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
+        }
 		
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
