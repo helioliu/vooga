@@ -20,11 +20,8 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.background.ImageBackground;
 
-import core.VoogaGame;
 
 public class LevelBuilder {
-	public VoogaGame myGame=null;
-	private GameFile myGameInfo;
 	public Background background;
 	private String xmlpath;
 	private PlayField playfield;
