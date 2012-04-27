@@ -75,7 +75,7 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField = new PlayField();
 		myPlayField = new PlayFieldBuilder(myPlayField, levelFileName).parseXML();
 
-        SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
+        System.out.println(myPlayField.getGroup("sprites.MainCharacter").getSprites());
         mainChar= (MainCharacter) myPlayField.getGroup("sprites.MainCharacter").getSprites()[0];
              for (Sprite enemy : home.getSprites()) {
         	if (enemy== null)
