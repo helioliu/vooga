@@ -8,7 +8,7 @@ public class HomingState extends State {
 
     public HomingState(GeneralSprite s) {
         super(s);
-        addAction("homing", new Homing(s));
+        addAction("homing" + s.hashCode(), new Homing(s));
     }
 
 }
