@@ -286,7 +286,7 @@ public class DemoGame extends Game implements EventListener {
 		
 	}
 
-	public void actionPerformed(Object object) {
+	public void actionPerformed(String object) {
 		System.out.println("do whatever we need to to end the game");
 		initResources();
 	}
