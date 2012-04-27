@@ -112,20 +112,20 @@ public class BossSprite extends StateSprite{
 	public void update(long elapsedTime){
 		super.update(elapsedTime);	
 		if(patternTimer.action(elapsedTime*SPEED)){
-			if(getStatus()==STANDING)
-				setStatus(HAMMER1);
-			else
-			if(getStatus()==HAMMER1)
-				setStatus(HAMMER2);
-			else
-			if(getStatus()==HAMMER2)
-				setStatus(SICKLE1);
-			else
-			if(getStatus()==SICKLE1)
-				setStatus(SICKLE2);
-			else
-			if(getStatus()==SICKLE2)
-				setStatus(STANDING);
+			if(getStatus()==STANDING){
+				if(100>Math.sqrt((Math.pow(myTarget.getX()-this.getX(),2)) + (Math.pow(myTarget.getY()-this.getY(), 2))))
+					setStatus(HAMMER1);
+				else
+					setStatus(SICKLE1);
+			}else
+				if(getStatus()==HAMMER1)
+					setStatus(HAMMER2);
+				else if(getStatus()==HAMMER2)
+					setStatus(STANDING);
+				else if(getStatus()==SICKLE1)
+					setStatus(SICKLE2);
+				else if(getStatus()==SICKLE2)
+					setStatus(STANDING);
 			
 			
 		}
