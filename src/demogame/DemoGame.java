@@ -40,6 +40,8 @@ import core.conditions.GetCloseCondition;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneAutomation;
 import cutscenes.EventAutomation;
+import sprites.MainCharacter;
+
 
 public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
