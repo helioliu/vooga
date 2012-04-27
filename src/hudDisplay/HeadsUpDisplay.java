@@ -58,6 +58,7 @@ public class HeadsUpDisplay {
 
 	public void update(long elapsedTime) {
 
+		if(myHUDSprite != null)
 		myHUDSprite.update(elapsedTime);
 
 		for (HUDItem item : myHUDItems) {
