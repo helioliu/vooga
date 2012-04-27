@@ -68,10 +68,12 @@ public class Ben_TestGame extends Game{
         enemy1.setImage(getImage("images/thebadguy.png"));
         enemy1.setLocation(350,200);
         enemy1.setMovement(0.025, 90);
-        enemy2 = new HomingEnemy(s1);
+        enemy2 = new HomingEnemy();
+        ((HomingEnemy)enemy2).setMyTarget(s1);
         enemy2.setImage(getImage("images/boo.jpg"));
         enemy2.setLocation(500, 300);
-        enemy3 = new HomingEnemy(s1);
+        enemy3 = new HomingEnemy();
+        ((HomingEnemy)enemy3).setMyTarget(s1);
         enemy3.setImage(getImage("images/boo.jpg"));
         enemy3.setLocation(100, 300);
         
