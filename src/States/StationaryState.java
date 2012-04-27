@@ -9,7 +9,7 @@ public class StationaryState extends State{
 
     public StationaryState(GeneralSprite s){
         super(s);
-        addAction("set stationary", new Stationary(s));
+        addAction("stationary" + s.hashCode(), new Stationary(s));
     }
 
 }

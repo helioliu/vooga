@@ -12,6 +12,7 @@ public class TextItem extends HUDItem{
 	private int HUDX;
 	private int HUDY;
 	private boolean HUDactive;
+	private String myAdditionalInfo;
 
 	public TextItem(GameFont scoreFont, int X, int Y, Stat stat) {
 		myScoreFont = scoreFont;
@@ -20,11 +21,25 @@ public class TextItem extends HUDItem{
 		myX = X;
 		myY = Y;
 	}
+	
+	public TextItem(GameFont scoreFont, int X, int Y, Stat stat, String additionalInfo) {
+		myScoreFont = scoreFont;
+		myStat = stat;
+		HUDactive = true;
+		myX = X;
+		myY = Y;
+		myAdditionalInfo = additionalInfo;
+	}
 
 	@Override
 	public void render(Graphics2D g) {
-		if(isHUDactive())
-		getMyScoreFont().drawString(g, String.valueOf((int) getMyStat().getMyValue()), getHUDX() + getMyX(), getHUDY() + getMyY());
+		if(isHUDactive()){
+		if(myAdditionalInfo != null)
+		getMyScoreFont().drawString(g, myAdditionalInfo + String.valueOf((int) getMyStat().getMyValue()), getHUDX() + getMyX(), getHUDY() + getMyY());
+		else
+		getMyScoreFont().drawString(g,String.valueOf((int) getMyStat().getMyValue()), getHUDX() + getMyX(), getHUDY() + getMyY());
+
+		}
 		
 	}
 

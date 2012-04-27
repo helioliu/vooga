@@ -10,7 +10,7 @@ public class WalkingDownState extends State {
     
     public WalkingDownState(GeneralSprite s) {
         super(s);
-        addAction("move down", new WalkDown(s));
+        addAction("move down" + s.hashCode(), new WalkDown(s));
         
     }
    

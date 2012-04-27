@@ -60,7 +60,7 @@ public class Test_game extends Game {
 
 		GraphicItem healthbar = new GraphicItem(getImage(
 				"images/healthbar.png", false), 75, 3, s1.getStat("health"));
-//		 healthbar.setToFlash(true, 300);
+		 healthbar.setToFlash(true, 300);
 		HUD.addItem(healthbar);
 
 		FollowGraphicItem manabar = new FollowGraphicItem(getImage(

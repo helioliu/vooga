@@ -11,10 +11,10 @@
 	import stateManagers.StateManager;
 	import stateTransitions.ChangeStateTransition;
 	import stateTransitions.StateTransition;
-	import States.OnLandState;
+import States.InAirState;
 	import States.RegularMotionState;
 	import States.State;
-	import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.Sprite;
 
 	public class BryanSprite extends StateSprite{
 		
@@ -23,10 +23,17 @@
 		{
 			super();
 			State s = new RegularMotionState(this);
+<<<<<<< HEAD
+			setStateManager(new StateManager(this, s));
+			StateTransition land = new ChangeStateTransition(getStateManager(), "landed", new RegularMotionState(this));
+			StateTransition jump = new ChangeStateTransition(getStateManager(), "jumped", new InAirState(this));
+=======
 			getStateManager().addState(s);
 			StateTransition reverse = new ChangeStateTransition(getStateManager(), "switchstates", new OnLandState(this));
+>>>>>>> d2dc27f73248067dcb8772887727c0d7a2726b54
 			setMyStats(new HashMap<String, Stat>());	
-			reverse.activate();
+			land.activate();
+			jump.activate();
 			setGravity(0.00);
 		}
 		
