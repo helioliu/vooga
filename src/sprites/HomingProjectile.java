@@ -8,6 +8,7 @@ import com.golden.gamedev.object.Timer;
 public class HomingProjectile extends Projectile {
     private boolean needsCorrection= true;
     private Timer homingUpdateSpeed = new Timer(400);
+    private Sprite target;
 
     public HomingProjectile(BufferedImage image) {
         super(image);
@@ -36,6 +37,7 @@ public class HomingProjectile extends Projectile {
 
 
     public void goToTarget(Sprite target) {
+        this.target = target;
         double distance = Math.sqrt((Math.pow(target.getX()-this.getX(),2) + Math.pow(target.getY()-target.getY(), 2)));
         if(distance>100){
             System.out.println("too far");
@@ -52,6 +54,13 @@ public class HomingProjectile extends Projectile {
             angleToTarget+=90;
             this.setMovement(.04, angleToTarget);
         }
+    }
+    
+    @Override
+    public void update(long elapsedTime){
+        super.update(elapsedTime);
+        this.goToTarget(target);
+        
     }
 
 }
