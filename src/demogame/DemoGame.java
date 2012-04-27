@@ -70,40 +70,33 @@ public class DemoGame extends Game {
 		chargroup.add(mainChar);
 		myPlayField.addGroup(chargroup);
 		
+		
+		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.jpeg"), 500, 300);
+		SpriteGroup mushrooms = new SpriteGroup("Mushrooms");
+		mushrooms.add(mushroom);
+		myPlayField.addGroup(mushrooms);
+		
+		GeneralSprite jetpack = new GeneralSprite(getImage("images/rocket.png"), 1200, 300);
+		SpriteGroup jetpacks = new SpriteGroup("Jetpacks");
+		jetpacks.add(jetpack);
+		myPlayField.addGroup(jetpacks);
 		//adding homing enemies
-		Condition near;
-		Condition far;
 		GeneralSprite enemy1 = new HomingEnemy(mainChar);
         enemy1.setImage(getImage("images/boo.jpg"));
         enemy1.setLocation(300, 300);
-        near = new GetCloseCondition(enemy1,mainChar,600,true);
-        far = new GetCloseCondition(enemy1,mainChar,600,false);        
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy1.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy1.hashCode());
+        
         
         GeneralSprite enemy2 = new HomingEnemy(mainChar);
         enemy2.setImage(getImage("images/boo.jpg"));
         enemy2.setLocation(700, 300);
-        near = new GetCloseCondition(enemy2,mainChar,600,true);
-        far = new GetCloseCondition(enemy2,mainChar,600,false); 
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy2.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy2.hashCode());
         
         GeneralSprite enemy3 = new HomingEnemy(mainChar);
         enemy3.setImage(getImage("images/boo.jpg"));
         enemy3.setLocation(1200, 300);
-        near = new GetCloseCondition(enemy3,mainChar,600,true);
-        far = new GetCloseCondition(enemy3,mainChar,600,false); 
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy3.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy3.hashCode());
         
         GeneralSprite enemy4 = new HomingEnemy(mainChar);
         enemy4.setImage(getImage("images/boo.jpg"));
         enemy4.setLocation(1700, 300); 
-        near = new GetCloseCondition(enemy4,mainChar,600,true);
-        far = new GetCloseCondition(enemy4,mainChar,600,false); 
-        EventManager.getEventManager().addEventCondition(near, "homing"+enemy4.hashCode());
-        EventManager.getEventManager().addEventCondition(far, "stationary"+enemy4.hashCode());
         
         SpriteGroup homing = new SpriteGroup("homing enemies");
         homing.add(enemy1);
@@ -111,10 +104,22 @@ public class DemoGame extends Game {
         homing.add(enemy3);
         homing.add(enemy4);
         myPlayField.addGroup(homing);
+        
+        SpriteGroup home = myPlayField.getGroup("homing enemies");
+        for (Sprite enemy : home.getSprites()) {
+        	if (enemy== null)
+        		break;
+        	Condition near = new GetCloseCondition(enemy,mainChar,500,true);
+            Condition far = new GetCloseCondition(enemy,mainChar,500,false);
+            EventManager.getEventManager().addEventCondition(near, "homing"+enemy.hashCode());
+            EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
+        }
 		
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
 		myPlayField.addCollisionGroup(chargroup,fg,new FlagCollision());
+		myPlayField.addCollisionGroup(chargroup,mushrooms,new MushroomCollision());
+		myPlayField.addCollisionGroup(chargroup,jetpacks,new JetPackCollision());
 		
 		//make the end-of-level cutscene
 		EventAutomation aOne = new CutsceneAutomation();
@@ -167,6 +172,26 @@ public class DemoGame extends Game {
 
         public void collided(Sprite s1, Sprite s2) {
             EventManager.getEventManager().sendEvent("floor collide");
+        }
+	}
+	class MushroomCollision extends BasicCollisionGroup{
+		public MushroomCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+            EventManager.getEventManager().sendEvent("mushroom");
+            s2.setActive(false);
+        }
+	}
+	class JetPackCollision extends BasicCollisionGroup{
+		public JetPackCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+            EventManager.getEventManager().sendEvent("pwrup");
+            s2.setActive(false);
         }
 	}
 	

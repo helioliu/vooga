@@ -25,7 +25,7 @@ import States.OnLandState;
 import States.RegularMotionState;
 import States.ReverseMotionState;
 import States.State;
-import States.TeleJumpPowerup;
+import States.JetPackPowerup;
 import States.WalkingRightState;
 
 import com.golden.gamedev.object.Sprite;
@@ -42,7 +42,7 @@ public class Chris_TestSprite extends StateSprite{
 		getStateManager().addState(s1);
 		StateTransition land = new ReplaceStateTransition(getStateManager(), "landed",  new OnLandState(this), s1);
 		StateTransition jump = new ReplaceStateTransition(getStateManager(), "jumped", s1, new OnLandState(this));
-		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new TeleJumpPowerup(this));
+		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new JetPackPowerup(this));
 		setMyStats(new HashMap<String, Stat>());	
 		land.activate();
 		jump.activate();
