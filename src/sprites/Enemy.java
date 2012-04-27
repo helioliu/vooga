@@ -1,20 +1,8 @@
 package sprites;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
-
-
-import stateManagers.StateManager;
-import stateTransitions.StateTransition;
-
-
-import levelEditor.*;
 import game.*;
 
-import States.ReverseMotionState;
 import States.StationaryState;
 import States.WalkingLeftState;
 
@@ -25,17 +13,27 @@ import com.golden.gamedev.object.Timer;
 
 public abstract class Enemy extends StateSprite {
     // indicates whether this enemy has been show to screen or not
-    boolean show;
-    
-    Platformer myGame;
-    // attempt to fire every 400 ms
-    Timer	fireRate = new Timer(4000);
+    private  boolean enableShoot = false;
+    private Timer   fireRate = new Timer(4000);
 
 
 
     public Enemy() {
         super();
-        getStateManager().addState(new WalkingLeftState(this));
+ 
+        getStateManager().addState(new StationaryState(this));
+    }
+    public Enemy(BufferedImage[] images, double x, double y) {
+        super(images,x,y);
+    }
+    public boolean isEnableShoot() {
+        return enableShoot;
+    }
+
+
+
+    public void setEnableShoot(boolean enableShoot) {
+        this.enableShoot = enableShoot;
     }
 
 
