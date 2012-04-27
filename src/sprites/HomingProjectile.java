@@ -8,9 +8,11 @@ import com.golden.gamedev.object.Timer;
 public class HomingProjectile extends Projectile {
     private boolean needsCorrection= true;
     private Timer homingUpdateSpeed = new Timer(400);
+    private Sprite target;
 
-    public HomingProjectile(BufferedImage image) {
+    public HomingProjectile(BufferedImage image, Sprite target) {
         super(image);
+        this.target = target;
     }
 
 
@@ -52,6 +54,13 @@ public class HomingProjectile extends Projectile {
             angleToTarget+=90;
             this.setMovement(.04, angleToTarget);
         }
+    }
+    
+    @Override
+    public void update(long elapsedTime){
+        super.update(elapsedTime);
+        this.goToTarget(target);
+        
     }
 
 }
