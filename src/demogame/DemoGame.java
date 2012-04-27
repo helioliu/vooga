@@ -16,7 +16,6 @@ import sprites.GeneralSprite;
 import sprites.HomingEnemy;
 import sprites.Jetpack;
 import sprites.LifeMushroom;
-import sprites.MainCharacter;
 import sprites.Platform;
 import sprites.MainCharacter;
 import SpriteAction.JetPack;
@@ -40,8 +39,6 @@ import core.conditions.GetCloseCondition;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneAutomation;
 import cutscenes.EventAutomation;
-import sprites.MainCharacter;
-
 
 public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
@@ -78,7 +75,7 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField = new PlayField();
 		myPlayField = new PlayFieldBuilder(myPlayField, levelFileName).parseXML();
 
-        SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
+		SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
         mainChar= (MainCharacter) myPlayField.getGroup("sprites.MainCharacter").getSprites()[0];
              for (Sprite enemy : home.getSprites()) {
         	if (enemy== null)
