@@ -10,7 +10,7 @@ public class AddLife extends SpriteAction{
 
 	@Override
 	public void actionPerformed(Object object) {
-		mySprite.getStat("lives").adjust(1);
+		mySprite.changeStat("lives",1);
 		
 	}
 

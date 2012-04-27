@@ -162,12 +162,16 @@ public class DemoGame extends Game implements EventListener {
             EventManager.getEventManager().addEventCondition(near, "homing"+enemy.hashCode());
             EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
         }
+        
+        SpriteGroup Projectiles = new SpriteGroup("Projectile");
+        
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
 		myPlayField.addCollisionGroup(chargroup,fg,new FlagCollision());
 		myPlayField.addCollisionGroup(chargroup,mushrooms,new MushroomCollision());
 		myPlayField.addCollisionGroup(chargroup,jetpacks,new JetPackCollision());
 		myPlayField.addCollisionGroup(chargroup,home, new EnemyHitCollision());
+//		myPlayField.addCollisionGroup(Projectiles,home, new EnemyHitCollision());
 		
 		//make the end-of-level cutscene
 		EventAutomation aOne = new CutsceneAutomation();
@@ -204,6 +208,11 @@ public class DemoGame extends Game implements EventListener {
 		death.update(timeElapsed);
 		HUD.update(timeElapsed);
 		timer.update(timeElapsed);
+		if(click())
+		{
+			mainChar.shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
+		}
+		
 		
 	}
 
