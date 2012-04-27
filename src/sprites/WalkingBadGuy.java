@@ -17,13 +17,13 @@ import States.WalkingLeftState;
 import States.WalkingRightState;
 import States.WalkingUpState;
 
-public class WalkingBadGuy extends Enemy {
-    
+
+public class WalkingBadGuy extends StateSprite {
+
+
     private ArrayList<HomingProjectile> projectiles = new ArrayList<HomingProjectile>();
-    
-    public ArrayList<HomingProjectile> getProjectiles() {
-        return projectiles;
-    }
+    boolean enableShoot;
+
 
     public WalkingBadGuy(){
         super();
@@ -38,6 +38,9 @@ public class WalkingBadGuy extends Enemy {
         three.activate();
         four.activate();
         five.activate();
+    }
+    public ArrayList<HomingProjectile> getProjectiles() {
+        return projectiles;
     }
 
     public void Shoot( long elapsedTime, Timer fireRate, SpriteGroup Projectile, BufferedImage Image, Sprite s){

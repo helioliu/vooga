@@ -2,6 +2,7 @@ package interactiveSprites.interactiveTest;
 
 import input.InputManager;
 import interactiveSprites.InteractiveSpriteCollision;
+import interactiveSprites.KoopaShell_IS;
 import interactiveSprites.Spring_IS;
 
 import java.awt.Color;
@@ -11,8 +12,9 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-import sprites.Chris_TestSprite;
+
 import sprites.Character;
+import sprites.Chris_TestSprite;
 
 import sprites.WalkingBadGuy;
 import States.State;
@@ -50,7 +52,7 @@ public class Sam_TestGame extends Game{
         SpriteGroup character = new SpriteGroup("character");
         character.add(hero);
         
-        spring = new Spring_IS();
+        spring = new KoopaShell_IS();
         spring.setImage(getImage("images/MarioSpring.png"));
         spring.setLocation(350, 260);
         SpriteGroup iSprites = new SpriteGroup("iSprites");

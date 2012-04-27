@@ -16,24 +16,16 @@ import States.StationaryState;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionGroup;
 
-public class KoopaShell_IS extends GeneralSprite implements LevelEditable, InteractiveSprite {
+public class KoopaShell_IS extends InteractiveSprite implements LevelEditable {
 	
-	Platformer myGame;
-	String path;
-	String myType;
-	StateManager myStateManager;
 	
-	public KoopaShell_IS(BufferedImage bufferedImage, int i, int j, Platformer game) {
-		super(bufferedImage, i, j);
+	public KoopaShell_IS() {
+		super();
 		myType = "koopa shell";
-		myGame = game;
-		myStateManager = new StateManager(this, new StationaryState(this));
-		myGame.INTERACTIVE_SPRITES.add(this);
+		getStateManager().addState(new StationaryState(this));
+		//myGame.INTERACTIVE_SPRITES.add(this);
 	}
 	
-	public KoopaShell_IS(){
-		
-	}
 	
 	public void primaryAction(CollisionGroup c, GeneralSprite s) {
 		if(c.getCollisionSide()== c.BOTTOM_TOP_COLLISION) {
@@ -43,51 +35,15 @@ public class KoopaShell_IS extends GeneralSprite implements LevelEditable, Inter
 			
 		}
 		if(c.getCollisionSide()== c.LEFT_RIGHT_COLLISION) {
-			this.setHorizontalSpeed(-.3);
+//			this.setHorizontalSpeed(-.3);
 		}
 		if(c.getCollisionSide()== c.RIGHT_LEFT_COLLISION) {
-			this.setHorizontalSpeed(.3);
+//			this.setHorizontalSpeed(.3);
 		}
 	}
 	
-	public String getType() {
-		return myType;
+	public void throwAction() {
+		this.setHorizontalSpeed(.3);
 	}
-	
-	public ArrayList<String> writableObject() {
-		ArrayList<String> list= new ArrayList<String>();
-		list.add(this.getClass().toString());
-		list.add(path);
-		list.add(getX() +"");
-		list.add(getY() +"");
-		return list;
-	}
-	
-	public Sprite parse(ArrayList<String> o, Platformer game) {
-		KoopaShell_IS k= new KoopaShell_IS();
-			k.path=o.get(1);
-			k.setX( Double.parseDouble(o.get(2)));
-			k.setY( Double.parseDouble(o.get(3)));
-			File file= new File(path);
-			BufferedImage image;
-			try {
-				image = ImageIO.read(file);
-				k.setImage(image);		} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			return k;
-		
-	}
-
-		@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-			if (this.getClass().toString().equals(o.get(0))) {
-				return true;
-			}
-			return false;
-	}
-
-	
 
 }

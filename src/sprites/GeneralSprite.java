@@ -1,9 +1,11 @@
 package sprites;
 
+import game.Platformer;
 import hudDisplay.Stat;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,15 +32,13 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	
 	public GeneralSprite(BufferedImage i) {
 		super();
-		BufferedImage[] image = new BufferedImage[1];
-		image[0] = i;
-		setImages(image);
+		setImage(i);
 	}
 	
 	public GeneralSprite(BufferedImage[] i) {
 		super(i);
 	}
-	
+		
 	public GeneralSprite(BufferedImage i, double x, double y) {
 		super(x,y);
 		setImage(i);
@@ -95,8 +95,11 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		setImages(image);
 	}
 
-
-	public void setInitPath(String path) {
+	public void setGroup(String group) {
+		this.group=group;
+		
+	}
+	public void setPath(String path) {
 		this.path=path;
 		
 	}
@@ -107,14 +110,11 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	
 	public Element writeElement() {
 		Element sprite= new Element("sprite");
-		sprite.addContent(new Element("class").addContent(getClassName()));
+		sprite.addContent(new Element("class").addContent(this.getClass().toString()));
 		sprite.addContent(new Element("image").addContent(path));
 		sprite.addContent(new Element("group").addContent(group));
 		sprite.addContent(new Element("x").addContent(getX() + ""));
 		sprite.addContent(new Element("y").addContent(getY()+ ""));		
-		for(String s: myStats.keySet()) {
-			sprite.addContent(new Element(s).addContent(myStats.get(s).toString()));
-		}
 		return sprite;
 	}
 
@@ -127,11 +127,11 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		} catch (IOException e1) {
 			System.out.print("IOException");
 		}
-		int x = Integer.parseInt(e.getChildText("x"));
-		int y = Integer.parseInt(e.getChildText("y"));
-		GeneralSprite gs = new GeneralSprite(image,x,y);
-		return gs;
-		
+		setX(Integer.parseInt(e.getChildText("x")));
+		setY(Integer.parseInt(e.getChildText("y")));
+		setImage(image);
+		return this;
 	}
+
 
 }
