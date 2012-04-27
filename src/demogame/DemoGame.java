@@ -41,7 +41,7 @@ import demogame.sprites.MainCharacter;
 public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
 	private PlayField myPlayField;
-	private GeneralSprite mainChar;
+	private MainCharacter mainChar;
 	private Cutscene levelOver;
 	Cutscene death;
 	private static final double gravity = .002;
