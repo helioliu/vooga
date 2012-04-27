@@ -19,9 +19,9 @@ import com.golden.gamedev.object.collision.CollisionGroup;
 public class Spring_IS extends InteractiveSprite implements LevelEditable {
 	
 
-	public Spring_IS() {
+	public Spring_IS(Platformer game) {
 		
-		super();
+		super(game);
 		myType = "spring";
 		getStateManager().addState((new StationaryState(this)));
 		//myGame.INTERACTIVE_SPRITES.add(this);
@@ -45,46 +45,6 @@ public class Spring_IS extends InteractiveSprite implements LevelEditable {
 	
 	public void throwAction(){
 		getStateManager().changeState(new StationaryState(this));
-	}
-	
-	
-	public String getType() {
-		return myType;
-	}
-	
-	public ArrayList<String> writableObject() {
-		ArrayList<String> list= new ArrayList<String>();
-		list.add(this.getClass().toString());
-		list.add(path);
-		list.add(getX() +"");
-		list.add(getY() +"");
-		return list;
-	}
-	
-	public Sprite parse(ArrayList<String> o, Platformer game) {
-			Spring_IS s= new Spring_IS();
-			s.path=o.get(1);
-			s.setX( Double.parseDouble(o.get(2)));
-			s.setY( Double.parseDouble(o.get(3)));
-			File file= new File(path);
-			BufferedImage image;
-			try {
-				image = ImageIO.read(file);
-				s.setImage(image);		} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			return s;
-		
-	}
-
-
-		@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-			if (this.getClass().toString().equals(o.get(0))) {
-				return true;
-			}
-			return false;
 	}
 	
 

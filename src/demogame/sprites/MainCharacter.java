@@ -4,13 +4,16 @@ import hudDisplay.Stat;
 
 import java.util.HashMap;
 
+import States.BigMario;
+import States.DeadState;
 import States.InAirState;
 import States.JetPackPowerup;
 import States.OnLandState;
+import States.SmallMario;
 import States.State;
-import States.TeleJumpPowerup;
 import sprites.StateSprite;
 import stateTransitions.AddStateTransition;
+import stateTransitions.ChangeStateTransition;
 import stateTransitions.ReplaceStateTransition;
 import stateTransitions.StateTransition;
 
@@ -24,10 +27,12 @@ public class MainCharacter extends StateSprite {
 		StateTransition land = new ReplaceStateTransition(getStateManager(), "landed",  new OnLandState(this), s1);
 		StateTransition jump = new ReplaceStateTransition(getStateManager(), "jumped", s1, new OnLandState(this));
 		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new JetPackPowerup(this));
+		StateTransition dead = new ChangeStateTransition(getStateManager(), "enemy hit", new DeadState(this));
 		setMyStats(new HashMap<String, Stat>());
 		land.activate();
 		jump.activate();
 		powerup.activate();
+		dead.activate();
 	}
 	
 	

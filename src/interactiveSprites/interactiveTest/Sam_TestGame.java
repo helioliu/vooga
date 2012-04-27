@@ -1,5 +1,6 @@
 package interactiveSprites.interactiveTest;
 
+import game.Platformer;
 import input.InputManager;
 import interactiveSprites.InteractiveSpriteCollision;
 import interactiveSprites.KoopaShell_IS;
@@ -18,7 +19,6 @@ import sprites.Chris_TestSprite;
 
 import sprites.WalkingBadGuy;
 import States.State;
-
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.CollisionManager;
 import com.golden.gamedev.object.PlayField;
@@ -28,10 +28,8 @@ import com.golden.gamedev.object.Timer;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
-
 import core.EventManager;
 import cutscenes.Cutscene;
-import cutscenes.CutsceneTrigger;
 
 public class Sam_TestGame extends Game{
     Sprite hero;
@@ -40,6 +38,7 @@ public class Sam_TestGame extends Game{
     PlayField playfield;
     CollisionManager collisionTypeIS;
     CollisionManager collisionTypeBlocker;
+    Platformer game;
 
     public void initResources() {
     	
@@ -52,7 +51,7 @@ public class Sam_TestGame extends Game{
         SpriteGroup character = new SpriteGroup("character");
         character.add(hero);
         
-        spring = new KoopaShell_IS();
+        spring = new Spring_IS(game);
         spring.setImage(getImage("images/MarioSpring.png"));
         spring.setLocation(350, 260);
         SpriteGroup iSprites = new SpriteGroup("iSprites");
