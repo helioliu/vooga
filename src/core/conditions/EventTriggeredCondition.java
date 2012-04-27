@@ -11,14 +11,14 @@ public class EventTriggeredCondition implements Condition,EventListener{
 		EventManager.getEventManager().registerEventListener(triggerEvent, this);
 	}
 
-	@Override
+
 	public void actionPerformed(String s) {
 		if (!active) {
 			active = true;
 		}
 	}
 
-	@Override
+
 	public boolean conditionTrue() {
 		if(active) {
 			active = false;
@@ -27,7 +27,7 @@ public class EventTriggeredCondition implements Condition,EventListener{
 		return false;
 	}
 
-	@Override
+
 	public void reset() {
 		active = false;
 	}

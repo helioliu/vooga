@@ -1,3 +1,4 @@
+
 package stateTransitions;
 
 import core.EventManager;
@@ -13,10 +14,11 @@ public class ChangeStateTransition extends StateTransition{
 		
 	}
 
-	@Override
+
 	public void actionPerformed(String eventName) {
 		this.getMyStateManager().changeState(getMyState());
 		
 	}
 
 }
+

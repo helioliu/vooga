@@ -8,6 +8,9 @@ import collisions.Hitbox;
 
 public class Flag extends GeneralSprite {
 	
+	public Flag() {
+		super();
+	}
 	public Flag(BufferedImage i, int x, int y) {
 		super(i,x,y);
 		myHitboxes = new ArrayList<Hitbox>();

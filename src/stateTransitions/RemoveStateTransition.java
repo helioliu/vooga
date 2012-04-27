@@ -9,7 +9,7 @@ public class RemoveStateTransition extends StateTransition{
 		super(sm, event, s);
 	}
 
-	@Override
+
 	public void actionPerformed(String eventName) {
 		this.getMyStateManager().addState(getMyState());
 		
