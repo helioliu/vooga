@@ -9,15 +9,25 @@ import java.util.Collections;
 import java.util.List;
 import java.awt.Graphics2D;
 
+import stateTransitions.ChangeStateTransition;
+import stateTransitions.StateTransition;
+
+import States.Angry;
+import States.Calm;
+import States.StationaryState;
+import States.WalkingLeftState;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
+
+import core.EventManager;
 
 import collisions.CollisionCirc;
 import collisions.CollisionRect;
 import collisions.Hitbox;
 
-public class BossSprite extends GeneralSprite{
+public class BossSprite extends StateSprite{
 	
 	//facing sides
 	public static final int LEFT = 0;
@@ -35,7 +45,8 @@ public class BossSprite extends GeneralSprite{
 	private static final int[][] movingAnimation = 
 			new int[][] { {0}, {1}, {2}, {3}, {4} };
 	
-	private Timer t = new Timer (2000);
+	private Timer patternTimer;
+	private int SPEED;
 	
 	@SuppressWarnings("unchecked")
 	private List<Hitbox>[] myHitboxes = (ArrayList<Hitbox>[])new ArrayList[]
@@ -49,11 +60,18 @@ public class BossSprite extends GeneralSprite{
 	
 	public BossSprite(BufferedImage[] images, double x, double y){
 		super(images, x, y);
+		
 		setAnimation(STANDING, LEFT);
 		setAnimate(true);
 		setLoopAnim(true);
 		setID(8055);
-		this.createStat("health", new NumberStat(900));
+		this.createStat("health", new NumberStat(200));
+		getStateManager().addState(new Calm(this));
+		SPEED=1;
+		patternTimer = new Timer(2000);
+
+		
+		
 		
 		myHitboxes[0].add(new Hitbox(new CollisionRect(130, 110, 60, 70), "head"));
 		
@@ -68,11 +86,20 @@ public class BossSprite extends GeneralSprite{
 		myHitboxes[4].add(new Hitbox(new CollisionCirc(73, 1140-244*4, 40), "sickle"));
 	}
 	
-	public BossSprite(BufferedImage[] images, double x, double y, BufferedImage projImage, Sprite target, SpriteGroup projGroup){
+	public void setSpeed(int i) {
+        SPEED=i;
+        
+    }
+
+    public BossSprite(BufferedImage[] images, double x, double y, BufferedImage projImage, Sprite target, SpriteGroup projGroup){
 		this(images, x, y);
 		myProjectileImage = projImage;
 		myTarget = target;
 		myProjectileGroup = projGroup;
+		StateTransition one = new ChangeStateTransition(getStateManager(), "get angry", new Angry(this));
+        StateTransition two = new ChangeStateTransition(getStateManager(), "get calm", new Calm(this));
+        one.activate();
+        two.activate();
 
 	}
 	
@@ -87,11 +114,8 @@ public class BossSprite extends GeneralSprite{
 	
 	
 	public void update(long elapsedTime){
-		super.update(elapsedTime);
-		if(this.getStat("health").getValue()<300)
-			t = new Timer(1000);
-		
-		if(t.action(elapsedTime)){
+		super.update(elapsedTime);	
+		if(patternTimer.action(elapsedTime*SPEED)){
 			if(getStatus()==STANDING)
 				setStatus(HAMMER1);
 			else
@@ -122,6 +146,19 @@ public class BossSprite extends GeneralSprite{
 		if(getImages() != null)
 			super.render(g);
 	}
+
+    public void setPatternTimer(Timer timer) {
+         patternTimer = timer;
+        
+    }
+    public Timer getTimer() {
+        return patternTimer;
+       
+   }
+    
+    
+
+   
 
 
 
