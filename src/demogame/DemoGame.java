@@ -88,28 +88,25 @@ public class DemoGame extends Game implements EventListener {
             EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
         }
              
-             mainChar.createStat("lives", new NumberStat(5));
-     		mainChar.createStat("score", new NumberStat(0));
-     		mainChar.createStat("coinMult", new NumberStat(0));
 
-     		HUD = new HeadsUpDisplay(0, 0);
+ 		HUD = new HeadsUpDisplay(0, 0);
 
-     		GameFont BigFont = fontManager.getFont(getImages("images/Font.png", 8,12));
-     		GameFont SmallFont = fontManager.getFont(getImages("images/SmallFont.png", 8,12));
+ 		GameFont BigFont = fontManager.getFont(getImages("images/Font.png", 8,12));
+ 		GameFont SmallFont = fontManager.getFont(getImages("images/SmallFont.png", 8,12));
 
-     		TextItem lives = new TextItem(BigFont, 10, 10,mainChar.getStat("lives"),"Mario x ");
-     		HUD.addItem(lives);
+ 		TextItem lives = new TextItem(BigFont, 10, 10,mainChar.getStat("lives"),"Mario x ");
+ 		HUD.addItem(lives);
 
-     		timer = new NumberStat(0);
-     		timer.incrementWithTimer(500, 1);
-     		TextItem timerScore = new TextItem(BigFont, 300, 10, timer,"Time: ");
-     		HUD.addItem(timerScore);
+ 		timer = new NumberStat(0);
+ 		timer.incrementWithTimer(500, 1);
+ 		TextItem timerScore = new TextItem(BigFont, 300, 10, timer,"Time: ");
+ 		HUD.addItem(timerScore);
 
-     		TextItem CoinMult = new TextItem(SmallFont, 500, 10, mainChar.getStat("coinMult"),"Coins x ");
-     		HUD.addItem(CoinMult);
+ 		TextItem CoinMult = new TextItem(SmallFont, 500, 10, mainChar.getStat("coinMult"),"Coins x ");
+ 		HUD.addItem(CoinMult);
 
-     		TextItem score = new TextItem(SmallFont, 500, 20,mainChar.getStat("score"));
-     		HUD.addItem(score);
+ 		TextItem score = new TextItem(SmallFont, 500, 20,mainChar.getStat("score"));
+ 		HUD.addItem(score);
 
 
         
@@ -154,7 +151,6 @@ public class DemoGame extends Game implements EventListener {
 	//		target.Shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
 
 		}
-
 		
 	}
 
@@ -223,7 +219,7 @@ public class DemoGame extends Game implements EventListener {
 	}
 	
 	private void flagHit() {
-		SpriteGroup enemies = myPlayField.getGroup("homing enemies");
+		SpriteGroup enemies = myPlayField.getGroup("sprites.HomingEnemy");
 		enemies.clear();
 		
 	}
