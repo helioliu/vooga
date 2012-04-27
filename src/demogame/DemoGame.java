@@ -73,9 +73,10 @@ public class DemoGame extends Game {
 	}
 
 	public void update(long timeElapsed) {
+		EventManager.getEventManager().update(timeElapsed);
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
-		EventManager.getEventManager().update(timeElapsed);
+		
 	}
 
 	class PlatformCollision extends BasicCollisionGroup {
