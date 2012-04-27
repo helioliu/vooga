@@ -1,29 +1,26 @@
 package SpriteAction;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import States.BigMario;
 
 import sprites.GeneralSprite;
+import sprites.StateSprite;
 import core.EventManager;
 
 public class ChangeImage extends SpriteAction{
-	public ChangeImage(GeneralSprite s) {
+	private BufferedImage myImage;
+	public ChangeImage(StateSprite s, BufferedImage bi) {
 		super(s);
-		
+		myImage = bi;		
 	}
 
 	public void actionPerformed(Object event) 
 	{
-		try {
-			mySprite.setImage(ImageIO.read(new File("src/images/BigMario.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		mySprite.setImage(myImage);
 	}
 
 }

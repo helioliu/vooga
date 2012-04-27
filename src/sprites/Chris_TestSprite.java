@@ -31,8 +31,8 @@ import States.WalkingRightState;
 import com.golden.gamedev.object.Sprite;
 
 public class Chris_TestSprite extends StateSprite{
-	
-	
+
+
 	public Chris_TestSprite()
 	{
 		super();
@@ -47,9 +47,9 @@ public class Chris_TestSprite extends StateSprite{
 		land.activate();
 		jump.activate();
 		powerup.activate();
-		
+
 	}
-	
+
 
 	public void update(long elapsedTime)
 	{

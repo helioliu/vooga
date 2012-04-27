@@ -17,10 +17,10 @@ public class Homing extends SpriteAction {
     @Override
     public void actionPerformed(Object object) {
         Sprite target = ((HomingEnemy)mySprite).getMyTarget();
-        double x = target.getX()-target.getWidth()/2;
-        double y = target.getY()-target.getHeight()/2;
-        double myX = mySprite.getX()-mySprite.getWidth()/2;
-        double myY = mySprite.getY()-mySprite.getHeight()/2;
+        double x = target.getX()+(target.getWidth()/2);
+        double y = target.getY()+(target.getHeight()/2);
+        double myX = mySprite.getX();
+        double myY = mySprite.getY();
         double angleToTarget = Math.atan2( (y-myY),(x-myX));
 
         angleToTarget = Math.toDegrees(angleToTarget);
@@ -29,6 +29,9 @@ public class Homing extends SpriteAction {
             angleToTarget+=360;
         }
         angleToTarget+=90;
+        if(angleToTarget>360){
+            angleToTarget-=360;
+        }
         mySprite.setMovement(.04, angleToTarget);
 
     }
