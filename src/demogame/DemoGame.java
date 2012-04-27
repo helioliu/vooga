@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import sprites.Character;
 import sprites.Chris_TestSprite;
 import sprites.GeneralSprite;
 
@@ -18,6 +17,7 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
+import core.EventListener;
 import core.EventManager;
 import demogame.sprites.MainCharacter;
 
@@ -49,12 +49,13 @@ public class DemoGame extends Game {
 		mainChar.setImages(getImages("images/mariocharpng.png",3,2));
 		mainChar.setLocation(200, 100);
 		mainChar.setAnimate(false);
-		mainChar.setGravity(gravity);
 		SpriteGroup chargroup = new SpriteGroup("Character");
 		chargroup.add(mainChar);
 		myPlayField.addGroup(chargroup);
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
+//		EventManager.getEventManager().registerEventListener("test", new Test());
+//		EventManager.getEventManager().sendEvent("test");
 		
 	}
 	
@@ -72,8 +73,10 @@ public class DemoGame extends Game {
 	}
 
 	public void update(long timeElapsed) {
+		EventManager.getEventManager().update(timeElapsed);
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
+		
 	}
 
 	class PlatformCollision extends BasicCollisionGroup {
@@ -83,8 +86,15 @@ public class DemoGame extends Game {
         }
 
         public void collided(Sprite s1, Sprite s2) {
-//        	System.out.println("floor collide");
             EventManager.getEventManager().sendEvent("floor collide");
         }
+	}
+	
+	class Test implements EventListener {
+		
+		public void actionPerformed(Object object) {
+			System.out.println((String) object);
+		}
+		
 	}
 }
