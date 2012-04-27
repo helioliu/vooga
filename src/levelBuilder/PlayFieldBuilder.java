@@ -23,7 +23,6 @@ import com.golden.gamedev.object.background.ImageBackground;
 public class PlayFieldBuilder {
 	private String xmlpath;
 	private PlayField playfield;
-	public Background background;
 
 
 	public PlayFieldBuilder(PlayField p, String xmlpath) {
