@@ -16,7 +16,6 @@ import sprites.GeneralSprite;
 import sprites.HomingEnemy;
 import sprites.Jetpack;
 import sprites.LifeMushroom;
-import sprites.MainCharacter;
 import sprites.Platform;
 import SpriteAction.JetPack;
 import collisionType.AbstractHitboxNonhitboxCollision;
@@ -39,6 +38,7 @@ import core.conditions.GetCloseCondition;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneAutomation;
 import cutscenes.EventAutomation;
+import demogame.sprites.MainCharacter;
 
 public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
