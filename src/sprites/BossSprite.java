@@ -9,6 +9,7 @@ import java.util.List;
 import java.awt.Graphics2D;
 
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
 import collisions.CollisionCirc;
@@ -40,14 +41,18 @@ public class BossSprite extends GeneralSprite{
 			{new ArrayList<Hitbox>(), new ArrayList<Hitbox>(),new ArrayList<Hitbox>(),
 			new ArrayList<Hitbox>(),new ArrayList<Hitbox>()};
 	
+	private BufferedImage myProjectileImage;
+	private SpriteGroup myProjectileGroup;
+	private Sprite myTarget;
 	
-	public BossSprite(BufferedImage[] images, int x, int y){
+	
+	public BossSprite(BufferedImage[] images, double x, double y){
 		super(images, x, y);
 		setAnimation(STANDING, LEFT);
 		setAnimate(true);
 		setLoopAnim(true);
-		
 		setID(8055);
+		
 		myHitboxes[0].add(new Hitbox(new CollisionRect(130, 110, 60, 70), "head"));
 		
 		myHitboxes[1].add(new Hitbox(new CollisionRect(133, 357-244, 60, 70), "head"));
@@ -59,11 +64,23 @@ public class BossSprite extends GeneralSprite{
 		myHitboxes[3].add(new Hitbox(new CollisionRect(207, 824-244*3, 32, 63), "sickle"));
 		myHitboxes[4].add(new Hitbox(new CollisionRect(128, 1088-244*4, 56, 64), "head"));
 		myHitboxes[4].add(new Hitbox(new CollisionCirc(73, 1140-244*4, 40), "sickle"));
+	}
+	
+	public BossSprite(BufferedImage[] images, double x, double y, BufferedImage projImage, Sprite target, SpriteGroup projGroup){
+		this(images, x, y);
+		myProjectileImage = projImage;
+		myTarget = target;
+		myProjectileGroup = projGroup;
 
 	}
 	
 	public List<Hitbox> getHitboxes() {
 		return Collections.unmodifiableList(myHitboxes[getStatus()]);
+	}
+	
+	private void shoot(){
+		System.out.println("pewpewpew");
+		myProjectileGroup.add(new HomingProjectile(myProjectileImage, myTarget, getX()+30, getY()+160));
 	}
 	
 	
@@ -91,8 +108,10 @@ public class BossSprite extends GeneralSprite{
 		
 	}
 	
-	protected void animationChanged(int oldStat, int oldDir, int status, int direction){
+	protected void animationChanged(int oldStatus, int oldDir, int status, int direction){
 		setAnimationFrame(movingAnimation[getStatus()]);
+		if(oldStatus==SICKLE1 && status==SICKLE2)
+			shoot();
 	}
 	
 	public void render(Graphics2D g){
