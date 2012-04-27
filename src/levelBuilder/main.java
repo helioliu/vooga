@@ -31,10 +31,34 @@ public class main {
 	        s1.setImage(ImageIO.read(new File("src/images/mario1.png")));
 	        s1.setLocation(300, 200);
 	        s1.setPath("src/images/mario1.png");
-	        s1.setGroup("character");
+	  
 
+			GeneralSprite flag = new Flag(getImage("images/finalflag.png"), 1750, 106);
+			SpriteGroup fg = new SpriteGroup("flag");
 
-
+			GeneralSprite castle = new GeneralSprite(getImage("images/castle.gif"), 1800, 300);
+			
+			mainChar = new MainCharacter();
+			mainChar.setImages(getImages("images/mariocharpng.png",3,2));
+			mainChar.setLocation(200, 100);
+			mainChar.setAnimate(false);
+			
+			GeneralSprite enemy1 = new HomingEnemy(mainChar);
+	        enemy1.setImage(getImage("images/boo.jpg"));
+	        enemy1.setLocation(300, 300);
+	        
+	        
+	        GeneralSprite enemy2 = new HomingEnemy(mainChar);
+	        enemy2.setImage(getImage("images/boo.jpg"));
+	        enemy2.setLocation(700, 300);
+	        
+	        GeneralSprite enemy3 = new HomingEnemy(mainChar);
+	        enemy3.setImage(getImage("images/boo.jpg"));
+	        enemy3.setLocation(1200, 300);
+	        
+	        GeneralSprite enemy4 = new HomingEnemy(mainChar);
+	        enemy4.setImage(getImage("images/boo.jpg"));
+	        enemy4.setLocation(1700, 300); 
 
 
 	        GeneralSprite blocker1 = new GeneralSprite(ImageIO.read(new File("src/images/block.png")));

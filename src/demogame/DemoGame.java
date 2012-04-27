@@ -48,28 +48,12 @@ public class DemoGame extends Game {
 	public void initResources() {
 		setMaskColor(Color.WHITE);
 		myPlayField = new PlayField();
-//		myPlayField = new LevelBuilder(myPlayField, levelFileName).createLevel();
-		Background b = new ColorBackground(Color.LIGHT_GRAY, 2000, 480);
-		myPlayField.setBackground(b);
+		myPlayField = new LevelBuilder(myPlayField, levelFileName).createLevel();
 		
 		SpriteGroup platforms = makePlatforms();
-		myPlayField.addGroup(platforms);
-		GeneralSprite flag = new Flag(getImage("images/finalflag.png"), 1750, 106);
-		SpriteGroup fg = new SpriteGroup("flag");
-		fg.add(flag);
-		myPlayField.addGroup(fg);
+
 		
-		GeneralSprite castle = new GeneralSprite(getImage("images/castle.gif"), 1800, 300);
-		myPlayField.add(castle);
-		
-		mainChar = new MainCharacter();
-		mainChar.setImages(getImages("images/mariocharpng.png",3,2));
-		mainChar.setLocation(200, 100);
-		mainChar.setAnimate(false);
-		SpriteGroup chargroup = new SpriteGroup("Character");
-		chargroup.add(mainChar);
-		myPlayField.addGroup(chargroup);
-		
+
 		
 		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.jpeg"), 500, 300);
 		SpriteGroup mushrooms = new SpriteGroup("Mushrooms");
@@ -81,22 +65,7 @@ public class DemoGame extends Game {
 		jetpacks.add(jetpack);
 		myPlayField.addGroup(jetpacks);
 		//adding homing enemies
-		GeneralSprite enemy1 = new HomingEnemy(mainChar);
-        enemy1.setImage(getImage("images/boo.jpg"));
-        enemy1.setLocation(300, 300);
-        
-        
-        GeneralSprite enemy2 = new HomingEnemy(mainChar);
-        enemy2.setImage(getImage("images/boo.jpg"));
-        enemy2.setLocation(700, 300);
-        
-        GeneralSprite enemy3 = new HomingEnemy(mainChar);
-        enemy3.setImage(getImage("images/boo.jpg"));
-        enemy3.setLocation(1200, 300);
-        
-        GeneralSprite enemy4 = new HomingEnemy(mainChar);
-        enemy4.setImage(getImage("images/boo.jpg"));
-        enemy4.setLocation(1700, 300); 
+
         
         SpriteGroup homing = new SpriteGroup("homing enemies");
         homing.add(enemy1);
@@ -105,7 +74,7 @@ public class DemoGame extends Game {
         homing.add(enemy4);
         myPlayField.addGroup(homing);
         
-        SpriteGroup home = myPlayField.getGroup("homing enemies");
+        SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
         for (Sprite enemy : home.getSprites()) {
         	if (enemy== null)
         		break;
@@ -116,10 +85,10 @@ public class DemoGame extends Game {
         }
 		
 		
-		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
-		myPlayField.addCollisionGroup(chargroup,fg,new FlagCollision());
-		myPlayField.addCollisionGroup(chargroup,mushrooms,new MushroomCollision());
-		myPlayField.addCollisionGroup(chargroup,jetpacks,new JetPackCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"), myPlayField.getGroup("sprites.GeneralSprite"), new PlatformCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),myPlayField.getGroup("sprites.Flag"),new FlagCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),myPlayField.getGroup("sprites.GeneralSprite"),new MushroomCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),jetpacks,new JetPackCollision());
 		
 		//make the end-of-level cutscene
 		EventAutomation aOne = new CutsceneAutomation();
