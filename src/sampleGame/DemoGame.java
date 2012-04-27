@@ -13,7 +13,6 @@ import java.util.Map;
 import sprites.BryanSprite;
 import sprites.GeneralSprite;
 import States.State;
-
 import com.golden.gamedev.Game;
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
