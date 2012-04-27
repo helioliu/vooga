@@ -17,9 +17,11 @@ public class Homing extends SpriteAction {
     @Override
     public void actionPerformed(Object object) {
         Sprite target = ((HomingEnemy)mySprite).getMyTarget();
-        double x =target.getX()-target.getWidth()/2;
+        double x = target.getX()-target.getWidth()/2;
         double y = target.getY()-target.getHeight()/2;
-        double angleToTarget = Math.atan2( (x-mySprite.getY()),(y-mySprite.getX()));
+        double myX = mySprite.getX()-mySprite.getWidth()/2;
+        double myY = mySprite.getY()-mySprite.getHeight()/2;
+        double angleToTarget = Math.atan2( (y-myY),(x-myX));
 
         angleToTarget = Math.toDegrees(angleToTarget);
 
