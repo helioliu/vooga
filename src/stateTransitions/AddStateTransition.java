@@ -11,10 +11,9 @@ public class AddStateTransition extends StateTransition{
 
 		
 	}
-
-	@Override
 	public void actionPerformed(String eventName) {
-		this.getMyStateManager().addState(getMyState());
+		this.
+		getMyStateManager().addState(getMyState());
 		
 	}
 

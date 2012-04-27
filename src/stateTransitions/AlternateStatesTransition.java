@@ -12,7 +12,6 @@ public class AlternateStatesTransition extends StateTransition{
 		state2 = s2;
 	}
 
-	@Override
 	public void actionPerformed(String eventName) {
 		if(getMyStateManager().isCurrentlyActive(getMyState()))
 		{

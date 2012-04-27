@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 
 import org.jdom2.Element;
 
+import com.golden.gamedev.object.SpriteGroup;
+
 import States.InAirState;
 import States.JetPackPowerup;
 import States.OnLandState;
@@ -23,6 +25,7 @@ import stateTransitions.ReplaceStateTransition;
 import stateTransitions.StateTransition;
 
 public class MainCharacter extends StateSprite {
+	private boolean canFire;
 	public MainCharacter()
 	{
 		super();
@@ -36,8 +39,26 @@ public class MainCharacter extends StateSprite {
 		land.activate();
 		jump.activate();
 		powerup.activate();
+		canFire=true;
 	}
 	
+	public void Shoot(SpriteGroup Projectile, int x, int y) {
+        Projectile shot;
+        if(canFire == true){
+            try {
+				shot = new Projectile(ImageIO.read(new File("images/Blk-Rd-Bullet.gif")));
+				shot.setLocation( this.getX()+15, this.getY()-5 );
+	            shot.fireAtTarget(x,y);
+	            Projectile.add(shot);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+        }
+        
+
+    }
 	
 
 	public void update(long elapsedTime)

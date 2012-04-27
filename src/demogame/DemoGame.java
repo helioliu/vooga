@@ -16,6 +16,7 @@ import sprites.GeneralSprite;
 import sprites.HomingEnemy;
 import sprites.Jetpack;
 import sprites.LifeMushroom;
+import sprites.MainCharacter;
 import sprites.Platform;
 import SpriteAction.JetPack;
 import collisionType.AbstractHitboxNonhitboxCollision;
@@ -38,11 +39,11 @@ import core.conditions.GetCloseCondition;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneAutomation;
 import cutscenes.EventAutomation;
-import demogame.sprites.MainCharacter;
 
 public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
 	private PlayField myPlayField;
+
 	private Cutscene levelOver;
 	Cutscene death;
 	private MainCharacter target;
@@ -93,7 +94,7 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.LifeMushroom"),new MushroomCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Jetpack"),new JetPackCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
-    	myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Projectile"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
+  //  	myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Projectile"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
 		
 
 		//make the end-of-level cutscene
@@ -120,11 +121,12 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField.update(timeElapsed);
 		levelOver.update(timeElapsed);
 		death.update(timeElapsed);
-		HUD.update(timeElapsed);
-		timer.update(timeElapsed);
+//		HUD.update(timeElapsed);
+//		timer.update(timeElapsed);
 		if(click())
 		{
-			target.Shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
+	//		target.Shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
+
 		}
 
 		
@@ -183,7 +185,7 @@ public class DemoGame extends Game implements EventListener {
 		protected void spriteCollided(Sprite s1, Sprite s2) {
 		}
 
-		@Override
+		
 		protected void hitboxSpriteCollided(Sprite s1, Hitbox h1, Sprite s2) {
 			flagHit();
 			if(!hitYet) {

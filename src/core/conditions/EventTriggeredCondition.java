@@ -11,13 +11,8 @@ public class EventTriggeredCondition implements Condition,EventListener{
 		EventManager.getEventManager().registerEventListener(triggerEvent, this);
 	}
 
-<<<<<<< HEAD
 
-	public void actionPerformed(Object object) {
-=======
-	@Override
 	public void actionPerformed(String s) {
->>>>>>> 7c99eb137ec15ab482536ea0509c63d2c8797ca0
 		if (!active) {
 			active = true;
 		}
