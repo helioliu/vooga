@@ -119,7 +119,7 @@ public class DemoGame extends Game implements EventListener {
 		
 		
 
-		GeneralSprite mushroom = new LifeMushroom(getImage("images/mushroom.jpeg"), 500, 300);
+		GeneralSprite mushroom = new LifeMushroom(getImage("images/mushroom.png"), 500, 300);
 		SpriteGroup mushrooms = new SpriteGroup("Mushrooms");
 		mushrooms.add(mushroom);
 		myPlayField.addGroup(mushrooms);
@@ -278,6 +278,7 @@ public class DemoGame extends Game implements EventListener {
 	}
 
 	public void actionPerformed(Object object) {
-		System.out.println("do whatever we need to to end the game");		
+		System.out.println("do whatever we need to to end the game");
+		initResources();
 	}
 }
