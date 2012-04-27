@@ -68,11 +68,21 @@ public class DemoGame extends Game {
 		myPlayField.addGroup(chargroup);
 		
 		
+		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.jpeg"), 500, 300);
+		SpriteGroup mushrooms = new SpriteGroup("Mushrooms");
+		mushrooms.add(mushroom);
+		myPlayField.addGroup(mushrooms);
 		
+		GeneralSprite jetpack = new GeneralSprite(getImage("images/rocket.png"), 1200, 300);
+		SpriteGroup jetpacks = new SpriteGroup("Jetpacks");
+		jetpacks.add(jetpack);
+		myPlayField.addGroup(jetpacks);
 		
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
 		myPlayField.addCollisionGroup(chargroup,fg,new FlagCollision());
+		myPlayField.addCollisionGroup(chargroup,mushrooms,new MushroomCollision());
+		myPlayField.addCollisionGroup(chargroup,jetpacks,new JetPackCollision());
 		
 		//make the end-of-level cutscene
 		EventAutomation aOne = new CutsceneAutomation();
@@ -111,6 +121,26 @@ public class DemoGame extends Game {
 
         public void collided(Sprite s1, Sprite s2) {
             EventManager.getEventManager().sendEvent("floor collide");
+        }
+	}
+	class MushroomCollision extends BasicCollisionGroup{
+		public MushroomCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+            EventManager.getEventManager().sendEvent("mushroom");
+            s2.setActive(false);
+        }
+	}
+	class JetPackCollision extends BasicCollisionGroup{
+		public JetPackCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+            EventManager.getEventManager().sendEvent("pwrup");
+            s2.setActive(false);
         }
 	}
 	
