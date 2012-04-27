@@ -28,7 +28,7 @@ public class main {
 		Element root = new Element("root").setText("This is the root");
 		doc.addContent(root);
 		Element background = new Element("background")
-				.setText("/home/rjk13/workspace/vooga/src/images/background.jpg");
+				.setText("src/images/background.jpg");
 		root.addContent(background);
 
 		ArrayList<LevelEditable> spritelist = new ArrayList<LevelEditable>();

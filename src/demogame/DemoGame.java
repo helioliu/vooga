@@ -16,7 +16,9 @@ import sprites.GeneralSprite;
 import sprites.HomingEnemy;
 import sprites.Jetpack;
 import sprites.LifeMushroom;
+import sprites.MainCharacter;
 import sprites.Platform;
+import sprites.MainCharacter;
 import SpriteAction.JetPack;
 import collisionType.AbstractHitboxNonhitboxCollision;
 import collisions.Hitbox;
@@ -40,13 +42,14 @@ import cutscenes.CutsceneAutomation;
 import cutscenes.EventAutomation;
 import sprites.MainCharacter;
 
+
 public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
 	private PlayField myPlayField;
 
 	private Cutscene levelOver;
 	Cutscene death;
-	private MainCharacter target;
+	private MainCharacter mainChar;
 	private static final double gravity = .002;
 	private String[] levels = {
 			"level1.xml",
@@ -76,14 +79,14 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField = new PlayFieldBuilder(myPlayField, levelFileName).parseXML();
 
         SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
-        target= (MainCharacter) myPlayField.getGroup("sprites.MainCharacter").getSprites()[0];
+        mainChar= (MainCharacter) myPlayField.getGroup("sprites.MainCharacter").getSprites()[0];
              for (Sprite enemy : home.getSprites()) {
         	if (enemy== null)
         		break;
         	HomingEnemy he= (HomingEnemy) enemy;
-        	he.setMyTarget(target);
-        	Condition near = new GetCloseCondition(he,target,500,true);
-            Condition far = new GetCloseCondition(he,target,500,false);
+        	he.setMyTarget(mainChar);
+        	Condition near = new GetCloseCondition(he,mainChar,500,true);
+            Condition far = new GetCloseCondition(he,mainChar,500,false);
             EventManager.getEventManager().addEventCondition(near, "homing"+enemy.hashCode());
             EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
         }
@@ -117,7 +120,7 @@ public class DemoGame extends Game implements EventListener {
 	
 	public void update(long timeElapsed) {
 		EventManager.getEventManager().update(timeElapsed);
-		myPlayField.getBackground().setToCenter(target);
+		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
 		levelOver.update(timeElapsed);
 		death.update(timeElapsed);
