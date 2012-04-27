@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import sprites.Character;
 import sprites.Chris_TestSprite;
 import sprites.GeneralSprite;
 
@@ -55,7 +54,8 @@ public class DemoGame extends Game {
 		myPlayField.addGroup(chargroup);
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
-		EventManager.getEventManager().registerEventListener("floor collide", new Test());
+//		EventManager.getEventManager().registerEventListener("test", new Test());
+//		EventManager.getEventManager().sendEvent("test");
 		
 	}
 	
@@ -75,6 +75,7 @@ public class DemoGame extends Game {
 	public void update(long timeElapsed) {
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
+		EventManager.getEventManager().update(timeElapsed);
 	}
 
 	class PlatformCollision extends BasicCollisionGroup {
@@ -92,7 +93,6 @@ public class DemoGame extends Game {
 		
 		public void actionPerformed(Object object) {
 			System.out.println((String) object);
-			
 		}
 		
 	}

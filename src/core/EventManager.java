@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class EventManager implements EventManagerInterface {
+public class EventManager {
 
 	private Map<Condition, String> mapEventConditionToEvent;
 	private static EventManager myEventManager;
 	private EventQueue myEventQueue;
 	private long elapsedTime;
 
-	public EventManager() {
+	private EventManager() {
 		myEventManager = this;
 		myEventQueue = new EventQueue();
 		mapEventConditionToEvent = new HashMap<Condition, String>();
@@ -52,7 +52,6 @@ public class EventManager implements EventManagerInterface {
                   @Override
                   public void run()
                   {                	  
-                	  System.out.println("test");
                 	  	for(int i=listeners.size()-1; i>=0; i-- ){
                 	  		listeners.get(i).actionPerformed(eventName);
                 	  	}
