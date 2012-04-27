@@ -10,7 +10,7 @@ public class MoveLeft extends SpriteAction{
 
 	public void actionPerformed(Object event)
 	{
-		mySprite.move(-1,0);
+		mySprite.move(-1.7,0);
 		mySprite.setFrame(3);
 	}
 
