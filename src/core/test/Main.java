@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		
 		GameLoader game = new GameLoader();
-		game.setup(new Chris_TestGame("level.xml"), new Dimension(640, 480), false);
+		game.setup(new Dick_TestGame("level1.xml"), new Dimension(640, 480), false);
 		game.start();
 
 	}
