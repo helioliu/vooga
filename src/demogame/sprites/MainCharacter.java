@@ -4,11 +4,12 @@ import hudDisplay.Stat;
 
 import java.util.HashMap;
 
+import States.BigMario;
 import States.InAirState;
 import States.JetPackPowerup;
 import States.OnLandState;
+import States.SmallMario;
 import States.State;
-import States.TeleJumpPowerup;
 import sprites.StateSprite;
 import stateTransitions.AddStateTransition;
 import stateTransitions.ReplaceStateTransition;

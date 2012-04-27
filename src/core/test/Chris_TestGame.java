@@ -47,6 +47,10 @@ public class Chris_TestGame extends Game{
     public Chris_TestGame(String filepath){
     	Filepath=filepath;
     }
+    public Chris_TestGame()
+    {
+    	
+    }
 
     public void initResources() {
         //		stateMap = new HashMap<String, State>();
@@ -156,21 +160,10 @@ public class Chris_TestGame extends Game{
         //playfield.addGroup(iSprites);
 
         //added by Ben
-//        collisionTypeBlocker = new CantGoFurtherCollision();
         playfield.addCollisionGroup(enemies, blockers, new CantGoFurtherCollision());
         playfield.addCollisionGroup(character, walls, new WallCollision());
         playfield.addCollisionGroup(character, blockers, new SwitchCollision());
-        playfield.addCollisionGroup(character, cutscene, new CantGoFurtherCollision());
-//        collisionTypeBlocker.setCollisionGroup(enemies, blockers);
-        //
-        collisionTypeWall = new FloorCollision();
-        collisionTypeWall.setCollisionGroup(character, walls);
-        
-        collisionTypeSwitch = new SwitchCollision();
-        collisionTypeSwitch.setCollisionGroup(character, blockers);
-        
-        collisionTypeCut = new CutsceneCollision();
-        collisionTypeCut.setCollisionGroup(character, cutscene);
+        playfield.addCollisionGroup(character, cutscene, new CutsceneCollision());
 
         playfield.addGroup(character);
         playfield.addGroup(walls);
@@ -218,13 +211,7 @@ public class Chris_TestGame extends Game{
         //		HUD.update(elapsedTime);
         myCutscene.update(elapsedTime);
         
-        collisionTypeWall.checkCollision();
-        //added by Ben
-//        collisionTypeBlocker.checkCollision();
         //	HUD.render(arg0);
-        collisionTypeSwitch.checkCollision();
-        collisionTypeCut.checkCollision();
-//        collisionTypeIS.checkCollision();
 
     }
 
