@@ -143,10 +143,6 @@ public class Ben_TestGame extends Game{
         //      }
         //      cutscene.update(elapsedTime);
         ((WalkingBadGuy)enemy1).Shoot2(elapsedTime, EnemyFireRate, ENEMY_MISSLES, getImage("images/fireball.png"), s1 );
-//        ArrayList <HomingProjectile> enemy1Projectiles = ((WalkingBadGuy)enemy1).getProjectiles();
-//        for(HomingProjectile p: enemy1Projectiles){
-//            p.update(elapsedTime);
-//       }
 
         EventManager.getEventManager().update(elapsedTime);
         playfield.update(elapsedTime);

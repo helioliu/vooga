@@ -10,8 +10,9 @@ public class HomingProjectile extends Projectile {
     private Timer homingUpdateSpeed = new Timer(400);
     private Sprite target;
 
-    public HomingProjectile(BufferedImage image) {
+    public HomingProjectile(BufferedImage image, Sprite target) {
         super(image);
+        this.target = target;
     }
 
 
@@ -37,7 +38,6 @@ public class HomingProjectile extends Projectile {
 
 
     public void goToTarget(Sprite target) {
-        this.target = target;
         double distance = Math.sqrt((Math.pow(target.getX()-this.getX(),2) + Math.pow(target.getY()-target.getY(), 2)));
         if(distance>100){
             System.out.println("too far");
