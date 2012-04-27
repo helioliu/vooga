@@ -14,7 +14,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 
 import levelBuilder.PlayFieldBuilder;
-import levelEditor.*;
+
 
 
 import sprites.*;
@@ -57,7 +57,7 @@ public class Platformer extends GameObject {
 
 	@Override
 	public void initResources() {
-		playfield = new PlayFieldBuilder(this).createLevel("level5.json");
+		//playfield = new PlayFieldBuilder(this).createLevel("level5.json");
 		//PlatformGame.LEVEL_FILES.get(PlatformGame.currentLevel)
 
 	}
