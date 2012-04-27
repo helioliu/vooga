@@ -9,9 +9,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import levelBuilder.PlayFieldBuilder;
+
 import sprites.Flag;
 import sprites.GeneralSprite;
 import sprites.HomingEnemy;
+import sprites.Jetpack;
+import sprites.LifeMushroom;
+import sprites.Platform;
+import SpriteAction.JetPack;
 import collisionType.AbstractHitboxNonhitboxCollision;
 import collisions.Hitbox;
 
@@ -25,6 +31,7 @@ import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.Condition;
+import core.EventListener;
 import core.EventManager;
 import core.conditions.EventTriggeredCondition;
 import core.conditions.GetCloseCondition;
@@ -33,14 +40,21 @@ import cutscenes.CutsceneAutomation;
 import cutscenes.EventAutomation;
 import demogame.sprites.MainCharacter;
 
-public class DemoGame extends Game {
+public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
 	private PlayField myPlayField;
 	private GeneralSprite mainChar;
 	private Cutscene levelOver;
+	Cutscene death;
 	private static final double gravity = .002;
+	private String[] levels = {
+			"level1.xml",
+			"boss.xml"
+	};
+	private int currentLevel;
 	private NumberStat timer;
 	private HeadsUpDisplay HUD;
+
 
 	public DemoGame (String levelFileName) {
 		this.levelFileName = levelFileName;
@@ -52,39 +66,29 @@ public class DemoGame extends Game {
 	}
 	
 	public void initResources() {
+		EventManager.getEventManager().registerEventListener("end-game", this);
+		currentLevel = 1;
 		setMaskColor(Color.WHITE);
 		myPlayField = new PlayField();
-		myPlayField = new LevelBuilder(myPlayField, levelFileName).createLevel();
+		myPlayField = new PlayFieldBuilder(myPlayField, levelFileName).parseXML();
 		
-
-		
-		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.png"), 500, 300);
-		SpriteGroup mushrooms = new SpriteGroup("Mushrooms");
-		mushrooms.add(mushroom);
-		myPlayField.addGroup(mushrooms);
-		
-		GeneralSprite jetpack = new GeneralSprite(getImage("images/rocket.png"), 1200, 300);
-		SpriteGroup jetpacks = new SpriteGroup("Jetpacks");
-		jetpacks.add(jetpack);
-		myPlayField.addGroup(jetpacks);
-		//adding homing enemies
-
         
         SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
         for (Sprite enemy : home.getSprites()) {
         	if (enemy== null)
         		break;
+        	enemy.setTarget(myPlayField.getGroup("sprites.MainCharacter").getSprites()[0]);
         	Condition near = new GetCloseCondition(enemy,mainChar,500,true);
             Condition far = new GetCloseCondition(enemy,mainChar,500,false);
             EventManager.getEventManager().addEventCondition(near, "homing"+enemy.hashCode());
             EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
         }
 		
-		
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"), myPlayField.getGroup(sprites.), new PlatformCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),myPlayField.getGroup("sprites.Flag"),new FlagCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),myPlayField.getGroup(sprites.),new MushroomCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),jetpacks,new JetPackCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Platform"), new PlatformCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.Flag"),new FlagCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.LifeMushroom"),new MushroomCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Jetpack"),new JetPackCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
 		
 		//make the end-of-level cutscene
 		EventAutomation aOne = new CutsceneAutomation();
@@ -92,9 +96,12 @@ public class DemoGame extends Game {
 		EventAutomation aTwo = new CutsceneAutomation("src/demogame/jump_off.script");
 		aOne.addTransition(new EventTriggeredCondition("floor collide"), aTwo);
 		levelOver = new Cutscene(aOne, "flag-hit", "end-level");
+		
+		
+		EventAutomation a = new CutsceneAutomation("src/demogame/death.script");
+		death = new Cutscene(a, "enemy hit", "end-game");
 	}
 	
-
 
 	public void render(Graphics2D g) {
 		myPlayField.render(g);
@@ -106,21 +113,9 @@ public class DemoGame extends Game {
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
 		levelOver.update(timeElapsed);
+		death.update(timeElapsed);
 		HUD.update(timeElapsed);
 		timer.update(timeElapsed);
-		
-//		SpriteGroup homing = myPlayField.getGroup("homing enemies");
-//		for (Sprite enemy : homing.getSprites()) {
-//			if (enemy==null)
-//				break;
-////			System.out.println(enemy);
-//			if(enemy.getDistance(mainChar)>100){
-//	            EventManager.getEventManager().sendEvent("stationary"+enemy.hashCode());
-//	        }
-//	        else{
-//	            EventManager.getEventManager().sendEvent("homing"+enemy.hashCode());
-//	        }
-//		}
 		
 	}
 
@@ -155,6 +150,16 @@ public class DemoGame extends Game {
         }
 	}
 	
+	class EnemyHitCollision extends BasicCollisionGroup {
+		public EnemyHitCollision() {
+			pixelPerfectCollision = true;
+		}
+
+		public void collided(Sprite arg0, Sprite arg1) {
+			EventManager.getEventManager().sendEvent("enemy hit");
+		}
+	}
+	
 	class FlagCollision extends AbstractHitboxNonhitboxCollision {
 		boolean hitYet;
 		
@@ -182,5 +187,10 @@ public class DemoGame extends Game {
 		SpriteGroup enemies = myPlayField.getGroup("homing enemies");
 		enemies.clear();
 		
+	}
+
+	public void actionPerformed(Object object) {
+		System.out.println("do whatever we need to to end the game");
+		initResources();
 	}
 }

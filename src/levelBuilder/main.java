@@ -1,5 +1,8 @@
 package levelBuilder;
 
+import hudDisplay.NumberStat;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,237 +21,103 @@ import sprites.Character;
 
 public class main {
 	public static void main(String[] args) throws IOException {
-		
+
 		Document doc = new Document();
-		Element root=new Element("root").setText("This is the root");
+		Element root = new Element("root").setText("This is the root");
 		doc.addContent(root);
-		Element background= new Element("background").setText("/home/rjk13/workspace/vooga/src/images/background.jpg");
+		Element background = new Element("background")
+				.setText("/home/rjk13/workspace/vooga/src/images/background.jpg");
 		root.addContent(background);
 
-	       GeneralSprite s1 = new Chris_TestSprite();
-	        //BufferedImage[] images = new BufferedImage[1];
-	        //	images[0] = ;
-	        s1.setImage(ImageIO.read(new File("src/images/mario1.png")));
-	        s1.setLocation(300, 200);
-	        s1.setPath("src/images/mario1.png");
-	  
-			SpriteGroup platforms = makePlatforms();
-			<<<<<<< HEAD
+		ArrayList<LevelEditable> spritelist = new ArrayList<LevelEditable>();
+		GeneralSprite s1 = new MainCharacter();
+		// BufferedImage[] images = new BufferedImage[1];
+		// images[0] = ;
+		s1.setImage(ImageIO.read(new File("src/images/mario1.png")));
+		s1.setLocation(300, 200);
+		s1.setPath("src/images/mario1.png");
+		s1.createStat("lives", new NumberStat(5));
+		s1.createStat("score", new NumberStat(0));
+		s1.createStat("coinMult", new NumberStat(0));
+		spritelist.add(s1);
 
-			=======
-					myPlayField.addGroup(platforms);
-					GeneralSprite flag = new Flag(getImage("images/finalflag.png"), 1750, 106);
-					SpriteGroup fg = new SpriteGroup("flag");
-					fg.add(flag);
-					myPlayField.addGroup(fg);
-					
-					GeneralSprite castle = new GeneralSprite(getImage("images/castle.gif"), 1800, 300);
-					myPlayField.add(castle);
-					
-					mainChar = new MainCharacter();
-					
-					mainChar.createStat("lives", new NumberStat(5));
-					mainChar.createStat("score", new NumberStat(0));
-					mainChar.createStat("coinMult", new NumberStat(0));
-					
-					HUD = new HeadsUpDisplay(0, 0);
-					
-					GameFont BigFont = fontManager.getFont(getImages("images/Font.png", 8,12));
-					GameFont SmallFont = fontManager.getFont(getImages("images/SmallFont.png", 8,12));
-
-					TextItem lives = new TextItem(BigFont, 10, 10,mainChar.getStat("lives"),"Mario x ");
-					HUD.addItem(lives);
-					
-					timer = new NumberStat(0);
-					timer.incrementWithTimer(500, 1);
-					TextItem timerScore = new TextItem(BigFont, 300, 10, timer,"Time: ");
-					HUD.addItem(timerScore);
-					
-					TextItem CoinMult = new TextItem(SmallFont, 500, 10, mainChar.getStat("coinMult"),"Coins x ");
-					HUD.addItem(CoinMult);
-					
-					TextItem score = new TextItem(SmallFont, 500, 20,mainChar.getStat("score"));
-					HUD.addItem(score);
-					
-					
-					
-					
-					mainChar.setImages(getImages("images/mariocharpng.png",3,2));
-					mainChar.setLocation(200, 100);
-					mainChar.setAnimate(false);
-					SpriteGroup chargroup = new SpriteGroup("Character");
-					chargroup.add(mainChar);
-					myPlayField.addGroup(chargroup);
-			>>>>>>> 30e243426cefa53af6b4729174c84817afd6d81e
-					
-			private SpriteGroup makePlatforms() {
-				SpriteGroup s = new SpriteGroup("Platforms");
-				BufferedImage image = getImage("images/bricks1.png");
-				for(int i=0; i < 1990; i+=32) {
-					if(i<300 | i>400)
-						s.add(new GeneralSprite(image,i,400));
-				}
-				return s;
+		BufferedImage image = ImageIO.read(new File("src/images/bricks1.png"));
+		for (int i = 0; i < 1990; i += 32) {
+			if (i < 300 | i > 400) {
+				spritelist.add(new Platform(image, i, 400));
 			}
+		}
 
-			GeneralSprite flag = new Flag(getImage("images/finalflag.png"), 1750, 106);
-			SpriteGroup fg = new SpriteGroup("flag");
+		GeneralSprite flag = new Flag(ImageIO.read(new File(
+				"src/images/finalflag.png")), 1750, 106);
+		spritelist.add(flag);
 
-			GeneralSprite castle = new GeneralSprite(getImage("images/castle.gif"), 1800, 300);
-			
-			mainChar = new MainCharacter();
-			mainChar.setImages(getImages("images/mariocharpng.png",3,2));
-			mainChar.setLocation(200, 100);
-			mainChar.setAnimate(false);
-			
-			GeneralSprite enemy1 = new HomingEnemy(mainChar);
-	        enemy1.setImage(getImage("images/boo.jpg"));
-	        enemy1.setLocation(300, 300);
-	        
-	        
-	        GeneralSprite enemy2 = new HomingEnemy(mainChar);
-	        enemy2.setImage(getImage("images/boo.jpg"));
-	        enemy2.setLocation(700, 300);
-	        
-	        GeneralSprite enemy3 = new HomingEnemy(mainChar);
-	        enemy3.setImage(getImage("images/boo.jpg"));
-	        enemy3.setLocation(1200, 300);
-	        
-	        GeneralSprite enemy4 = new HomingEnemy(mainChar);
-	        enemy4.setImage(getImage("images/boo.jpg"));
-	        enemy4.setLocation(1700, 300); 
+		GeneralSprite castle = new GeneralSprite(ImageIO.read(new File(
+				"src/images/castle.gif")), 1800, 300);
+		spritelist.add(castle);
 
+//		HUD = new HeadsUpDisplay(0, 0);
+//
+//		GameFont BigFont = fontManager.getFont(getImages("images/Font.png", 8,
+//				12));
+//		GameFont SmallFont = fontManager.getFont(getImages(
+//				"images/SmallFont.png", 8, 12));
+//
+//		TextItem lives = new TextItem(BigFont, 10, 10,
+//				mainChar.getStat("lives"), "Mario x ");
+//		HUD.addItem(lives);
+//
+//		timer = new NumberStat(0);
+//		timer.incrementWithTimer(500, 1);
+//		TextItem timerScore = new TextItem(BigFont, 300, 10, timer, "Time: ");
+//		HUD.addItem(timerScore);
+//
+//		TextItem CoinMult = new TextItem(SmallFont, 500, 10,
+//				mainChar.getStat("coinMult"), "Coins x ");
+//		HUD.addItem(CoinMult);
+//
+//		TextItem score = new TextItem(SmallFont, 500, 20,
+//				mainChar.getStat("score"));
+//		HUD.addItem(score);
 
-	        GeneralSprite blocker1 = new GeneralSprite(ImageIO.read(new File("src/images/block.png")));
-	        GeneralSprite blocker2 = new GeneralSprite(ImageIO.read(new File("src/images/block.png")));
-	        GeneralSprite blocker3 = new GeneralSprite(ImageIO.read(new File("src/images/block.png")));
-	        GeneralSprite blocker4 = new GeneralSprite(ImageIO.read(new File("src/images/block.png")));
+		GeneralSprite enemy1 = new HomingEnemy();
+		enemy1.setImage(ImageIO.read(new File("src/images/boo.jpg")));
+		enemy1.setLocation(300, 300);
 
-	        blocker1.setLocation(200, 200);
-	        blocker2.setLocation(500,200);
-	        blocker3.setLocation(490,100);
-	        blocker4.setLocation(210,100);
-	        //
-	        blocker1.setPath("src/images/block.png");
-	        blocker2.setPath("src/images/block.png");
-	        blocker3.setPath("src/images/block.png");
-	        blocker4.setPath("src/images/block.png");
-	        
-	        blocker1.setGroup("blockers");
-	        blocker2.setGroup("blockers");
-	        blocker3.setGroup("blockers");
-	        blocker4.setGroup("blockers");
-	        GeneralSprite wall1 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall1.setLocation(275,450);
-	        wall1.setPath("src/images/bricks1.png");
-	        GeneralSprite wall2 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall2.setLocation(225,450);
-	        wall2.setPath("src/images/bricks1.png");
-	        GeneralSprite wall3 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall3.setLocation(250,450);
-	        wall3.setPath("src/images/bricks1.png");
-	        GeneralSprite wall4 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall4.setLocation(300,450);
-	        wall4.setPath("src/images/bricks1.png");
-	        GeneralSprite wall5 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall5.setLocation(325,450);
-	        wall5.setPath("src/images/bricks1.png");
-	        GeneralSprite wall6 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall6.setLocation(350,450);
-	        wall6.setPath("src/images/bricks1.png");
-	        GeneralSprite wall7 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall7.setLocation(375,450);
-	        wall7.setPath("src/images/bricks1.png");
-	        GeneralSprite wall8 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall8.setLocation(400,450);
-	        wall8.setPath("src/images/bricks1.png");
-	        GeneralSprite wall9 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall9.setLocation(50,450);
-	        wall9.setPath("src/images/bricks1.png");
-	        GeneralSprite wall10 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall10.setLocation(75,450);
-	        wall10.setPath("src/images/bricks1.png");
-	        GeneralSprite wall11 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall11.setLocation(100,450);
-	        wall11.setPath("src/images/bricks1.png");
-	        GeneralSprite wall12 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall12.setLocation(350,450);
-	        wall12.setPath("src/images/bricks1.png");
-	        GeneralSprite wall13 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall13.setLocation(425,450);
-	        wall13.setPath("src/images/bricks1.png");
-	        GeneralSprite wall14 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall14.setLocation(500,300);
-	        wall14.setPath("src/images/bricks1.png");
-	        GeneralSprite wall15 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall15.setLocation(525,300);
-	        wall15.setPath("src/images/bricks1.png");
-	        GeneralSprite wall16 = new GeneralSprite(ImageIO.read(new File("src/images/bricks1.png")));
-	        wall16.setLocation(550,300);
-	        wall16.setPath("src/images/bricks1.png");
-	  
-	        wall1.setGroup("walls");
-	        wall2.setGroup("walls");
-	        wall3.setGroup("walls");
-	        wall4.setGroup("walls");
-	        wall5.setGroup("walls");
-	        wall6.setGroup("walls");
-	        wall7.setGroup("walls");
-	        wall8.setGroup("walls");
-	        wall9.setGroup("walls");
-	        wall10.setGroup("walls");
-	        wall11.setGroup("walls");
-	        wall12.setGroup("walls");
-	        wall13.setGroup("walls");
-	        wall14.setGroup("walls");
-	        wall15.setGroup("walls");
-	        wall16.setGroup("walls");
-	        
+		GeneralSprite enemy2 = new HomingEnemy();
+		enemy2.setImage(ImageIO.read(new File("src/images/boo.jpg")));
+		enemy2.setLocation(700, 300);
 
-		
+		GeneralSprite enemy3 = new HomingEnemy();
+		enemy3.setImage(ImageIO.read(new File("src/images/boo.jpg")));
+		enemy3.setLocation(1200, 300);
+
+		GeneralSprite enemy4 = new HomingEnemy();
+		enemy4.setImage(ImageIO.read(new File("src/images/boo.jpg")));
+		enemy4.setLocation(1700, 300);
+
 		Element sprites = new Element("sprites");
 		root.addContent(sprites);
 
+		for (int i = 0; i < spritelist.size(); i++) {
+			Element sprite = spritelist.get(i).writeElement();
+			sprites.addContent(sprite);
+		}
+		// serialize it onto System.out
+		try {
+			XMLOutputter outputter = new XMLOutputter();
+			Format oFormat = Format.getPrettyFormat();
+			outputter.setFormat(oFormat);
+			FileOutputStream FileOS = new FileOutputStream("level1.xml");
+			OutputStreamWriter OSWriter = new OutputStreamWriter(FileOS);
+			outputter.output(doc, OSWriter);
+			OSWriter.close();
+			FileOS.close();
 
-	    ArrayList<LevelEditable> spritelist= new ArrayList<LevelEditable>();
-	    spritelist.add(s1);
-	    spritelist.add(wall16);
-	    spritelist.add(wall15);
-	    spritelist.add(wall14);
-	    spritelist.add(wall13);
-	    spritelist.add(wall12);
-	    spritelist.add(wall11);
-	    spritelist.add(wall10);
-	    spritelist.add(wall9);
-	    spritelist.add(wall8);
-	    spritelist.add(wall7);
-	    spritelist.add(wall6);
-	    spritelist.add(wall5);
-	    spritelist.add(wall4);
-	    spritelist.add(wall3);
-	    spritelist.add(wall2);
-	    spritelist.add(wall1);
+		} catch (IOException e) {
+			System.err.println(e);
+		}
 
-	    for (int i=0;i<spritelist.size();i++){
-	      Element sprite = spritelist.get(i).writeElement();
-	      sprites.addContent(sprite);
-	    }
-	    // serialize it onto System.out
-	    try {
-	      XMLOutputter outputter = new XMLOutputter();
-	      Format oFormat = Format.getPrettyFormat();
-	      outputter.setFormat(oFormat);
-	      FileOutputStream FileOS = new  FileOutputStream("level1.xml");
-	      OutputStreamWriter OSWriter = new  OutputStreamWriter(FileOS);
-	      outputter.output(doc, OSWriter);
-	      OSWriter.close();
-	      FileOS.close();
-
-	    }
-	    catch (IOException e) {
-	      System.err.println(e);
-	    }
-	
 	}
 
 }
