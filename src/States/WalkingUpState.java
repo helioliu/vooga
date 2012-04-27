@@ -8,6 +8,6 @@ public class WalkingUpState extends State {
     
     public WalkingUpState(GeneralSprite s){
         super(s);
-        addAction("walk up", new WalkUp(s));
+        addAction("walk up" + s.hashCode(), new WalkUp(s));
     }
 }

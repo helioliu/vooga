@@ -1,11 +1,15 @@
 package collisionTest;
 
+import hudDisplay.FollowGraphicItem;
+import hudDisplay.HeadsUpDisplay;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
 import sprites.BossSprite;
+import sprites.GeneralSprite;
 
 import States.*;
 import collisionType.AbstractHitboxHitboxCollision;
@@ -28,6 +32,7 @@ public class PlatformGame extends Game{
 	Map<String, State> stateMap;
 	EventManager eventManager;
 	PlayField playfield;
+	HeadsUpDisplay HUD;
 	
 	public void initResources() {
 		stateMap = new HashMap<String, State>();
@@ -37,7 +42,10 @@ public class PlatformGame extends Game{
 
         SpriteGroup projectiles = playfield.addGroup(new AdvanceSpriteGroup("Proj"));
 		Sprite s1 = new BoxySprite(getImages("test.png", 2, 2), 0, 200);
-		Sprite s2 = new BossSprite(getImages("images/bau5.png", 1, 5), 400, 100, getImage("images/pewpewpew.png"), s1, projectiles);
+		GeneralSprite s2 = new BossSprite(getImages("images/bau5.png", 1, 5), 400, 100, getImage("images/pewpewpew.png"), s1, projectiles);
+		HUD = new HeadsUpDisplay(0, 0);
+		FollowGraphicItem healthBar = new FollowGraphicItem(getImage("images/healthbar2.png", false), 110, 60, s2.getStat("health"), s2);
+		HUD.addItem(healthBar);
 		
 		playfield.add(s1);
 		playfield.add(s2);
@@ -93,11 +101,15 @@ public class PlatformGame extends Game{
 	
 	public void render(Graphics2D arg0) {
 		playfield.render(arg0);
+		HUD.render(arg0);
+		
 	}
 	
 	public void update(long elapsedTime) {
 		eventManager.update(elapsedTime);
 		playfield.update(elapsedTime);
+		HUD.update(elapsedTime);
+		
 	}
 
 }

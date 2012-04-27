@@ -1,88 +1,68 @@
 package interactiveSprites;
 
 import game.Platformer;
-
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-
 import sprites.GeneralSprite;
+import sprites.StateSprite;
 import stateTransitions.ChangeStateTransition;
 import stateTransitions.StateTransition;
-
 import States.InteractiveSpriteStates.CarryingState;
 import States.InteractiveSpriteStates.TouchingState;
-
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionGroup;
 
+/**
+ * Creates a general framework for interactiveSprites. Provides basic functionality
+ * for carrying a dropping. More meaningful functionality should be defines in
+ * the subclasses extending this one 
+ * @author Sam
+ */
+
+
 @SuppressWarnings("serial")
-public abstract class InteractiveSprite extends GeneralSprite {
+public abstract class InteractiveSprite extends StateSprite {
 	
 	String path;
 	String myType;
+	Platformer myGame;
 	
-	public InteractiveSprite() {
+	/**
+	 * This constructor calls state transitions that enable the object to be carried. These states identify
+	 * when objects are colliding and moves them to carrying state once the appropriate key is pressed
+	 * @param game The game currently in use
+	 */
+	
+	public InteractiveSprite(Platformer game) {
+		myGame = game;
 		
 		StateTransition collide = new ChangeStateTransition(getStateManager(), "ISCollision", new TouchingState((this)));
 		collide.activate();
 		
 		StateTransition carrying = new ChangeStateTransition(getStateManager(),"toCarrying", new CarryingState(this));
 		carrying.activate();
-		
 	}
 	
 	/**
-	 * performs primary function of the interactive sprite type
-	 */
-	public abstract void primaryAction(CollisionGroup c, GeneralSprite s);
-	
-	public abstract void throwAction();
-	
-	/**
-	 * returns type of interactive sprite
+	 * @return The type of the interactiveSprite
 	 */
 	
 	public String getType() {
 		return myType;
 	}
 	
-	public ArrayList<String> writableObject() {
-		ArrayList<String> list= new ArrayList<String>();
-		list.add(this.getClass().toString());
-		list.add(path);
-		list.add(getX() +"");
-		list.add(getY() +"");
-		return list;
-	}
+	/**
+	 * Defines the primary action the should occur upon collision
+	 * @param c The CollisionGroup that contains the sprites
+	 * @param s The sprite whose attribute that you want to manipulate
+	 */
 	
-	public Sprite parse(ArrayList<String> o, Platformer game) {
-			Spring_IS s= new Spring_IS();
-			s.path=o.get(1);
-			s.setX( Double.parseDouble(o.get(2)));
-			s.setY( Double.parseDouble(o.get(3)));
-			File file= new File(path);
-			BufferedImage image;
-			try {
-				image = ImageIO.read(file);
-				s.setImage(image);		} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			return s;
-		
-	}
-
-		@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-			if (this.getClass().toString().equals(o.get(0))) {
-				return true;
-			}
-			return false;
-	}
+	public abstract void primaryAction(CollisionGroup c, GeneralSprite s);
+	
+	/**
+	 * Defines how an object should be released after being carried.
+	 */
+	
+	public abstract void throwAction();
+	
+	
 	
 
 }

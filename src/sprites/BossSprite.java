@@ -1,6 +1,7 @@
 package sprites;
 
 import game.Platformer;
+import hudDisplay.NumberStat;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class BossSprite extends GeneralSprite{
 		setAnimate(true);
 		setLoopAnim(true);
 		setID(8055);
+		this.createStat("health", new NumberStat(900));
 		
 		myHitboxes[0].add(new Hitbox(new CollisionRect(130, 110, 60, 70), "head"));
 		
@@ -86,6 +88,8 @@ public class BossSprite extends GeneralSprite{
 	
 	public void update(long elapsedTime){
 		super.update(elapsedTime);
+		if(this.getStat("health").getValue()<300)
+			t = new Timer(1000);
 		
 		if(t.action(elapsedTime)){
 			if(getStatus()==STANDING)

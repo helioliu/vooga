@@ -14,19 +14,30 @@ import States.InteractiveSpriteStates.CarryingState;
 import States.InteractiveSpriteStates.TouchingState;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionGroup;
+/**
+ * Specific implementation for Spring interactive sprite
+ * @author Sam
+ */
 
 @SuppressWarnings("serial")
 public class Spring_IS extends InteractiveSprite implements LevelEditable {
 	
-
-	public Spring_IS() {
+	/**
+	 * Creates the specific sprite in stationary state and identifies the type	
+	 * @param game The game currently in use
+	 */
+	public Spring_IS(Platformer game) {
 		
-		super();
+		super(game);
 		myType = "spring";
 		getStateManager().addState((new StationaryState(this)));
 		//myGame.INTERACTIVE_SPRITES.add(this);
 	}
-
+	
+	/**
+	 * Defines the primary action for the sprite upon collision. Different actions can be defined
+	 * for each potential side of collision
+	 */
 	public void primaryAction(CollisionGroup c, GeneralSprite s) {
 		
 		if(c.getCollisionSide()== c.BOTTOM_TOP_COLLISION) {
@@ -43,48 +54,11 @@ public class Spring_IS extends InteractiveSprite implements LevelEditable {
 		
 	}
 	
+	/**
+	 * Defines specific action once object is thrown
+	 */
 	public void throwAction(){
 		getStateManager().changeState(new StationaryState(this));
-	}
-	
-	
-	public String getType() {
-		return myType;
-	}
-	
-	public ArrayList<String> writableObject() {
-		ArrayList<String> list= new ArrayList<String>();
-		list.add(this.getClass().toString());
-		list.add(path);
-		list.add(getX() +"");
-		list.add(getY() +"");
-		return list;
-	}
-	
-	public Sprite parse(ArrayList<String> o, Platformer game) {
-			Spring_IS s= new Spring_IS();
-			s.path=o.get(1);
-			s.setX( Double.parseDouble(o.get(2)));
-			s.setY( Double.parseDouble(o.get(3)));
-			File file= new File(path);
-			BufferedImage image;
-			try {
-				image = ImageIO.read(file);
-				s.setImage(image);		} 
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			return s;
-		
-	}
-
-
-		@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-			if (this.getClass().toString().equals(o.get(0))) {
-				return true;
-			}
-			return false;
 	}
 	
 
