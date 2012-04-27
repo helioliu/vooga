@@ -9,6 +9,6 @@ public class WalkingLeftState extends State {
     
     public WalkingLeftState(GeneralSprite s){
         super(s);
-        addAction("walk left", new WalkLeft(s));
+        addAction("walk left" + s.hashCode(), new WalkLeft(s));
     }
 }

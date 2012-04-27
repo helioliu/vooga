@@ -13,8 +13,9 @@ public class HomingEnemy extends StateSprite {
     
     public HomingEnemy(GeneralSprite target){
         myTarget = target;
-        StateTransition one = new ChangeStateTransition(getStateManager(), "homing", new HomingState(this));
-        StateTransition two = new ChangeStateTransition(getStateManager(), "stationary", new StationaryState(this));
+        String tag = ""+this.hashCode();
+        StateTransition one = new ChangeStateTransition(getStateManager(), "homing" + tag, new HomingState(this));
+        StateTransition two = new ChangeStateTransition(getStateManager(), "stationary" + tag, new StationaryState(this));
         one.activate();
         two.activate();
     }
