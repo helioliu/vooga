@@ -9,12 +9,18 @@ import java.util.Queue;
 
 public class EventQueue {
 
+	private static final int HIGH_PRIORITY = 0;
+	private static final int MEDIUM_PRIORITY = 1;
+	private static final int NORMAL_PRIORITY = 2;
+	private int maximumQueueSize;
 	private List<LinkedList<Event>> queues;
+	private Map<String, ArrayList<EventListener>> myEventListeners;
 
 	public EventQueue() {
+		myEventListeners = new HashMap<String, ArrayList<EventListener>>();
 
 		queues = new ArrayList<LinkedList<Event>>();
-		
+
 		queues.add(new LinkedList<Event>());
 		queues.add(new LinkedList<Event>());
 		queues.add(new LinkedList<Event>());
@@ -27,7 +33,7 @@ public class EventQueue {
 	}
 
 	public void addEvent(Event event) {
-		queues.get(1).add(event);
+		queues.get(0).add(event);
 	}
 
 	public void addEvent(Event event, int queueNumber) {
@@ -50,15 +56,33 @@ public class EventQueue {
 		}
 		return false;
 	}
-	
-	public ArrayList<EventListener> getEventListeners(String eventName){
-		if(myEventListeners.get(eventName) == null){
+
+	public void registerEventListener(String e, EventListener listener) {
+		if (!myEventListeners.containsKey(e)) {
+			ArrayList<EventListener> list = new ArrayList<EventListener>();
+			list.add(listener);
+			myEventListeners.put(e, list);
+		} else {
+			ArrayList<EventListener> list = myEventListeners.get(e);
+			list.add(listener);
+			myEventListeners.put(e, list);
+		}
+	}
+
+	public void unregisterEventListener(String e, EventListener listener) {
+		ArrayList<EventListener> list = myEventListeners.get(e);
+		list.remove(listener);
+		myEventListeners.put(e, list);
+	}
+
+	public ArrayList<EventListener> getEventListeners(String eventName) {
+		if (myEventListeners.get(eventName) == null) {
 			return new ArrayList<EventListener>();
 		}
-		
+
 		return myEventListeners.get(eventName);
 	}
-	
+
 	public Object[] getNextEvents() {
 		ArrayList<Event> list = new ArrayList<Event>();
 		for (Queue<Event> q : queues) {
@@ -67,10 +91,10 @@ public class EventQueue {
 		return list.toArray();
 	}
 
-	public List<LinkedList<Event>> getQueues(){
+	public List<LinkedList<Event>> getQueues() {
 		return queues;
 	}
-	
+
 	public void swapQueues(int q1, int q2) {
 		queues.get(q2).addAll(0, queues.get(q1));
 		queues.get(q1).clear();
@@ -78,10 +102,10 @@ public class EventQueue {
 		queues.get(q2).clear();
 	}
 
-	public Map<String, ArrayList<EventListener>> getEventListenerMap(){
+	public Map<String, ArrayList<EventListener>> getEventListenerMap() {
 		return myEventListeners;
 	}
-	
+
 	// public void addEvent(Event e, int queueNumber){
 	// if(queueNumber >= queues.length-1){
 	// Queue<Event>[] temp = new Queue[queueNumber-queues.length+1];

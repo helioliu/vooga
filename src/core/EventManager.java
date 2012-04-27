@@ -8,15 +8,13 @@ import java.util.regex.Pattern;
 public class EventManager {
 
 	private Map<Condition, String> mapEventConditionToEvent;
-	private Map<String, ArrayList<EventListener>> myEventListeners;
 	private static EventManager myEventManager;
 	private EventQueue myEventQueue;
 	private long elapsedTime;
 
-	public EventManager() {
+	private EventManager() {
 		myEventManager = this;
 		myEventQueue = new EventQueue();
-		myEventListeners = new HashMap<String, ArrayList<EventListener>>();
 		mapEventConditionToEvent = new HashMap<Condition, String>();
 	}
 
@@ -32,22 +30,12 @@ public class EventManager {
 		mapEventConditionToEvent.remove(condition);
 	}
 
-	public void registerEventListener(String e, EventListener listener) {
-		if (!myEventListeners.containsKey(e)) {
-			ArrayList<EventListener> list = new ArrayList<EventListener>();
-			list.add(listener);
-			myEventListeners.put(e, list);
-		} else {
-			ArrayList<EventListener> list = myEventListeners.get(e);
-			list.add(listener);
-			myEventListeners.put(e, list);
-		}
+	public void registerEventListener(String eventName, EventListener listener) {
+		myEventQueue.registerEventListener(eventName, listener);
 	}
 
-	public void unregisterEventListener(String e, EventListener listener){
-		ArrayList<EventListener> list = myEventListeners.get(e);
-		list.remove(listener);
-		myEventListeners.put(e, list);
+	public void unregisterEventListener(String eventName, EventListener listener) {
+		myEventQueue.unregisterEventListener(eventName, listener);
 	}
 
 	public void sendEvent(String eventName) {
@@ -96,6 +84,7 @@ public class EventManager {
 			Event event = myEventQueue.removeEvent();
 			event.run();
 		}
-		myEventQueue.swapQueues(0, 1);
+
 	}
+
 }
