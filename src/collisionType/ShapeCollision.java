@@ -2,7 +2,6 @@ package collisionType;
 
 import collisions.CollisionRect;
 
-import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 
 /**
@@ -11,7 +10,11 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
  * provide methods related to defining collisionshapes of the type provided
  * in this project.  This does not override methods related to collisionshapes
  * provided by classes higher in the hierarchy because they are used in
- * CollisionManagers etc (which we are using).
+ * CollisionManagers etc (which we are using). CollisionManagers extending
+ * this are supposed to receive sprite groups that have sprites with hitboxes.
+ * These classes should check for normal sprite collisions, then check that
+ * the sprites have valid hitbox lists (not null), and break right after if
+ * they are not valid so we don't get cool exceptions.
  */
 public abstract class ShapeCollision extends AdvanceCollisionGroup{
 	

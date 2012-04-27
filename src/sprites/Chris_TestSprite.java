@@ -30,7 +30,7 @@ import States.WalkingRightState;
 
 import com.golden.gamedev.object.Sprite;
 
-public class Chris_TestSprite extends GeneralSprite{
+public class Chris_TestSprite extends StateSprite{
 	
 	
 	public Chris_TestSprite()
@@ -38,9 +38,9 @@ public class Chris_TestSprite extends GeneralSprite{
 		super();
 
 		State s1 = new InAirState(this);
-		setGravity(0.002);
+		setGravity(0.000); //.002
 		getStateManager().addState(s1);
-		StateTransition land = new ReplaceStateTransition(getStateManager(), "floor collide",  new OnLandState(this), s1);
+		StateTransition land = new ReplaceStateTransition(getStateManager(), "landed",  new OnLandState(this), s1);
 		StateTransition jump = new ReplaceStateTransition(getStateManager(), "jumped", s1, new OnLandState(this));
 		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new TeleJumpPowerup(this));
 		setMyStats(new HashMap<String, Stat>());	
@@ -49,7 +49,6 @@ public class Chris_TestSprite extends GeneralSprite{
 		powerup.activate();
 		
 	}
-	
 	
 
 	public void update(long elapsedTime)
@@ -60,39 +59,6 @@ public class Chris_TestSprite extends GeneralSprite{
 
 
 
-	public ArrayList<String> writableObject() {
-		ArrayList<String> list= new ArrayList<String>();
-		list.add(this.getClass().toString());
-		list.add(getPath());
-		list.add(getX() +"");
-		list.add(getY() +"");
-		return list;
-	}
 
-
-	public Sprite parse(ArrayList<String> o, Platformer game) {
-        Chris_TestSprite C= new Chris_TestSprite();
-        C.setMygame(game);
-		C.setInitPath(o.get(1));
-		C.setX( Double.parseDouble(o.get(2)));
-		C.setY( Double.parseDouble(o.get(3)));
-		File file= new File(getPath());
-		BufferedImage image;
-		try {
-			image = ImageIO.read(file);
-			C.setImage(image);		} 
-		catch (IOException e) {
-		}
-		getMygame().CHARACTER.add(C);
-		return C;
-	}
-
-
-	public Boolean isInstanceOf(ArrayList<String> o) {
-		if (this.getClass().toString().equals(o.get(0))) {
-			return true;
-		}
-		return false;
-	}
 
 }

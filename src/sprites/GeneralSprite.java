@@ -3,13 +3,18 @@ package sprites;
 import game.Platformer;
 import hudDisplay.Stat;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 
-import stateManagers.StateManager;
+import org.jdom2.Element;
+
+
 
 import collisions.Hitbox;
 
@@ -18,39 +23,22 @@ import com.golden.gamedev.object.sprite.AdvanceSprite;
 
 public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditable {
 
-
-	
-	private StateManager myStateManager;
 	private Map<String, Stat> myStats = new HashMap<String,Stat>();	
 	private List<Hitbox> myHitboxes;
 	private double myGravityValue; 
-	private Platformer mygame;
 	private String path;
-
-
+	private String group;
 	
-	
-	public GeneralSprite() {
-		super();
-		myStateManager = new StateManager(this);
-	}
-	public GeneralSprite(StateManager sm)
-	{
-		super();
-		myStateManager = sm;
-	}
 	
 	public GeneralSprite(BufferedImage i) {
 		super();
-		BufferedImage[] image = new BufferedImage[1];
-		image[0] = i;
-		setImages(image);
+		setImage(i);
 	}
 	
 	public GeneralSprite(BufferedImage[] i) {
 		super(i);
 	}
-	
+		
 	public GeneralSprite(BufferedImage i, double x, double y) {
 		super(x,y);
 		setImage(i);
@@ -63,7 +51,10 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	public GeneralSprite(double x, double y) {
 		super(x,y);
 	}
-	
+	public GeneralSprite()
+	{
+		super();
+	}
 	public void createStat(String name, Stat stat) {
 		getMyStats().put(name, stat);
 	}
@@ -104,45 +95,43 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		setImages(image);
 	}
 
-
-	public void setInitPath(String path) {
+	public void setGroup(String group) {
+		this.group=group;
+		
+	}
+	public void setPath(String path) {
 		this.path=path;
 		
 	}
-	protected StateManager getStateManager()
-	{
-		return myStateManager;
+	
+	public String getClassName() {
+		return this.getClass().toString();
 	}
 	
-	public String getPath()
-	{
-		return path;
-	}
-	public Platformer getMygame() {
-		return mygame;
-	}
-
-	public void setMygame(Platformer mygame) {
-		this.mygame = mygame;
-	}
-	
-	
-
-	@Override
-	public ArrayList<String> writableObject() {
-		// TODO Auto-generated method stub
-		return null;
+	public Element writeElement() {
+		Element sprite= new Element("sprite");
+		sprite.addContent(new Element("class").addContent(this.getClass().toString()));
+		sprite.addContent(new Element("image").addContent(path));
+		sprite.addContent(new Element("group").addContent(group));
+		sprite.addContent(new Element("x").addContent(getX() + ""));
+		sprite.addContent(new Element("y").addContent(getY()+ ""));		
+		return sprite;
 	}
 
-	@Override
-	public Sprite parse(ArrayList<String> o, Platformer myGame) {
-		// TODO Auto-generated method stub
-		return null;
+	public Sprite parse(Element e){
+		path=e.getChild("image").getText();
+		File file=new File(path);
+		BufferedImage image=null;
+		try {
+			image = ImageIO.read(file);
+		} catch (IOException e1) {
+			System.out.print("IOException");
+		}
+		setX(Integer.parseInt(e.getChildText("x")));
+		setY(Integer.parseInt(e.getChildText("y")));
+		setImage(image);
+		return this;
 	}
 
-	@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
