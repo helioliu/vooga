@@ -4,6 +4,7 @@ import hudDisplay.HeadsUpDisplay;
 import hudDisplay.NumberStat;
 import hudDisplay.TextItem;
 import input.InputManager;
+import interactiveSprites.InteractiveSpriteCollision;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -118,6 +119,7 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Jetpack"),new JetPackCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
 //    	myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Projectile"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("interactiveSprites.Spring_IS"), new InteractiveSpriteCollision());
 		
 
 		//make the end-of-level cutscene
