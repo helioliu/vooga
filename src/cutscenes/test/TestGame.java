@@ -132,15 +132,9 @@ public class TestGame extends Game{
         //Cutscene Code - from Mike
         EventAutomation automation = null;
         EventAutomation automation2 = null;
-        try {
-			automation = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript.script");
-			automation2 = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript2.script");
-		} catch (FileNotFoundException  e) {
-			e.printStackTrace();
-		}
-        catch(BadFileFormatException e){
-        	e.printStackTrace();
-        }
+		automation = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript.script");
+		automation2 = new CutsceneAutomation("src/cutscenes/test/testCutsceneScript2.script");
+
         
         automation.addTransition(new DelayedCondition(2000), automation2);
         myCutscene = new Cutscene(automation, "start-cutscene","end-cutscene");

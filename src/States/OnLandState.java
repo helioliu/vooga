@@ -19,7 +19,7 @@ public class OnLandState extends State{
 		addAction("Left", new MoveLeft(s));
 		addAction("floor collide", new StandAction(s));
 		//addAction("got hit", new DecrementBarAction((TestCharacterWithStates) s));
-		setMyGravityValue(0.002);
+		s.setGravity(0.002);
 	}
 	
 }

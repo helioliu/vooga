@@ -4,6 +4,7 @@ import sprites.GeneralSprite;
 import SpriteAction.JumpAction;
 import SpriteAction.MoveLeft;
 import SpriteAction.MoveRight;
+import SpriteAction.SlideDownAction;
 import SpriteAction.StandAction;
 
 public class InAirState extends State {
@@ -13,8 +14,9 @@ public class InAirState extends State {
 		addAction("Right", new MoveRight(s));
 		addAction("Left", new MoveLeft(s));
 		addAction("floor collide", new StandAction(s));
+		addAction("slide-down-pole", new SlideDownAction(s));
 		//addAction("got hit", new DecrementBarAction((TestCharacterWithStates) s));
-		setMyGravityValue(0.002);
+		s.setGravity(0.002);
 	}
 
 }

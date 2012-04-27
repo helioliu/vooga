@@ -6,8 +6,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import sprites.Chris_TestSprite;
+import sprites.Flag;
 import sprites.GeneralSprite;
+import collisionType.AbstractHitboxNonhitboxCollision;
+import collisions.Hitbox;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
@@ -17,14 +19,18 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
-import core.EventListener;
 import core.EventManager;
+import core.conditions.EventTriggeredCondition;
+import cutscenes.Cutscene;
+import cutscenes.CutsceneAutomation;
+import cutscenes.EventAutomation;
 import demogame.sprites.MainCharacter;
 
 public class DemoGame extends Game {
 	private String levelFileName;
 	private PlayField myPlayField;
 	private GeneralSprite mainChar;
+	private Cutscene levelOver;
 	private static final double gravity = .002;
 
 	public DemoGame (String levelFileName) {
@@ -37,6 +43,7 @@ public class DemoGame extends Game {
 	}
 	
 	public void initResources() {
+		setMaskColor(Color.WHITE);
 		myPlayField = new PlayField();
 //		myPlayField = new LevelBuilder(myPlayField, levelFileName).createLevel();
 		Background b = new ColorBackground(Color.LIGHT_GRAY, 2000, 480);
@@ -44,6 +51,13 @@ public class DemoGame extends Game {
 		
 		SpriteGroup platforms = makePlatforms();
 		myPlayField.addGroup(platforms);
+		GeneralSprite flag = new Flag(getImage("images/finalflag.png"), 1750, 106);
+		SpriteGroup fg = new SpriteGroup("flag");
+		fg.add(flag);
+		myPlayField.addGroup(fg);
+		
+		GeneralSprite castle = new GeneralSprite(getImage("images/castle.gif"), 1800, 300);
+		myPlayField.add(castle);
 		
 		mainChar = new MainCharacter();
 		mainChar.setImages(getImages("images/mariocharpng.png",3,2));
@@ -53,10 +67,19 @@ public class DemoGame extends Game {
 		chargroup.add(mainChar);
 		myPlayField.addGroup(chargroup);
 		
-		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
-//		EventManager.getEventManager().registerEventListener("test", new Test());
-//		EventManager.getEventManager().sendEvent("test");
 		
+		
+		
+		
+		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
+		myPlayField.addCollisionGroup(chargroup,fg,new FlagCollision());
+		
+		//make the end-of-level cutscene
+		EventAutomation aOne = new CutsceneAutomation();
+		aOne.addTimedAutomation(5, 10000, "slide-down-pole");
+		EventAutomation aTwo = new CutsceneAutomation("src/demogame/jump_off.script");
+		aOne.addTransition(new EventTriggeredCondition("floor collide"), aTwo);
+		levelOver = new Cutscene(aOne, "flag-hit", "end-level");
 	}
 	
 	private SpriteGroup makePlatforms() {
@@ -76,6 +99,7 @@ public class DemoGame extends Game {
 		EventManager.getEventManager().update(timeElapsed);
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
+		levelOver.update(timeElapsed);
 		
 	}
 
@@ -90,10 +114,29 @@ public class DemoGame extends Game {
         }
 	}
 	
-	class Test implements EventListener {
+	class FlagCollision extends AbstractHitboxNonhitboxCollision {
+		boolean hitYet;
 		
-		public void actionPerformed(Object object) {
-			System.out.println((String) object);
+		public FlagCollision () {
+			hitYet = false;
+			pixelPerfectCollision = true;
+		}
+
+		@Override
+		protected void spriteCollided(Sprite s1, Sprite s2) {
+			// Temporary!
+//			if(!hitYet) {
+//				EventManager.getEventManager().sendEvent("flag-hit");	
+//				hitYet = true;
+//			}			
+		}
+
+		@Override
+		protected void hitboxSpriteCollided(Sprite s1, Hitbox h1, Sprite s2) {
+			if(!hitYet) {
+				EventManager.getEventManager().sendEvent("flag-hit");	
+				hitYet = true;
+			}			
 		}
 		
 	}
