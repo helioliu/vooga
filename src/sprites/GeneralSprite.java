@@ -27,7 +27,6 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 	protected List<Hitbox> myHitboxes;
 	private double myGravityValue; 
 	private String path;
-	private String group;
 	
 	
 	public GeneralSprite(BufferedImage i) {
@@ -95,10 +94,7 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		setImages(image);
 	}
 
-	public void setGroup(String group) {
-		this.group=group;
-		
-	}
+
 	public void setPath(String path) {
 		this.path=path;
 		
@@ -112,7 +108,6 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		Element sprite= new Element("sprite");
 		sprite.addContent(new Element("class").addContent(this.getClass().toString()));
 		sprite.addContent(new Element("image").addContent(path));
-		sprite.addContent(new Element("group").addContent(group));
 		sprite.addContent(new Element("x").addContent(getX() + ""));
 		sprite.addContent(new Element("y").addContent(getY()+ ""));		
 		if (this.myStats==null ||this.myStats.isEmpty()) {
