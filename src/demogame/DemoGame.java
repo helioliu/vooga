@@ -76,8 +76,9 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField = new PlayField();
 		myPlayField = new PlayFieldBuilder(myPlayField, levelFileName).parseXML();
 
-		SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
-        mainChar= (MainCharacter) myPlayField.getGroup("sprites.MainCharacter").getSprites()[0];
+		SpriteGroup home = myPlayField.getGroup("HomingEnemy");
+        mainChar= (MainCharacter) myPlayField.getGroup("MainCharacter").getSprites()[0];
+//        System.out.println(mainChar);
              for (Sprite enemy : home.getSprites()) {
         	if (enemy== null)
         		break;
@@ -113,13 +114,13 @@ public class DemoGame extends Game implements EventListener {
         
         SpriteGroup Projectiles = new SpriteGroup("sprites.Projectile");
         myPlayField.addGroup(Projectiles);
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Platform"), new PlatformCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.Flag"),new FlagCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.LifeMushroom"),new MushroomCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Jetpack"),new JetPackCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
-//    	myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Projectile"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("interactiveSprites.Spring_IS"), new InteractiveSpriteCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("MainCharacter"), myPlayField.getGroup("Platform"), new PlatformCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("MainCharacter"),myPlayField.getGroup("Flag"),new FlagCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("MainCharacter"),myPlayField.getGroup("LifeMushroom"),new MushroomCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("MainCharacter"), myPlayField.getGroup("Jetpack"),new JetPackCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("MainCharacter"),myPlayField.getGroup("HomingEnemy"), new EnemyHitCollision());
+//    	myPlayField.addCollisionGroup(myPlayField.getGroup("Projectile"),myPlayField.getGroup("HomingEnemy"), new EnemyHitCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("MainCharacter"), myPlayField.getGroup("Spring_IS"), new InteractiveSpriteCollision());
 		
 
 
@@ -200,6 +201,7 @@ public class DemoGame extends Game implements EventListener {
 		}
 
 		public void collided(Sprite arg0, Sprite arg1) {
+			((GeneralSprite) arg0).changeStat("lives", -1);
 			EventManager.getEventManager().sendEvent("enemy hit");
 		}
 	}
@@ -228,7 +230,7 @@ public class DemoGame extends Game implements EventListener {
 	
 
 	private void flagHit() {
-		SpriteGroup enemies = myPlayField.getGroup("sprites.HomingEnemy");
+		SpriteGroup enemies = myPlayField.getGroup("HomingEnemy");
 		enemies.clear();
 
 	}

@@ -23,6 +23,7 @@ import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
+import com.golden.gamedev.object.background.ParallaxBackground;
 
 public class PlayFieldBuilder {
 	private String xmlpath;
@@ -47,7 +48,7 @@ public class PlayFieldBuilder {
 
 			Element backgroundchild = root.getChild("background");
 			String backgroundimagepath=backgroundchild.getText();
-			
+
 			//creating background image
 			BufferedImage myBackground=null;
 		    try {
@@ -57,6 +58,7 @@ public class PlayFieldBuilder {
 			} catch (IOException e1) {
 				System.out.print("no background");
 			}
+
 			playfield.setBackground(new ImageBackground(myBackground));
 
 			Set<String> groupnames =new HashSet<String>();
@@ -65,23 +67,24 @@ public class PlayFieldBuilder {
 			for (int i=0;i<allChildren.size();i++) {
 				Element sprite = (Element) allChildren.get(i);
 				String classname=sprite.getChild("class").getText();
-				classname=classname.split(" ")[1];
+//				classname=classname.split(" ")[1];
 				if (!groupnames.contains(classname)) {
 					playfield.addGroup(new SpriteGroup(classname));
 					groupnames.add(classname);
-		            System.out.println(classname);
+//		            System.out.println(classname);
 				}
 			}
 			
 			for (int i=0;i<allChildren.size();i++) {
 				Element sprite = (Element) allChildren.get(i);
 				String classname=sprite.getChild("class").getText();
-				classname=classname.split(" ")[1];
-				System.out.println("class name is: " +classname);
-				LevelEditable LE= (LevelEditable) Class.forName(classname).newInstance();
-				System.out.println("Level Editable is: "+LE.toString());
+				System.out.println(classname);
+//				classname=classname.split(" ")[1];
+//				System.out.println("class name is: " +classname);
+				LevelEditable LE= (LevelEditable) Class.forName("sprites."+classname).newInstance();
+//				System.out.println("Level Editable is: "+LE.toString());
 				Sprite s = LE.parse(sprite);
-				System.out.println("Sprite produced is: " +s.toString());
+//				System.out.println("Sprite produced is: " +s.toString());
 				playfield.getGroup(classname).add(s);
 
 			}
