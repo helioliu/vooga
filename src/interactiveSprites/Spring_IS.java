@@ -12,6 +12,8 @@ import stateTransitions.StateTransition;
 import States.StationaryState;
 import States.InteractiveSpriteStates.CarryingState;
 import States.InteractiveSpriteStates.TouchingState;
+
+import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionGroup;
 /**
@@ -26,9 +28,9 @@ public class Spring_IS extends InteractiveSprite implements LevelEditable {
 	 * Creates the specific sprite in stationary state and identifies the type	
 	 * @param game The game currently in use
 	 */
-	public Spring_IS(Platformer game) {
+	public Spring_IS() {
 		
-		super(game);
+		super();
 		myType = "spring";
 		getStateManager().addState((new StationaryState(this)));
 		//myGame.INTERACTIVE_SPRITES.add(this);
@@ -41,7 +43,7 @@ public class Spring_IS extends InteractiveSprite implements LevelEditable {
 	public void primaryAction(CollisionGroup c, GeneralSprite s) {
 		
 		if(c.getCollisionSide()== c.BOTTOM_TOP_COLLISION) {
-			s.setVerticalSpeed(-.25);			
+			s.setVerticalSpeed(-1.25);			
 		}
 		if(c.getCollisionSide()== c.TOP_BOTTOM_COLLISION) {
 			

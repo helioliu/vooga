@@ -62,13 +62,13 @@ public class DemoGame extends Game implements EventListener {
 		this.levelFileName = levelFileName;
 
 	}
-	
+
     protected void initEngine() {
 		super.initEngine();
 		this.bsInput = new InputManager(this.bsGraphics.getComponent());
-		
+
 	}
-	
+
 	public void initResources() {
 		EventManager.getEventManager().registerEventListener("end-game", this);
 		currentLevel = 1;
@@ -122,25 +122,27 @@ public class DemoGame extends Game implements EventListener {
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("interactiveSprites.Spring_IS"), new InteractiveSpriteCollision());
 		
 
+
+
 		//make the end-of-level cutscene
 		EventAutomation aOne = new CutsceneAutomation();
 		aOne.addTimedAutomation(5, 10000, "slide-down-pole");
 		EventAutomation aTwo = new CutsceneAutomation("src/demogame/jump_off.script");
 		aOne.addTransition(new EventTriggeredCondition("floor collide"), aTwo);
 		levelOver = new Cutscene(aOne, "flag-hit", "end-level");
-		
-		
+
+
 		EventAutomation a = new CutsceneAutomation("src/demogame/death.script");
 		death = new Cutscene(a, "enemy hit", "end-game");
 	}
-	
+
 
 	public void render(Graphics2D g) {
 		myPlayField.render(g);
 		HUD.render(g);
 	}
 
-	
+
 	public void update(long timeElapsed) {
 		EventManager.getEventManager().update(timeElapsed);
 		myPlayField.getBackground().setToCenter(mainChar);
@@ -154,8 +156,12 @@ public class DemoGame extends Game implements EventListener {
 			mainChar.Shoot(myPlayField.getGroup("sprites.Projectile"), getMouseX(), getMouseY());
 
 		}
+
+
+
+		}
 		
-	}
+	
 
 	class PlatformCollision extends BasicCollisionGroup {
 
@@ -187,7 +193,7 @@ public class DemoGame extends Game implements EventListener {
             s2.setActive(false);
         }
 	}
-	
+
 	class EnemyHitCollision extends BasicCollisionGroup {
 		public EnemyHitCollision() {
 			pixelPerfectCollision = true;
@@ -197,10 +203,10 @@ public class DemoGame extends Game implements EventListener {
 			EventManager.getEventManager().sendEvent("enemy hit");
 		}
 	}
-	
+
 	class FlagCollision extends AbstractHitboxNonhitboxCollision {
 		boolean hitYet;
-		
+
 		public FlagCollision () {
 			hitYet = false;
 			pixelPerfectCollision = true;
@@ -210,7 +216,7 @@ public class DemoGame extends Game implements EventListener {
 		protected void spriteCollided(Sprite s1, Sprite s2) {
 		}
 
-		
+
 		protected void hitboxSpriteCollided(Sprite s1, Hitbox h1, Sprite s2) {
 			flagHit();
 			if(!hitYet) {
@@ -218,19 +224,19 @@ public class DemoGame extends Game implements EventListener {
 				hitYet = true;
 			}
 		}
-		
 	}
 	
+
 	private void flagHit() {
 		SpriteGroup enemies = myPlayField.getGroup("sprites.HomingEnemy");
 		enemies.clear();
-		
+
 	}
 
 	public void actionPerformed(String object) {
 		System.out.println("do whatever we need to to end the game");
 		initResources();
 	}
-	
-	
+
+
 }

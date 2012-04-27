@@ -10,6 +10,8 @@ public class Flag extends GeneralSprite {
 	
 	public Flag() {
 		super();
+		myHitboxes = new ArrayList<Hitbox>();
+		myHitboxes.add(new Hitbox(new CollisionRect(50,0,290,4), "flag collision"));
 	}
 	public Flag(BufferedImage i, int x, int y) {
 		super(i,x,y);
