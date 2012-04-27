@@ -28,16 +28,15 @@ public class WalkingBadGuy extends StateSprite {
     public WalkingBadGuy(){
         super();
         enableShoot = false;
-        StateTransition one = new ChangeStateTransition(getStateManager(), "walk right", new WalkingRightState(this));
-        StateTransition two = new ChangeStateTransition(getStateManager(), "walk left", new WalkingLeftState(this));
-        StateTransition three = new ChangeStateTransition(getStateManager(), "walk up", new WalkingUpState(this));
-        StateTransition four = new ChangeStateTransition(getStateManager(), "walk down", new WalkingDownState(this));
-        StateTransition five = new ChangeStateTransition(getStateManager(), "stay stationary", new StationaryState(this));
+        int tag = this.hashCode();
+        StateTransition one = new ChangeStateTransition(getStateManager(), "walk right" + tag, new WalkingRightState(this));
+        StateTransition two = new ChangeStateTransition(getStateManager(), "walk left" + tag, new WalkingLeftState(this));
+        StateTransition three = new ChangeStateTransition(getStateManager(), "walk up" + tag, new WalkingUpState(this));
+        StateTransition four = new ChangeStateTransition(getStateManager(), "walk down" + tag, new WalkingDownState(this));
         one.activate();
         two.activate();
         three.activate();
         four.activate();
-        five.activate();
     }
    
 
@@ -62,7 +61,7 @@ public class WalkingBadGuy extends StateSprite {
     public void Shoot2(long elapsedTime, Timer fireRate, SpriteGroup Projectile, BufferedImage Image, Sprite s){
         HomingProjectile shot;
         if(enableShoot == true){
-            shot = new HomingProjectile(Image);
+            shot = new HomingProjectile(Image, s);
             shot.setLocation( this.getX()+15, this.getY()-5 );
             shot.fireAtTarget(s, elapsedTime);
             Projectile.add(shot);
