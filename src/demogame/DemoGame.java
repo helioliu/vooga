@@ -214,7 +214,7 @@ public class DemoGame extends Game implements EventListener {
 		timer.update(timeElapsed);
 		if(click())
 		{
-			mainChar.shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
+			((MainCharacter) mainChar).shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
 		}
 		
 		
