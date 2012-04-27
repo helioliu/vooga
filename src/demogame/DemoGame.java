@@ -273,7 +273,7 @@ public class DemoGame extends Game implements EventListener {
 		protected void spriteCollided(Sprite s1, Sprite s2) {
 		}
 
-		@Override
+		
 		protected void hitboxSpriteCollided(Sprite s1, Hitbox h1, Sprite s2) {
 			flagHit();
 			if(!hitYet) {
