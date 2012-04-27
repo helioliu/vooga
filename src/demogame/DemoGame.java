@@ -1,5 +1,8 @@
 package demogame;
 
+import hudDisplay.HeadsUpDisplay;
+import hudDisplay.NumberStat;
+import hudDisplay.TextItem;
 import input.InputManager;
 
 import java.awt.Color;
@@ -14,6 +17,7 @@ import collisions.Hitbox;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -35,6 +39,8 @@ public class DemoGame extends Game {
 	private GeneralSprite mainChar;
 	private Cutscene levelOver;
 	private static final double gravity = .002;
+	private NumberStat timer;
+	private HeadsUpDisplay HUD;
 
 	public DemoGame (String levelFileName) {
 		this.levelFileName = levelFileName;
@@ -63,6 +69,33 @@ public class DemoGame extends Game {
 		myPlayField.add(castle);
 		
 		mainChar = new MainCharacter();
+		
+		mainChar.createStat("lives", new NumberStat(5));
+		mainChar.createStat("score", new NumberStat(0));
+		mainChar.createStat("coinMult", new NumberStat(0));
+		
+		HUD = new HeadsUpDisplay(0, 0);
+		
+		GameFont BigFont = fontManager.getFont(getImages("images/Font.png", 8,12));
+		GameFont SmallFont = fontManager.getFont(getImages("images/SmallFont.png", 8,12));
+
+		TextItem lives = new TextItem(BigFont, 10, 10,mainChar.getStat("lives"),"Mario x ");
+		HUD.addItem(lives);
+		
+		timer = new NumberStat(0);
+		timer.incrementWithTimer(500, 1);
+		TextItem timerScore = new TextItem(BigFont, 300, 10, timer,"Time: ");
+		HUD.addItem(timerScore);
+		
+		TextItem CoinMult = new TextItem(SmallFont, 500, 10, mainChar.getStat("coinMult"),"Coins x ");
+		HUD.addItem(CoinMult);
+		
+		TextItem score = new TextItem(SmallFont, 500, 20,mainChar.getStat("score"));
+		HUD.addItem(score);
+		
+		
+		
+		
 		mainChar.setImages(getImages("images/mariocharpng.png",3,2));
 		mainChar.setLocation(200, 100);
 		mainChar.setAnimate(false);
@@ -71,7 +104,7 @@ public class DemoGame extends Game {
 		myPlayField.addGroup(chargroup);
 		
 		
-		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.jpeg"), 500, 300);
+		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.png"), 500, 300);
 		SpriteGroup mushrooms = new SpriteGroup("Mushrooms");
 		mushrooms.add(mushroom);
 		myPlayField.addGroup(mushrooms);
@@ -82,20 +115,20 @@ public class DemoGame extends Game {
 		myPlayField.addGroup(jetpacks);
 		//adding homing enemies
 		GeneralSprite enemy1 = new HomingEnemy(mainChar);
-        enemy1.setImage(getImage("images/boo.jpg"));
+        enemy1.setImage(getImage("images/boo.png"));
         enemy1.setLocation(300, 300);
         
         
         GeneralSprite enemy2 = new HomingEnemy(mainChar);
-        enemy2.setImage(getImage("images/boo.jpg"));
+        enemy2.setImage(getImage("images/boo.png"));
         enemy2.setLocation(700, 300);
         
         GeneralSprite enemy3 = new HomingEnemy(mainChar);
-        enemy3.setImage(getImage("images/boo.jpg"));
+        enemy3.setImage(getImage("images/boo.png"));
         enemy3.setLocation(1200, 300);
         
         GeneralSprite enemy4 = new HomingEnemy(mainChar);
-        enemy4.setImage(getImage("images/boo.jpg"));
+        enemy4.setImage(getImage("images/boo.png"));
         enemy4.setLocation(1700, 300); 
         
         SpriteGroup homing = new SpriteGroup("homing enemies");
@@ -141,6 +174,7 @@ public class DemoGame extends Game {
 
 	public void render(Graphics2D g) {
 		myPlayField.render(g);
+		HUD.render(g);
 	}
 
 	public void update(long timeElapsed) {
@@ -148,6 +182,8 @@ public class DemoGame extends Game {
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
 		levelOver.update(timeElapsed);
+		HUD.update(timeElapsed);
+		timer.update(timeElapsed);
 		
 //		SpriteGroup homing = myPlayField.getGroup("homing enemies");
 //		for (Sprite enemy : homing.getSprites()) {
