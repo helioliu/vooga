@@ -115,7 +115,16 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		sprite.addContent(new Element("group").addContent(group));
 		sprite.addContent(new Element("x").addContent(getX() + ""));
 		sprite.addContent(new Element("y").addContent(getY()+ ""));		
-		return sprite;
+		if (this.myStats==null ||this.myStats.isEmpty()) {
+			return sprite;
+		} else {
+			for (String key: myStats.keySet()) {
+				Element e= new Element(key).addContent(myStats.get(key).toString());
+				sprite.addContent(e);
+			}
+			return sprite;
+		}
+		
 	}
 
 	public Sprite parse(Element e){
@@ -127,8 +136,8 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		} catch (IOException e1) {
 			System.out.print("IOException");
 		}
-		setX(Integer.parseInt(e.getChildText("x")));
-		setY(Integer.parseInt(e.getChildText("y")));
+		setX(Double.parseDouble(e.getChildText("x")));
+		setY(Double.parseDouble(e.getChildText("y")));
 		setImage(image);
 		return this;
 	}

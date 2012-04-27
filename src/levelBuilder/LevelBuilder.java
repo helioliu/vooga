@@ -31,7 +31,7 @@ public class LevelBuilder {
 		this.xmlpath=xmlpath;
 	}
 	
-	public void createLevel() {
+	public PlayField createLevel() {
 	     	SAXBuilder builder = new SAXBuilder();
 	        File xmlFile = new File(xmlpath);
 					 
@@ -56,17 +56,21 @@ public class LevelBuilder {
 			}
 			playfield.setBackground(new ImageBackground(myBackground));
 
-			//
-			Element sprites= root.getChild("Sprites");
-			List allChildren = sprites.getChildren("sprite");
+			Element sprites= root.getChild("sprites");
+			List allChildren = sprites.getChildren();
 			for (int i=0;i<allChildren.size();i++) {
 				Element sprite = (Element) allChildren.get(i);
 				String classname=sprite.getChild("class").getText();
+				classname=classname.split(" ")[1];
 				LevelEditable LE= (LevelEditable) Class.forName(classname).newInstance();
 				Sprite s = LE.parse(sprite);
+				System.out.println(s.toString());
 				String groupname=sprite.getChild("group").getText();
+				System.out.println(groupname);
 				playfield.getGroup(groupname).add(s);
+
 			}
+		
 
 			} catch (JDOMException e) {
 				System.out.print("jdomexception");
@@ -80,7 +84,9 @@ public class LevelBuilder {
 				System.out.print("ClassNotFoundException");
 			}
 		
+			return playfield;
 	}
+	
 }
 
 
