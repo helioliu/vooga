@@ -12,7 +12,7 @@ public class Stationary extends SpriteAction {
         super(s);
     }
 
-    public void actionPerformed(Object event)
+    public void actionPerformed(String event)
     {
         mySprite.setMovement(0, 0);
 

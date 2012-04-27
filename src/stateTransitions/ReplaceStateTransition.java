@@ -9,11 +9,10 @@ public class ReplaceStateTransition extends StateTransition{
 		super(sm, event, stateToAdd);
 		toRemove = stateToRemove;
 
-		
 	}
 
 	@Override
-	public void actionPerformed(Object eventName) {
+	public void actionPerformed(String eventName) {
 		if(getMyStateManager().isCurrentlyActive(toRemove))
 		{
 			this.getMyStateManager().replaceState(getMyState(), toRemove);

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class EventManager implements EventManagerInterface {
+public class EventManager {
 
 	private Map<Condition, String> mapEventConditionToEvent;
 	private Map<String, ArrayList<EventListener>> myEventListeners;

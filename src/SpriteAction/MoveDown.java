@@ -8,7 +8,7 @@ public class MoveDown extends SpriteAction {
  
     }
 
-    public void actionPerformed(Object event)
+    public void actionPerformed(String event)
     {
         mySprite.move(0, 1); 
     }

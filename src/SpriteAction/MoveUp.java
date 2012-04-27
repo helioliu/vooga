@@ -9,7 +9,7 @@ public class MoveUp extends SpriteAction {
         super(s);
     }
 
-    public void actionPerformed(Object event)
+    public void actionPerformed(String event)
     {
         mySprite.move(0, -1); 
     }

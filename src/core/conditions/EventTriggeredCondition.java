@@ -12,7 +12,7 @@ public class EventTriggeredCondition implements Condition,EventListener{
 	}
 
 	@Override
-	public void actionPerformed(Object object) {
+	public void actionPerformed(String s) {
 		if (!active) {
 			active = true;
 		}

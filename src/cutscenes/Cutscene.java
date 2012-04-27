@@ -46,8 +46,7 @@ public class Cutscene implements EventListener {
 		InputManager.setActive(true);
 	}
 
-	public void actionPerformed(Object object) {
-		String event = (String) object;
+	public void actionPerformed(String event) {
 		if(event.equals(beginEvent) & !active) {
 			beginCutscene();
 		}

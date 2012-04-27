@@ -10,7 +10,7 @@ public class ThrowAction extends SpriteAction{
 
     }
     
-    public void actionPerformed(Object event){
+    public void actionPerformed(String event){
         ((InteractiveSprite) mySprite).throwAction();
     }
 

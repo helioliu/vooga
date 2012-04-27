@@ -36,7 +36,6 @@ public class CutsceneAutomation extends EventAutomation implements
 		}
 		for (Condition condition : myAutomations.keySet()) {
 			condition.reset();
-//			System.out.println(condition+" "+myAutomations.get(condition));
 			EventManager.getEventManager().addEventCondition(condition,
 					myAutomations.get(condition));
 		}
@@ -49,6 +48,6 @@ public class CutsceneAutomation extends EventAutomation implements
 	}
 	
 
-	public void actionPerformed(Object event) {
+	public void actionPerformed(String event) {
 	}
 }

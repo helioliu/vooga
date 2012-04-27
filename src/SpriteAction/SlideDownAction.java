@@ -8,7 +8,7 @@ public class SlideDownAction extends SpriteAction {
 		super(s);
 	}
 
-	public void actionPerformed(Object object) {
+	public void actionPerformed(String object) {
 		mySprite.setGravity(0);
 		mySprite.setVerticalSpeed(.055);
 	}

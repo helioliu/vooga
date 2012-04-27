@@ -15,7 +15,7 @@ public class Homing extends SpriteAction {
     }
 
     @Override
-    public void actionPerformed(Object object) {
+    public void actionPerformed(String object) {
         Sprite target = ((HomingEnemy)mySprite).getMyTarget();
         double x = target.getX()+(target.getWidth()/2);
         double y = target.getY()+(target.getHeight()/2);

@@ -8,7 +8,7 @@ public class WalkUp extends SpriteAction {
     }
 
     @Override
-    public void actionPerformed(Object object) {
+    public void actionPerformed(String object) {
         mySprite.setMovement(0.025, 0);
         
     }

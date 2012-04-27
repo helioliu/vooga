@@ -15,7 +15,7 @@ public class ChangeImage extends SpriteAction{
 		myImage = bi;		
 	}
 
-	public void actionPerformed(Object event) 
+	public void actionPerformed(String event) 
 	{
 		mySprite.setImage(myImage);
 	}

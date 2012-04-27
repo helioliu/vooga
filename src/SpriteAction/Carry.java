@@ -18,7 +18,7 @@ public class Carry extends SpriteAction{
 		
 	}
 
-	public void actionPerformed(Object event)
+	public void actionPerformed(String event)
 	{
 		EventManager.getEventManager().sendEvent("toCarrying");
 		

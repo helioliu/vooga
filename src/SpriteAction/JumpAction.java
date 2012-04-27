@@ -10,7 +10,7 @@ public class JumpAction extends SpriteAction{
 		
 	}
 
-	public void actionPerformed(Object event)
+	public void actionPerformed(String event)
 	{
 		mySprite.setGravity(.002);
 		mySprite.setVerticalSpeed(-0.75);

@@ -10,7 +10,7 @@ public class JetPack extends SpriteAction{
 		
 	}
 	
-	public void actionPerformed(Object event)
+	public void actionPerformed(String event)
 	{
 		mySprite.setVerticalSpeed(mySprite.getVerticalSpeed()-.05);
 
