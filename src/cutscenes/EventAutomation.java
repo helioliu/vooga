@@ -36,16 +36,24 @@ public abstract class EventAutomation {
 		myAutomations.put(condition, event);
 	}
 
-	protected static Map<Condition, String> parseAutomations(File f)
-			throws FileNotFoundException, BadFileFormatException {
+	protected static Map<Condition, String> parseAutomations(File f) {
 		Map<Condition, String> automations = new HashMap<Condition, String>();
-		Scanner s = new Scanner(f);
+		Scanner s = null;
+		try {
+			s = new Scanner(f);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		while (s.hasNext()) {
 			String l = s.nextLine();
 			String[] line = l.split(":");
 			if (!(line.length == 2 | line.length == 3))
-				throw new BadFileFormatException("Cannot read line: " + l);
+				try {
+					throw new BadFileFormatException("Cannot read line: " + l);
+				} catch (BadFileFormatException e) {
+					e.displayMessage();
+				}
 			String eventName = line[0];
 			Integer occursAt = Integer.parseInt(line[1]);
 			Condition current = null;
