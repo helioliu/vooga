@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import sprites.Flag;
 import sprites.GeneralSprite;
+import sprites.HomingEnemy;
 import collisionType.AbstractHitboxNonhitboxCollision;
 import collisions.Hitbox;
 
@@ -19,8 +20,10 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
+import core.Condition;
 import core.EventManager;
 import core.conditions.EventTriggeredCondition;
+import core.conditions.GetCloseCondition;
 import cutscenes.Cutscene;
 import cutscenes.CutsceneAutomation;
 import cutscenes.EventAutomation;
@@ -77,6 +80,40 @@ public class DemoGame extends Game {
 		SpriteGroup jetpacks = new SpriteGroup("Jetpacks");
 		jetpacks.add(jetpack);
 		myPlayField.addGroup(jetpacks);
+		//adding homing enemies
+		GeneralSprite enemy1 = new HomingEnemy(mainChar);
+        enemy1.setImage(getImage("images/boo.jpg"));
+        enemy1.setLocation(300, 300);
+        
+        
+        GeneralSprite enemy2 = new HomingEnemy(mainChar);
+        enemy2.setImage(getImage("images/boo.jpg"));
+        enemy2.setLocation(700, 300);
+        
+        GeneralSprite enemy3 = new HomingEnemy(mainChar);
+        enemy3.setImage(getImage("images/boo.jpg"));
+        enemy3.setLocation(1200, 300);
+        
+        GeneralSprite enemy4 = new HomingEnemy(mainChar);
+        enemy4.setImage(getImage("images/boo.jpg"));
+        enemy4.setLocation(1700, 300); 
+        
+        SpriteGroup homing = new SpriteGroup("homing enemies");
+        homing.add(enemy1);
+        homing.add(enemy2);
+        homing.add(enemy3);
+        homing.add(enemy4);
+        myPlayField.addGroup(homing);
+        
+        SpriteGroup home = myPlayField.getGroup("homing enemies");
+        for (Sprite enemy : home.getSprites()) {
+        	if (enemy== null)
+        		break;
+        	Condition near = new GetCloseCondition(enemy,mainChar,500,true);
+            Condition far = new GetCloseCondition(enemy,mainChar,500,false);
+            EventManager.getEventManager().addEventCondition(near, "homing"+enemy.hashCode());
+            EventManager.getEventManager().addEventCondition(far, "stationary"+enemy.hashCode());
+        }
 		
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
@@ -95,8 +132,9 @@ public class DemoGame extends Game {
 	private SpriteGroup makePlatforms() {
 		SpriteGroup s = new SpriteGroup("Platforms");
 		BufferedImage image = getImage("images/bricks1.png");
-		for(int i=0; i < 1980; i+=32) {
-			s.add(new GeneralSprite(image,i,400));
+		for(int i=0; i < 1990; i+=32) {
+			if(i<300 | i>400)
+				s.add(new GeneralSprite(image,i,400));
 		}
 		return s;
 	}
@@ -110,6 +148,19 @@ public class DemoGame extends Game {
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
 		levelOver.update(timeElapsed);
+		
+//		SpriteGroup homing = myPlayField.getGroup("homing enemies");
+//		for (Sprite enemy : homing.getSprites()) {
+//			if (enemy==null)
+//				break;
+////			System.out.println(enemy);
+//			if(enemy.getDistance(mainChar)>100){
+//	            EventManager.getEventManager().sendEvent("stationary"+enemy.hashCode());
+//	        }
+//	        else{
+//	            EventManager.getEventManager().sendEvent("homing"+enemy.hashCode());
+//	        }
+//		}
 		
 	}
 
@@ -154,20 +205,22 @@ public class DemoGame extends Game {
 
 		@Override
 		protected void spriteCollided(Sprite s1, Sprite s2) {
-			// Temporary!
-//			if(!hitYet) {
-//				EventManager.getEventManager().sendEvent("flag-hit");	
-//				hitYet = true;
-//			}			
 		}
 
 		@Override
 		protected void hitboxSpriteCollided(Sprite s1, Hitbox h1, Sprite s2) {
+			flagHit();
 			if(!hitYet) {
 				EventManager.getEventManager().sendEvent("flag-hit");	
 				hitYet = true;
-			}			
+			}
 		}
+		
+	}
+	
+	private void flagHit() {
+		SpriteGroup enemies = myPlayField.getGroup("homing enemies");
+		enemies.clear();
 		
 	}
 }
