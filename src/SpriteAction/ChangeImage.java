@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import States.BigMario;
 
 import sprites.GeneralSprite;
 import core.EventManager;
