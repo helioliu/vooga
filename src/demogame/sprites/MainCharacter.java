@@ -5,6 +5,7 @@ import hudDisplay.Stat;
 import java.util.HashMap;
 
 import States.InAirState;
+import States.JetPackPowerup;
 import States.OnLandState;
 import States.State;
 import States.TeleJumpPowerup;
@@ -22,7 +23,7 @@ public class MainCharacter extends StateSprite {
 		getStateManager().addState(s1);
 		StateTransition land = new ReplaceStateTransition(getStateManager(), "landed",  new OnLandState(this), s1);
 		StateTransition jump = new ReplaceStateTransition(getStateManager(), "jumped", s1, new OnLandState(this));
-		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new TeleJumpPowerup(this));
+		StateTransition powerup = new AddStateTransition(getStateManager(), "pwrup", new JetPackPowerup(this));
 		setMyStats(new HashMap<String, Stat>());
 		land.activate();
 		jump.activate();
