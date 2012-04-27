@@ -16,10 +16,4 @@ public interface Boxable{
 	 * in an unmodifiable way
 	 */
     public List<Hitbox> getHitboxes();
-    
-    /**
-     * Gets the default triggered event of the sprite for collisions
-     * exclusive of hitboxes
-     */
-    public String getDefaultEvent();
 }

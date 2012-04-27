@@ -8,27 +8,34 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import sprites.Bad_Guys;
+import sprites.GeneralSprite;
 import sprites.LevelEditable;
+import stateManagers.StateManager;
+import States.StationaryState;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.CollisionGroup;
 
-public class KoopaShell_IS extends Sprite implements LevelEditable, InteractiveSprite {
+public class KoopaShell_IS extends GeneralSprite implements LevelEditable, InteractiveSprite {
 	
 	Platformer myGame;
 	String path;
 	String myType;
+	StateManager myStateManager;
 	
 	public KoopaShell_IS(BufferedImage bufferedImage, int i, int j, Platformer game) {
 		super(bufferedImage, i, j);
 		myType = "koopa shell";
 		myGame = game;
+		myStateManager = new StateManager(this, new StationaryState(this));
+		myGame.INTERACTIVE_SPRITES.add(this);
 	}
 	
 	public KoopaShell_IS(){
 		
 	}
 	
-	public void primaryAction(CollisionGroup c) {
+	public void primaryAction(CollisionGroup c, GeneralSprite s) {
 		if(c.getCollisionSide()== c.BOTTOM_TOP_COLLISION) {
 			
 		}
@@ -41,11 +48,6 @@ public class KoopaShell_IS extends Sprite implements LevelEditable, InteractiveS
 		if(c.getCollisionSide()== c.RIGHT_LEFT_COLLISION) {
 			this.setHorizontalSpeed(.3);
 		}
-	}
-	
-	public void userMove() {
-		this.setX(myGame.CHARACTER.getActiveSprite().getX() + this.width);
-		this.setY(myGame.CHARACTER.getActiveSprite().getY());
 	}
 	
 	public String getType() {
@@ -77,7 +79,6 @@ public class KoopaShell_IS extends Sprite implements LevelEditable, InteractiveS
 			return k;
 		
 	}
-
 
 		@Override
 	public Boolean isInstanceOf(ArrayList<String> o) {

@@ -9,7 +9,7 @@ import com.golden.gamedev.object.SpriteGroup;
 
 public class AdvancedSpriteGroup<T extends Sprite> extends SpriteGroup{
 
-	private List<T> mySprites;
+	private ArrayList<T> mySprites;
 	
 	public AdvancedSpriteGroup(String groupName, T ... sprites){
 		super(groupName);

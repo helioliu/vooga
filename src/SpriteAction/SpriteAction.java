@@ -1,13 +1,15 @@
 package SpriteAction;
 
+import sprites.GeneralSprite;
+
 import com.golden.gamedev.object.Sprite;
 
 import core.EventListener;
 
 public abstract class SpriteAction implements EventListener{
-	protected Sprite mySprite;
+	protected GeneralSprite mySprite;
 	
-	public SpriteAction(Sprite s)
+	public SpriteAction(GeneralSprite s)
 	{
 		mySprite = s;
 		

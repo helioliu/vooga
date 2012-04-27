@@ -38,7 +38,7 @@ public class LevelManager implements VoogaManager
     private static final String DEFAULT_PLAYER_GROUP_NAME = "player";
 
     /** A map of level number to array of [levelFilePath, levelType ] */
-    private Map<Integer, String[]> myLevelOrderMap;
+    private LevelEditorMap<Integer, String[]> myLevelOrderMap;
 
     /** The total number of levels */
     private int myNumOfLevels;
@@ -296,7 +296,7 @@ public class LevelManager implements VoogaManager
      * @param the new level order mapping level number to the associated XML
      *            file path
      */
-    public void setLevelOrder (Map<Integer, String[]> levelOrder)
+    public void setLevelOrder (LevelEditorMap<Integer, String[]> levelOrder)
     {
         myLevelOrderMap = levelOrder;
     }

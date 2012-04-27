@@ -9,15 +9,9 @@ import java.util.Queue;
 
 public class EventQueue {
 
-	private static final int HIGH_PRIORITY = 0;
-	private static final int MEDIUM_PRIORITY = 1;
-	private static final int NORMAL_PRIORITY = 2;
-	private int maximumQueueSize;
 	private List<LinkedList<Event>> queues;
-	private Map<String, ArrayList<EventListener>> myEventListeners;
 
 	public EventQueue() {
-		myEventListeners = new HashMap<String, ArrayList<EventListener>>();
 
 		queues = new ArrayList<LinkedList<Event>>();
 		
@@ -33,7 +27,7 @@ public class EventQueue {
 	}
 
 	public void addEvent(Event event) {
-		queues.get(0).add(event);
+		queues.get(1).add(event);
 	}
 
 	public void addEvent(Event event, int queueNumber) {
@@ -55,24 +49,6 @@ public class EventQueue {
 			}
 		}
 		return false;
-	}
-
-	public void registerEventListener(String e, EventListener listener) {
-		if (!myEventListeners.containsKey(e)) {
-			ArrayList<EventListener> list = new ArrayList<EventListener>();
-			list.add(listener);
-			myEventListeners.put(e, list);
-		} else {
-			ArrayList<EventListener> list = myEventListeners.get(e);
-			list.add(listener);
-			myEventListeners.put(e, list);
-		}
-	}
-
-	public void unregisterEventListener(String e, EventListener listener){
-		ArrayList<EventListener> list = myEventListeners.get(e);
-		list.remove(listener);
-		myEventListeners.put(e, list);
 	}
 	
 	public ArrayList<EventListener> getEventListeners(String eventName){

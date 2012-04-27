@@ -1,5 +1,7 @@
 package interactiveSprites;
 
+import sprites.GeneralSprite;
+
 import com.golden.gamedev.object.collision.CollisionGroup;
 
 public interface InteractiveSprite {
@@ -7,22 +9,12 @@ public interface InteractiveSprite {
 	/**
 	 * performs primary function of the interactive sprite type
 	 */
-	public void primaryAction(CollisionGroup c);
-	
-	
-	
-	/**
-	 * sets position of the interactive sprite to follow user sprite. i.e. lets user move sprite
-	 */
-	public void userMove();
-	
-	
+	public void primaryAction(CollisionGroup c, GeneralSprite s);
 	
 	/**
 	 * returns type of interactive sprite
 	 */
 	public String getType();
-	
 	
 
 }

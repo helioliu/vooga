@@ -1,20 +1,16 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
-import core.EventManager;
-
+import sprites.GeneralSprite;
 
 public class WalkLeft extends SpriteAction{
 
-    public WalkLeft(Sprite s) {
+    public WalkLeft(GeneralSprite s) {
         super(s);
-        EventManager em = EventManager.getEventManager();
-        em.registerEventListener("walking left", this);
+
     }
     
     public void actionPerformed(Object event){
-        mySprite.setMovement(.025, 270);
+        mySprite.setMovement(.5, 270);
     }
 
 }

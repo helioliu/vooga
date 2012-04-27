@@ -1,13 +1,11 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
+import sprites.GeneralSprite;
 
 public class JumpAction extends SpriteAction{
 	
-	public JumpAction(Sprite s) {
+	public JumpAction(GeneralSprite s) {
 		super(s);
-		
 		
 	}
 

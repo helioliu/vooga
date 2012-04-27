@@ -2,7 +2,6 @@ package States;
 
 import sprites.GeneralSprite;
 import sprites.TestCharacterWithStates;
-import hudDisplay.DecrementBarAction;
 
 import com.golden.gamedev.object.Sprite;
 
@@ -10,23 +9,21 @@ import SpriteAction.JumpAction;
 import SpriteAction.MoveLeft;
 import SpriteAction.MoveRight;
 import SpriteAction.StandAction;
-import States.CharacterState;
 
-public class OnLandState extends CharacterState{
+public class OnLandState extends State{
 	
-	public OnLandState(Sprite s)
+	public OnLandState(GeneralSprite s)
 	{
 		super(s);
-		System.out.println(myMap);
-		myMap.put("up", new JumpAction(s));
-		myMap.put("right", new MoveRight(s));
-		myMap.put("left", new MoveLeft(s));
-		myMap.put("floor collide", new StandAction(s));
-		//myMap.put("got hit", new DecrementBarAction((TestCharacterWithStates) s));
-		myGravityValue = .05;
+		addAction("Up", new JumpAction(s));
+		addAction("Right", new MoveRight(s));
+		addAction("Left", new MoveLeft(s));
+		addAction("floor collide", new StandAction(s));
+		//addAction("got hit", new DecrementBarAction((TestCharacterWithStates) s));
+		setMyGravityValue(.002);
 	}
 	public void setGravity()
 	{
-		((GeneralSprite) mySprite).setGravity(myGravityValue);
+		((GeneralSprite) getSprite()).setGravity(getMyGravityValue());
 	}
 }

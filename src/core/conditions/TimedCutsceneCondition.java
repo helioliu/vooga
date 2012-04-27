@@ -2,10 +2,10 @@ package core.conditions;
 
 import com.golden.gamedev.object.Timer;
 
-import core.EventCondition;
+import core.Condition;
 import core.EventManager;
 
-public class TimedCutsceneCondition implements EventCondition {
+public class TimedCutsceneCondition implements Condition {
 	private boolean activated;
 	private Timer countdown;
 	private Timer duration;
@@ -17,7 +17,7 @@ public class TimedCutsceneCondition implements EventCondition {
 		durTime = dur;
 	}
 
-	public boolean conditionTrue(Object... o) {
+	public boolean conditionTrue() {
 		update();
 		return activated;
 	}
@@ -29,9 +29,16 @@ public class TimedCutsceneCondition implements EventCondition {
 			countdown.setActive(false);
 			duration = new Timer(durTime);
 		}
-		if(duration.action(timeElapsed)) {
-			activated = false;
-			duration.setActive(false);
+		if (activated) {
+			if(duration.action(timeElapsed)) {
+				activated = false;
+				duration.setActive(false);
+			}
 		}
+	}
+
+	@Override
+	public void reset() {
+		countdown.refresh();
 	}
 }

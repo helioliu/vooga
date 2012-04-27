@@ -34,9 +34,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.golden.gamedev.engine.BaseInput;
 
+import core.EventListener;
 import core.EventManager;
 
 /**
@@ -47,6 +50,8 @@ import core.EventManager;
  * separated from Golden T Game Engine (GTGE) Frame Work.
  */
 public class InputManager implements BaseInput {
+		private ArrayList<String> currentlyPressed = new ArrayList<String>();
+		private static boolean isActive = true;
         
         /** **************************** AWT COMPONENT ****************************** */
         
@@ -120,6 +125,8 @@ public class InputManager implements BaseInput {
                 // mouse motion event
                 this.mouseX = this.mouseY = this.lastMouseX = this.lastMouseY = this.mouseDX = this.mouseDY = 0;
                 
+                currentlyPressed.clear();
+                
                 try {
                         // centering mouse position
                         GraphicsDevice device = GraphicsEnvironment
@@ -157,9 +164,43 @@ public class InputManager implements BaseInput {
         
         /** ************************************************************************* */
         /** ************************** UPDATE FUNCTION ****************************** */
-        /** ************************************************************************* */
+        /** ************************************************************************* 
+         * @return */
+        
+        public static void setActive(boolean active) {
+        	isActive = active;
+        }
         
         public void update(long elapsedTime) {
+        	
+        		//Send events for all keys pressed, the list is set in the inner class.
+        		
+        		for (int i = 0 ; i < this.pressedKey; i++ ) {
+        			if(!currentlyPressed.contains(KeyEvent.getKeyText(keyPressed[i])))
+        				currentlyPressed.add(KeyEvent.getKeyText(keyPressed[i]));
+        		}
+        		if(isActive) {
+	        		for (String event : currentlyPressed) {
+	        			//For the fucking macs...
+	        			if (event.equals("W"))
+	        				event="Up";
+	        			if (event.equals("A"))
+	        				event="Left";
+	        			if (event.equals("S"))
+	        				event="Down";
+	        			if (event.equals("D"))
+	        				event="Right";
+	        			EventManager.getEventManager().sendEvent(event);
+	        		}
+        		}
+        		//	This line doesn't seem ideal, but it fixes a strange problem. I'll come back to it
+        		//  later if I need to.
+        		currentlyPressed.remove("Enter");
+        		for (int i = 0 ; i < this.releasedKey; i++ ) {
+        			currentlyPressed.remove(KeyEvent.getKeyText(keyReleased[i]));
+        		}
+        		
+        		
                 // key typed event
                 this.keyTyped.update(elapsedTime);
                 
@@ -414,11 +455,11 @@ public class InputManager implements BaseInput {
          */
         protected class InputListener implements KeyListener, MouseListener,
                 MouseMotionListener, FocusListener {
+        		
                 
                 // //////// KeyListener /////////////
                 public void keyPressed(KeyEvent e) {
-                	System.out.println(KeyEvent.getKeyText(e.getKeyCode()));
-                	EventManager.getEventManager().sendEvent(KeyEvent.getKeyText(e.getKeyCode()));
+//                	currentlyPressed.add(KeyEvent.getKeyText(e.getKeyCode()));
                         // we must check is the key is being pressed or not
                         // since this event is repetitively called when a key is pressed
                         if (!InputManager.this.keyDown[e.getKeyCode() & 0xFF]) {
@@ -435,6 +476,7 @@ public class InputManager implements BaseInput {
                 }
                 
                 public void keyReleased(KeyEvent e) {
+//                		currentlyPressed.remove(KeyEvent.getKeyText(e.getKeyCode()));
                         InputManager.this.keyDown[e.getKeyCode() & 0xFF] = false;
                         
                         InputManager.this.keyReleased[InputManager.this.releasedKey] = e
@@ -500,6 +542,7 @@ public class InputManager implements BaseInput {
                 public void focusLost(FocusEvent e) {
                         InputManager.this.refresh();
                 }
+
                 
         }
         

@@ -1,11 +1,15 @@
 package sprites;
 import java.util.HashMap;
+
+import States.StationaryState;
+
 import com.golden.gamedev.object.Sprite;
-import StateMachines.CharacterStateMachine;
-import StateMachines.StateMachine;
+
+
+import stateManagers.StateManager;
 
 public class TestCharacterWithStates extends Sprite{
-	private StateMachine stateManager;
+	private StateManager stateManager;
 	private HashMap<String, Integer> myScores;
 	
 	
@@ -14,7 +18,7 @@ public class TestCharacterWithStates extends Sprite{
 	{
 		super();
 		myScores = new HashMap<String, Integer>();
-		stateManager = new CharacterStateMachine(((Sprite) this));
+		stateManager = new StateManager(((Sprite) this), new StationaryState(this));
 		
 	}
 	

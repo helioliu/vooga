@@ -52,7 +52,7 @@ public class Bad_Guys extends GeneralSprite {
 	public ArrayList<String> writableObject() {
 		ArrayList<String> list= new ArrayList<String>();
 		list.add(this.getClass().toString());
-		list.add(path);
+		list.add(this.getPath());
 		list.add(getX() +"");
 		list.add(getY() +"");
 		return list;
@@ -62,11 +62,11 @@ public class Bad_Guys extends GeneralSprite {
 	public Sprite parse(ArrayList<String> o, Platformer game) {
         Bad_Guys BG= new Bad_Guys();
         BG.myGame=game;
-		BG.path= o.get(1);
+		BG.setInitPath(o.get(1));
 		BG.setX( Double.parseDouble(o.get(2)));
 		BG.setY( Double.parseDouble(o.get(3)));
 		BG.enableShoot= true;
-		File file= new File(BG.path);
+		File file= new File(this.getPath());
 		BufferedImage image;
 		try {
 			image = ImageIO.read(file);

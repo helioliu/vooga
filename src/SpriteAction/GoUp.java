@@ -1,11 +1,10 @@
 package SpriteAction;
 
-import com.golden.gamedev.object.Sprite;
-
+import sprites.GeneralSprite;
 import core.EventManager;
 
 public class GoUp extends SpriteAction {
-    public GoUp(Sprite s) {
+    public GoUp(GeneralSprite s) {
         super(s);
         EventManager em = EventManager.getEventManager();
         em.registerEventListener("going up", this);
@@ -14,6 +13,12 @@ public class GoUp extends SpriteAction {
     public void actionPerformed(String event)
     {
         mySprite.setMovement(0.025, 0); 
+    }
+
+    @Override
+    public void actionPerformed(Object object) {
+        // TODO Auto-generated method stub
+        
     }
     
 }

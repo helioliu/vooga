@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
+import sprites.BryanSprite;
 import sprites.TestCharacterWithStates;
 
 import com.golden.gamedev.object.Sprite;
@@ -16,7 +17,7 @@ public class BarItem implements GraphicItem {
 	private int myX;
 	private int myY;
 	private String myID;
-	private TestCharacterWithStates myAssociatedSprite;
+	private BryanSprite myAssociatedSprite;
 	public int myScore;
 
 	@Override
@@ -25,13 +26,13 @@ public class BarItem implements GraphicItem {
 	}
 
 	public BarItem(BufferedImage barImage, int x, int y, String name,
-			TestCharacterWithStates sprite) {
+			BryanSprite s1) {
 		barSprite = new Sprite(barImage, x, y);
 		myX = x;
 		myY = y;
 		myBarImage = barImage;
-		myAssociatedSprite = sprite;
-		myScore = sprite.getScore(name);
+		myAssociatedSprite = s1;
+		myScore = s1.getScore(name);
 		myID = name;
 
 	}
@@ -74,7 +75,7 @@ public class BarItem implements GraphicItem {
 	}
 
 	@Override
-	public TestCharacterWithStates getAssociatedSprite() {
+	public BryanSprite getAssociatedSprite() {
 		return myAssociatedSprite;
 	}
 

@@ -1,16 +1,16 @@
 package hudDisplay;
-import sprites.TestCharacterWithStates;
+import sprites.BryanSprite;
 
 import core.EventListener;
 
 
 
 public abstract class HUDAction implements EventListener{
-	protected TestCharacterWithStates mySprite;
+	protected HeadsUpDisplay hud;
 	
-	public HUDAction( TestCharacterWithStates s)
+	public HUDAction( HeadsUpDisplay hud)
 	{
-		mySprite = s;
+		this.hud = hud;
 		
 	}
 	

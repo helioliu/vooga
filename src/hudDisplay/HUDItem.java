@@ -1,17 +1,13 @@
 package hudDisplay;
 
-import sprites.TestCharacterWithStates;
+import java.awt.Graphics2D;
 
-import com.golden.gamedev.object.Sprite;
+public abstract class HUDItem {
 
-public interface HUDItem {
+	public Stat myStat;
 
-	public abstract void adjust(int newScore);
+	public abstract void render(Graphics2D g);
 
-	public abstract TestCharacterWithStates getAssociatedSprite();
-
-	public abstract int getItemScore();
-	
-	public abstract String getScoreID();
+	public abstract void update(int HUDX, int HUDY,long elapsedTime);
 
 }

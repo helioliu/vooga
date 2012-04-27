@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 
 public class EventManager implements EventManagerInterface {
 
-	private Map<EventCondition, String> mapEventConditionToEvent;
+	private Map<Condition, String> mapEventConditionToEvent;
+	private Map<String, ArrayList<EventListener>> myEventListeners;
 	private static EventManager myEventManager;
 	private EventQueue myEventQueue;
 	private long elapsedTime;
@@ -15,27 +16,38 @@ public class EventManager implements EventManagerInterface {
 	public EventManager() {
 		myEventManager = this;
 		myEventQueue = new EventQueue();
-		mapEventConditionToEvent = new HashMap<EventCondition, String>();
+		myEventListeners = new HashMap<String, ArrayList<EventListener>>();
+		mapEventConditionToEvent = new HashMap<Condition, String>();
 	}
 
 	public void addEvent(Event event) {
 		myEventQueue.addEvent(event);
 	}
 
-	public void addEventCondition(EventCondition cond, String eventName) {
+	public void addEventCondition(Condition cond, String eventName) {
 		mapEventConditionToEvent.put(cond, eventName);
 	}
 
-	public void removeEventCondition(EventCondition condition) {
+	public void removeEventCondition(Condition condition) {
 		mapEventConditionToEvent.remove(condition);
 	}
 
-	public void registerEventListener(String eventName, EventListener listener) {
-		myEventQueue.registerEventListener(eventName, listener);
+	public void registerEventListener(String e, EventListener listener) {
+		if (!myEventListeners.containsKey(e)) {
+			ArrayList<EventListener> list = new ArrayList<EventListener>();
+			list.add(listener);
+			myEventListeners.put(e, list);
+		} else {
+			ArrayList<EventListener> list = myEventListeners.get(e);
+			list.add(listener);
+			myEventListeners.put(e, list);
+		}
 	}
 
-	public void unregisterEventListener(String eventName, EventListener listener) {
-		myEventQueue.unregisterEventListener(eventName, listener);
+	public void unregisterEventListener(String e, EventListener listener){
+		ArrayList<EventListener> list = myEventListeners.get(e);
+		list.remove(listener);
+		myEventListeners.put(e, list);
 	}
 
 	public void sendEvent(String eventName) {
@@ -45,13 +57,20 @@ public class EventManager implements EventManagerInterface {
 	public void sendEvent(final String eventName, final Object obj) {
 		final ArrayList<EventListener> listeners = myEventQueue
 				.getEventListeners(eventName);
+
 		addEvent(new Event() {
 			@Override
 			public void run() {
-				for (EventListener l : listeners) {
-					l.actionPerformed(eventName);
+				for (int i = listeners.size() - 1; i >= 0; i--) {
+					listeners.get(i).actionPerformed(eventName);
 				}
 			}
+
+			@Override
+			public String toString() {
+				return eventName;
+			}
+
 		});
 	}
 
@@ -68,11 +87,16 @@ public class EventManager implements EventManagerInterface {
 
 	public void update(long timeElapsed) {
 		elapsedTime = timeElapsed;
+		for (Condition cond : mapEventConditionToEvent.keySet()) {
+			if (cond.conditionTrue()) {
+				sendEvent(mapEventConditionToEvent.get(cond));
+			}
+		}
 		while (myEventQueue.hasEvents()) {
 			Event event = myEventQueue.removeEvent();
 			event.run();
 		}
-		myEventQueue.swapQueues(0, 1);	
+		myEventQueue.swapQueues(0, 1);
 	}
 
 }

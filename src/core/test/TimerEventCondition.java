@@ -2,10 +2,10 @@ package core.test;
 
 import com.golden.gamedev.object.Timer;
 
-import core.EventCondition;
+import core.Condition;
 import core.EventManager;
 
-public class TimerEventCondition implements EventCondition{
+public class TimerEventCondition implements Condition{
 
 	private Timer timer;
 	private boolean timeOver;
