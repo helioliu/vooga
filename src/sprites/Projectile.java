@@ -2,7 +2,6 @@ package sprites;
 import java.awt.image.BufferedImage;
 import java.util.Vector;
 
-import levelEditor.*;
 import game.*;
 
 import com.golden.gamedev.object.Sprite;
@@ -44,7 +43,7 @@ public class Projectile extends GeneralSprite {
         }
         angleToTarget+=90;
         System.out.println(angleToTarget);
-         this.setMovement(.04, angleToTarget);
+         this.setMovement(.2, angleToTarget);
     }
 
   

@@ -45,14 +45,15 @@ public class MainCharacter extends StateSprite {
 		canFire=true;
 	}
 	
-	public void Shoot(SpriteGroup Projectile, int x, int y) {
+	public void Shoot(SpriteGroup group, int x, int y) {
         Projectile shot;
         if(canFire == true){
             try {
-				shot = new Projectile(ImageIO.read(new File("images/Blk-Rd-Bullet.gif")));
+				shot = new Projectile(ImageIO.read(new File("src/images/Blk-Rd-Bullet.png")));
 				shot.setLocation( this.getX()+15, this.getY()-5 );
 	            shot.fireAtTarget(x,y);
-	            Projectile.add(shot);
+	            System.out.println(shot);
+	            group.add(shot);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

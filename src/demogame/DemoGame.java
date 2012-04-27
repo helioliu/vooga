@@ -111,12 +111,13 @@ public class DemoGame extends Game implements EventListener {
 
         
         SpriteGroup Projectiles = new SpriteGroup("sprites.Projectile");
+        myPlayField.addGroup(Projectiles);
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Platform"), new PlatformCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.Flag"),new FlagCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.LifeMushroom"),new MushroomCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"), myPlayField.getGroup("sprites.Jetpack"),new JetPackCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.MainCharacter"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
-  //  	myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Projectile"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
+//    	myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Projectile"),myPlayField.getGroup("sprites.HomingEnemy"), new EnemyHitCollision());
 		
 
 		//make the end-of-level cutscene
@@ -148,7 +149,7 @@ public class DemoGame extends Game implements EventListener {
 		timer.update(timeElapsed);
 		if(click())
 		{
-	//		target.Shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
+			mainChar.Shoot(myPlayField.getGroup("sprites.Projectile"), getMouseX(), getMouseY());
 
 		}
 		

@@ -1,6 +1,5 @@
 package sprites;
 
-import game.Platformer;
 import hudDisplay.NumberStat;
 
 import java.awt.image.BufferedImage;
@@ -14,14 +13,11 @@ import stateTransitions.StateTransition;
 
 import States.Angry;
 import States.Calm;
-import States.StationaryState;
-import States.WalkingLeftState;
 
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
-import core.EventManager;
 
 import collisions.CollisionCirc;
 import collisions.CollisionRect;
