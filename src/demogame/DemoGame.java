@@ -18,6 +18,7 @@ import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
+import core.EventListener;
 import core.EventManager;
 import demogame.sprites.MainCharacter;
 
@@ -49,12 +50,12 @@ public class DemoGame extends Game {
 		mainChar.setImages(getImages("images/mariocharpng.png",3,2));
 		mainChar.setLocation(200, 100);
 		mainChar.setAnimate(false);
-		mainChar.setGravity(gravity);
 		SpriteGroup chargroup = new SpriteGroup("Character");
 		chargroup.add(mainChar);
 		myPlayField.addGroup(chargroup);
 		
 		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
+		EventManager.getEventManager().registerEventListener("floor collide", new Test());
 		
 	}
 	
@@ -83,8 +84,16 @@ public class DemoGame extends Game {
         }
 
         public void collided(Sprite s1, Sprite s2) {
-//        	System.out.println("floor collide");
             EventManager.getEventManager().sendEvent("floor collide");
         }
+	}
+	
+	class Test implements EventListener {
+		
+		public void actionPerformed(Object object) {
+			System.out.println((String) object);
+			
+		}
+		
 	}
 }
