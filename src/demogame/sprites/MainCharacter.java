@@ -45,7 +45,7 @@ public class MainCharacter extends StateSprite {
 		canFire = true;
 	}
 	
-	public void Shoot(SpriteGroup Projectile, int x, int y) {
+	public void shoot(SpriteGroup Projectile, int x, int y) {
         Projectile shot;
         if(canFire == true){
             try {
