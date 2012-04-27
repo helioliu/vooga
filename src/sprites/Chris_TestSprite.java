@@ -50,7 +50,6 @@ public class Chris_TestSprite extends StateSprite{
 		
 	}
 	
-	
 
 	public void update(long elapsedTime)
 	{
