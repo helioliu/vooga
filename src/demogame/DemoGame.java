@@ -41,7 +41,7 @@ import demogame.sprites.MainCharacter;
 public class DemoGame extends Game implements EventListener {
 	private String levelFileName;
 	private PlayField myPlayField;
-	private GeneralSprite mainChar;
+	private MainCharacter mainChar;
 	private Cutscene levelOver;
 	Cutscene death;
 	private static final double gravity = .002;
@@ -214,7 +214,7 @@ public class DemoGame extends Game implements EventListener {
 		timer.update(timeElapsed);
 		if(click())
 		{
-			mainChar.shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
+			((MainCharacter) mainChar).shoot(myPlayField.getGroup("Projectile"), getMouseX(), getMouseY());
 		}
 		
 		
