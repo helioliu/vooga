@@ -41,6 +41,7 @@ public class MainCharacter extends StateSprite {
 		land.activate();
 		jump.activate();
 		powerup.activate();
+		death.activate();
 		canFire=true;
 	}
 	

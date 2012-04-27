@@ -1,11 +1,7 @@
 package States;
 
-import core.EventManager;
-import cutscenes.Cutscene;
-import cutscenes.CutsceneAutomation;
-import cutscenes.EventAutomation;
-import SpriteAction.JumpAction;
 import sprites.GeneralSprite;
+import SpriteAction.JumpAction;
 
 public class DeadState extends State {
 
