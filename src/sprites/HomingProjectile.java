@@ -5,17 +5,31 @@ import java.awt.image.BufferedImage;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
+import core.EventManager;
+
 public class HomingProjectile extends Projectile {
     private boolean needsCorrection= true;
     private Timer homingUpdateSpeed = new Timer(400);
     private Sprite target;
 
+    
+
+
     public HomingProjectile(BufferedImage image, Sprite target) {
         super(image);
         this.target = target;
     }
+    
+    public HomingProjectile(BufferedImage image, Sprite target, double x, double y){
+        this(image, target);
+        setX(x);
+        setY(y);
+    }
 
-
+    public Sprite getTarget() {
+        return target;
+    }
+    
     public void fireAtTarget(Sprite target, long elapsedTime){
         goToTarget(target);
     }
@@ -38,9 +52,8 @@ public class HomingProjectile extends Projectile {
 
 
     public void goToTarget(Sprite target) {
-        double distance = Math.sqrt((Math.pow(target.getX()-this.getX(),2) + Math.pow(target.getY()-target.getY(), 2)));
+        double distance = Math.sqrt((Math.pow(target.getX()-this.getX(),2)) + (Math.pow(target.getY()-target.getY(), 2)));
         if(distance>100){
-            System.out.println("too far");
             this.setMovement(.09, 270);
         }
         else{

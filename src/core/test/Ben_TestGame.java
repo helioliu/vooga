@@ -63,7 +63,7 @@ public class Ben_TestGame extends Game{
         enemy1.setImage(getImage("images/thebadguy.png"));
         enemy1.setLocation(350,200);
         enemy1.setMovement(0.025, 90);
-        enemy2 = new HomingEnemy();
+        enemy2 = new HomingEnemy(s1);
         enemy2.setImage(getImage("images/boo.jpg"));
         enemy2.setLocation(500, 300);
 
@@ -136,19 +136,19 @@ public class Ben_TestGame extends Game{
     }
 
     public void update(long elapsedTime) {
-        //Cutscene Code
-        //      if(cutTimer.action(elapsedTime)) {
-        //          trigger.triggerCutscene();
-        //          cutTimer.setActive(false);
-        //      }
-        //      cutscene.update(elapsedTime);
-        ((WalkingBadGuy)enemy1).Shoot2(elapsedTime, EnemyFireRate, ENEMY_MISSLES, getImage("images/fireball.png"), s1 );
+
+       
+        if(enemy2.getDistance(s1)>100){
+            EventManager.getEventManager().sendEvent("stationary");
+            System.out.println("stay still");
+        }
+        else{
+            EventManager.getEventManager().sendEvent("homing");
+        }
+       // ((WalkingBadGuy)enemy1).Shoot2(elapsedTime, EnemyFireRate, ENEMY_MISSLES, getImage("images/fireball.png"), s1 );
 
         EventManager.getEventManager().update(elapsedTime);
         playfield.update(elapsedTime);
-        //      HUD.update(elapsedTime);
-
-
 
         if (keyDown(KeyEvent.VK_LEFT))
         {
