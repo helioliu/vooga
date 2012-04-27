@@ -5,19 +5,27 @@ import input.InputManager;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
-import platforms.Platform;
+import sprites.Character;
+import sprites.Chris_TestSprite;
+import sprites.GeneralSprite;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
+import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ColorBackground;
+import com.golden.gamedev.object.collision.BasicCollisionGroup;
+
+import core.EventManager;
+import demogame.sprites.MainCharacter;
 
 public class DemoGame extends Game {
 	private String levelFileName;
 	private PlayField myPlayField;
+	private GeneralSprite mainChar;
+	private static final double gravity = .002;
 
 	public DemoGame (String levelFileName) {
 		this.levelFileName = levelFileName;
@@ -30,11 +38,23 @@ public class DemoGame extends Game {
 	
 	public void initResources() {
 		myPlayField = new PlayField();
+//		myPlayField = new LevelBuilder(myPlayField, levelFileName).createLevel();
 		Background b = new ColorBackground(Color.LIGHT_GRAY, 2000, 480);
 		myPlayField.setBackground(b);
 		
 		SpriteGroup platforms = makePlatforms();
 		myPlayField.addGroup(platforms);
+		
+		mainChar = new MainCharacter();
+		mainChar.setImages(getImages("images/mariocharpng.png",3,2));
+		mainChar.setLocation(200, 100);
+		mainChar.setAnimate(false);
+		mainChar.setGravity(gravity);
+		SpriteGroup chargroup = new SpriteGroup("Character");
+		chargroup.add(mainChar);
+		myPlayField.addGroup(chargroup);
+		
+		myPlayField.addCollisionGroup(chargroup, platforms, new PlatformCollision());
 		
 	}
 	
@@ -42,11 +62,9 @@ public class DemoGame extends Game {
 		SpriteGroup s = new SpriteGroup("Platforms");
 		BufferedImage image = getImage("images/bricks1.png");
 		for(int i=0; i < 1980; i+=32) {
-			s.add(new Platform(image,i,400));
+			s.add(new GeneralSprite(image,i,400));
 		}
-		
 		return s;
-		
 	}
 
 	public void render(Graphics2D g) {
@@ -54,7 +72,19 @@ public class DemoGame extends Game {
 	}
 
 	public void update(long timeElapsed) {
-		
+		myPlayField.getBackground().setToCenter(mainChar);
+		myPlayField.update(timeElapsed);
 	}
 
+	class PlatformCollision extends BasicCollisionGroup {
+
+        public PlatformCollision() {
+            pixelPerfectCollision = true;
+        }
+
+        public void collided(Sprite s1, Sprite s2) {
+//        	System.out.println("floor collide");
+            EventManager.getEventManager().sendEvent("floor collide");
+        }
+	}
 }
