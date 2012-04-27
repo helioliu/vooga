@@ -7,6 +7,8 @@ import stateTransitions.ChangeStateTransition;
 import stateTransitions.StateTransition;
 import States.InteractiveSpriteStates.CarryingState;
 import States.InteractiveSpriteStates.TouchingState;
+
+import com.golden.gamedev.Game;
 import com.golden.gamedev.object.collision.CollisionGroup;
 
 /**
@@ -22,16 +24,14 @@ public abstract class InteractiveSprite extends StateSprite {
 	
 	String path;
 	String myType;
-	Platformer myGame;
+	Game myGame;
 	
 	/**
 	 * This constructor calls state transitions that enable the object to be carried. These states identify
 	 * when objects are colliding and moves them to carrying state once the appropriate key is pressed
-	 * @param game The game currently in use
 	 */
 	
-	public InteractiveSprite(Platformer game) {
-		myGame = game;
+	public InteractiveSprite() {
 		
 		StateTransition collide = new ChangeStateTransition(getStateManager(), "ISCollision", new TouchingState((this)));
 		collide.activate();

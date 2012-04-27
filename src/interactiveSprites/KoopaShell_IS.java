@@ -26,11 +26,10 @@ public class KoopaShell_IS extends InteractiveSprite implements LevelEditable {
 	 * Creates the specific sprite in stationary state and identifies the type
 	 * @param game The game currently in use
 	 */
-	public KoopaShell_IS(Platformer game) {
-		super(game);
+	public KoopaShell_IS() {
+		super();
 		myType = "koopa shell";
 		getStateManager().addState(new StationaryState(this));
-		//myGame.INTERACTIVE_SPRITES.add(this);
 	}
 	
 	/**
