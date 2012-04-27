@@ -20,7 +20,6 @@ public abstract class Enemy extends StateSprite {
 
     public Enemy() {
         super();
- 
         getStateManager().addState(new StationaryState(this));
     }
     public Enemy(BufferedImage[] images, double x, double y) {
