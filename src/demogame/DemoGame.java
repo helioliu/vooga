@@ -1,5 +1,8 @@
 package demogame;
 
+import hudDisplay.HeadsUpDisplay;
+import hudDisplay.NumberStat;
+import hudDisplay.TextItem;
 import input.InputManager;
 
 import java.awt.Color;
@@ -14,6 +17,7 @@ import collisions.Hitbox;
 
 import com.golden.gamedev.Game;
 import com.golden.gamedev.object.Background;
+import com.golden.gamedev.object.GameFont;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.SpriteGroup;
@@ -35,6 +39,8 @@ public class DemoGame extends Game {
 	private GeneralSprite mainChar;
 	private Cutscene levelOver;
 	private static final double gravity = .002;
+	private NumberStat timer;
+	private HeadsUpDisplay HUD;
 
 	public DemoGame (String levelFileName) {
 		this.levelFileName = levelFileName;
@@ -50,12 +56,9 @@ public class DemoGame extends Game {
 		myPlayField = new PlayField();
 		myPlayField = new LevelBuilder(myPlayField, levelFileName).createLevel();
 		
-		SpriteGroup platforms = makePlatforms();
 
 		
-
-		
-		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.jpeg"), 500, 300);
+		GeneralSprite mushroom = new GeneralSprite(getImage("images/mushroom.png"), 500, 300);
 		SpriteGroup mushrooms = new SpriteGroup("Mushrooms");
 		mushrooms.add(mushroom);
 		myPlayField.addGroup(mushrooms);
@@ -66,13 +69,6 @@ public class DemoGame extends Game {
 		myPlayField.addGroup(jetpacks);
 		//adding homing enemies
 
-        
-        SpriteGroup homing = new SpriteGroup("homing enemies");
-        homing.add(enemy1);
-        homing.add(enemy2);
-        homing.add(enemy3);
-        homing.add(enemy4);
-        myPlayField.addGroup(homing);
         
         SpriteGroup home = myPlayField.getGroup("sprites.HomingEnemy");
         for (Sprite enemy : home.getSprites()) {
@@ -85,9 +81,9 @@ public class DemoGame extends Game {
         }
 		
 		
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"), myPlayField.getGroup("sprites.GeneralSprite"), new PlatformCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"), myPlayField.getGroup(sprites.), new PlatformCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),myPlayField.getGroup("sprites.Flag"),new FlagCollision());
-		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),myPlayField.getGroup("sprites.GeneralSprite"),new MushroomCollision());
+		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),myPlayField.getGroup(sprites.),new MushroomCollision());
 		myPlayField.addCollisionGroup(myPlayField.getGroup("sprites.Character"),jetpacks,new JetPackCollision());
 		
 		//make the end-of-level cutscene
@@ -98,18 +94,11 @@ public class DemoGame extends Game {
 		levelOver = new Cutscene(aOne, "flag-hit", "end-level");
 	}
 	
-	private SpriteGroup makePlatforms() {
-		SpriteGroup s = new SpriteGroup("Platforms");
-		BufferedImage image = getImage("images/bricks1.png");
-		for(int i=0; i < 1990; i+=32) {
-			if(i<300 | i>400)
-				s.add(new GeneralSprite(image,i,400));
-		}
-		return s;
-	}
+
 
 	public void render(Graphics2D g) {
 		myPlayField.render(g);
+		HUD.render(g);
 	}
 
 	public void update(long timeElapsed) {
@@ -117,6 +106,8 @@ public class DemoGame extends Game {
 		myPlayField.getBackground().setToCenter(mainChar);
 		myPlayField.update(timeElapsed);
 		levelOver.update(timeElapsed);
+		HUD.update(timeElapsed);
+		timer.update(timeElapsed);
 		
 //		SpriteGroup homing = myPlayField.getGroup("homing enemies");
 //		for (Sprite enemy : homing.getSprites()) {

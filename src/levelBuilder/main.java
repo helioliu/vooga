@@ -32,6 +32,64 @@ public class main {
 	        s1.setLocation(300, 200);
 	        s1.setPath("src/images/mario1.png");
 	  
+			SpriteGroup platforms = makePlatforms();
+			<<<<<<< HEAD
+
+			=======
+					myPlayField.addGroup(platforms);
+					GeneralSprite flag = new Flag(getImage("images/finalflag.png"), 1750, 106);
+					SpriteGroup fg = new SpriteGroup("flag");
+					fg.add(flag);
+					myPlayField.addGroup(fg);
+					
+					GeneralSprite castle = new GeneralSprite(getImage("images/castle.gif"), 1800, 300);
+					myPlayField.add(castle);
+					
+					mainChar = new MainCharacter();
+					
+					mainChar.createStat("lives", new NumberStat(5));
+					mainChar.createStat("score", new NumberStat(0));
+					mainChar.createStat("coinMult", new NumberStat(0));
+					
+					HUD = new HeadsUpDisplay(0, 0);
+					
+					GameFont BigFont = fontManager.getFont(getImages("images/Font.png", 8,12));
+					GameFont SmallFont = fontManager.getFont(getImages("images/SmallFont.png", 8,12));
+
+					TextItem lives = new TextItem(BigFont, 10, 10,mainChar.getStat("lives"),"Mario x ");
+					HUD.addItem(lives);
+					
+					timer = new NumberStat(0);
+					timer.incrementWithTimer(500, 1);
+					TextItem timerScore = new TextItem(BigFont, 300, 10, timer,"Time: ");
+					HUD.addItem(timerScore);
+					
+					TextItem CoinMult = new TextItem(SmallFont, 500, 10, mainChar.getStat("coinMult"),"Coins x ");
+					HUD.addItem(CoinMult);
+					
+					TextItem score = new TextItem(SmallFont, 500, 20,mainChar.getStat("score"));
+					HUD.addItem(score);
+					
+					
+					
+					
+					mainChar.setImages(getImages("images/mariocharpng.png",3,2));
+					mainChar.setLocation(200, 100);
+					mainChar.setAnimate(false);
+					SpriteGroup chargroup = new SpriteGroup("Character");
+					chargroup.add(mainChar);
+					myPlayField.addGroup(chargroup);
+			>>>>>>> 30e243426cefa53af6b4729174c84817afd6d81e
+					
+			private SpriteGroup makePlatforms() {
+				SpriteGroup s = new SpriteGroup("Platforms");
+				BufferedImage image = getImage("images/bricks1.png");
+				for(int i=0; i < 1990; i+=32) {
+					if(i<300 | i>400)
+						s.add(new GeneralSprite(image,i,400));
+				}
+				return s;
+			}
 
 			GeneralSprite flag = new Flag(getImage("images/finalflag.png"), 1750, 106);
 			SpriteGroup fg = new SpriteGroup("flag");
