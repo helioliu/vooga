@@ -5,11 +5,11 @@ import SpriteAction.Stationary;
 
 import com.golden.gamedev.object.Sprite;
 
-public class StationaryState extends EnemyState{
+public class StationaryState extends State{
 
     public StationaryState(GeneralSprite s){
         super(s);
-        addAction("set stationary", new Stationary(s));
+        addAction("stationary", new Stationary(s));
     }
 
 }

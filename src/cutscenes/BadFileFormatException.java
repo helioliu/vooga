@@ -8,6 +8,6 @@ public class BadFileFormatException extends Exception {
 	}
 	
 	public void displayMessage() {
-		System.out.println(myMessage);
+		System.err.println(myMessage);
 	}
 }

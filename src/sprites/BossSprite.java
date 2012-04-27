@@ -4,70 +4,83 @@ import game.Platformer;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.awt.Graphics2D;
 
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.Timer;
 
+import collisions.CollisionCirc;
 import collisions.CollisionRect;
 import collisions.Hitbox;
 
 public class BossSprite extends GeneralSprite{
 	
+	//facing sides
 	public static final int LEFT = 0;
 	public static final int RIGHT = 1;
 	public static final int UP = 2;
 	public static final int DOWN = 3;
 	
+	//statuses
 	public static final int STANDING = 0;
-	public static final int MOVING = 1;
-	public static final int PUNCHING = 2;
-	public static final int CROUCHING = 3;
+	public static final int HAMMER1 = 1;
+	public static final int HAMMER2 = 2;
+	public static final int SICKLE1 = 3;
+	public static final int SICKLE2 = 4;
 	
 	private static final int[][] movingAnimation = 
-			new int[][] { {0}, {1}, {3},
-						  {2} };
+			new int[][] { {0}, {1}, {2}, {3}, {4} };
 	
 	private Timer t = new Timer (2000);
 	
-	private List<Hitbox> standingHitbox = new ArrayList<Hitbox>();
-	private List<Hitbox> movingHitbox = new ArrayList<Hitbox>();
-	private List<Hitbox> punchingHitbox = new ArrayList<Hitbox>();
-	private List<Hitbox> crouchingHitbox = new ArrayList<Hitbox>();
+	@SuppressWarnings("unchecked")
+	private List<Hitbox>[] myHitboxes = (ArrayList<Hitbox>[])new ArrayList[]
+			{new ArrayList<Hitbox>(), new ArrayList<Hitbox>(),new ArrayList<Hitbox>(),
+			new ArrayList<Hitbox>(),new ArrayList<Hitbox>()};
+	
+	private BufferedImage myProjectileImage;
+	private SpriteGroup myProjectileGroup;
+	private Sprite myTarget;
 	
 	
-	public BossSprite(BufferedImage[] images, int x, int y){
-		//BufferedImage[] derp = getImages(myPictures, 2, 2);
+	public BossSprite(BufferedImage[] images, double x, double y){
 		super(images, x, y);
-		setAnimation(PUNCHING, LEFT);
-		//getAnimationTimer().setDelay(500);
+		setAnimation(STANDING, LEFT);
 		setAnimate(true);
 		setLoopAnim(true);
-		setID(9999);
-		standingHitbox.add(new Hitbox(new CollisionRect(0, 0, 4*82, 92), "1"));
-		movingHitbox.add(new Hitbox(new CollisionRect(92, 0, 82*4, 92), "2"));
-		punchingHitbox.add(new Hitbox(new CollisionRect(92*2, 0, 4*82, 92), "3"));
-		crouchingHitbox.add(new Hitbox(new CollisionRect(92*3, 0, 4*82, 92), "4"));
-		Hitbox hb = new Hitbox(new CollisionRect(92*3+1, 0, 82*4, 2), "5");
-		standingHitbox.add(hb);
-		movingHitbox.add(hb);
-		punchingHitbox.add(hb);
-		crouchingHitbox.add(hb);
+		setID(8055);
+		
+		myHitboxes[0].add(new Hitbox(new CollisionRect(130, 110, 60, 70), "head"));
+		
+		myHitboxes[1].add(new Hitbox(new CollisionRect(133, 357-244, 60, 70), "head"));
+		myHitboxes[1].add(new Hitbox(new CollisionCirc(149, 303-244, 45), "hammer"));
+		myHitboxes[2].add(new Hitbox(new CollisionRect(129, 566-244*2, 55, 70), "head"));
+		myHitboxes[2].add(new Hitbox(new CollisionCirc(14, 586-244*2, 75), "hammer"));
+		
+		myHitboxes[3].add(new Hitbox(new CollisionRect(130, 844-244*3, 55, 66), "head"));
+		myHitboxes[3].add(new Hitbox(new CollisionRect(207, 824-244*3, 32, 63), "sickle"));
+		myHitboxes[4].add(new Hitbox(new CollisionRect(128, 1088-244*4, 56, 64), "head"));
+		myHitboxes[4].add(new Hitbox(new CollisionCirc(73, 1140-244*4, 40), "sickle"));
+	}
+	
+	public BossSprite(BufferedImage[] images, double x, double y, BufferedImage projImage, Sprite target, SpriteGroup projGroup){
+		this(images, x, y);
+		myProjectileImage = projImage;
+		myTarget = target;
+		myProjectileGroup = projGroup;
+
 	}
 	
 	public List<Hitbox> getHitboxes() {
-		switch(getStatus()){
-		case 0:
-			return standingHitbox;
-		case 1:
-			return movingHitbox;
-		case 2:
-			return punchingHitbox;
-		case 3:
-			return crouchingHitbox;
-		}
-		return new ArrayList<Hitbox>();
+		return Collections.unmodifiableList(myHitboxes[getStatus()]);
+	}
+	
+	private void shoot(){
+		System.out.println("pewpewpew");
+		myProjectileGroup.add(new HomingProjectile(myProjectileImage, myTarget, getX()+30, getY()+160));
 	}
 	
 	
@@ -76,15 +89,18 @@ public class BossSprite extends GeneralSprite{
 		
 		if(t.action(elapsedTime)){
 			if(getStatus()==STANDING)
-				setStatus(MOVING);
+				setStatus(HAMMER1);
 			else
-			if(getStatus()==MOVING)
-				setStatus(PUNCHING);
+			if(getStatus()==HAMMER1)
+				setStatus(HAMMER2);
 			else
-			if(getStatus()==PUNCHING)
-				setStatus(CROUCHING);
+			if(getStatus()==HAMMER2)
+				setStatus(SICKLE1);
 			else
-			if(getStatus()==CROUCHING)
+			if(getStatus()==SICKLE1)
+				setStatus(SICKLE2);
+			else
+			if(getStatus()==SICKLE2)
 				setStatus(STANDING);
 			
 			
@@ -92,8 +108,10 @@ public class BossSprite extends GeneralSprite{
 		
 	}
 	
-	protected void animationChanged(int oldStat, int oldDir, int status, int direction){
+	protected void animationChanged(int oldStatus, int oldDir, int status, int direction){
 		setAnimationFrame(movingAnimation[getStatus()]);
+		if(oldStatus==SICKLE1 && status==SICKLE2)
+			shoot();
 	}
 	
 	public void render(Graphics2D g){
@@ -101,22 +119,7 @@ public class BossSprite extends GeneralSprite{
 			super.render(g);
 	}
 
-	@Override
-	public ArrayList<String> writableObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Sprite parse(ArrayList<String> o, Platformer myGame) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public Boolean isInstanceOf(ArrayList<String> o) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 }

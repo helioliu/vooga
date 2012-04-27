@@ -4,7 +4,7 @@ import sprites.GeneralSprite;
 import SpriteAction.WalkUp;
 
 
-public class WalkingUpState extends EnemyState {
+public class WalkingUpState extends State {
     
     public WalkingUpState(GeneralSprite s){
         super(s);

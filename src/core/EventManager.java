@@ -98,5 +98,4 @@ public class EventManager implements EventManagerInterface {
 		}
 		myEventQueue.swapQueues(0, 1);
 	}
-
 }

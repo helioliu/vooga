@@ -18,28 +18,27 @@ public class CutsceneAutomation extends EventAutomation implements
 		EventListener {
 	private File automationScript;
 
-	public CutsceneAutomation(String filepath) throws FileNotFoundException,
-			BadFileFormatException {
+	public CutsceneAutomation(String filepath) {
 		automationScript = new File(filepath);
 		myAutomations = parseAutomations(automationScript);
+		myTransitions = new HashMap<Condition, EventAutomation>();
+	}
+	
+	public CutsceneAutomation() {
+		myAutomations = new HashMap<Condition, String>();
 		myTransitions = new HashMap<Condition, EventAutomation>();
 	}
 
 
 	public void beginAutomation() {
-		try{
-			myAutomations = parseAutomations(automationScript);
-			for (Condition condition : myTransitions.keySet()) {
-				condition.reset();
-			}
-			for (Condition condition : myAutomations.keySet()) {
-				condition.reset();
-//				System.out.println(condition+" "+myAutomations.get(condition));
-				EventManager.getEventManager().addEventCondition(condition,
-						myAutomations.get(condition));
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
+		for (Condition condition : myTransitions.keySet()) {
+			condition.reset();
+		}
+		for (Condition condition : myAutomations.keySet()) {
+			condition.reset();
+//			System.out.println(condition+" "+myAutomations.get(condition));
+			EventManager.getEventManager().addEventCondition(condition,
+					myAutomations.get(condition));
 		}
 	}
 

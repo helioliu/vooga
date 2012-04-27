@@ -34,8 +34,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
 import com.golden.gamedev.engine.BaseInput;
 
@@ -51,6 +57,7 @@ import core.EventManager;
  */
 public class InputManager implements BaseInput {
 		private ArrayList<String> currentlyPressed = new ArrayList<String>();
+		private ResourceBundle myLabels;
 		private static boolean isActive = true;
         
         /** **************************** AWT COMPONENT ****************************** */
@@ -126,6 +133,15 @@ public class InputManager implements BaseInput {
                 this.mouseX = this.mouseY = this.lastMouseX = this.lastMouseY = this.mouseDX = this.mouseDY = 0;
                 
                 currentlyPressed.clear();
+                try {
+					myLabels = new PropertyResourceBundle(new FileInputStream("input.properties"));
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 
                 try {
                         // centering mouse position
@@ -176,20 +192,23 @@ public class InputManager implements BaseInput {
         		//Send events for all keys pressed, the list is set in the inner class.
         		
         		for (int i = 0 ; i < this.pressedKey; i++ ) {
+//        			System.out.println(keyPressed[i]);
         			if(!currentlyPressed.contains(KeyEvent.getKeyText(keyPressed[i])))
-        				currentlyPressed.add(KeyEvent.getKeyText(keyPressed[i]));
+        				currentlyPressed.add(myLabels.getString(Integer.toString(keyPressed[i])));
         		}
+        		
         		if(isActive) {
 	        		for (String event : currentlyPressed) {
 	        			//For the fucking macs...
-	        			if (event.equals("W"))
-	        				event="Up";
-	        			if (event.equals("A"))
-	        				event="Left";
-	        			if (event.equals("S"))
-	        				event="Down";
-	        			if (event.equals("D"))
-	        				event="Right";
+//	        			if (event.equals("W"))
+//	        				event="Up";
+//	        			if (event.equals("A"))
+//	        				event="Left";
+//	        			if (event.equals("S"))
+//	        				event="Down";
+//	        			if (event.equals("D"))
+//	        				event="Right";
+//	        			System.out.println(event);
 	        			EventManager.getEventManager().sendEvent(event);
 	        		}
         		}
@@ -197,7 +216,7 @@ public class InputManager implements BaseInput {
         		//  later if I need to.
         		currentlyPressed.remove("Enter");
         		for (int i = 0 ; i < this.releasedKey; i++ ) {
-        			currentlyPressed.remove(KeyEvent.getKeyText(keyReleased[i]));
+        			currentlyPressed.remove(myLabels.getString(Integer.toString(keyPressed[i])));
         		}
         		
         		

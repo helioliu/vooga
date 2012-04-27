@@ -18,9 +18,8 @@ import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.Timer;
 
 
-public class Character extends GeneralSprite {
+public class Character extends StateSprite {
 
-    Platformer game;
 
     public boolean jumping=true;
     private Timer jumpTimer;
@@ -28,7 +27,7 @@ public class Character extends GeneralSprite {
     public Character() {
         super();
         jumpTimer = new Timer(150);
-        setStateManager(new StateManager(((Sprite) this), new StationaryState(this)));
+        getStateManager().addState(new StationaryState(this));
         setGravity(0.002);
     }
 
@@ -92,40 +91,5 @@ public class Character extends GeneralSprite {
     //		addVerticalSpeed(elapsedTime, 0.002, 0.5);
     //	}
 
-    public ArrayList<String> writableObject() {
-        ArrayList<String> list= new ArrayList<String>();
-        list.add(this.getClass().toString());
-        list.add(getPath());
-        list.add(getX() +"");
-        list.add(getY() +"");
-        return list;
-    }
-
-
-    public Sprite parse(ArrayList<String> o, Platformer game) {
-        Character C= new Character();
-        C.game=game;
-        C.setInitPath(o.get(1));
-        C.setX( Double.parseDouble(o.get(2)));
-        C.setY( Double.parseDouble(o.get(3)));
-        C.jumping=true;
-        File file= new File(C.getPath());
-        BufferedImage image;
-        try {
-            image = ImageIO.read(file);
-            C.setImage(image);		} 
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        game.CHARACTER.add(C);
-        return C;
-    }
-
-
-    public Boolean isInstanceOf(ArrayList<String> o) {
-        if (this.getClass().toString().equals(o.get(0))) {
-            return true;
-        }
-        return false;
-    }
+  
 }

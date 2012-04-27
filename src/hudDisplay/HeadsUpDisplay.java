@@ -9,14 +9,16 @@ public class HeadsUpDisplay {
 
 	private int myX;
 	private int myY;
+	private boolean HUDactive;
 	private Sprite myHUDSprite;
 	private HashSet<HUDItem> myHUDItems;
-	
+
 	public HeadsUpDisplay(BufferedImage HUDImage, int x, int y) {
 		myX = x;
 		myY = y;
 		myHUDSprite = new Sprite(HUDImage, myX, myY);
-		myHUDItems = new HashSet<HUDItem>();				
+		myHUDItems = new HashSet<HUDItem>();
+		HUDactive = true;
 	}
 
 	public HeadsUpDisplay(int x, int y) {
@@ -24,23 +26,29 @@ public class HeadsUpDisplay {
 		myY = y;
 		myHUDItems = new HashSet<HUDItem>();
 	}
-	
-	public void addGraphicItem(HUDItem item) {
-		myHUDItems.add(item);
+
+	public void activeHUD(boolean onOff) {
+		for (HUDItem hudItems : myHUDItems) {
+			hudItems.activateItem(onOff);
+		}
+		
+		HUDactive = onOff;
+		
 	}
-	
-	public void addTextItem(HUDItem item) {
+
+	public void addItem(HUDItem item) {
 		myHUDItems.add(item);
 	}
 
-	public HashSet<HUDItem> getHUDItems(){
+	public HashSet<HUDItem> getHUDItems() {
 		return myHUDItems;
 	}
-	
-	public void render(Graphics2D g) {
 
-		myHUDSprite.render(g);
+	public void render(Graphics2D g) {
 		
+		if(HUDactive)
+		myHUDSprite.render(g);
+
 		for (HUDItem item : myHUDItems) {
 
 			item.render(g);
@@ -49,14 +57,14 @@ public class HeadsUpDisplay {
 	}
 
 	public void update(long elapsedTime) {
-		
+
 		myHUDSprite.update(elapsedTime);
-		
+
 		for (HUDItem item : myHUDItems) {
 
-			item.update(myX,myY,elapsedTime);
+			item.update(myX, myY, elapsedTime);
 
 		}
-		
+
 	}
 }

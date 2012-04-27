@@ -11,17 +11,20 @@ public class TextItem extends HUDItem{
 	private Stat myStat;
 	private int HUDX;
 	private int HUDY;
+	private boolean HUDactive;
 
 	public TextItem(GameFont scoreFont, int X, int Y, Stat stat) {
 		myScoreFont = scoreFont;
 		myStat = stat;
+		HUDactive = true;
 		myX = X;
 		myY = Y;
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		myScoreFont.drawString(g, String.valueOf(myStat.getMyValue()), HUDX + myX, HUDY + myY);
+		if(isHUDactive())
+		getMyScoreFont().drawString(g, String.valueOf((int) getMyStat().getMyValue()), getHUDX() + getMyX(), getHUDY() + getMyY());
 		
 	}
 
@@ -31,5 +34,37 @@ public class TextItem extends HUDItem{
 		this.HUDY = HUDY;
 	}
 
+	@Override
+	public void activateItem(boolean onOff) {
+		HUDactive = onOff;
+	}
+
+	public boolean isHUDactive() {
+		return HUDactive;
+	}
+
+	public GameFont getMyScoreFont() {
+		return myScoreFont;
+	}
+
+	public Stat getMyStat() {
+		return myStat;
+	}
+
+	public int getHUDX() {
+		return HUDX;
+	}
+
+	public int getMyX() {
+		return myX;
+	}
+
+	public int getHUDY() {
+		return HUDY;
+	}
+
+	public int getMyY() {
+		return myY;
+	}
 
 }

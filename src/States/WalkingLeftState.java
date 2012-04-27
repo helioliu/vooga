@@ -5,7 +5,7 @@ import SpriteAction.WalkLeft;
 
 
 
-public class WalkingLeftState extends EnemyState {
+public class WalkingLeftState extends State {
     
     public WalkingLeftState(GeneralSprite s){
         super(s);

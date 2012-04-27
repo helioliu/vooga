@@ -14,13 +14,6 @@ public class Hitbox {
    private CollisionShape myShape;
    
    /**
-    * The event triggered by collisions with this hitbox
-    * This will be removed in the future once the event system
-    * is finalized, and events will be generated upon collisions
-    */
-   private String myEvent;
-   
-   /**
     * The identifier of the hitbox (intuitively the name of the
     * region the hitbox covers, such as "eyes" or "chocolate")
     * Or like, it can just be a number corresponding to its index
@@ -28,9 +21,8 @@ public class Hitbox {
     */
    private String myID;
    
-   public Hitbox(CollisionShape shape, String group, String ID){
+   public Hitbox(CollisionShape shape, String ID){
        myShape = shape;
-       myEvent = group;
        myID = ID;
    }
    
@@ -40,25 +32,12 @@ public class Hitbox {
    public void setShape(CollisionShape shape){
        myShape = shape;
    }
-   /**
-    * Changes the triggered event
-    * Will be removed upon finalization of the event system
-    */
-   public void setEvent(String event){
-       myEvent = event;
-   }
    
    /**
     * Retrieves the shape
     */
    public CollisionShape getShape(){
        return myShape;
-   }
-   /**
-    * Retrieves the triggered event
-    */
-   public String getEvent(){
-       return myEvent;
    }
    
    /**

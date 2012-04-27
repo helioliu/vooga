@@ -43,5 +43,10 @@ public class BoxySprite extends AdvanceSprite implements Boxable{
 	public List<Hitbox> getHitboxes() {
 		return Collections.unmodifiableList(myHitboxes);
 	}
+	
+	public void update(long timeElapsed){
+		if(this.getX()>640);
+			//this.setX(0);
+	}
 
 }
