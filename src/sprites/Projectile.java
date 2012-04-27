@@ -33,6 +33,19 @@ public class Projectile extends GeneralSprite {
        System.out.println(angleToTarget);
         this.setMovement(.04, angleToTarget);
     }
+    public void fireAtTarget(double x, double y)
+    {
+    	double angleToTarget = Math.atan2( (y-this.getY()),(x-this.getX()));
+        
+        angleToTarget = Math.toDegrees(angleToTarget);
+        
+        if(angleToTarget< 0){
+            angleToTarget+=360;
+        }
+        angleToTarget+=90;
+        System.out.println(angleToTarget);
+         this.setMovement(.04, angleToTarget);
+    }
 
   
 

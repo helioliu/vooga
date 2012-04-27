@@ -33,6 +33,92 @@ import cutscenes.EventAutomation;
 
 
 public class Chris_TestGame extends Game{
+<<<<<<< HEAD
+	Sprite s1;
+	Map<String, State> stateMap;
+	PlayField playfield;
+	CollisionManager collisionTypeWall;
+	
+
+
+	
+	public void initResources() {
+//		stateMap = new HashMap<String, State>();
+		playfield = new PlayField();
+		playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
+		
+		s1 = new Chris_TestSprite();
+//		BufferedImage[] images = new BufferedImage[1];
+//		images[0] = ;
+		s1.setImage(getImage("images/mario1.png"));
+		s1.setLocation(300, 200);
+		SpriteGroup character = new SpriteGroup("character");
+		character.add(s1);
+		
+
+
+		Sprite wall1 = new Sprite(getImage("images/block.png"));
+		wall1.setLocation(350,400);
+		Sprite wall2 = new Sprite(getImage("images/block.png"));
+		wall2.setLocation(300,400);
+		Sprite wall3 = new Sprite(getImage("images/block.png"));
+		wall3.setLocation(200,400);
+		Sprite wall4 = new Sprite(getImage("images/block.png"));
+		wall4.setLocation(250,400);
+
+
+		SpriteGroup walls = new SpriteGroup("walls");
+		walls.add(wall1);
+		walls.add(wall2);
+		walls.add(wall3);
+		walls.add(wall4);
+		
+		
+		collisionTypeWall = new WallCollision();
+		collisionTypeWall.setCollisionGroup(character, walls);
+		
+		playfield.addGroup(character);
+		playfield.addGroup(walls);
+		
+	}
+	
+	public void render(Graphics2D arg0) {
+	playfield.render(arg0);
+	collisionTypeWall.checkCollision();
+//	HUD.render(arg0);
+	}
+	
+	public void update(long elapsedTime) {
+		//Cutscene Code
+//		if(cutTimer.action(elapsedTime)) {
+//			trigger.triggerCutscene();
+//			cutTimer.setActive(false);
+//		}
+//		cutscene.update(elapsedTime);
+		
+		EventManager.getEventManager().update(elapsedTime);
+		playfield.update(elapsedTime);
+//		HUD.update(elapsedTime);
+		
+
+		
+		if (keyDown(KeyEvent.VK_LEFT))
+		{
+			EventManager.getEventManager().sendEvent("left");
+		}
+		if (keyDown(KeyEvent.VK_RIGHT))
+		{
+			EventManager.getEventManager().sendEvent("right");
+		}
+		if (keyDown(KeyEvent.VK_UP))
+		{
+			EventManager.getEventManager().sendEvent("up");	
+		}
+		if (keyDown(KeyEvent.VK_DOWN))
+		{
+			EventManager.getEventManager().sendEvent("down");	
+		}
+=======
     Sprite s1;
     Map<String, State> stateMap;
     PlayField playfield;
@@ -218,6 +304,7 @@ public class Chris_TestGame extends Game{
     protected void initEngine() {
 		super.initEngine();
 		this.bsInput = new InputManager(this.bsGraphics.getComponent());
+>>>>>>> e4fc751540825e6dc2740f8b1d2b76c9988a9164
 	}
     
     class WallCollision extends BasicCollisionGroup {

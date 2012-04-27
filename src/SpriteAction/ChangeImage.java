@@ -3,10 +3,7 @@ package SpriteAction;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
-
 import sprites.GeneralSprite;
 import sprites.StateSprite;
 import core.EventManager;
@@ -18,7 +15,7 @@ public class ChangeImage extends SpriteAction{
 		myImage = bi;		
 	}
 
-	public void actionPerformed(Object event) 
+	public void actionPerformed(String event) 
 	{
 		mySprite.setImage(myImage);
 	}

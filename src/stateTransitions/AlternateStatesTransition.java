@@ -13,7 +13,7 @@ public class AlternateStatesTransition extends StateTransition{
 	}
 
 	@Override
-	public void actionPerformed(Object eventName) {
+	public void actionPerformed(String eventName) {
 		if(getMyStateManager().isCurrentlyActive(getMyState()))
 		{
 			getMyStateManager().replaceState(state2, getMyState());

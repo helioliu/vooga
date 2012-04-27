@@ -40,6 +40,10 @@ public abstract class Stat {
 	public void StartTimer() {
 		myTimer.setActive(true);
 	}
+	
+	public String toString(){
+		return myValue+"";
+	}
 
 	public void stopTimer() {
 		myTimer.setActive(false);

@@ -20,7 +20,7 @@ public class EventQueue {
 		myEventListeners = new HashMap<String, ArrayList<EventListener>>();
 
 		queues = new ArrayList<LinkedList<Event>>();
-		
+
 		queues.add(new LinkedList<Event>());
 		queues.add(new LinkedList<Event>());
 		queues.add(new LinkedList<Event>());
@@ -69,20 +69,20 @@ public class EventQueue {
 		}
 	}
 
-	public void unregisterEventListener(String e, EventListener listener){
+	public void unregisterEventListener(String e, EventListener listener) {
 		ArrayList<EventListener> list = myEventListeners.get(e);
 		list.remove(listener);
 		myEventListeners.put(e, list);
 	}
-	
-	public ArrayList<EventListener> getEventListeners(String eventName){
-		if(myEventListeners.get(eventName) == null){
+
+	public ArrayList<EventListener> getEventListeners(String eventName) {
+		if (myEventListeners.get(eventName) == null) {
 			return new ArrayList<EventListener>();
 		}
-		
+
 		return myEventListeners.get(eventName);
 	}
-	
+
 	public Object[] getNextEvents() {
 		ArrayList<Event> list = new ArrayList<Event>();
 		for (Queue<Event> q : queues) {
@@ -91,10 +91,10 @@ public class EventQueue {
 		return list.toArray();
 	}
 
-	public List<LinkedList<Event>> getQueues(){
+	public List<LinkedList<Event>> getQueues() {
 		return queues;
 	}
-	
+
 	public void swapQueues(int q1, int q2) {
 		queues.get(q2).addAll(0, queues.get(q1));
 		queues.get(q1).clear();
@@ -102,10 +102,10 @@ public class EventQueue {
 		queues.get(q2).clear();
 	}
 
-	public Map<String, ArrayList<EventListener>> getEventListenerMap(){
+	public Map<String, ArrayList<EventListener>> getEventListenerMap() {
 		return myEventListeners;
 	}
-	
+
 	// public void addEvent(Event e, int queueNumber){
 	// if(queueNumber >= queues.length-1){
 	// Queue<Event>[] temp = new Queue[queueNumber-queues.length+1];

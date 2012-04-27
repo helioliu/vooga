@@ -1,3 +1,4 @@
+
 package stateTransitions;
 
 import core.EventManager;
@@ -14,9 +15,10 @@ public class ChangeStateTransition extends StateTransition{
 	}
 
 
-	public void actionPerformed(Object eventName) {
+	public void actionPerformed(String eventName) {
 		this.getMyStateManager().changeState(getMyState());
 		
 	}
 
 }
+

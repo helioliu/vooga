@@ -9,7 +9,7 @@ public class WalkLeft extends SpriteAction{
 
     }
     
-    public void actionPerformed(Object event){
+    public void actionPerformed(String event){
         mySprite.setMovement(.5, 270);
     }
 

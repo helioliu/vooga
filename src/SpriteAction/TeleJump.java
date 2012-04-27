@@ -10,7 +10,7 @@ public class TeleJump extends SpriteAction{
 		
 	}
 	
-	public void actionPerformed(Object event)
+	public void actionPerformed(String event)
 	{
 		mySprite.setLocation(mySprite.getX(), mySprite.getY()-100);
 //		EventManager.getEventManager().sendEvent("jumped");

@@ -11,7 +11,7 @@ public class ChangeStatAction extends SpriteAction{
 	}
 
 	@Override
-	public void actionPerformed(Object event) {
+	public void actionPerformed(String event) {
 		mySprite.changeStat("health", -.2);
 		mySprite.changeStat("mana", -.7);
 		mySprite.changeStat("score", mySprite.getStat("score").getMyValue() + 5);

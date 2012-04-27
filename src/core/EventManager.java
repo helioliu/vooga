@@ -42,30 +42,25 @@ public class EventManager {
 		sendEvent(eventName, null);
 	}
 
+	public void sendEvent(final String eventName, final Object obj) {
+		final ArrayList<EventListener> listeners = myEventQueue
+				.getEventListeners(eventName);
 
-	public void sendEvent(final String eventName, final Object obj){
-		final ArrayList<EventListener> listeners = myEventQueue.getEventListeners(eventName);
-
+		addEvent(new Event() {
 		
-		  addEvent(new Event()
-          {
-              
-                  public void run()
-                  {                	  
-                	  	for(int i=listeners.size()-1; i>=0; i-- ){
-                	  		listeners.get(i).actionPerformed(eventName);
-                	  	}
-                  }
+			public void run() {
+				for (int i = listeners.size() - 1; i >= 0; i--) {
+					listeners.get(i).actionPerformed(eventName);
+				}
+			}
 
-                  @Override
-                  public String toString()
-                  {
-                          return eventName;
-                  }
+			@Override
+			public String toString() {
+				return eventName;
+			}
 
-          });
+		});
 	}
-		
 
 	public long getElapsedTime() {
 		return elapsedTime;
@@ -89,7 +84,8 @@ public class EventManager {
 			Event event = myEventQueue.removeEvent();
 			event.run();
 		}
-		
+
 	}
 
 }
+
