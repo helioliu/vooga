@@ -4,7 +4,10 @@ package levelBuilder;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -18,6 +21,7 @@ import sprites.*;
 import com.golden.gamedev.object.Background;
 import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
+import com.golden.gamedev.object.SpriteGroup;
 import com.golden.gamedev.object.background.ImageBackground;
 
 public class PlayFieldBuilder {
@@ -55,6 +59,7 @@ public class PlayFieldBuilder {
 			}
 			playfield.setBackground(new ImageBackground(myBackground));
 
+			Set<String> groupnames =new HashSet<String>();
 			Element sprites= root.getChild("sprites");
 			List allChildren = sprites.getChildren();
 			for (int i=0;i<allChildren.size();i++) {
@@ -64,9 +69,11 @@ public class PlayFieldBuilder {
 				LevelEditable LE= (LevelEditable) Class.forName(classname).newInstance();
 				Sprite s = LE.parse(sprite);
 				System.out.println(s.toString());
-				String groupname=sprite.getChild("group").getText();
-				System.out.println(groupname);
-				playfield.getGroup(groupname).add(s);
+				if (!groupnames.contains(classname)) {
+					playfield.addGroup(new SpriteGroup(classname));
+					groupnames.add(classname);
+				}
+				playfield.getGroup(classname).add(s);
 
 			}
 		
