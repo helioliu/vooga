@@ -4,10 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import sprites.Bens_TestSprite;
 import sprites.Chris_TestSprite;
+import sprites.Enemy;
+import sprites.HomingProjectile;
+import sprites.Projectile;
 import sprites.WalkingBadGuy;
 import States.State;
 
@@ -22,8 +27,7 @@ import com.golden.gamedev.object.collision.AdvanceCollisionGroup;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 
 import core.EventManager;
-import cutscenes.Cutscene;
-import cutscenes.CutsceneTrigger;
+
 
 
 public class Ben_TestGame extends Game{
@@ -32,6 +36,10 @@ public class Ben_TestGame extends Game{
     PlayField playfield;
     CollisionManager collisionTypeWall;
     CollisionManager collisionTypeBlocker;
+    SpriteGroup HERO, BLOCKERS, ENEMIES, ENEMY_MISSLES;
+    Sprite s1;
+    Enemy enemy1;
+    Timer EnemyFireRate = new Timer(2000);
 
 
 
@@ -42,15 +50,17 @@ public class Ben_TestGame extends Game{
         playfield.setBackground(new ColorBackground(Color.LIGHT_GRAY, 1200, 900));
 
 
- 
-
-   
+        s1 = new Bens_TestSprite();
+        s1.setImage(getImage("images/thegoodguy.png"));
+        s1.setLocation(300, 200);
+        HERO = new SpriteGroup("character");
+        HERO.add(s1);
 
         //added by Ben
-        Sprite enemy1 = new WalkingBadGuy ();
+         enemy1 = new WalkingBadGuy ();
         enemy1.setImage(getImage("images/thebadguy.png"));
         enemy1.setLocation(350,200);
-        enemy1.setMovement(0.025, 270);
+        enemy1.setMovement(0.025, 90);
 
 
         Sprite blocker1 = new Sprite(getImage("images/block.png"));
@@ -75,33 +85,34 @@ public class Ben_TestGame extends Game{
         wall4.setLocation(250,400);
 
         //added by Ben
-        SpriteGroup enemies = new SpriteGroup("enemies");
-        SpriteGroup blockers = new SpriteGroup("blockers");
-        enemies.add(enemy1);
-        blockers.add(blocker1);
-        blockers.add(blocker2);
-        blockers.add(blocker3);
-        blockers.add(blocker4);
+        ENEMIES = new SpriteGroup("enemies");
+        BLOCKERS = new SpriteGroup("blockers");
+        ENEMIES.add(enemy1);
+        BLOCKERS.add(blocker1);
+        BLOCKERS.add(blocker2);
+        BLOCKERS.add(blocker3);
+        BLOCKERS.add(blocker4);
         //
+        
+        ENEMY_MISSLES = new SpriteGroup ("Enemy Missles");
 
-        SpriteGroup walls = new SpriteGroup("walls");
-        walls.add(wall1);
-        walls.add(wall2);
-        walls.add(wall3);
-        walls.add(wall4);
+
+     
 
         //added by Ben
         collisionTypeBlocker = new CantGoFurtherCollision();
-        collisionTypeBlocker.setCollisionGroup(enemies, blockers);
+        collisionTypeBlocker.setCollisionGroup(ENEMIES, BLOCKERS);
         //
 
 
 
-        playfield.addGroup(walls);
+
 
         //added by Ben
-        playfield.addGroup(enemies);
-        playfield.addGroup(blockers);
+        playfield.addGroup(ENEMIES);
+        playfield.addGroup(BLOCKERS);
+        playfield.addGroup(HERO);
+        playfield.addGroup(ENEMY_MISSLES);
         //
 
 
@@ -125,7 +136,11 @@ public class Ben_TestGame extends Game{
         //          cutTimer.setActive(false);
         //      }
         //      cutscene.update(elapsedTime);
-
+       ((WalkingBadGuy)enemy1).Shoot2(elapsedTime, EnemyFireRate, ENEMY_MISSLES, getImage("images/fireball.png"), s1 );
+       ArrayList <HomingProjectile> enemy1Projectiles = ((WalkingBadGuy)enemy1).getProjectiles();
+       for(HomingProjectile p: enemy1Projectiles){
+           p.goToTarget(s1);
+       }
         EventManager.getEventManager().update(elapsedTime);
         playfield.update(elapsedTime);
         //      HUD.update(elapsedTime);
@@ -176,7 +191,7 @@ public class Ben_TestGame extends Game{
                 EventManager.getEventManager().sendEvent("walk right");
             }
             else if( getCollisionSide()==2){
-                EventManager.getEventManager().sendEvent("walk up");
+                EventManager.getEventManager().sendEvent("stay stationary");
             }
             else if ( getCollisionSide()== 4){
                 EventManager.getEventManager().sendEvent("walk left");

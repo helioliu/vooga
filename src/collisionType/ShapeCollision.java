@@ -39,7 +39,6 @@ public abstract class ShapeCollision extends AdvanceCollisionGroup{
 	 * collision shapes (instead of GTGE's native ones)
 	 */
 	protected void initCollisionShapes(){
-		pixelPerfectCollision = true;
 		cr1 = new CollisionRect(rect1.x, rect1.y, rect1.getHeight(), rect1.getWidth());
 		cr2 = new CollisionRect(rect2.x, rect2.y, rect2.getHeight(), rect2.getWidth());
 	}
