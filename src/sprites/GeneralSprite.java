@@ -16,12 +16,8 @@ import org.jdom2.Element;
 
 
 
-import stateManagers.StateManager;
-
 import collisions.Hitbox;
 
-import com.golden.gamedev.Game;
-import com.golden.gamedev.object.PlayField;
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.sprite.AdvanceSprite;
 
@@ -99,8 +95,11 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		setImages(image);
 	}
 
-
-	public void setInitPath(String path) {
+	public void setGroup(String group) {
+		this.group=group;
+		
+	}
+	public void setPath(String path) {
 		this.path=path;
 		
 	}
@@ -128,10 +127,10 @@ public class GeneralSprite extends AdvanceSprite implements Boxable, LevelEditab
 		} catch (IOException e1) {
 			System.out.print("IOException");
 		}
-		int x = Integer.parseInt(e.getChildText("x"));
-		int y = Integer.parseInt(e.getChildText("y"));
-		GeneralSprite s = new GeneralSprite(image, x, y);
-		return s;
+		setX(Integer.parseInt(e.getChildText("x")));
+		setY(Integer.parseInt(e.getChildText("y")));
+		setImage(image);
+		return this;
 	}
 
 
